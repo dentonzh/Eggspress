@@ -10,7 +10,7 @@ export default async function Home() {
   return (
     <main className='flex'>
       <div className='max-w-prose'>
-        {data.map(post => <PostCard post={post.frontmatter}></PostCard>)}
+        {data.map(post => <PostCard key={post.frontmatter.slug} post={post.frontmatter}></PostCard>)}
       </div>
       <div className='grow bg-gray-200'>
         Some stuff goes here (links, projects, etc)
