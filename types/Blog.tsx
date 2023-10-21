@@ -4,4 +4,5 @@ export interface PostItem {
     title: string;
     body: string;
     snippet: string;
+    publishDate: string;
   }

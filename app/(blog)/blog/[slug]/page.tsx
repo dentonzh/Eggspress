@@ -1,12 +1,9 @@
-import Link from 'next/link'
 import React from 'react'
-import { PostItem } from '@/types/Blog'
 import { compileMDX, MDXRemote } from 'next-mdx-remote/rsc'
 import { serialize } from 'next-mdx-remote/serialize'
 import remarkToc from 'remark-toc'
 import getPostContent from '../../../_components/getPostContent'
 import getPostSlugs from '../../../_components/getPostSlugs'
-import { fileURLToPath } from 'url'
 
 
 export async function generateStaticParams() {
