@@ -22,7 +22,7 @@ function useDarkMode() {
         }
     }, [theme])
 
-    return [nextTheme, setTheme]
+    return [nextTheme, setTheme] as const;
 }
 
 
