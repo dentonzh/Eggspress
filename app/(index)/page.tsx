@@ -19,7 +19,7 @@ export default async function Home() {
   )
 }
 
-export async function getSerializedData() {
+async function getSerializedData() {
   const markdownFiles = getPostData()
   const serializedData = Promise.all(
     markdownFiles.map( async (file) => {
