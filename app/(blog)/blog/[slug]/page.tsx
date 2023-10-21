@@ -37,7 +37,7 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
 export default PostPage
 
 
-export async function getSource(slug: string) {
+async function getSource(slug: string) {
   const file = getPostContent(slug)
   const source = await compileMDX({
     source: file.content,
@@ -48,7 +48,7 @@ export async function getSource(slug: string) {
 }
 
 
-export async function getSerializedData(slug: string) {
+async function getSerializedData(slug: string) {
   const file = getPostContent(slug)
   const data = await serialize(file.content, {mdxOptions: {remarkPlugins: [remarkToc]}, parseFrontmatter: true})
   return data
