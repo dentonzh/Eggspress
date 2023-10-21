@@ -22,7 +22,7 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
   return (
     <div className="flex flex-wrap">
       <div className="prose dark:prose-invert">
-      <h1 className=''>{frontmatter.title}</h1>
+      <h1 className=''>{`${frontmatter.title}`}</h1>
       {content}
       </div>
       <div className='hidden xl:flex sticky top-0 max-h-screen grow py-12 px-6'>
