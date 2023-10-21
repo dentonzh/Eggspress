@@ -1,7 +1,7 @@
 import React from 'react'
 import { compileMDX, MDXRemote } from 'next-mdx-remote/rsc'
-import { serialize } from 'next-mdx-remote/serialize'
-import remarkToc from 'remark-toc'
+// import { serialize } from 'next-mdx-remote/serialize'
+// import remarkToc from 'remark-toc'
 import getPostContent from '../../../_components/getPostContent'
 import getPostSlugs from '../../../_components/getPostSlugs'
 
@@ -14,7 +14,7 @@ export async function generateStaticParams() {
 
 const PostPage =  async ( {params}: {params: {slug: string}} ) => {
   const { content, frontmatter } = await getSource(params.slug)
-  const data = await getSerializedData(params.slug)
+  // const data = await getSerializedData(params.slug)
 
   return (
     <div className="flex flex-wrap">
@@ -45,8 +45,8 @@ async function getSource(slug: string) {
 }
 
 
-async function getSerializedData(slug: string) {
-  const file = getPostContent(slug)
-  const data = await serialize(file.content, {mdxOptions: {remarkPlugins: [remarkToc]}, parseFrontmatter: true})
-  return data
-}
+// async function getSerializedData(slug: string) {
+//   const file = getPostContent(slug)
+//   const data = await serialize(file.content, {mdxOptions: {remarkPlugins: [remarkToc]}, parseFrontmatter: true})
+//   return data
+// }
