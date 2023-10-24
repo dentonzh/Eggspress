@@ -4,7 +4,7 @@ import { compileMDX, MDXRemote } from 'next-mdx-remote/rsc'
 // import remarkToc from 'remark-toc'
 import getPostContent from '../../../_components/getPostContent'
 import getPostSlugs from '../../../_components/getPostSlugs'
-
+import TocSidebar from '../../_components/TocSidebar'
 
 export async function generateStaticParams() {
   const slugs = getPostSlugs()
@@ -22,11 +22,7 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
       <h1 className=''>{`${frontmatter.title}`}</h1>
       {content}
       </div>
-      <div className='hidden xl:flex sticky top-0 max-h-screen grow py-12 px-6'>
-        <div className='rounded-lg border-2 p-3 w-full'>
-          <div className='font-bold text-sm text-blue-700'>Table of Contents</div>
-        </div>
-      </div>
+      <TocSidebar />
     </div>
   )
 }
