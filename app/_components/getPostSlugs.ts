@@ -1,6 +1,6 @@
 import fs from 'fs'
 
-const getPostSlugs = (): string[] => {
+const getPostSlugs = (): {slug: string}[] => {
   const dir = './posts/'
   const files = fs.readdirSync(dir)
   const allowedExtensions = ['.md', '.mdx']
@@ -8,9 +8,9 @@ const getPostSlugs = (): string[] => {
   
   const slugs = markdownFiles.map((file) => {
     const filename = file.slice(file.lastIndexOf('/') + 1, file.lastIndexOf('.'))
-    return filename
+    return {'slug': filename}
   })
-    
+
   return slugs
 }
 
