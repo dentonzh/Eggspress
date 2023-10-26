@@ -10,7 +10,7 @@ const Footer = () => {
                 Contact
             </div>
             <div className="w-1/2 md:w-1/3">
-                <Image src={Logo} alt='logo' height='80' width='80' className='grayscale opacity-50 dark:brightness-200 ml-auto' />
+                <Image src={Logo} alt='logo' height='80' width='80' style={{width: 'auto', height: 'auto'}} className='grayscale opacity-50 dark:brightness-200 ml-auto' />
             </div>
         </div>
     </div>
