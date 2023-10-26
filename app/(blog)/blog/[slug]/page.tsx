@@ -13,7 +13,11 @@ export async function generateStaticParams() {
 
 
 const PostPage =  async ( {params}: {params: {slug: string}} ) => {
+<<<<<<< HEAD
   const { slug } = params
+=======
+  const {slug} = params
+>>>>>>> 21526c8ccbb40f3136aed475adb8b2310fc2a00f
   const { content, frontmatter } = await getSource(slug)
   // const data = await getSerializedData(params.slug)
 
