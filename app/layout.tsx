@@ -21,7 +21,7 @@ export default function RootLayout({
     <html lang="en" className="">
       <body className={`${roboto_flex.className} flex flex-col duration-100 dark:bg-gray-800 overflow-x-hidden min-h-screen justify-between`}>
         <Navigation />
-        <div className="container mb-12 grow">
+        <div className="px-3 sm:px-0 container mb-12 grow">
           {children}
         </div>
         <Footer />
