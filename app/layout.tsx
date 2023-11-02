@@ -1,9 +1,8 @@
 import './globals.css'
-import type { Metadata } from 'next'
+import Metadata from 'next'
 import { Roboto_Flex } from 'next/font/google'
 import Navigation from './_components/Navigation'
 import Footer from './_components/Footer'
-import { useEffect, useState } from 'react'
 
 const roboto_flex = Roboto_Flex({ subsets: ['latin'],  })
 

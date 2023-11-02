@@ -8,7 +8,10 @@ interface PostProps {
   post: PostItem
 }
 
-const convertDate = (inputDate: string) => {
+const convertDate = (inputDate: string|null) => {
+  if (inputDate === null) {
+    return ''
+  }
   const date = new Date(inputDate)
   const formattedDate = date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
   return formattedDate
