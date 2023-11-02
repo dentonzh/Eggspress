@@ -1,13 +1,6 @@
 import matter from 'gray-matter'
 import fs from 'fs'
 
-interface PostMetadata {
-  title: string
-  publishDate: string
-  subtitle: string
-  slug: string
-}
-
 const getPostContent = (slug:string): {content: string} => {
   const dir = './posts/'
   const files = fs.readdirSync(dir)

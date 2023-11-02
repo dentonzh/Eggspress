@@ -5,6 +5,7 @@ subtitle: Further introducing this blog
 isPublished: true
 publishDate: 2023-10-25T09:15:00-0400
 layout: Article
+category: test
 ---
 
 This is a blog post.

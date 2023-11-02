@@ -18,10 +18,10 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className="">
-      <body className={`${roboto_flex.className} flex flex-col duration-100 dark:bg-gray-800 overflow-x-hidden min-h-screen justify-between`}>
+    <html lang="en" className="scroll-smooth">
+      <body className={`${roboto_flex.className} flex flex-col duration-200 dark:bg-gray-800 overflow-x-hidden min-h-screen justify-between`}>
         <Navigation />
-        <div className="px-3 sm:px-0 container mb-12 grow">
+        <div className="px-4 xs:px-0 container mb-12 grow">
           {children}
         </div>
         <Footer />
