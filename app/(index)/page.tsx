@@ -8,10 +8,10 @@ import { useState } from 'react'
 
 
 const aboutMe = {
-  biography: "I'm Jake, a rugged wilderness guide. I navigate the untamed outdoors, and my survival skills make me a true nature's navigator.",
+  biography: "I'm John Doe, a rugged wilderness guide. I navigate the untamed outdoors, and my survival skills make me a true nature's navigator.",
   company: "Wild Trails Expeditions",
   hobbies: "Hiking, camping",
-  social_media_handle: "@WildJakeExplorer"
+  social_media_handle: "@WildDoeExplorer"
 }
 
 export default async function Home() {
