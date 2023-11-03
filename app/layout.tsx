@@ -8,8 +8,8 @@ import { useEffect, useState } from 'react'
 const roboto_flex = Roboto_Flex({ subsets: ['latin'],  })
 
 export const metadata: Metadata = {
-  title: 'Bliss',
-  description: 'Bliss is powered by Next.js, markdown, and GitHub issues',
+  title: 'Eggspress',
+  description: 'Eggspress is powered by Next.js, markdown, and GitHub issues',
 }
 
 export default function RootLayout({

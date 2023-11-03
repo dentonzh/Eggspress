@@ -1,6 +1,6 @@
 ---
 title: Embracing the Serenity of the Forest Canopy
-seoTitle: My Second Blog Post Built Using Bliss
+seoTitle: My Second Blog Post Built Using eggspress
 subtitle: Further introducing this blog
 isPublished: true
 publishDate: 2023-10-25T09:15:00-0400
