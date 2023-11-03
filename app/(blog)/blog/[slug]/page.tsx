@@ -1,14 +1,11 @@
 import React from 'react'
 import { compileMDX, MDXRemote } from 'next-mdx-remote/rsc'
-// import { serialize } from 'next-mdx-remote/serialize'
-// import remarkToc from 'remark-toc'
-import { PostItem } from '@/types/Blog'
 import getPostContent from '../../../_components/getPostContent'
 import getPostSlugs from '../../../_components/getPostSlugs'
 import Sidebar from '../../../_components/Sidebar'
 import Toc from '../../_components/Toc'
-import remarkToc from 'remark-toc'
 import rehypeSlug from 'rehype-slug'
+import remarkGfm from 'remark-gfm'
 
 export async function generateStaticParams() {
   const slugs = getPostSlugs()
@@ -62,16 +59,9 @@ async function getSource(slug: string) {
     options: {
       parseFrontmatter: true,
       mdxOptions: {
-        remarkPlugins: [remarkToc],
+        remarkPlugins: [remarkGfm],
         rehypePlugins: [rehypeSlug]
       }
     }})
   return source
 }
-
-
-// async function getSerializedData(slug: string) {
-//   const file = getPostContent(slug)
-//   const data = await serialize(file.content, {mdxOptions: {remarkPlugins: [remarkToc]}, parseFrontmatter: true})
-//   return data
-// }

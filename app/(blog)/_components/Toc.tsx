@@ -77,7 +77,12 @@ const Toc = () => {
             `}
             style={{paddingLeft: `${isHeadingLevelGreaterThan(el.tag, 2) ? (parseInt(el.tag) * 0.3) : 0}rem`}}
           >
-            <Link href={`#${el.id}`}>
+            <Link href={`#${el.id}`} className="flex items-start">
+              <svg width="3" height="24" viewBox="0 -9 3 24" 
+                className={`${isHeadingLevelGreaterThan(el.tag, 2) ? '' : 'hidden'} mr-2 text-slate-400 overflow-visible group-hover:text-slate-600 dark:text-slate-600 dark:group-hover:text-slate-500`}
+              >
+                <path d="M0 0L3 3L0 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
+              </svg>
               {el.text}
             </Link>
           </li>
