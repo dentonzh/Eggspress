@@ -6,7 +6,7 @@ type SidebarProps = {
 
 const Sidebar = ({children}: SidebarProps) => {
   return (
-    <div className='hidden lg:block sticky top-24 max-w-md max-h-screen pl-8'>
+    <div className='hidden lg:block sticky top-24 max-w-sm max-h-screen pl-8'>
       <div className='rounded-lg border-2 p-3 w-full'>
         {children}
       </div>

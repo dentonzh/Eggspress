@@ -5,7 +5,7 @@ subtitle: Further introducing this blog
 isPublished: true
 publishDate: 2023-10-25T09:15:00-0400
 layout: Article
-category: test
+category: Tree Talk
 snippet: Nestled within a lush forest, a serene world awaits exploration. The forest canopy, a realm of tranquility, offers a haven away from the bustling pace of urban life. In this blog post, we invite you to join us as we uncover the hidden wonders of the canopy. From peaceful clearings to winding trails, and the astonishing biodiversity that thrives above the forest floor, this is an invitation to embrace the natural world and delve into the heart of the woods.
 
 ---

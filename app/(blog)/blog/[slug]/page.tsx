@@ -1,5 +1,5 @@
 import React from 'react'
-import { compileMDX, MDXRemote } from 'next-mdx-remote/rsc'
+import { compileMDX } from 'next-mdx-remote/rsc'
 import getPostContent from '../../../_components/getPostContent'
 import getPostSlugs from '../../../_components/getPostSlugs'
 import Sidebar from '../../../_components/Sidebar'
@@ -22,7 +22,6 @@ const convertDate = (inputDate: string) => {
 const PostPage =  async ( {params}: {params: {slug: string}} ) => {
   const { slug } = params
   const { content, frontmatter }: {content: any, frontmatter: any} = await getSource(slug)
-  // const data = await getSerializedData(params.slug)
 
   return (
     <div className="flex flex-wrap">

@@ -1,10 +1,6 @@
-import Image from 'next/image'
-import Link from 'next/link'
-import getPostData from '../_components/getPostData'
+import getPostFrontmatter from '../_components/getPostFrontmatter'
 import PostCard from '../_components/PostCard'
 import Sidebar from '../_components/Sidebar'
-import { serialize } from 'next-mdx-remote/serialize'
-import { useState } from 'react'
 
 
 const aboutMe = {
@@ -15,7 +11,7 @@ const aboutMe = {
 }
 
 export default async function Home() {
-  const data = await getSerializedData()
+  const postMetadata = await getPostFrontmatter()
   return (
     <main className="flex flex-wrap">
       <div className="w-full mb-12 pt-32 pb-12 text-gray-800 dark:text-gray-100 bleed-bg bleed-slate-100 dark:bleed-gray-900">
@@ -24,8 +20,8 @@ export default async function Home() {
       </div>
       <div className="flex justify-between w-full">
         <div className='max-w-prose'>
-          {data.map(post => 
-              <PostCard key={post.frontmatter.slug} post={post.frontmatter}></PostCard>
+          {postMetadata.map(metadata => 
+              <PostCard key={metadata.slug} post={metadata}></PostCard>
           )}
         </div>
         <div>
@@ -61,17 +57,4 @@ export default async function Home() {
       </div>
     </main>
   )
-}
-
-async function getSerializedData() {
-  const markdownFiles = getPostData()
-  const serializedData = Promise.all(
-    markdownFiles.map( async (file) => {
-      let data: any = await serialize(file.content, {parseFrontmatter: true})
-      data.frontmatter.slug = file.slug
-      return data
-    })
-  )
-  return serializedData
-
 }
