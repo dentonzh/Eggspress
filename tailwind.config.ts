@@ -15,6 +15,16 @@ const config: Config = {
       'xs': '480px',
       ...defaultTheme.screens
     },
+    container: {
+      center: true,
+      padding: '1rem',
+      screens: {
+        xs: '450px',
+        mobile: '560px',
+        tablet: '640px',
+        desktop: '1024px'
+      }
+    },
     extend: {
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
