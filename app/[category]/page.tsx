@@ -17,7 +17,7 @@ const page = async ({ params }: { params: { category: string }}) => {
   const { category } = params
   const postMetadata = await getPostFrontmatter()
   const filteredPosts = postMetadata.filter(post => {if ( createSlug(post.category) === category) { return true } return false })
-  const numbersAsWords = {0: 'No', 1: 'One', 2: 'Two', 3: 'Three', 4: 'Four', 5: 'Five', 6: 'Six', 7: 'Seven', 8: 'Eight', 9: 'Nine'}
+  const numbersAsWords: Record<number, string> = {0: 'No', 1: 'One', 2: 'Two', 3: 'Three', 4: 'Four', 5: 'Five', 6: 'Six', 7: 'Seven', 8: 'Eight', 9: 'Nine'}
 
   return (
     <main className="flex flex-wrap">
