@@ -3,6 +3,7 @@ import { compileMDX } from 'next-mdx-remote/rsc'
 import getPostContent from '../../../_components/getPostContent'
 import getPostSlugs from '../../../_components/getPostSlugs'
 import Sidebar from '../../../_components/Sidebar'
+import { createSlug } from '@/app/utils'
 import Toc from '../../_components/Toc'
 import rehypeSlug from 'rehype-slug'
 import remarkGfm from 'remark-gfm'
@@ -26,12 +27,12 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
   return (
     <div className="flex flex-wrap">
       <div className="w-full mb-12 pt-32 pb-12 text-gray-800 dark:text-gray-100 bleed-bg bleed-slate-100 dark:bleed-gray-900">
-        {frontmatter.category && <Link href={`/${frontmatter.category}`}><div className="mb-3">{frontmatter.category}</div></Link>}
+        {frontmatter.category && <Link href={`/${createSlug(frontmatter.category)}`}><div className="mb-3">{frontmatter.category}</div></Link>}
         <h1 className="text-5xl font-bold mb-3 -ml-0.5">{`${frontmatter.title}`}</h1>      
         <div>{convertDate(frontmatter.publishDate)}</div>
       </div>
       <div className="flex justify-between w-full">
-        <div>
+        <div className="overflow-x-hidden">
           <div className="mb-12 lg:hidden">
             <div className="text-blue-700 dark:text-blue-200 font-bold">Jump to...</div>
             <Toc />

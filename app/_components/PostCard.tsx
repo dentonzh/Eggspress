@@ -2,6 +2,7 @@ import React from 'react'
 import Like from './Like'
 import Link from 'next/link';
 import { PostItem } from '@/types/Blog'
+import { createSlug } from '../utils';
 // import styles from './PostCard.module.css'
 
 interface PostProps {
@@ -25,6 +26,7 @@ const PostCard = ({ post }: PostProps) => {
       <div className=''>
         <Like></Like>
       </div>
+      {/* <div>{createSlug(post.category)}</div> */}
       <div className='items-end ml-auto text-gray-400'>{convertDate(post.publishDate)}</div>
     </div>
   )

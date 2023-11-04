@@ -3,13 +3,25 @@ import Logo from '../../public/logo.png'
 import Eggsmark from '../../public/eggsmark.png'
 import Image from 'next/image'
 import Link from 'next/link'
+import { createSlug } from '../utils'
+import getPostFrontmatter from './getPostFrontmatter'
 
-const Footer = () => {
+const Footer = async () => {
+  const frontmatterData = await getPostFrontmatter()
+  const categoryNames = new Set(frontmatterData.filter(
+    (post) => { if (!post.category) {return false} return true }
+  ).map((post) => post.category))
+  const arrayOfCategoryNames = Array.from(categoryNames)
+  const categoryData = arrayOfCategoryNames.map((name) => {return {name: name, slug: createSlug(name)}})
+
   return (
     <div className='px-3 md:px-0 py-8 min-w-full duration-100 bg-gray-100 dark:bg-gray-700 pt-12'>
-      <div className="container flex justify-between dark:text-gray-200">
-        <div className="w-1/2 md:w-2/3">
-            Contact
+      <div className="container flex justify-between text-gray-800 dark:text-gray-200">
+        <div className="flex flex-col w-1/2 md:w-2/3 font-light text-sm leading-6">
+          <div>Contact</div>
+          {categoryData.map(category => 
+            <Link key={category.slug} href={`/${category.slug}`}>{category.name}</Link>
+          )}
         </div>
         <div className="w-1/2 md:w-1/3">
           <Link href='/'>
