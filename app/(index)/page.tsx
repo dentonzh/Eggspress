@@ -15,13 +15,13 @@ export default async function Home() {
   return (
     <main className="flex flex-wrap">
       <div className="w-full mb-12 pt-32 pb-12 text-gray-800 dark:text-gray-100 bleed-bg bleed-slate-100 dark:bleed-gray-900">
-        <h1 className="text-5xl font-bold mb-3">Latest Posts</h1>      
-        <div>Welcome to my blog, where I share my thoughts about the world 🌎</div>
+        <h1 className="text-5xl font-bold mb-3 -ml-0.5">Eggspress</h1>      
+        <div>Turn your ideas written in markdown into an insanely zippy blog 🌎</div>
       </div>
       <div className="flex justify-between w-full">
         <div className='max-w-prose'>
           {postMetadata.map(metadata => 
-              <PostCard key={metadata.slug} post={metadata}></PostCard>
+            <PostCard key={metadata.slug} post={metadata}></PostCard>
           )}
         </div>
         <div>
