@@ -31,7 +31,7 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
         <div>{convertDate(frontmatter.publishDate)}</div>
       </div>
       <div className="flex justify-between w-full">
-        <div className="overflow-x-scroll">
+        <div>
           <div className="mb-12 lg:hidden">
             <div className="text-blue-700 dark:text-blue-200 font-bold">Jump to...</div>
             <Toc />
@@ -40,7 +40,7 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
             {content}
           </div>
         </div>
-        <div className="">
+        <div>
           <Sidebar>
             <Toc />
           </Sidebar>

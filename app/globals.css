@@ -20,7 +20,3 @@ body {
   width: 100vw;
   color: rgb(var(--foreground-rgb));
 }
-/* 
-.container {
-  @apply mx-auto xs:w-5/6 sm:w-2/3 md:w-3/5;
-} */
