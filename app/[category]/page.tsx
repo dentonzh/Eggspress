@@ -5,12 +5,13 @@ import PostCard from '../_components/PostCard'
 
 export async function generateStaticParams() {
   const postMetadata = await getPostFrontmatter()
-  const categorySlugs = new Set(postMetadata.filter(post => 
+  const categorySlugsAsSet = new Set(postMetadata.filter(post => 
       {if (!post.category) {return false} return true}
     ).map((post) => 
       createSlug(post.category)
     ))
-  return categorySlugs
+  const categorySlugsAsArray = Array.from(categorySlugsAsSet)
+  return categorySlugsAsArray
 }
 
 const page = async ({ params }: { params: { category: string }}) => {
