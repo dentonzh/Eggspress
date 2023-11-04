@@ -7,9 +7,9 @@ export async function generateStaticParams() {
   const postMetadata = await getPostFrontmatter()
   const categorySlugsAsSet = new Set(postMetadata.filter(post => 
       {if (!post.category) {return false} return true}
-    ).map((post) => 
-      createSlug(post.category)
-    ))
+    ).map((post) => ({
+      category: createSlug(post.category)
+    })))
   const categorySlugsAsArray = Array.from(categorySlugsAsSet)
   return categorySlugsAsArray
 }
