@@ -34,6 +34,11 @@ const Toc = () => {
     return elements
   }
 
+  const scrollToSection = (e: Event, elementId: string) => {
+    e.preventDefault()
+    document.getElementById(elementId)?.scrollIntoView({behavior: "smooth"})
+  }
+
   const isHeadingLevelGreaterThan = (tag: string, level: number) => {
     return /^-?\d+$/.test(tag) && parseInt(tag) > level
   }
@@ -77,7 +82,7 @@ const Toc = () => {
             `}
             style={{paddingLeft: `${isHeadingLevelGreaterThan(el.tag, 2) ? (parseInt(el.tag) * 0.3) : 0}rem`}}
           >
-            <Link href={`#${el.id}`} className="flex items-start">
+            <Link href={`#${el.id}`} onClick={(e) => {scrollToSection(e, el.id)}} className="flex items-start">
               <svg width="3" height="24" viewBox="0 -9 3 24" 
                 className={`${isHeadingLevelGreaterThan(el.tag, 2) ? '' : 'hidden'} mr-2 text-slate-400 overflow-visible group-hover:text-slate-600 dark:text-slate-600 dark:group-hover:text-slate-500`}
               >
