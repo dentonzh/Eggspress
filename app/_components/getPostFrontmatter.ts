@@ -1,6 +1,7 @@
 import fs from 'fs'
 import { serialize } from 'next-mdx-remote/serialize'
 import { PostItem } from '@/types/Blog'
+import { getFilesRecursively } from '../utils'
 
 
 const extractFrontmatter = async (markdownData: {content: string, slug: string}[]) => {
@@ -17,15 +18,15 @@ const extractFrontmatter = async (markdownData: {content: string, slug: string}[
 
 const getPostFrontmatter = async (): Promise<PostItem[]> => {
   const dir = './posts/'
-  const files = fs.readdirSync(dir)
+  const files = await getFilesRecursively(dir)
   const allowedExtensions = ['.md', '.mdx']
-  const markdownFiles = files.filter((file) => allowedExtensions.includes(file.substring(file.lastIndexOf('.'))))
+  const markdownFiles = files.filter((file) => allowedExtensions.includes(file.extension))
   
   const data = markdownFiles.map((file) => {
-    const content = fs.readFileSync(`posts/${file}`, 'utf8')
+    const content = fs.readFileSync(`${file.path}/${file.name}`, 'utf-8')
     return {
       content: content, 
-      slug: file.slice(file.lastIndexOf('/') + 1, file.lastIndexOf('.'))
+      slug: file.slug
     }
   })
   

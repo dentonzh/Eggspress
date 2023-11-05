@@ -9,3 +9,11 @@ export interface PostItem {
     category: string | null;
     tags: string | null;
   }
+
+
+export interface PostFile {
+  name: string;
+  path: string;
+  extension: string;
+  slug: string;
+}
