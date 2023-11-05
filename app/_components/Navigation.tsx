@@ -7,7 +7,7 @@ import DarkModeToggle from './DarkModeToggle'
 const Navigation = () => {
   const dark = ''
   return (
-    <nav className="sticky top-0 px-3 md:px-0 duration-100 bg-slate-100 dark:bg-gray-900 py-2 z-10">
+    <nav className="sticky top-0 px-3 md:px-0 duration-500 bg-slate-100 dark:bg-gray-900 py-2 z-10">
       <div className="flex container justify-between">
         <div>
           <Link href='/'>

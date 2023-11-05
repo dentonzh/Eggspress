@@ -1,6 +1,6 @@
 import React from 'react'
 import Logo from '../../public/logo.png'
-import Eggsmark from '../../public/eggsmark.png'
+import Eggsmark from '../../public/assets/eggsmark.png'
 import Image from 'next/image'
 import Link from 'next/link'
 import { createSlug } from '../utils'
@@ -15,7 +15,7 @@ const Footer = async () => {
   const categoryData = arrayOfCategoryNames.map((name) => {return {name: name, slug: createSlug(name)}})
 
   return (
-    <div className='px-3 md:px-0 py-8 min-w-full duration-100 bg-gray-100 dark:bg-gray-700 pt-12'>
+    <div className='px-3 md:px-0 py-8 min-w-full duration-100 bg-gray-100 dark:bg-gray-900 pt-12'>
       <div className="container flex justify-between text-gray-800 dark:text-gray-200">
         <div className="flex flex-col w-1/2 md:w-2/3 font-light text-sm leading-6">
           <div>Contact</div>
@@ -35,7 +35,7 @@ const Footer = async () => {
             <span>
               Made with 
             </span>
-            <Image className="inline-block mx-1" src={Eggsmark} alt='Eggspress brand icon'></Image>
+            <Image className="inline-block mx-1 dark:brightness-[3]" src={Eggsmark} alt='Eggspress brand icon'></Image>
             <span>
               Eggspress
             </span>

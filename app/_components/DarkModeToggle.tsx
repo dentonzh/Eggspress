@@ -1,7 +1,7 @@
 'use client'
 import Image from 'next/image'
-import Sun from '../../public/sun.svg'
-import Moon from '../../public/moon.svg'
+import Sun from '../../public/assets/sun.svg'
+import Moon from '../../public/assets/moon.svg'
 import useDarkMode from '../hooks/useDarkMode'
 import { useEffect, useState } from 'react'
 
