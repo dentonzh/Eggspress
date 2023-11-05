@@ -3,7 +3,6 @@ import type { Metadata } from 'next'
 import { Roboto_Flex } from 'next/font/google'
 import Navigation from './_components/Navigation'
 import Footer from './_components/Footer'
-import { useEffect, useState } from 'react'
 
 const roboto_flex = Roboto_Flex({ subsets: ['latin'],  })
 
@@ -19,7 +18,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${roboto_flex.className} flex flex-col duration-500 dark:bg-gray-800 overflow-x-hidden min-h-screen justify-between`}>
+      <body className={`${roboto_flex.className} flex flex-col duration-200 dark:bg-gray-800 overflow-x-hidden min-h-screen justify-between`}>
         <Navigation />
         <div className="px-4 xs:px-0 container mb-12 grow">
           {children}

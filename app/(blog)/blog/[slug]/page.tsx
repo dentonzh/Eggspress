@@ -26,7 +26,7 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
 
   return (
     <div className="flex flex-wrap">
-      <div className="w-full mb-12 pt-32 pb-12 duration-500 text-gray-800 dark:text-gray-100 bleed-bg bleed-slate-100 dark:bleed-gray-900">
+      <div className="w-full mb-12 pt-32 pb-12 duration-200 text-gray-800 dark:text-gray-100 bleed-bg bleed-slate-100 dark:bleed-gray-900">
         {frontmatter.category && <Link href={`/${createSlug(frontmatter.category)}`}><div className="mb-3">{frontmatter.category}</div></Link>}
         <h1 className="text-5xl font-bold mb-3 -ml-0.5">{`${frontmatter.title}`}</h1>      
         <div>{convertDate(frontmatter.publishDate)}</div>
@@ -55,9 +55,9 @@ export default PostPage
 
 
 async function getSource(slug: string) {
-  const file = getPostContent(slug)
+  const file = await getPostContent(slug)
   const source = await compileMDX({
-    source: file.content,
+    source: file,
     options: {
       parseFrontmatter: true,
       mdxOptions: {

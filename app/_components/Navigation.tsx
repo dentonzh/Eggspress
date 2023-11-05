@@ -7,11 +7,11 @@ import DarkModeToggle from './DarkModeToggle'
 const Navigation = () => {
   const dark = ''
   return (
-    <nav className="sticky top-0 px-3 md:px-0 duration-500 bg-slate-100 dark:bg-gray-900 py-2 z-10">
+    <nav className="sticky top-0 px-3 md:px-0 duration-200 bg-slate-100 dark:bg-gray-900 py-2 z-10">
       <div className="flex container justify-between">
         <div>
           <Link href='/'>
-            <Image src={Logo} height={32} width={32} alt='Eggspress blog logo' className='dark:hue-rotate-270 dark:brightness-[3]' />
+            <Image src={Logo} height={32} style={{width: 'auto', height: 'auto'}} alt='Eggspress blog logo' className='dark:hue-rotate-270 dark:brightness-[3]' />
           </Link>
         </div>
         <div className="flex items-center dark:text-white">

@@ -34,7 +34,7 @@ const Toc = () => {
     return elements
   }
 
-  const scrollToSection = (e: Event, elementId: string) => {
+  const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, elementId: string) => {
     e.preventDefault()
     document.getElementById(elementId)?.scrollIntoView({behavior: "smooth"})
   }
@@ -51,12 +51,17 @@ const Toc = () => {
     const setLinkStyle = (position: number) => {
       let headers = getHeaderData()
       for ( let i = 0; i < headers.length - 1; i ++ ) {
-        if ( position < 200 ) {
+        if ( position < 121 ) {
           setActive('')
           return
         }
-        if ( headers[i].top < position && headers[i+1].top >= position ) {
+        if ( position > headers[headers.length-1].top ) {
+          setActive(headers[headers.length-1].id)
+          break
+        }
+        if ( (headers[i].top - 121 < position && headers[i+1].top - 121 >= position) ) {
           setActive(headers[i].id)
+          break
         }
       }
     }
@@ -68,7 +73,7 @@ const Toc = () => {
 
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
-  }, [elements])
+  }, [elements, hasNoHeaders])
 
   
   return (
@@ -86,7 +91,7 @@ const Toc = () => {
               <svg width="3" height="24" viewBox="0 -9 3 24" 
                 className={`${isHeadingLevelGreaterThan(el.tag, 2) ? '' : 'hidden'} mr-2 text-slate-400 overflow-visible group-hover:text-slate-600 dark:text-slate-600 dark:group-hover:text-slate-500`}
               >
-                <path d="M0 0L3 3L0 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
+                <path d="M0 0L3 3L0 6" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"></path>
               </svg>
               {el.text}
             </Link>

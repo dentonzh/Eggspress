@@ -22,7 +22,7 @@ const page = async ({ params }: { params: { category: string }}) => {
 
   return (
     <main className="flex flex-wrap">
-      <div className="w-full mb-12 pt-32 pb-12 duration-500 text-gray-800 dark:text-gray-100 bleed-bg bleed-slate-100 dark:bleed-gray-900">
+      <div className="w-full mb-12 pt-32 pb-12 duration-200 text-gray-800 dark:text-gray-100 bleed-bg bleed-slate-100 dark:bleed-gray-900">
         <h1 className="text-5xl font-bold mb-3 -ml-0.5">{ filteredPosts ? filteredPosts[0].category : decodeURI(category) }</h1>
         <div>{filteredPosts.length < 10 ? numbersAsWords[filteredPosts.length] : filteredPosts.length} {filteredPosts.length === 1 ? 'post' : 'posts'}</div>
       </div>
