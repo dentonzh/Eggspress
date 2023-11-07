@@ -1,14 +1,13 @@
-import fs from 'fs'
+import { getFilesRecursively } from '../utils'
 
-const getPostSlugs = (): {slug: string}[] => {
+const getPostSlugs = async (): Promise<{slug: string}[]> => {
   const dir = './posts/'
-  const files = fs.readdirSync(dir)
+  const files = await getFilesRecursively(dir)
   const allowedExtensions = ['.md', '.mdx']
-  const markdownFiles = files.filter((file) => allowedExtensions.includes(file.substring(file.lastIndexOf('.'))))
+  const markdownFiles = files.filter((file) => allowedExtensions.includes(file.extension))
   
   const slugs = markdownFiles.map((file) => {
-    const filename = file.slice(file.lastIndexOf('/') + 1, file.lastIndexOf('.'))
-    return {'slug': filename}
+    return {'slug': file.slug }
   })
 
   return slugs
