@@ -21,13 +21,13 @@ const convertDate = (inputDate: string|null) => {
 const PostCard = ({ post }: PostProps) => {
   return (
     <div className='flex flex-wrap items-baseline mb-12 text-gray-800 dark:text-gray-100'>
-      <Link className="text-4xl font-extrabold mb-3" href={`/blog/${post.slug}`}>{post.title}</Link>
+      <Link className="text-2xl font-semibold mb-3" href={`/blog/${post.slug}`}>{post.title}</Link>
       <div className='w-full mb-3 prose dark:prose-invert'>{post.snippet}</div>
       <div className=''>
-        <Like></Like>
+        {/* <Like></Like> */}
       </div>
       {/* <div>{createSlug(post.category)}</div> */}
-      <div className='items-end ml-auto text-gray-400'>{convertDate(post.publishDate)}</div>
+      {/* <div className='items-end ml-auto text-gray-400'>{convertDate(post.publishDate)}</div> */}
     </div>
   )
 }
