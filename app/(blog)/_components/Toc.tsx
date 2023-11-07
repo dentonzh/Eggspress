@@ -82,7 +82,7 @@ const Toc = () => {
         {elements.map(el =>
           <li key={el.id} id={`toc-${el.id}`}
             className={`
-              ${isHeadingLevelGreaterThan(el.tag, 2) ? 'hidden lg:block' : ''}
+              ${isHeadingLevelGreaterThan(el.tag, 2) ? 'hidden lg:block' : 'mt-2'}
               ${active === el.id ? 'text-blue-700 dark:text-blue-300 font-bold duration-100' : ''}
             `}
             style={{paddingLeft: `${isHeadingLevelGreaterThan(el.tag, 2) ? (parseInt(el.tag) * 0.3) : 0}rem`}}
