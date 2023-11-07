@@ -22,6 +22,7 @@ const getPostFrontmatter = async (): Promise<PostItem[]> => {
   const allowedExtensions = ['.md', '.mdx']
   const markdownFiles = files.filter((file) => allowedExtensions.includes(file.extension))
   
+  console.log(markdownFiles)
   const data = markdownFiles.map((file) => {
     const content = fs.readFileSync(`${file.path}/${file.name}`, 'utf-8')
     return {
