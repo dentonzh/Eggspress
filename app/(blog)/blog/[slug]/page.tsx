@@ -66,6 +66,7 @@ async function getSource(slug: string) {
       parseFrontmatter: true,
       mdxOptions: {
         remarkPlugins: [remarkGfm, [transformImgSrc, { slug, imageFiles }]],
+        // Need to ignore next line as rehypeImgSize yields ts error when specified in tuple with options
         // @ts-ignore:next-line 
         rehypePlugins: [rehypeSlug, [rehypeImgSize, {dir: 'public'}]] //
       }
