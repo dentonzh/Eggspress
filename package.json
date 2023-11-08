@@ -2,6 +2,13 @@
   "name": "eggspress",
   "version": "0.1.0",
   "private": true,
+  "repository": "dentonzh/eggspress",
+  "bugs": "https://github.com/dentonzh/eggspress/issues",
+  "author": {
+      "name": "Denton Zhou",
+      "email": "denton.zhou@gmail.com",
+      "url": "https://github.com/dentonzh"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",

@@ -66,7 +66,8 @@ async function getSource(slug: string) {
       parseFrontmatter: true,
       mdxOptions: {
         remarkPlugins: [remarkGfm, [transformImgSrc, { slug, imageFiles }]],
-        rehypePlugins: [rehypeSlug, [rehypeImgSize, {dir: 'public'}]]
+        // @ts-ignore:next-line 
+        rehypePlugins: [rehypeSlug, [rehypeImgSize, {dir: 'public'}]] //
       }
     }})
   return source
