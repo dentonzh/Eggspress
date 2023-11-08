@@ -19,7 +19,7 @@ export async function getFilesRecursively(dir: string): Promise<PostFile[]> {
     arrayOfFilenames = files.filter((file) => {return file.indexOf('.') >= 0}).map((file) => {
       return {
         name: file.slice(file.lastIndexOf('/') + 1),
-        path: file.slice(0, file.lastIndexOf('/') + 1),
+        path: file.slice(0, file.lastIndexOf('/')),
         extension: file.slice(file.lastIndexOf('.')),
         slug: createSlug(file.slice(file.lastIndexOf('/') + 1, file.lastIndexOf('.')))
       } 
@@ -27,6 +27,26 @@ export async function getFilesRecursively(dir: string): Promise<PostFile[]> {
   return arrayOfFilenames
 }
 
+
+export async function getFilesRecursivelyWithExtensions(dir: string, extensions: string[]): Promise<PostFile[]> {
+  const files = await getFilesRecursively(dir)
+  const filteredFiles = files.filter((file) => extensions.includes(file.extension))
+  return filteredFiles
+}
+
+
+export async function getMarkdownFilesRecursively(dir: string): Promise<PostFile[]> {
+  const extensions = ['.md', '.mdx']
+  const files = await getFilesRecursivelyWithExtensions(dir, extensions)
+  return files
+}
+
+
+export async function getImageFilesRecursively(dir: string): Promise<PostFile[]> {
+  const extensions = ['.jpg', '.jpeg', '.png', '.svg', '.webp', '.gif', '.avif', '.apng', '.bmp', '.tif', '.ico']
+  const files = await getFilesRecursivelyWithExtensions(dir, extensions)
+  return files
+}
 
 // Function below requires Node 20, which AWS Lambda does not support-- see above function for glob implementation
 // export async function getFilesRecursively(dir: string): Promise<PostFile[]> {

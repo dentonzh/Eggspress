@@ -6,8 +6,12 @@ import Sidebar from '../../../_components/Sidebar'
 import { createSlug } from '@/app/utils'
 import Toc from '../../_components/Toc'
 import rehypeSlug from 'rehype-slug'
+import rehypeImgSize from 'rehype-img-size'
 import remarkGfm from 'remark-gfm'
 import Link from 'next/link'
+import transformImgSrc from '@/plugins/transform-img-src'
+
+const env = process.env.NODE_ENV
 
 export async function generateStaticParams() {
   const slugs = getPostSlugs()
@@ -55,14 +59,14 @@ export default PostPage
 
 
 async function getSource(slug: string) {
-  const file = await getPostContent(slug)
+  const { markdownData, imageFiles } = await getPostContent(slug)
   const source = await compileMDX({
-    source: file,
+    source: markdownData,
     options: {
       parseFrontmatter: true,
       mdxOptions: {
-        remarkPlugins: [remarkGfm],
-        rehypePlugins: [rehypeSlug]
+        remarkPlugins: [remarkGfm, [transformImgSrc, { slug, imageFiles }]],
+        rehypePlugins: [rehypeSlug, [rehypeImgSize, {dir: 'public'}]]
       }
     }})
   return source
