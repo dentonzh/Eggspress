@@ -1,14 +1,8 @@
-import { getFilesRecursively } from '../utils'
+import { getMarkdownSlugs } from '../utils'
 
 const getPostSlugs = async (): Promise<{slug: string}[]> => {
-  const dir = './posts/'
-  const files = await getFilesRecursively(dir)
-  const allowedExtensions = ['.md', '.mdx']
-  const markdownFiles = files.filter((file) => allowedExtensions.includes(file.extension))
-  
-  const slugs = markdownFiles.map((file) => {
-    return {'slug': file.slug }
-  })
+  const dir = './my_posts/'
+  const slugs = await getMarkdownSlugs(dir)
 
   return slugs
 }

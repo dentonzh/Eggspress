@@ -2,6 +2,7 @@
 import { glob } from 'glob'
 import { PostFile } from '@/types/Blog';
 
+
 export function createSlug(categoryName: string|null) {
   if (!categoryName) {
     return ''
@@ -9,6 +10,19 @@ export function createSlug(categoryName: string|null) {
   return categoryName.toLowerCase()
     .replace(/ /g, "-")
     .replace(/[^\w-]+/g, "");
+}
+
+
+export async function getMarkdownSlugs(dir: string): Promise<{ slug: string }[]> {
+  const files = await getFilesRecursively(dir)
+  const allowedExtensions = ['.md', '.mdx']
+  const markdownFiles = files.filter((file) => allowedExtensions.includes(file.extension))
+  
+  const slugs = markdownFiles.map((file) => {
+    return {'slug': file.slug }
+  })
+
+  return slugs
 }
 
 
