@@ -5,23 +5,32 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { createSlug } from '../utils'
 import getPostFrontmatter from './getPostFrontmatter'
+import getPageFrontmatter from './getPageFrontmatter'
 
 const Footer = async () => {
-  const frontmatterData = await getPostFrontmatter()
-  const categoryNames = new Set(frontmatterData.filter(
+  const postFrontmatter = await getPostFrontmatter()
+  const categoryNames = new Set(postFrontmatter.filter(
     (post) => { if (!post.category) {return false} return true }
   ).map((post) => post.category))
   const arrayOfCategoryNames = Array.from(categoryNames)
   const categoryData = arrayOfCategoryNames.map((name) => {return {name: name, slug: createSlug(name)}})
+  const pageFrontmatter = await getPageFrontmatter()
+  const pageData = pageFrontmatter.map((page) => {return {name: page.title, slug: page.slug}})
 
   return (
     <div className='px-3 md:px-0 py-8 min-w-full duration-100 bg-gray-100 dark:bg-gray-900 pt-12'>
       <div className="container flex justify-between text-gray-800 dark:text-gray-200">
-        <div className="flex flex-col w-1/2 md:w-2/3 font-light text-sm leading-6">
-          <div>Contact</div>
-          {categoryData.map(category => 
-            <Link key={category.slug} href={`/${category.slug}`}>{category.name}</Link>
-          )}
+        <div className="flex flex-col w-1/2 sm:w-2/3 font-light text-sm leading-6">
+          <div className="flex flex-col w-full sm:w-1/2 mb-3 pb-3 border-b border-gray-400 dark:border-gray- border-opacity-30">
+            {categoryData.map(category => 
+              <Link key={category.slug} href={`/${category.slug}`}>{category.name}</Link>
+            )}
+          </div>
+          <div className="flex flex-col w-full sm:w-1/2 mb-3">
+            {pageData.map(page => 
+              <Link key={page.slug} href={`/page/${page.slug}`}>{page.name}</Link>
+            )}
+          </div>
         </div>
         <div className="w-1/2 md:w-1/3">
           <Link href='/'>

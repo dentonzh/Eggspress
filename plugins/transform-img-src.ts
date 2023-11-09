@@ -1,5 +1,4 @@
 const fs = require('fs-extra')
-import { getFilesRecursivelyWithExtensions } from '@/app/utils'
 import { PostFile } from '@/types/Blog'
 import { visit } from 'unist-util-visit'
 
@@ -33,7 +32,7 @@ export default function transformImgSrc({
               fs.mkdirSync(destinationPath, {recursive: true})
             }
             
-            fs.copyFile(sourceDir, destinationDir, fs.constants.COPYFILE_EXCL, (err: string) => {console.log(err)})
+            fs.copyFile(sourceDir, destinationDir, fs.constants.COPYFILE_EXCL, (err: string) => {})
             image.url = imageUrl
             return
           }

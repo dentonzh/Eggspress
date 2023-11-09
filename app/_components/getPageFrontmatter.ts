@@ -16,8 +16,8 @@ const extractFrontmatter = async (markdownData: {content: string, slug: string}[
   return frontmatterData
 }
 
-const getPostFrontmatter = async (): Promise<PostItem[]> => {
-  const dir = './my_posts/'
+const getPageFrontmatter = async (): Promise<PostItem[]> => {
+  const dir = './my_pages/'
   const allowedExtensions = ['.md', '.mdx']
   const files = await getFilesRecursivelyWithExtensions(dir, allowedExtensions)
   
@@ -38,4 +38,4 @@ const getPostFrontmatter = async (): Promise<PostItem[]> => {
   return sortedData
 }
 
-export default getPostFrontmatter
+export default getPageFrontmatter

@@ -3,7 +3,7 @@ title: The Marvelous World of Chickens
 seoTitle: Chickens are wonderful!
 subtitle: A deeply nested chicken post
 isPublished: true
-publishDate: 2023-10-25T09:15:00-0400
+publishDate: 2023-10-28T09:15:00-0400
 layout: Article
 snippet: Chickens make charming pets and eco-friendly garden companions, enriching lives through their delightful personalities and natural contributions.
 category: Tree Talk
@@ -33,6 +33,7 @@ Chickens are voracious foragers, hunting insects and eating weeds, reducing the 
 ## Sustainability and Chicken Keeping
 
 Sustainable living is increasingly vital in our world, and keeping chickens is a part of this eco-conscious lifestyle. Chickens help reduce kitchen waste by consuming kitchen scraps and leftovers. Their manure contributes to healthier gardens and decreases the need for synthetic fertilizers.
+
 
 ## The Fascinating Behavior of Chickens
 

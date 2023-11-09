@@ -1,10 +1,10 @@
 import React from 'react'
 import { compileMDX } from 'next-mdx-remote/rsc'
-import getPostContent from '../../../_components/getPostContent'
-import getPostSlugs from '../../../_components/getPostSlugs'
-import Sidebar from '../../../_components/Sidebar'
-import { createSlug } from '@/app/utils'
-import Toc from '../../../_components/Toc'
+import getPageContent from '../../_components/getPageContent'
+import getPageSlugs from '../../_components/getPageSlugs'
+import Sidebar from '../../_components/Sidebar'
+import { createSlug } from '../../utils'
+import Toc from '../../_components/Toc'
 import rehypeSlug from 'rehype-slug'
 import rehypeImgSize from 'rehype-img-size'
 import remarkGfm from 'remark-gfm'
@@ -14,7 +14,7 @@ import transformImgSrc from '@/plugins/transform-img-src'
 const env = process.env.NODE_ENV
 
 export async function generateStaticParams() {
-  const slugs = getPostSlugs()
+  const slugs = getPageSlugs()
   return slugs
 }
 
@@ -24,7 +24,7 @@ const convertDate = (inputDate: string) => {
   return formattedDate
 }
 
-const PostPage =  async ( {params}: {params: {slug: string}} ) => {
+const page =  async ( {params}: {params: {slug: string}} ) => {
   const { slug } = params
   const { content, frontmatter }: {content: any, frontmatter: any} = await getSource(slug)
 
@@ -55,11 +55,11 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
   )
 }
 
-export default PostPage
+export default page
 
 
 async function getSource(slug: string) {
-  const { markdownData, imageFiles } = await getPostContent(slug)
+  const { markdownData, imageFiles } = await getPageContent(slug)
   const source = await compileMDX({
     source: markdownData,
     options: {
