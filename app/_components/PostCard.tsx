@@ -24,7 +24,7 @@ const PostCard = ({ post }: PostProps) => {
       <Link className="text-2xl font-semibold mb-3" href={`/blog/${post.slug}`}>{post.title}</Link>
       <div className='w-full mb-3 prose dark:prose-invert'>{post.snippet}</div>
       <div className=''>
-        <Link href={`/blog/${post.slug}`} className="underline-animated font-medium text-blue-700 hover:text-blue-800 dark:text-blue-300 hover:dark:text-blue-200">
+        <Link href={`/blog/${post.slug}`} className="underline-animated font-medium text-gray-800 hover:text-blue-800 dark:text-white hover:dark:text-blue-200">
           Read more
         </Link>
         {/* <Like></Like> */}

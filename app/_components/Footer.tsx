@@ -3,7 +3,7 @@ import Logo from '../../public/logo.png'
 import Eggsmark from '../../public/assets/eggsmark.png'
 import Image from 'next/image'
 import Link from 'next/link'
-import { createSlug } from '../utils'
+import { createSlug, getEggspressSettings } from '../utils'
 import getPostFrontmatter from './getPostFrontmatter'
 import getPageFrontmatter from './getPageFrontmatter'
 
@@ -16,9 +16,10 @@ const Footer = async () => {
   const categoryData = arrayOfCategoryNames.map((name) => {return {name: name, slug: createSlug(name)}})
   const pageFrontmatter = await getPageFrontmatter()
   const pageData = pageFrontmatter.map((page) => {return {name: page.title, slug: page.slug}})
+  const blogSettings = await getEggspressSettings('blog')
 
   return (
-    <div className='px-3 md:px-0 py-8 min-w-full duration-100 bg-gray-100 dark:bg-gray-900 pt-12'>
+    <div className={`px-3 md:px-0 py-8 min-w-full duration-100 bg-${blogSettings.colorLightPrimary} dark:bg-${blogSettings.colorDarkPrimary} pt-12`}>
       <div className="container flex justify-between text-gray-800 dark:text-gray-200">
         <div className="flex flex-col w-1/2 sm:w-2/3 font-light text-sm leading-6">
           <div className="flex flex-col w-full sm:w-1/2 mb-3 pb-3 border-b border-gray-400 dark:border-gray- border-opacity-30">

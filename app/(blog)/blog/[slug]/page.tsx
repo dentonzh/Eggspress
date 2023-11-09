@@ -3,7 +3,7 @@ import { compileMDX } from 'next-mdx-remote/rsc'
 import getPostContent from '../../../_components/getPostContent'
 import getPostSlugs from '../../../_components/getPostSlugs'
 import Sidebar from '../../../_components/Sidebar'
-import { createSlug } from '@/app/utils'
+import { createSlug, getEggspressSettings } from '@/app/utils'
 import Toc from '../../../_components/Toc'
 import rehypeSlug from 'rehype-slug'
 import rehypeImgSize from 'rehype-img-size'
@@ -27,10 +27,11 @@ const convertDate = (inputDate: string) => {
 const PostPage =  async ( {params}: {params: {slug: string}} ) => {
   const { slug } = params
   const { content, frontmatter }: {content: any, frontmatter: any} = await getSource(slug)
+  const blogSettings = await getEggspressSettings('blog')
 
   return (
     <div className="flex flex-wrap">
-      <div className="w-full mb-12 pt-32 pb-12 duration-200 text-gray-800 dark:text-gray-100 bleed-bg bleed-slate-100 dark:bleed-gray-900">
+      <div className={`hero bleed-${blogSettings.colorLightPrimary} dark:bleed-${blogSettings.colorDarkPrimary}`}>
         {frontmatter.category && <Link href={`/${createSlug(frontmatter.category)}`}><div className="mb-3">{frontmatter.category}</div></Link>}
         <h1 className="text-5xl font-bold mb-3 -ml-0.5">{`${frontmatter.title}`}</h1>      
         <div>{frontmatter.date || frontmatter.publishDate ? convertDate(frontmatter.date || frontmatter.publishDate) : ''}</div>

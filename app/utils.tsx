@@ -1,7 +1,20 @@
-// import fs from 'fs'
+import fs from 'fs'
 import { glob } from 'glob'
+import { serialize } from 'next-mdx-remote/serialize'
 import { PostFile } from '@/types/Blog';
 
+
+export async function getEggspressSettings(kind: string|null): Promise<any> {
+  if (!kind) {
+    kind = 'blog'
+  }
+
+  const file = `./my_settings/${kind}.md`
+  const data = fs.readFileSync(file, 'utf-8')
+  const serializedData = await serialize(data, {parseFrontmatter: true})
+  
+  return serializedData.frontmatter
+}
 
 export function createSlug(categoryName: string|null) {
   if (!categoryName) {
