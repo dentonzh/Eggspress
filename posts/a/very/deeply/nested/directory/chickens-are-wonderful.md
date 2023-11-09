@@ -15,6 +15,7 @@ Chickens are extraordinary companions, not only for those who enjoy their deligh
 
 Chickens make wonderful pets for those seeking a unique and endearing animal to share their lives with. Their friendly and curious nature, combined with their charming personalities, endears them to many[^1]. Chickens have a remarkable ability to connect with their human caregivers, often forming strong bonds. They can even be taught to come when called and may enjoy being held or petted.
 
+![chicken](chicken.jpeg)
 
 ## Garden Allies and Natural Fertilizers
 
