@@ -1,5 +1,4 @@
 const fs = require('fs-extra')
-import { getFilesRecursivelyWithExtensions } from '@/app/utils'
 import { PostFile } from '@/types/Blog'
 import { visit } from 'unist-util-visit'
 
