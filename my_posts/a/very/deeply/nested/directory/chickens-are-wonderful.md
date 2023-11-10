@@ -34,6 +34,8 @@ Chickens are voracious foragers, hunting insects and eating weeds, reducing the 
 
 Sustainable living is increasingly vital in our world, and keeping chickens is a part of this eco-conscious lifestyle. Chickens help reduce kitchen waste by consuming kitchen scraps and leftovers. Their manure contributes to healthier gardens and decreases the need for synthetic fertilizers.
 
+![chicken2](nested_image_folder/chicken-2_with_underscore%20and%20some%20spaces%20.jpeg)
+
 
 ## The Fascinating Behavior of Chickens
 

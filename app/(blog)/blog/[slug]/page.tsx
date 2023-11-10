@@ -90,9 +90,7 @@ async function getSource(slug: string) {
       parseFrontmatter: true,
       mdxOptions: {
         remarkPlugins: [remarkGfm, [transformImgAttrs, { slug, imageFiles }]],
-        // Need to ignore next line as rehypeImgSize yields ts error when specified in tuple with options
-        // @ts-ignore:next-line 
-        rehypePlugins: [rehypeSlug] //
+        rehypePlugins: [rehypeSlug]
       }
     }})
 
@@ -105,8 +103,14 @@ async function getSource(slug: string) {
         width: dimensions.width,
         height: dimensions.height
       }
+    } else {
+      return {
+        url: '',
+        width: '',
+        height: ''
+      }
     }
-  }).filter(image => image !== undefined)
+  }).filter(image => image.url.length)
 
   return {...source, images}
 }

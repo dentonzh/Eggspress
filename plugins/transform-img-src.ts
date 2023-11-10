@@ -17,21 +17,19 @@ export default function transformImgAttrs({
   return (tree: any) => {
     visit(tree, 'paragraph', node => {
       const image = node.children.find((child: any) => child.type === 'image');
-      
       if (image) {
         const fileName = image.url.slice(image.url.lastIndexOf('/') + 1)
         imageFiles.forEach((file) => {
-          if (file.name === fileName) {
+          if (file.name === decodeURI(fileName)) {
             const imagePath = `/${publicImgDir}/${slug}`
-            const imageUrl = `${imagePath}/${fileName}`
+            const imageUrl = `${imagePath}/${fileName.replaceAll('%20', '_')}`
             
             const sourceDir = `${file.path}/${file.name}`
-            const destinationDir = `public${imageUrl}`
-            
+            const destinationDir = `public${imagePath}/${fileName.replaceAll('%20', '_')}`
             const destinationPath = `public${imagePath}`
 
             const dimensions = sizeOf(sourceDir)
-
+            
             image.data = {
               hProperties: {
                 width: dimensions.width,
@@ -41,15 +39,15 @@ export default function transformImgAttrs({
 
             if (fs.existsSync(destinationDir)) {
               image.url = imageUrl
-              return
+            } else {
+              if (!fs.existsSync(destinationPath)) {
+                fs.mkdirSync(destinationPath, {recursive: true})
+              }
+              
+              fs.copySync(sourceDir, destinationDir)
+              image.url = imageUrl
             }
 
-            if (!fs.existsSync(destinationPath)) {
-              fs.mkdirSync(destinationPath, {recursive: true})
-            }
-            
-            fs.copySync(sourceDir, destinationDir)
-            image.url = imageUrl
           }
         })
 
