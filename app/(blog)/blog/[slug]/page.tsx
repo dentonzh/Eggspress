@@ -10,19 +10,30 @@ import rehypeImgSize from 'rehype-img-size'
 import remarkGfm from 'remark-gfm'
 import Link from 'next/link'
 import transformImgSrc from '@/plugins/transform-img-src'
+import { PostItem } from '@/types/Blog'
 
 const env = process.env.NODE_ENV
 
+type PostData = {
+  frontmatter: PostItem,
+  content: string,
+  slug: string
+}
+
 export async function generateStaticParams() {
-  const slugs = getPostSlugs()
-  return slugs
+  const slugs = await getPostSlugs()  
+  const postData = slugs.map(async ({slug}) => {
+    let data = await getSource(slug)
+    return {...data, slug: slug}
+  })
+
+  return postData
 }
 
 export async function generateMetadata({ params }: { params: {slug: string} }) {
   const { slug } = params
   const { content, frontmatter }: {content: any, frontmatter: any} = await getSource(slug)
   const blogSettings = await getEggspressSettings('metadata')
-  const appearanceSettings = await getEggspressSettings('appearance')
 
   return {
     title: `${frontmatter.title} - ${blogSettings.title}`,
@@ -38,15 +49,17 @@ export async function generateMetadata({ params }: { params: {slug: string} }) {
   }
 }
 
-const convertDate = (inputDate: string) => {
+const convertDate = (inputDate: string|null) => {
+  if (!inputDate) {
+    return ''
+  }
   const date = new Date(inputDate)
   const formattedDate = date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
   return formattedDate
 }
 
-const PostPage =  async ( {params}: {params: {slug: string}} ) => {
-  const { slug } = params
-  const { content, frontmatter }: {content: any, frontmatter: any} = await getSource(slug)
+const PostPage =  async ( {params}: {params: PostData} ) => {
+  const { frontmatter, content, slug } = params
   const appearanceSettings = await getEggspressSettings('appearance')
 
   return (
