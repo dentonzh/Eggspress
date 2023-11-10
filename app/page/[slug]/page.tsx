@@ -20,7 +20,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: {slug: string} }) {
   const { slug } = params
-  const { content, frontmatter }: {content: any, frontmatter: Record<any, any>} = await getSource(slug)
+  const { content, frontmatter }: {content: any, frontmatter: any} = await getSource(slug)
   const blogSettings = await getEggspressSettings('metadata')
 
   return {
@@ -46,7 +46,7 @@ const convertDate = (inputDate: string) => {
 
 const page =  async ( {params}: {params: {slug: string}} ) => {
   const { slug } = params
-  const { content, frontmatter }: {content: any, frontmatter: Record<any, any>} = await getSource(slug)
+  const { content, frontmatter }: {content: any, frontmatter: any} = await getSource(slug)
   const appearanceSettings = await getEggspressSettings('appearance')
 
   return (

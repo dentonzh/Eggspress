@@ -28,13 +28,17 @@ export default function transformImgSrc({
             
             const destinationPath = `public${imagePath}`
 
+            if (fs.existsSync(destinationDir)) {
+              image.url = imageUrl
+              return
+            }
+
             if (!fs.existsSync(destinationPath)) {
               fs.mkdirSync(destinationPath, {recursive: true})
             }
             
-            fs.copyFile(sourceDir, destinationDir, fs.constants.COPYFILE_EXCL, (err: string) => {})
+            fs.copySync(sourceDir, destinationDir)
             image.url = imageUrl
-            return
           }
         })
 

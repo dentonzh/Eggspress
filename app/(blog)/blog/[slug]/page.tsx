@@ -10,32 +10,17 @@ import rehypeImgSize from 'rehype-img-size'
 import remarkGfm from 'remark-gfm'
 import Link from 'next/link'
 import transformImgSrc from '@/plugins/transform-img-src'
-import { PostItem } from '@/types/Blog'
 
 const env = process.env.NODE_ENV
 
-type PostData = {
-  frontmatter: Record<any, any>,
-  content: any,
-  slug: string,
-  appearanceSettings: Record<any, any>
-}
-
 export async function generateStaticParams() {
-  const slugs = await getPostSlugs()
-  const appearanceSettings = await getEggspressSettings('appearance')
-
-  const postData = slugs.map(async ({slug}) => {
-    let data = await getSource(slug)
-    return {...data, slug: slug, appearanceSettings: appearanceSettings}
-  })
-
-  return postData
+  const slugs = getPostSlugs()
+  return slugs
 }
 
 export async function generateMetadata({ params }: { params: {slug: string} }) {
   const { slug } = params
-  const { content, frontmatter }: {content: any, frontmatter: Record<any, any>} = await getSource(slug)
+  const { content, frontmatter }: {content: any, frontmatter: any} = await getSource(slug)
   const blogSettings = await getEggspressSettings('metadata')
 
   return {
@@ -52,24 +37,16 @@ export async function generateMetadata({ params }: { params: {slug: string} }) {
   }
 }
 
-const convertDate = (inputDate: string|null) => {
-  if (!inputDate) {
-    return ''
-  }
+const convertDate = (inputDate: string) => {
   const date = new Date(inputDate)
   const formattedDate = date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
   return formattedDate
 }
 
-const PostPage =  async ( {params}: {params: PostData} ) => {
-  let { frontmatter, content, slug, appearanceSettings } = params
-  
-  const env = process.env.NODE_ENV 
-
-  if ( env === 'development' ) {
-    ({ frontmatter, content } = await getSource(slug))
-    appearanceSettings = await getEggspressSettings('appearance')
-  }
+const PostPage =  async ( {params}: {params: {slug: string}} ) => {
+  const { slug } = params
+  const { content, frontmatter }: {content: any, frontmatter: any} = await getSource(slug)
+  const appearanceSettings = await getEggspressSettings('appearance')
 
   return (
     <div className="flex flex-wrap">
