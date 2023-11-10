@@ -83,7 +83,7 @@ const Toc = () => {
           <li key={el.id} id={`toc-${el.id}`}
             className={`
               ${isHeadingLevelGreaterThan(el.tag, 2) ? 'hidden lg:block' : 'mt-2'}
-              ${active === el.id ? 'text-blue-700 hover:text-blue-800 dark:text-blue-300 dark:hover:text-blue- rounded-lg bg-gray-200/30 dark:bg-gray-900/20 duration-100' : 'hover:text-blue-800 dark:hover:text-blue-400'}
+              ${active === el.id ? 'text-blue-700 hover:text-blue-800 dark:text-blue-300 dark:hover:text-blue- rounded-lg duration-100' : 'hover:text-blue-800 dark:hover:text-blue-400'}
             `}
             style={{paddingLeft: `${isHeadingLevelGreaterThan(el.tag, 2) ? (parseInt(el.tag) * 0.3) : 0}rem`}}
           >

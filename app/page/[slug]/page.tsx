@@ -53,7 +53,8 @@ const page =  async ( {params}: {params: {slug: string}} ) => {
     <div className="flex flex-wrap">
       <div className={`hero bleed-${appearanceSettings.colorLightPrimary} dark:bleed-${appearanceSettings.colorDarkPrimary}`}>
         {frontmatter.category && <Link href={`/${createSlug(frontmatter.category)}`}><div className="mb-3">{frontmatter.category}</div></Link>}
-        <h1 className="text-5xl font-bold mb-3 -ml-0.5">{`${frontmatter.title}`}</h1>      
+        <h1 className="text-5xl font-bold mb-3 -ml-0.5">{`${frontmatter.title}`}</h1>   
+        <div className="font-normal">{frontmatter.tagline || ''}</div>
         <div>{frontmatter.date || frontmatter.publishDate ? convertDate(frontmatter.date || frontmatter.publishDate) : ''}</div>
       </div>
       <div className="flex justify-between w-full">

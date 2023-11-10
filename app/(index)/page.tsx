@@ -11,6 +11,16 @@ const aboutMe = {
   social_media_handle: "@WildDoeExplorer"
 }
 
+export async function generateMetadata() {
+  const blogSettings = await getEggspressSettings('metadata')
+    
+  return {
+    title: {
+      absolute: blogSettings.title
+    }
+  }
+}
+
 export default async function Home() {
   const postMetadata = await getPostFrontmatter()
   const blogSettings = await getEggspressSettings('metadata')
