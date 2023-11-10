@@ -6,10 +6,12 @@ import Sidebar from '../../../_components/Sidebar'
 import { createSlug, getEggspressSettings } from '@/app/utils'
 import Toc from '../../../_components/Toc'
 import rehypeSlug from 'rehype-slug'
-import rehypeImgSize from 'rehype-img-size'
 import remarkGfm from 'remark-gfm'
 import Link from 'next/link'
-import transformImgSrc from '@/plugins/transform-img-src'
+import transformImgAttrs from '@/plugins/transform-img-src'
+
+const fs = require('fs-extra')
+const sizeOf = require('image-size')
 
 const env = process.env.NODE_ENV
 
@@ -20,8 +22,9 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: {slug: string} }) {
   const { slug } = params
-  const { content, frontmatter }: {content: any, frontmatter: any} = await getSource(slug)
+  const { content, frontmatter, images }: { content: any, frontmatter: Record<any, unknown>, images: {url: string, width: string, height: string}[] } = await getSource(slug)
   const blogSettings = await getEggspressSettings('metadata')
+
 
   return {
     title: `${frontmatter.title} - ${blogSettings.title}`,
@@ -32,7 +35,8 @@ export async function generateMetadata({ params }: { params: {slug: string} }) {
       description: frontmatter.description || frontmatter.snippet,
       url: `/${slug}`,
       type: 'article',
-      siteName: blogSettings.title
+      siteName: blogSettings.title,
+      images: images
     }
   }
 }
@@ -85,11 +89,24 @@ async function getSource(slug: string) {
     options: {
       parseFrontmatter: true,
       mdxOptions: {
-        remarkPlugins: [remarkGfm, [transformImgSrc, { slug, imageFiles }]],
+        remarkPlugins: [remarkGfm, [transformImgAttrs, { slug, imageFiles }]],
         // Need to ignore next line as rehypeImgSize yields ts error when specified in tuple with options
         // @ts-ignore:next-line 
-        rehypePlugins: [rehypeSlug, [rehypeImgSize, {dir: 'public'}]] //
+        rehypePlugins: [rehypeSlug] //
       }
     }})
-  return source
+
+  const images = imageFiles.map(image => {
+    const imageFile = `/images/${slug}/${image.name}`
+    if (fs.existsSync(`public/${imageFile}`)) {
+      const dimensions = sizeOf(`${image.path}/${image.name}`)
+      return {
+        url: imageFile,
+        width: dimensions.width,
+        height: dimensions.height
+      }
+    }
+  }).filter(image => image !== undefined)
+
+  return {...source, images}
 }

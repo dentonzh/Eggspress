@@ -9,7 +9,7 @@ import rehypeSlug from 'rehype-slug'
 import rehypeImgSize from 'rehype-img-size'
 import remarkGfm from 'remark-gfm'
 import Link from 'next/link'
-import transformImgSrc from '@/plugins/transform-img-src'
+import transformImgAttrs from '@/plugins/transform-img-src'
 
 const env = process.env.NODE_ENV
 
@@ -86,7 +86,7 @@ async function getSource(slug: string) {
     options: {
       parseFrontmatter: true,
       mdxOptions: {
-        remarkPlugins: [remarkGfm, [transformImgSrc, { slug, imageFiles }]],
+        remarkPlugins: [remarkGfm, [transformImgAttrs, { slug, imageFiles }]],
         // Need to ignore next line as rehypeImgSize yields ts error when specified in tuple with options
         // @ts-ignore:next-line 
         rehypePlugins: [rehypeSlug, [rehypeImgSize, {dir: 'public'}]] //

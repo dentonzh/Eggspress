@@ -1,11 +1,13 @@
-const fs = require('fs-extra')
 import { PostFile } from '@/types/Blog'
 import { visit } from 'unist-util-visit'
+
+const fs = require('fs-extra')
+const sizeOf = require('image-size')
 
 const publicImgDir = 'images'
 
 
-export default function transformImgSrc({
+export default function transformImgAttrs({
     slug,
     imageFiles 
   }: {
@@ -27,6 +29,15 @@ export default function transformImgSrc({
             const destinationDir = `public${imageUrl}`
             
             const destinationPath = `public${imagePath}`
+
+            const dimensions = sizeOf(sourceDir)
+
+            image.data = {
+              hProperties: {
+                width: dimensions.width,
+                height: dimensions.height
+              }
+            }
 
             if (fs.existsSync(destinationDir)) {
               image.url = imageUrl
