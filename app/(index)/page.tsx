@@ -13,13 +13,14 @@ const aboutMe = {
 
 export default async function Home() {
   const postMetadata = await getPostFrontmatter()
-  const blogSettings = await getEggspressSettings('blog')
+  const blogSettings = await getEggspressSettings('metadata')
+  const appearanceSettings = await getEggspressSettings('appearance')
 
   return (
     <main className="flex flex-wrap">
-      <div className={`hero bleed-${blogSettings.colorLightPrimary} dark:bleed-${blogSettings.colorDarkPrimary}`}>
+      <div className={`hero bleed-${appearanceSettings.colorLightPrimary} dark:bleed-${appearanceSettings.colorDarkPrimary}`}>
         <h1 className="text-5xl font-bold mb-4 -ml-0.5">{blogSettings.title || 'Eggspress'}</h1>      
-        <div className="font-normal">{blogSettings.tagline || 'Turn your markdown files into an insanely fast blog 🌎'}</div>
+        <div className="font-normal">{blogSettings.tagline || 'Turn your markdown files into a lightning fast blog 🌎'}</div>
       </div>
       <div className="flex justify-between w-full">
         <div className='max-w-prose'>

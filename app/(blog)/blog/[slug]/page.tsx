@@ -18,6 +18,26 @@ export async function generateStaticParams() {
   return slugs
 }
 
+export async function generateMetadata({ params }: { params: {slug: string} }) {
+  const { slug } = params
+  const { content, frontmatter }: {content: any, frontmatter: any} = await getSource(slug)
+  const blogSettings = await getEggspressSettings('metadata')
+  const appearanceSettings = await getEggspressSettings('appearance')
+
+  return {
+    title: `${frontmatter.title} - ${blogSettings.title}`,
+    description: frontmatter.description || frontmatter.snippet,
+    url: `/${slug}`,
+    openGraph: {
+      title: frontmatter.title,
+      description: frontmatter.description || frontmatter.snippet,
+      url: `/${slug}`,
+      type: 'article',
+      siteName: blogSettings.title
+    }
+  }
+}
+
 const convertDate = (inputDate: string) => {
   const date = new Date(inputDate)
   const formattedDate = date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
@@ -27,11 +47,11 @@ const convertDate = (inputDate: string) => {
 const PostPage =  async ( {params}: {params: {slug: string}} ) => {
   const { slug } = params
   const { content, frontmatter }: {content: any, frontmatter: any} = await getSource(slug)
-  const blogSettings = await getEggspressSettings('blog')
+  const appearanceSettings = await getEggspressSettings('appearance')
 
   return (
     <div className="flex flex-wrap">
-      <div className={`hero bleed-${blogSettings.colorLightPrimary} dark:bleed-${blogSettings.colorDarkPrimary}`}>
+      <div className={`hero bleed-${appearanceSettings.colorLightPrimary} dark:bleed-${appearanceSettings.colorDarkPrimary}`}>
         {frontmatter.category && <Link href={`/${createSlug(frontmatter.category)}`}><div className="mb-3">{frontmatter.category}</div></Link>}
         <h1 className="text-5xl font-bold mb-3 -ml-0.5">{`${frontmatter.title}`}</h1>      
         <div>{frontmatter.date || frontmatter.publishDate ? convertDate(frontmatter.date || frontmatter.publishDate) : ''}</div>

@@ -7,10 +7,10 @@ import { getEggspressSettings } from '../utils'
 
 const Navigation = async () => {
   const dark = ''
-  const blogSettings = await getEggspressSettings('blog')
+  const appearanceSettings = await getEggspressSettings('appearance')
 
   return (
-    <nav className={`sticky top-0 px-3 md:px-0 duration-200 bg-${blogSettings.colorLightPrimary} dark:bg-${blogSettings.colorDarkPrimary} py-2 z-10`}>
+    <nav className={`sticky top-0 px-3 md:px-0 duration-200 bg-${appearanceSettings.colorLightPrimary} dark:bg-${appearanceSettings.colorDarkPrimary} py-2 z-10`}>
       <div className="flex container justify-between">
         <div>
           <Link href='/'>
