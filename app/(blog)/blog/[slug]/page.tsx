@@ -15,16 +15,19 @@ import { PostItem } from '@/types/Blog'
 const env = process.env.NODE_ENV
 
 type PostData = {
-  frontmatter: PostItem,
-  content: string,
-  slug: string
+  frontmatter: Record<any, any>,
+  content: any,
+  slug: string,
+  appearanceSettings: Record<any, any>
 }
 
 export async function generateStaticParams() {
-  const slugs = await getPostSlugs()  
+  const slugs = await getPostSlugs()
+  const appearanceSettings = await getEggspressSettings('appearance')
+
   const postData = slugs.map(async ({slug}) => {
     let data = await getSource(slug)
-    return {...data, slug: slug}
+    return {...data, slug: slug, appearanceSettings: appearanceSettings}
   })
 
   return postData
@@ -32,7 +35,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: {slug: string} }) {
   const { slug } = params
-  const { content, frontmatter }: {content: any, frontmatter: any} = await getSource(slug)
+  const { content, frontmatter }: {content: any, frontmatter: Record<any, any>} = await getSource(slug)
   const blogSettings = await getEggspressSettings('metadata')
 
   return {
@@ -59,8 +62,14 @@ const convertDate = (inputDate: string|null) => {
 }
 
 const PostPage =  async ( {params}: {params: PostData} ) => {
-  const { frontmatter, content, slug } = params
-  const appearanceSettings = await getEggspressSettings('appearance')
+  let { frontmatter, content, slug, appearanceSettings } = params
+  
+  const env = process.env.NODE_ENV 
+
+  if ( env === 'development' ) {
+    ({ frontmatter, content } = await getSource(slug))
+    appearanceSettings = await getEggspressSettings('appearance')
+  }
 
   return (
     <div className="flex flex-wrap">
