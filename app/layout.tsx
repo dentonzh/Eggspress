@@ -12,7 +12,7 @@ export async function generateMetadata() {
   const blogSettings = await getEggspressSettings('metadata')
   
   return {
-    metadataBase: new URL(blogSettings.metaBaseUrl),
+    metadataBase: blogSettings.metaBaseUrl.startsWith('http') ? new URL(blogSettings.metaBaseUrl) : '',
     title: {
       default: `%s - ${blogSettings.title}`,
     },
