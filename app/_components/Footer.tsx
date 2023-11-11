@@ -3,9 +3,10 @@ import Logo from '../../public/logo.png'
 import Eggsmark from '../../public/assets/eggsmark.png'
 import Image from 'next/image'
 import Link from 'next/link'
-import { createSlug } from '../utils'
+import { createSlug, getEggspressSettings } from '../utils'
 import getPostFrontmatter from './getPostFrontmatter'
 import getPageFrontmatter from './getPageFrontmatter'
+import AuthorLinks from '../_components/AuthorLinks'
 
 const Footer = async () => {
   const postFrontmatter = await getPostFrontmatter()
@@ -15,13 +16,18 @@ const Footer = async () => {
   const arrayOfCategoryNames = Array.from(categoryNames)
   const categoryData = arrayOfCategoryNames.map((name) => {return {name: name, slug: createSlug(name)}})
   const pageFrontmatter = await getPageFrontmatter()
-  const pageData = pageFrontmatter.map((page) => {return {name: page.title, slug: page.slug}})
+  const pages = pageFrontmatter.map((page) => {return {name: page.title, tagline: page.tagline, priority: page.weight, slug: page.slug}})
+  const pageData = pages.sort((a, b) => {
+    return (a.priority || 0) < (b.priority || 0) ? -1 : 1
+  })
+  const blogSettings = await getEggspressSettings('metadata')
+  const appearanceSettings = await getEggspressSettings('appearance')
 
   return (
-    <div className='px-3 md:px-0 py-8 min-w-full duration-100 bg-gray-100 dark:bg-gray-900 pt-12'>
+    <div className={`px-3 md:px-0 py-8 min-w-full duration-100 bg-${appearanceSettings.colorLightFooter || appearanceSettings.colorLightPrimary} dark:bg-${appearanceSettings.colorDarkFooter || appearanceSettings.colorDarkPrimary} pt-12`}>
       <div className="container flex justify-between text-gray-800 dark:text-gray-200">
         <div className="flex flex-col w-1/2 sm:w-2/3 font-light text-sm leading-6">
-          <div className="flex flex-col w-full sm:w-1/2 mb-3 pb-3 border-b border-gray-400 dark:border-gray- border-opacity-30">
+          <div className="flex flex-col w-full sm:w-1/2 mb-3">
             {categoryData.map(category => 
               <Link key={category.slug} href={`/${category.slug}`}>{category.name}</Link>
             )}
@@ -31,6 +37,7 @@ const Footer = async () => {
               <Link key={page.slug} href={`/page/${page.slug}`}>{page.name}</Link>
             )}
           </div>
+          <AuthorLinks />
         </div>
         <div className="w-1/2 md:w-1/3">
           <Link href='/'>

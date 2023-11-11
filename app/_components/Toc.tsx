@@ -82,15 +82,14 @@ const Toc = () => {
         {elements.map(el =>
           <li key={el.id} id={`toc-${el.id}`}
             className={`
-              underline-animated
               ${isHeadingLevelGreaterThan(el.tag, 2) ? 'hidden lg:block' : 'mt-2'}
-              ${active === el.id ? 'text-blue-700 dark:text-blue-300 font-bold duration-100' : ''}
+              ${active === el.id ? 'text-blue-700 hover:text-blue-800 dark:text-blue-300 dark:hover:text-blue- rounded-lg duration-100' : 'hover:text-blue-800 dark:hover:text-blue-400'}
             `}
             style={{paddingLeft: `${isHeadingLevelGreaterThan(el.tag, 2) ? (parseInt(el.tag) * 0.3) : 0}rem`}}
           >
-            <Link href={`#${el.id}`} onClick={(e) => {scrollToSection(e, el.id)}} className="flex items-start">
+            <Link href={`#${el.id}`} onClick={(e) => {scrollToSection(e, el.id)}} className="flex px-3">
               <svg width="3" height="24" viewBox="0 -9 3 24" 
-                className={`${isHeadingLevelGreaterThan(el.tag, 2) ? '' : 'hidden'} mr-2 text-slate-400 overflow-visible group-hover:text-slate-600 dark:text-slate-600 dark:group-hover:text-slate-500`}
+                className={`${isHeadingLevelGreaterThan(el.tag, 2) ? '' : 'hidden'} mr-2 text-slate-400 overflow-visible group-hover:text-slate-600 dark:text-slate-500 dark:group-hover:text-slate-400`}
               >
                 <path d="M0 0L3 3L0 6" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"></path>
               </svg>

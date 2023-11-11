@@ -9,6 +9,8 @@ export interface PostItem {
   layout: string | null;
   category: string | null;
   tags: string | null;
+  tagline: string | null;
+  weight: string | null;
 }
 
 

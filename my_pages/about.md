@@ -1,6 +1,7 @@
 ---
-title: About John Doe
-priority: 100
+title: "About John Doe"
+tagline: "A bit about myself"
+weight: "1"
 ---
 
 Hey there, I'm John Doe. I've always had a deep connection with the great outdoors. Whether it's navigating dense forests, climbing steep mountains, or setting up camp under the starry sky, nature has been my greatest teacher.
