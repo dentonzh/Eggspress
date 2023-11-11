@@ -1,12 +1,13 @@
 import React, { ReactNode } from 'react'
 
 type SidebarProps = {
-  children: ReactNode
+  children: ReactNode,
+  isSticky?: boolean | null
 }
 
-const Sidebar = ({children}: SidebarProps) => {
+const Sidebar = ({children, isSticky=null}: SidebarProps) => {
   return (
-    <div className='hidden lg:block sticky top-24 max-w-sm max-h-screen pl-8'>
+    <div className={`${isSticky === false ? '' : 'sticky top-24'} hidden lg:block max-w-sm max-h-screen pl-8`}>
       <div className='pl-3 w-full'>
         {children}
       </div>

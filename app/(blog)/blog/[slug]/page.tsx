@@ -9,6 +9,7 @@ import rehypeSlug from 'rehype-slug'
 import remarkGfm from 'remark-gfm'
 import Link from 'next/link'
 import transformImgAttrs from '@/plugins/transform-img-src'
+import AuthorCard from '@/app/_components/AuthorCard'
 
 const fs = require('fs-extra')
 const sizeOf = require('image-size')
@@ -70,6 +71,9 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
           </div>
         </div>
         <div>
+          <Sidebar isSticky={false}>
+            <AuthorCard slug="eggie"></AuthorCard>
+          </Sidebar>
           <Sidebar>
             <Toc />
           </Sidebar>
