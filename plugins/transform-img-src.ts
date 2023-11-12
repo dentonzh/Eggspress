@@ -1,3 +1,4 @@
+import { copyImageToPublic } from '@/app/utils'
 import { PostFile } from '@/types/Blog'
 import { visit } from 'unist-util-visit'
 
@@ -37,16 +38,9 @@ export default function transformImgAttrs({
               }
             }
 
-            if (fs.existsSync(destinationDir)) {
-              image.url = imageUrl
-            } else {
-              if (!fs.existsSync(destinationPath)) {
-                fs.mkdirSync(destinationPath, {recursive: true})
-              }
-              
-              fs.copySync(sourceDir, destinationDir)
-              image.url = imageUrl
-            }
+            copyImageToPublic(sourceDir, imagePath)
+
+            image.url = imageUrl
 
           }
         })
