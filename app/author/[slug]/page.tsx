@@ -87,27 +87,38 @@ const AuthorPage =  async ( {params}: {params: {slug: string}} ) => {
           )}
         </div>
         <Sidebar>
-          {frontmatter.socialLink && (
-            <div className="text-sm text-gray-500 w-full mb-1">
-              <span>
-                {frontmatter.socialPlatform && frontmatter.socialHandle ? `${frontmatter.socialPlatform}: ` : 'Social: '}
-              </span>
-              <a href={frontmatter.socialLink} target="_blank" rel="nofollow noopener" className="text-gray-700 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-300 underline-animated">
-                {frontmatter.socialPlatform && frontmatter.socialHandle ? `@${frontmatter.socialHandle.replace('@', '')}` : frontmatter.socialPlatform}
-                {(!frontmatter.socialPlatform || !frontmatter.socialPlatform.length) ? frontmatter.socialLink.slice(frontmatter.socialLink.lastIndexOf('://')+3) : '' }
-              </a>
+          <div className="font-semibold mb-3 text-gray-600">{frontmatter.name}</div>   
+          {[1, 2].map(index => {return (frontmatter['socialLink' + index] &&
+            <div key={`social-index`} className="text-sm text-gray-500 w-full mb-3">
+              <div>
+                <h4 className="font-semibold mb-0.5">{frontmatter['socialPlatform' + index] ? `${frontmatter['socialPlatform' + index]}` : 'Social'}</h4>
+                <a href={frontmatter['socialLink' + index]} target="_blank" rel="nofollow noopener" className="text-gray-700 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-300 underline-animated">
+                  {frontmatter['socialHandle' + index] ? `@${frontmatter['socialHandle' + index].replace('@', '')}` : ''}
+                  {!frontmatter['socialHandle' + index] ? frontmatter['socialLink' + index].slice(frontmatter['socialLink' + index].lastIndexOf('://')+3) : '' }
+                </a>
+              </div>
             </div>
-          )}
+          )})}
           {frontmatter.websiteLink && (
-            <div className="text-sm w-full text-gray-500 mb-1">
-              <span className="pr-1">
-                Website:
-              </span>
-              <a href={frontmatter.websiteLink} target="_blank" rel="nofollow noopener" className="text-gray-700 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-300 underline-animated">
-                {frontmatter.websiteLink && frontmatter.websiteName ? frontmatter.websiteName : frontmatter.websiteLink.slice(frontmatter.websiteLink.lastIndexOf('://')+3)}
-              </a>
+            <div>
+              <div key={`social-index`} className="text-sm text-gray-500 w-full mb-3">
+                <h4 className="font-semibold mb-0.5">Website</h4>
+                <a href={frontmatter.websiteLink} target="_blank" rel="nofollow noopener" className="text-gray-700 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-300 underline-animated">
+                  {frontmatter.websiteLink && frontmatter.websiteName ? frontmatter.websiteName : frontmatter.websiteLink.slice(frontmatter.websiteLink.lastIndexOf('://')+3)}
+                </a>
+              </div>
             </div>
           )}
+          {['location', 'education', 'work'].map(section => {return (frontmatter[section] &&
+            <div>
+              <div key={`social-index`} className="text-sm text-gray-500 w-full mb-3">
+                <h4 className="font-semibold mb-0.5">{section.charAt(0).toUpperCase() + section.slice(1)}</h4>
+                <div className="text-gray-700 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-300">
+                  {frontmatter[section]}
+                </div>
+              </div>
+            </div>
+          )})}
         </Sidebar>
         {contentLength > 0 && (
           <div className="py-12 border-t max-w-prose">

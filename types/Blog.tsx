@@ -22,9 +22,12 @@ export interface AuthorItem {
   location: string | null;
   education: string | null;
   work: string | null;
-  socialPlatform: string | null;
-  socialLink: string | null;
-  socialHandle: string | null;
+  socialPlatform1: string | null;
+  socialLink1: string | null;
+  socialHandle1: string | null;
+  socialPlatform2: string | null;
+  socialLink2: string | null;
+  socialHandle2: string | null;
   websiteName: string | null;
   websiteLink: string | null;
 }
