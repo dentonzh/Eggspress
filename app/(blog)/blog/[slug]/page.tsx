@@ -69,10 +69,15 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
           <div className="prose dark:prose-invert">
             {content}
           </div>
+          <div className="flex lg:hidden px-1 border-t mt-12">
+            <div className="md:w-5/6">
+              <AuthorCard slug={frontmatter.author}></AuthorCard>
+            </div>
+          </div>
         </div>
-        <div>
+        <div className="mb-20">
           <Sidebar isSticky={false}>
-            <AuthorCard slug="eggie"></AuthorCard>
+            <AuthorCard slug={frontmatter.author}></AuthorCard>
           </Sidebar>
           <Sidebar>
             <Toc />

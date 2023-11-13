@@ -1,7 +1,5 @@
 import React from 'react'
 import { getEggspressSettings } from '../utils'
-import { link } from 'fs'
-import Link from 'next/link'
 
 const authorLinks = async () => {
   const links: Record<string, string> = await getEggspressSettings('links')
@@ -18,9 +16,9 @@ const authorLinks = async () => {
 
         return (
           <div key={key}>
-            <Link href={links[key]}>
+            <a href={links[key]} target="_blank" rel="nofollow noopener">
               {name}
-            </Link>
+            </a>
           </div>
         )
       })}
