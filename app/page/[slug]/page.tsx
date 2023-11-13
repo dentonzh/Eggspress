@@ -44,7 +44,7 @@ const convertDate = (inputDate: string) => {
   return formattedDate
 }
 
-const page =  async ( {params}: {params: {slug: string}} ) => {
+const PagePage =  async ( {params}: {params: {slug: string}} ) => {
   const { slug } = params
   const { content, frontmatter }: {content: any, frontmatter: any} = await getSource(slug)
   const appearanceSettings = await getEggspressSettings('appearance')
@@ -72,12 +72,12 @@ const page =  async ( {params}: {params: {slug: string}} ) => {
             <Toc />
           </Sidebar>
         </div>
-    </div>
+      </div>
     </div>
   )
 }
 
-export default page
+export default PagePage
 
 
 async function getSource(slug: string) {

@@ -1,8 +1,7 @@
 import React from 'react'
-import getFrontmatter from './getFrontmatter'
-import { copyImageToPublic, getImageFilesRecursively } from '../utils'
+import getFrontmatter from '../../_components/getFrontmatter'
+import { copyImageToPublic, getImageFilesRecursively, getEggspressSettings } from '../../utils'
 import Image from 'next/image'
-import Link from 'next/link'
 
 const getProfileImage =  async (imageFileName: string): Promise<string> => {
   const imageFiles = await getImageFilesRecursively('my_authors')
@@ -16,33 +15,39 @@ const getProfileImage =  async (imageFileName: string): Promise<string> => {
   } else {
     return ''
   }
-
 }
 
 
-const AuthorCard = async ({slug}: {slug: string | null}) => {
+const AuthorPage =  async ( {params}: {params: {slug: string}} ) => {
+  const { slug } = params
   const authorFrontmatter = await getFrontmatter('authors')
   const authorData = authorFrontmatter.filter(frontmatter => {return frontmatter.slug === slug})[0]
   const imageUrl = authorData && authorData.image ? await getProfileImage(authorData.image) : ''
+  const appearanceSettings = await getEggspressSettings('appearance')
 
   if (!authorData) {
     return
   }
 
   return (
-    <div className="mt-12 mb-16 text-gray-700 dark:text-gray-200">
-      <Link href={`/author/${slug}`} className="mb-2 flex flex-wrap">
-        {imageUrl.length > 0 && (
-          <div className={`${imageUrl.length ? '' : 'hidden'} -ml-1 mr-2 h-14 w-14 border-2 border-blue-400 dark:border-blue-200 rounded-full object-cover overflow-hidden`}>
-            <Image src={imageUrl} width="56" height="56" alt={`Profile image for ${authorData.name}`}></Image>
+    <div className="flex flex-wrap">
+      <div className={`hero bleed-${appearanceSettings.colorLightPrimary} dark:bleed-${appearanceSettings.colorDarkPrimary}`}>
+        {/* {frontmatter.category && <Link href={`/${createSlug(frontmatter.category)}`}><div className="mb-3">{frontmatter.category}</div></Link>}
+      <div>{frontmatter.date || frontmatter.publishDate ? convertDate(frontmatter.date || frontmatter.publishDate) : ''}</div> */}
+        <div className="flex flex-wrap">
+          <div className="my-auto">
+            <div className="mb-3">Author</div>
+            <h1 className="text-5xl font-bold mb-3 -ml-0.5">{authorData.name}</h1>   
+            <div className="font-normal">{authorData.role}</div>
           </div>
+          {imageUrl.length > 0 && (
+            <div className={`${imageUrl.length ? '' : 'hidden'} ml-auto mr-2 h-24 w-24 border-2 border-blue-400 dark:border-blue-200 rounded-full object-cover overflow-hidden`}>
+              <Image src={imageUrl} width="96" height="96" alt={`Profile image for ${authorData.name}`}></Image>
+            </div>
 
-        )}
-        <div className="font-medium my-auto">
-          {authorData ? authorData.name : ''}
-          {authorData.role && (<div className="text-xs">{authorData.role}</div>)}
+          )}
         </div>
-      </Link>
+      </div>
       <div className="py-2 mb-1">
         {authorData ? authorData.description : ''}
       </div>
@@ -73,4 +78,4 @@ const AuthorCard = async ({slug}: {slug: string | null}) => {
   )
 }
 
-export default AuthorCard
+export default AuthorPage

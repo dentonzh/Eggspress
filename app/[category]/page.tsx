@@ -37,7 +37,7 @@ export async function generateMetadata({ params }: { params: {category: string}}
   }
 }
 
-const page = async ({ params }: { params: { category: string }}) => {
+const CategoryPage = async ({ params }: { params: { category: string }}) => {
   const { category } = params
   const postFrontmatter = await getFrontmatter('posts')
   const filteredPosts = postFrontmatter.filter(post => {if ( createSlug(post.category) === category) { return true } return false })
@@ -62,4 +62,4 @@ const page = async ({ params }: { params: { category: string }}) => {
   )
 }
 
-export default page
+export default CategoryPage
