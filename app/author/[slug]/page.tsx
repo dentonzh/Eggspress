@@ -59,6 +59,8 @@ const AuthorPage =  async ( {params}: {params: {slug: string}} ) => {
   const imageUrl = frontmatter && frontmatter.image ? await getProfileImage(frontmatter.image) : ''
   const appearanceSettings = await getEggspressSettings('appearance')
 
+  const sections = ['pronouns', 'location', 'education', 'degree', 'work', 'company', 'title', 'specialty', 'team']
+
   if (!frontmatter) {
     return
   }
@@ -87,7 +89,17 @@ const AuthorPage =  async ( {params}: {params: {slug: string}} ) => {
           )}
         </div>
         <Sidebar>
-          <div className="font-semibold mb-3 text-gray-600">{frontmatter.name}</div>   
+          {sections.map(section => {return (frontmatter[section] &&
+            <div>
+              <div key={`social-index`} className="text-sm text-gray-500 w-full mb-3">
+                <h4 className="font-semibold mb-0.5">{section.charAt(0).toUpperCase() + section.slice(1)}</h4>
+                <div className="text-gray-700 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-300">
+                  {frontmatter[section]}
+                </div>
+              </div>
+            </div>
+          )})}
+
           {[1, 2].map(index => {return (frontmatter['socialLink' + index] &&
             <div key={`social-index`} className="text-sm text-gray-500 w-full mb-3">
               <div>
@@ -99,6 +111,7 @@ const AuthorPage =  async ( {params}: {params: {slug: string}} ) => {
               </div>
             </div>
           )})}
+          
           {frontmatter.websiteLink && (
             <div>
               <div key={`social-index`} className="text-sm text-gray-500 w-full mb-3">
@@ -109,16 +122,6 @@ const AuthorPage =  async ( {params}: {params: {slug: string}} ) => {
               </div>
             </div>
           )}
-          {['location', 'education', 'work'].map(section => {return (frontmatter[section] &&
-            <div>
-              <div key={`social-index`} className="text-sm text-gray-500 w-full mb-3">
-                <h4 className="font-semibold mb-0.5">{section.charAt(0).toUpperCase() + section.slice(1)}</h4>
-                <div className="text-gray-700 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-300">
-                  {frontmatter[section]}
-                </div>
-              </div>
-            </div>
-          )})}
         </Sidebar>
         {contentLength > 0 && (
           <div className="py-12 border-t max-w-prose">

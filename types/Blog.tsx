@@ -1,7 +1,7 @@
 export interface PostItem {
+  slug: string | null;
   title: string | null;
   date: string | null;
-  slug: string | null;
   userId: number | null;
   body: string | null;
   snippet: string | null;
@@ -14,14 +14,20 @@ export interface PostItem {
 }
 
 export interface AuthorItem {
+  slug: string | null;
+  pronouns: string | null;
   name: string;
   description: string | null;
-  slug: string | null;
   image: string | null;
   role: string | null;
   location: string | null;
   education: string | null;
+  degree: string | null;
   work: string | null;
+  company: string | null;
+  title: string | null;
+  specialty: string | null;
+  team: string | null;
   socialPlatform1: string | null;
   socialLink1: string | null;
   socialHandle1: string | null;
