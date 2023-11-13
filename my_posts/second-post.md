@@ -1,5 +1,6 @@
 ---
 title: "Embracing the Serenity of the Forest Canopy"
+author: "beakster"
 seoTitle: "My Second Blog Post Built Using eggspress"
 subtitle: "Further introducing this blog"
 isPublished: true

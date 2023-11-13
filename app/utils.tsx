@@ -1,6 +1,6 @@
 import { glob } from 'glob'
 import { serialize } from 'next-mdx-remote/serialize'
-import { PostFile } from '@/types/Blog';
+import { ImageFile, PostFile } from '@/types/Blog';
 
 const fs = require('fs-extra')
 
@@ -69,7 +69,7 @@ export async function getMarkdownFilesRecursively(dir: string): Promise<PostFile
 }
 
 
-export async function getImageFilesRecursively(dir: string): Promise<PostFile[]> {
+export async function getImageFilesRecursively(dir: string): Promise<ImageFile[]> {
   const extensions = ['.jpg', '.jpeg', '.png', '.svg', '.webp', '.gif', '.avif', '.apng', '.bmp', '.tif', '.ico']
   const files = await getFilesRecursivelyWithExtensions(dir, extensions)
   return files

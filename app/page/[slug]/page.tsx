@@ -1,7 +1,7 @@
 import React from 'react'
 import { compileMDX } from 'next-mdx-remote/rsc'
-import getPageContent from '../../_components/getPageContent'
-import getPageSlugs from '../../_components/getPageSlugs'
+import getSlugs from '../../_components/getSlugs'
+import compileContent from '@/app/_components/compileContent'
 import Sidebar from '../../_components/Sidebar'
 import { createSlug, getEggspressSettings } from '../../utils'
 import Toc from '../../_components/Toc'
@@ -14,7 +14,7 @@ import transformImgAttrs from '@/plugins/transform-img-src'
 const env = process.env.NODE_ENV
 
 export async function generateStaticParams() {
-  const slugs = getPageSlugs()
+  const slugs = getSlugs('pages')
   return slugs
 }
 
@@ -46,7 +46,7 @@ const convertDate = (inputDate: string) => {
 
 const PagePage =  async ( {params}: {params: {slug: string}} ) => {
   const { slug } = params
-  const { content, frontmatter }: {content: any, frontmatter: any} = await getSource(slug)
+  const { content, frontmatter, images } = await compileContent('pages', slug)
   const appearanceSettings = await getEggspressSettings('appearance')
 
   return (
@@ -81,7 +81,7 @@ export default PagePage
 
 
 async function getSource(slug: string) {
-  const { markdownData, imageFiles } = await getPageContent(slug)
+  const { markdownData, imageFiles } = await compileContent('pages', slug)
   const source = await compileMDX({
     source: markdownData,
     options: {

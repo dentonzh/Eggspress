@@ -7,7 +7,6 @@ const sizeOf = require('image-size')
 
 const publicImgDir = 'images'
 
-
 export default function transformImgAttrs({
     slug,
     imageFiles 
@@ -19,6 +18,7 @@ export default function transformImgAttrs({
     visit(tree, 'paragraph', node => {
       const image = node.children.find((child: any) => child.type === 'image');
       if (image) {
+        console.log(image)
         const fileName = image.url.slice(image.url.lastIndexOf('/') + 1)
         imageFiles.forEach((file) => {
           if (file.name === decodeURI(fileName)) {
@@ -47,5 +47,11 @@ export default function transformImgAttrs({
 
       }
     })
+
+    if (tree.children && tree.children[0] && tree.children[0].children && tree.children[0].children[0].type === 'image') {
+      const ledeImage = tree.children[0].children[0]
+      console.log(ledeImage)
+      ledeImage.data.hProperties.className = ['mt-0']
+    }
   }
 }

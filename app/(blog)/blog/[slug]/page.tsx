@@ -1,29 +1,21 @@
 import React from 'react'
-import { compileMDX } from 'next-mdx-remote/rsc'
-import getPostContent from '../../../_components/getPostContent'
-import getPostSlugs from '../../../_components/getPostSlugs'
+import compileContent from '../../../_components/compileContent'
+import getSlugs from '../../../_components/getSlugs'
 import Sidebar from '../../../_components/Sidebar'
 import { createSlug, getEggspressSettings } from '@/app/utils'
 import Toc from '../../../_components/Toc'
-import rehypeSlug from 'rehype-slug'
-import remarkGfm from 'remark-gfm'
 import Link from 'next/link'
-import transformImgAttrs from '@/plugins/transform-img-src'
 import AuthorCard from '@/app/_components/AuthorCard'
 
-const fs = require('fs-extra')
-const sizeOf = require('image-size')
-
-const env = process.env.NODE_ENV
 
 export async function generateStaticParams() {
-  const slugs = getPostSlugs()
+  const slugs = getSlugs('posts')
   return slugs
 }
 
 export async function generateMetadata({ params }: { params: {slug: string} }) {
   const { slug } = params
-  const { content, frontmatter, images }: { content: any, frontmatter: Record<any, unknown>, images: {url: string, width: string, height: string}[] } = await getSource(slug)
+  const { frontmatter, images } = await compileContent('posts', slug)
   const blogSettings = await getEggspressSettings('metadata')
 
 
@@ -50,7 +42,7 @@ const convertDate = (inputDate: string) => {
 
 const PostPage =  async ( {params}: {params: {slug: string}} ) => {
   const { slug } = params
-  const { content, frontmatter }: {content: any, frontmatter: any} = await getSource(slug)
+  const { content, frontmatter } = await compileContent('posts', slug)
   const appearanceSettings = await getEggspressSettings('appearance')
 
   return (
@@ -77,7 +69,9 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
         </div>
         <div className="mb-20">
           <Sidebar isSticky={false}>
-            <AuthorCard slug={frontmatter.author}></AuthorCard>
+            <div>
+              <AuthorCard slug={frontmatter.author}></AuthorCard>
+            </div>
           </Sidebar>
           <Sidebar>
             <Toc />
@@ -89,37 +83,3 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
 }
 
 export default PostPage
-
-
-async function getSource(slug: string) {
-  const { markdownData, imageFiles } = await getPostContent(slug)
-  const source = await compileMDX({
-    source: markdownData,
-    options: {
-      parseFrontmatter: true,
-      mdxOptions: {
-        remarkPlugins: [remarkGfm, [transformImgAttrs, { slug, imageFiles }]],
-        rehypePlugins: [rehypeSlug]
-      }
-    }})
-
-  const images = imageFiles.map(image => {
-    const imageFile = `/images/${slug}/${image.name}`
-    if (fs.existsSync(`public/${imageFile}`)) {
-      const dimensions = sizeOf(`${image.path}/${image.name}`)
-      return {
-        url: imageFile,
-        width: dimensions.width,
-        height: dimensions.height
-      }
-    } else {
-      return {
-        url: '',
-        width: '',
-        height: ''
-      }
-    }
-  }).filter(image => image.url.length)
-
-  return {...source, images}
-}

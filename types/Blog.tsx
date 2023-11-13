@@ -36,3 +36,16 @@ export interface PostFile {
   extension: string;
   slug: string;
 }
+
+
+export interface ImageFile extends PostFile {
+  width?: string | number;
+  height?: string | number;
+}
+
+
+export type OGImage = {
+  url: string,
+  width: string | number,
+  height: string | number
+}
