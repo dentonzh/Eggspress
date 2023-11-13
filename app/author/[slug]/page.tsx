@@ -1,7 +1,15 @@
 import React from 'react'
 import getFrontmatter from '../../_components/getFrontmatter'
+import getAuthorSlugs from '../../_components/getAuthorSlugs'
 import { copyImageToPublic, getImageFilesRecursively, getEggspressSettings } from '../../utils'
 import Image from 'next/image'
+
+
+export async function generateStaticParams() {
+  const slugs = getAuthorSlugs()
+  return slugs
+}
+
 
 const getProfileImage =  async (imageFileName: string): Promise<string> => {
   const imageFiles = await getImageFilesRecursively('my_authors')
