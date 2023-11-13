@@ -1,4 +1,5 @@
 export interface PostItem {
+  [key: string]: any
   slug: string | null;
   title: string | null;
   date: string | null;
@@ -14,6 +15,7 @@ export interface PostItem {
 }
 
 export interface AuthorItem {
+  [key: string]: any;
   slug: string | null;
   pronouns: string | null;
   name: string;

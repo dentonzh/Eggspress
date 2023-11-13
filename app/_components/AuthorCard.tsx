@@ -46,17 +46,17 @@ const AuthorCard = async ({slug}: {slug: string | null}) => {
       <div className="py-2 mb-1">
         {authorData ? authorData.description : ''}
       </div>
-      {authorData.socialLink && (
+      {[1, 2].map(index => {return (authorData['socialLink' + index] &&
         <div className="text-sm text-gray-500 w-full mb-1">
           <span>
-            {authorData.socialPlatform && authorData.socialHandle ? `${authorData.socialPlatform}: ` : 'Social: '}
+            {authorData['socialPlatform' + index] && authorData['socialHandle' + index] ? `${authorData['socialPlatform' + index]}: ` : 'Social: '}
           </span>
-          <a href={authorData.socialLink} target="_blank" rel="nofollow noopener" className="text-gray-700 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-300 underline-animated">
-            {authorData.socialPlatform && authorData.socialHandle ? `@${authorData.socialHandle.replace('@', '')}` : authorData.socialPlatform}
-            {(!authorData.socialPlatform || !authorData.socialPlatform.length) ? authorData.socialLink.slice(authorData.socialLink.lastIndexOf('://')+3) : '' }
+          <a href={authorData['socialLink' + index]} target="_blank" rel="nofollow noopener" className="text-gray-700 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-300 underline-animated">
+            {authorData['socialPlatform' + index] && authorData['socialHandle' + index] ? `@${authorData['socialHandle' + index].replace('@', '')}` : authorData['socialPlatform' + index]}
+            {(!authorData['socialPlatform' + index] || !authorData['socialPlatform' + index].length) ? authorData['socialLink' + index].slice(authorData['socialLink' + index].lastIndexOf('://')+3) : '' }
           </a>
         </div>
-      )}
+      )})}
       {authorData.websiteLink && (
         <div className="text-sm w-full text-gray-500 mb-1">
           <span className="pr-1">
