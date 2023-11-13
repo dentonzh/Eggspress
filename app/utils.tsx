@@ -76,7 +76,7 @@ export async function getImageFilesRecursively(dir: string): Promise<PostFile[]>
 }
 
 
-export function copyImageToPublic(source: string, toPath: string) {
+export function copyImageToPublic(source: string, toPath: string): string {
   const fileName = source.slice(source.lastIndexOf('/') + 1).replaceAll('%20', '_')
   const destinationPath = `public/${toPath}`
   const destinationFile = `${destinationPath}/${fileName}`
@@ -87,6 +87,8 @@ export function copyImageToPublic(source: string, toPath: string) {
     }
     fs.copySync(source, destinationFile)
   }
+
+  return `/${toPath}/${fileName}`
 
 }
 
