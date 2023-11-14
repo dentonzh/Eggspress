@@ -44,6 +44,7 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
   const { slug } = params
   const { content, frontmatter } = await compileContent('posts', slug)
   const appearanceSettings = await getEggspressSettings('appearance')
+  const authors = frontmatter.author.split(',').map((author: string) => author.trim())
 
   return (
     <div className="flex flex-wrap">
@@ -63,14 +64,18 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
           </div>
           <div className="flex lg:hidden px-1 border-t mt-12">
             <div className="md:w-5/6">
-              <AuthorCard slug={frontmatter.author}></AuthorCard>
+              {authors.map((author: string) => 
+                <AuthorCard key={`author-body-${author}`} slug={author}></AuthorCard>
+              )}
             </div>
           </div>
         </div>
         <div className="mb-20">
           <Sidebar isSticky={false}>
             <div>
-              <AuthorCard slug={frontmatter.author}></AuthorCard>
+              {authors.map((author: string) => 
+                <AuthorCard key={`author-sidebar-${author}`} slug={author}></AuthorCard>
+              )}
             </div>
           </Sidebar>
           <Sidebar>
