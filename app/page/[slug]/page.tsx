@@ -1,26 +1,21 @@
 import React from 'react'
-import { compileMDX } from 'next-mdx-remote/rsc'
-import getPageContent from '../../_components/getPageContent'
-import getPageSlugs from '../../_components/getPageSlugs'
+import getSlugs from '../../_components/getSlugs'
+import compileContent from '@/app/_components/compileContent'
 import Sidebar from '../../_components/Sidebar'
 import { createSlug, getEggspressSettings } from '../../utils'
 import Toc from '../../_components/Toc'
-import rehypeSlug from 'rehype-slug'
-import rehypeImgSize from 'rehype-img-size'
-import remarkGfm from 'remark-gfm'
 import Link from 'next/link'
-import transformImgAttrs from '@/plugins/transform-img-src'
 
 const env = process.env.NODE_ENV
 
 export async function generateStaticParams() {
-  const slugs = getPageSlugs()
+  const slugs = getSlugs('pages')
   return slugs
 }
 
 export async function generateMetadata({ params }: { params: {slug: string} }) {
   const { slug } = params
-  const { content, frontmatter }: {content: any, frontmatter: any} = await getSource(slug)
+  const { frontmatter }: {content: any, frontmatter: any} = await compileContent('pages', slug)
   const blogSettings = await getEggspressSettings('metadata')
 
   return {
@@ -44,9 +39,9 @@ const convertDate = (inputDate: string) => {
   return formattedDate
 }
 
-const page =  async ( {params}: {params: {slug: string}} ) => {
+const PagePage =  async ( {params}: {params: {slug: string}} ) => {
   const { slug } = params
-  const { content, frontmatter }: {content: any, frontmatter: any} = await getSource(slug)
+  const { content, frontmatter } = await compileContent('pages', slug)
   const appearanceSettings = await getEggspressSettings('appearance')
 
   return (
@@ -72,26 +67,9 @@ const page =  async ( {params}: {params: {slug: string}} ) => {
             <Toc />
           </Sidebar>
         </div>
-    </div>
+      </div>
     </div>
   )
 }
 
-export default page
-
-
-async function getSource(slug: string) {
-  const { markdownData, imageFiles } = await getPageContent(slug)
-  const source = await compileMDX({
-    source: markdownData,
-    options: {
-      parseFrontmatter: true,
-      mdxOptions: {
-        remarkPlugins: [remarkGfm, [transformImgAttrs, { slug, imageFiles }]],
-        // Need to ignore next line as rehypeImgSize yields ts error when specified in tuple with options
-        // @ts-ignore:next-line 
-        rehypePlugins: [rehypeSlug, [rehypeImgSize, {dir: 'public'}]] //
-      }
-    }})
-  return source
-}
+export default PagePage

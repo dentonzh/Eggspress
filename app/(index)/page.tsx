@@ -1,4 +1,4 @@
-import getPostFrontmatter from '../_components/getPostFrontmatter'
+import getFrontmatter from '../_components/getFrontmatter'
 import { getEggspressSettings } from '../utils'
 import PostCard from '../_components/PostCard'
 import Sidebar from '../_components/Sidebar'
@@ -21,8 +21,9 @@ export async function generateMetadata() {
   }
 }
 
+
 export default async function Home() {
-  const postMetadata = await getPostFrontmatter()
+  const postFrontmatter = await getFrontmatter('posts')
   const blogSettings = await getEggspressSettings('metadata')
   const appearanceSettings = await getEggspressSettings('appearance')
 
@@ -34,8 +35,8 @@ export default async function Home() {
       </div>
       <div className="flex justify-between w-full">
         <div className='max-w-prose'>
-          {postMetadata.map(metadata => 
-            <PostCard key={metadata.slug} post={metadata}></PostCard>
+          {postFrontmatter.map(frontmatter => 
+            <PostCard key={frontmatter.slug} post={frontmatter}></PostCard>
           )}
         </div>
         <div>

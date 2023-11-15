@@ -1,3 +1,4 @@
+import { copyImageToPublic } from '@/app/utils'
 import { PostFile } from '@/types/Blog'
 import { visit } from 'unist-util-visit'
 
@@ -5,7 +6,6 @@ const fs = require('fs-extra')
 const sizeOf = require('image-size')
 
 const publicImgDir = 'images'
-
 
 export default function transformImgAttrs({
     slug,
@@ -37,21 +37,19 @@ export default function transformImgAttrs({
               }
             }
 
-            if (fs.existsSync(destinationDir)) {
-              image.url = imageUrl
-            } else {
-              if (!fs.existsSync(destinationPath)) {
-                fs.mkdirSync(destinationPath, {recursive: true})
-              }
-              
-              fs.copySync(sourceDir, destinationDir)
-              image.url = imageUrl
-            }
+            copyImageToPublic(sourceDir, imagePath)
+
+            image.url = imageUrl
 
           }
         })
 
       }
     })
+
+    if (tree.children && tree.children[0] && tree.children[0].children && tree.children[0].children[0].type === 'image') {
+      const ledeImage = tree.children[0].children[0]
+      ledeImage.data.hProperties.className = ['mt-0']
+    }
   }
 }

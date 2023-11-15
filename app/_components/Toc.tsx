@@ -77,8 +77,8 @@ const Toc = () => {
 
   
   return (
-    <div className="tracking-wide leading-relaxed text-sm">
-      <ul className="text-gray-800 dark:text-gray-200">
+    <div className="tracking-wide leading-relaxed text-sm font-light">
+      <ul className="text-gray-600 dark:text-gray-300">
         {elements.map(el =>
           <li key={el.id} id={`toc-${el.id}`}
             className={`
@@ -87,7 +87,7 @@ const Toc = () => {
             `}
             style={{paddingLeft: `${isHeadingLevelGreaterThan(el.tag, 2) ? (parseInt(el.tag) * 0.3) : 0}rem`}}
           >
-            <Link href={`#${el.id}`} onClick={(e) => {scrollToSection(e, el.id)}} className="flex px-3">
+            <Link href={`#${el.id}`} onClick={(e) => {scrollToSection(e, el.id)}} className="flex">
               <svg width="3" height="24" viewBox="0 -9 3 24" 
                 className={`${isHeadingLevelGreaterThan(el.tag, 2) ? '' : 'hidden'} mr-2 text-slate-400 overflow-visible group-hover:text-slate-600 dark:text-slate-500 dark:group-hover:text-slate-400`}
               >

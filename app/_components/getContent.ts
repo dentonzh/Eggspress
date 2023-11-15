@@ -1,19 +1,18 @@
 import fs from 'fs'
 import { getMarkdownFilesRecursively, getImageFilesRecursively } from '../utils'
-import { PostFile } from '@/types/Blog'
+import { ImageFile, PostFile } from '@/types/Blog'
 
 
-const getPageContent = async (slug:string): Promise<{markdownData: string, imageFiles: PostFile[]}> => {
-  const dir = './my_pages/'
-  const markdownFiles = await getMarkdownFilesRecursively(dir)
-  const imageFiles = await getImageFilesRecursively(dir)
+const getContent = async (type: string, slug:string,): Promise<{markdownData: string, imageFiles: ImageFile[]}> => {
+  const dir = `./my_${type}/`
+  const markdownFiles: PostFile[] = await getMarkdownFilesRecursively(dir)
+  const imageFiles: ImageFile[] = await getImageFilesRecursively(dir)
   const slugsToFilesMap: Record<string, PostFile> = markdownFiles.reduce((prev, cur) => (
       {...prev, [cur.slug]: cur}
     ), {})
-    
   const file = slugsToFilesMap[slug]
   const markdownData = fs.readFileSync(`${file.path}/${file.name}`, 'utf-8')
   return { markdownData, imageFiles }
 }
 
-export default getPageContent
+export default getContent

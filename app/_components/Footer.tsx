@@ -4,18 +4,17 @@ import Eggsmark from '../../public/assets/eggsmark.png'
 import Image from 'next/image'
 import Link from 'next/link'
 import { createSlug, getEggspressSettings } from '../utils'
-import getPostFrontmatter from './getPostFrontmatter'
-import getPageFrontmatter from './getPageFrontmatter'
+import getFrontmatter from './getFrontmatter'
 import AuthorLinks from '../_components/AuthorLinks'
 
 const Footer = async () => {
-  const postFrontmatter = await getPostFrontmatter()
+  const postFrontmatter = await getFrontmatter('posts')
   const categoryNames = new Set(postFrontmatter.filter(
     (post) => { if (!post.category) {return false} return true }
   ).map((post) => post.category))
   const arrayOfCategoryNames = Array.from(categoryNames)
   const categoryData = arrayOfCategoryNames.map((name) => {return {name: name, slug: createSlug(name)}})
-  const pageFrontmatter = await getPageFrontmatter()
+  const pageFrontmatter = await getFrontmatter('pages')
   const pages = pageFrontmatter.map((page) => {return {name: page.title, tagline: page.tagline, priority: page.weight, slug: page.slug}})
   const pageData = pages.sort((a, b) => {
     return (a.priority || 0) < (b.priority || 0) ? -1 : 1

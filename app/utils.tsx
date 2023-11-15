@@ -1,8 +1,8 @@
-import fs from 'fs'
 import { glob } from 'glob'
 import { serialize } from 'next-mdx-remote/serialize'
-import { PostFile } from '@/types/Blog';
+import { ImageFile, PostFile } from '@/types/Blog';
 
+const fs = require('fs-extra')
 
 export async function getEggspressSettings(kind: string|null): Promise<any> {
   if (!kind) {
@@ -69,10 +69,27 @@ export async function getMarkdownFilesRecursively(dir: string): Promise<PostFile
 }
 
 
-export async function getImageFilesRecursively(dir: string): Promise<PostFile[]> {
+export async function getImageFilesRecursively(dir: string): Promise<ImageFile[]> {
   const extensions = ['.jpg', '.jpeg', '.png', '.svg', '.webp', '.gif', '.avif', '.apng', '.bmp', '.tif', '.ico']
   const files = await getFilesRecursivelyWithExtensions(dir, extensions)
   return files
+}
+
+
+export function copyImageToPublic(source: string, toPath: string): string {
+  const fileName = source.slice(source.lastIndexOf('/') + 1).replaceAll('%20', '_').replaceAll(' ', '_')
+  const destinationPath = `public/${toPath}`
+  const destinationFile = `${destinationPath}/${fileName}`
+  
+  if (!fs.existsSync(destinationFile)) {
+    if (!fs.existsSync(destinationPath)) {
+      fs.mkdirSync(destinationPath, {recursive: true})
+    }
+    fs.copySync(source, destinationFile)
+  }
+
+  return `/${toPath}/${fileName}`
+
 }
 
 // Function below requires Node 20, which AWS Lambda does not support-- see above function for glob implementation

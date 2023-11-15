@@ -1,23 +1,25 @@
 import fs from 'fs'
 import { serialize } from 'next-mdx-remote/serialize'
-import { PostItem } from '@/types/Blog'
+import { PostItem, AuthorItem } from '@/types/Blog'
 import { getFilesRecursivelyWithExtensions } from '../utils'
 
+
+type ItemType<T extends string> = T extends 'posts' ? PostItem : T extends 'authors' ? AuthorItem : PostItem;
 
 const extractFrontmatter = async (markdownData: {content: string, slug: string}[]) => {
   const frontmatterData = await Promise.all(
     markdownData.map( async ( data ) => {
       let serializedData: any = await serialize(data.content, {parseFrontmatter: true})
       serializedData.frontmatter.slug = data.slug
-      return serializedData.frontmatter as PostItem
+      return serializedData.frontmatter
     })
   )
   
   return frontmatterData
 }
 
-const getPostFrontmatter = async (): Promise<PostItem[]> => {
-  const dir = './my_posts/'
+const getFrontmatter = async <T extends string>(type: T): Promise<ItemType<T>[]> => {
+  const dir = `./my_${type}/`
   const allowedExtensions = ['.md', '.mdx']
   const files = await getFilesRecursivelyWithExtensions(dir, allowedExtensions)
   
@@ -38,4 +40,4 @@ const getPostFrontmatter = async (): Promise<PostItem[]> => {
   return sortedData
 }
 
-export default getPostFrontmatter
+export default getFrontmatter

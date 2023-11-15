@@ -2,6 +2,7 @@
 
 # eggspress images
 /public/images
+/public/profile_images
 
 # dependencies
 /node_modules

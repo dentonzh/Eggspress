@@ -1,28 +1,21 @@
 import React from 'react'
-import { compileMDX } from 'next-mdx-remote/rsc'
-import getPostContent from '../../../_components/getPostContent'
-import getPostSlugs from '../../../_components/getPostSlugs'
+import compileContent from '../../../_components/compileContent'
+import getSlugs from '../../../_components/getSlugs'
 import Sidebar from '../../../_components/Sidebar'
 import { createSlug, getEggspressSettings } from '@/app/utils'
 import Toc from '../../../_components/Toc'
-import rehypeSlug from 'rehype-slug'
-import remarkGfm from 'remark-gfm'
 import Link from 'next/link'
-import transformImgAttrs from '@/plugins/transform-img-src'
+import AuthorCard from '@/app/_components/AuthorCard'
 
-const fs = require('fs-extra')
-const sizeOf = require('image-size')
-
-const env = process.env.NODE_ENV
 
 export async function generateStaticParams() {
-  const slugs = getPostSlugs()
+  const slugs = getSlugs('posts')
   return slugs
 }
 
 export async function generateMetadata({ params }: { params: {slug: string} }) {
   const { slug } = params
-  const { content, frontmatter, images }: { content: any, frontmatter: Record<any, unknown>, images: {url: string, width: string, height: string}[] } = await getSource(slug)
+  const { frontmatter, images } = await compileContent('posts', slug)
   const blogSettings = await getEggspressSettings('metadata')
 
 
@@ -49,8 +42,9 @@ const convertDate = (inputDate: string) => {
 
 const PostPage =  async ( {params}: {params: {slug: string}} ) => {
   const { slug } = params
-  const { content, frontmatter }: {content: any, frontmatter: any} = await getSource(slug)
+  const { content, frontmatter } = await compileContent('posts', slug)
   const appearanceSettings = await getEggspressSettings('appearance')
+  const authors = frontmatter.author.split(',').map((author: string) => author.trim())
 
   return (
     <div className="flex flex-wrap">
@@ -62,14 +56,28 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
       <div className="flex justify-between w-full">
         <div className="overflow-x-hidden">
           <div className="mb-12 lg:hidden">
-            <div className="text-blue-700 dark:text-blue-200 font-bold">Jump to...</div>
+            <div className="text-gray-500 dark:text-gray-300 font-bold">Jump to...</div>
             <Toc />
           </div>
           <div className="prose dark:prose-invert">
             {content}
           </div>
+          <div className="flex lg:hidden px-1 border-t mt-12 pt-12">
+            <div className="md:w-5/6">
+              {authors.map((author: string) => 
+                <AuthorCard key={`author-body-${author}`} slug={author}></AuthorCard>
+              )}
+            </div>
+          </div>
         </div>
-        <div>
+        <div className="mb-20">
+          <Sidebar isSticky={false}>
+            <div>
+              {authors.map((author: string) => 
+                <AuthorCard key={`author-sidebar-${author}`} slug={author}></AuthorCard>
+              )}
+            </div>
+          </Sidebar>
           <Sidebar>
             <Toc />
           </Sidebar>
@@ -80,37 +88,3 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
 }
 
 export default PostPage
-
-
-async function getSource(slug: string) {
-  const { markdownData, imageFiles } = await getPostContent(slug)
-  const source = await compileMDX({
-    source: markdownData,
-    options: {
-      parseFrontmatter: true,
-      mdxOptions: {
-        remarkPlugins: [remarkGfm, [transformImgAttrs, { slug, imageFiles }]],
-        rehypePlugins: [rehypeSlug]
-      }
-    }})
-
-  const images = imageFiles.map(image => {
-    const imageFile = `/images/${slug}/${image.name}`
-    if (fs.existsSync(`public/${imageFile}`)) {
-      const dimensions = sizeOf(`${image.path}/${image.name}`)
-      return {
-        url: imageFile,
-        width: dimensions.width,
-        height: dimensions.height
-      }
-    } else {
-      return {
-        url: '',
-        width: '',
-        height: ''
-      }
-    }
-  }).filter(image => image.url.length)
-
-  return {...source, images}
-}

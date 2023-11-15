@@ -1,11 +1,11 @@
 import React from 'react'
-import getPostFrontmatter from '../_components/getPostFrontmatter'
+import getFrontmatter from '../_components/getFrontmatter'
 import { createSlug, getEggspressSettings } from '../utils'
 import PostCard from '../_components/PostCard'
 
 export async function generateStaticParams() {
-  const postMetadata = await getPostFrontmatter()
-  const categorySlugsAsSet = new Set(postMetadata.filter(post => 
+  const postFrontmatter = await getFrontmatter('posts')
+  const categorySlugsAsSet = new Set(postFrontmatter.filter(post => 
       {if (!post.category) {return false} return true}
     ).map((post) => ({
       category: createSlug(post.category)
@@ -16,8 +16,8 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: {category: string}}) {
   const { category } = params
-  const postMetadata = await getPostFrontmatter()
-  const filteredPosts = postMetadata.filter(post => {if ( createSlug(post.category) === category) { return true } return false })
+  const postFrontmatter = await getFrontmatter('posts')
+  const filteredPosts = postFrontmatter.filter(post => {if ( createSlug(post.category) === category) { return true } return false })
   const blogSettings = await getEggspressSettings('metadata')
   const appearanceSettings = await getEggspressSettings('appearance')
   const categoryName = filteredPosts && filteredPosts.length ? filteredPosts[0].category : decodeURI(category)
@@ -37,10 +37,10 @@ export async function generateMetadata({ params }: { params: {category: string}}
   }
 }
 
-const page = async ({ params }: { params: { category: string }}) => {
+const CategoryPage = async ({ params }: { params: { category: string }}) => {
   const { category } = params
-  const postMetadata = await getPostFrontmatter()
-  const filteredPosts = postMetadata.filter(post => {if ( createSlug(post.category) === category) { return true } return false })
+  const postFrontmatter = await getFrontmatter('posts')
+  const filteredPosts = postFrontmatter.filter(post => {if ( createSlug(post.category) === category) { return true } return false })
   const numbersAsWords: Record<number, string> = {0: 'No', 1: 'One', 2: 'Two', 3: 'Three', 4: 'Four', 5: 'Five', 6: 'Six', 7: 'Seven', 8: 'Eight', 9: 'Nine'}
   const appearanceSettings = await getEggspressSettings('appearance')
 
@@ -62,4 +62,4 @@ const page = async ({ params }: { params: { category: string }}) => {
   )
 }
 
-export default page
+export default CategoryPage
