@@ -69,13 +69,15 @@ const AuthorPage =  async ( {params}: {params: {slug: string}} ) => {
     <div className="flex flex-wrap">
       <div className={`hero bleed-${appearanceSettings.colorLightPrimary} dark:bleed-${appearanceSettings.colorDarkPrimary}`}>
         <div className="flex flex-wrap">
-          <div className="my-auto">
-            <div className="mb-3">Author Profile</div>
-            <h1 className="text-5xl font-bold mb-4 -ml-0.5">{frontmatter.name}</h1>   
-            <div className="font-normal">{frontmatter.role}</div>
+          <div className="my-auto w-[65ch]">
+            <div className="w-full">
+              <div className="mb-3">Author Profile</div>
+              <h1 className="text-5xl font-bold mb-4 -ml-0.5">{frontmatter.name}</h1>   
+              <div className="font-normal">{frontmatter.role}</div>
+            </div>
           </div>
           {imageUrl.length > 0 && (
-            <div className={`${imageUrl.length ? '' : 'hidden'} ml-auto mr-2 h-24 w-24 border-2 border-blue-400 dark:border-blue-200 rounded-full object-cover overflow-hidden`}>
+            <div className={`${imageUrl.length ? '' : 'hidden'} my-auto ml-10 h-24 w-24 border-2 border-blue-400 dark:border-blue-200 rounded-full object-cover overflow-hidden`}>
               <Image src={imageUrl} width="96" height="96" alt={`Profile image for ${frontmatter.name}`}></Image>
             </div>
           )}

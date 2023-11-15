@@ -56,13 +56,13 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
       <div className="flex justify-between w-full">
         <div className="overflow-x-hidden">
           <div className="mb-12 lg:hidden">
-            <div className="text-blue-700 dark:text-blue-200 font-bold">Jump to...</div>
+            <div className="text-gray-500 dark:text-gray-300 font-bold">Jump to...</div>
             <Toc />
           </div>
           <div className="prose dark:prose-invert">
             {content}
           </div>
-          <div className="flex lg:hidden px-1 border-t mt-12">
+          <div className="flex lg:hidden px-1 border-t mt-12 pt-12">
             <div className="md:w-5/6">
               {authors.map((author: string) => 
                 <AuthorCard key={`author-body-${author}`} slug={author}></AuthorCard>
