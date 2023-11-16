@@ -9,16 +9,14 @@ const getProfileImage =  async (imageFileName: string): Promise<string> => {
   const profileImageFiles = imageFiles.filter(file => file.name === imageFileName)
 
   if (profileImageFiles.length) {
-    const imageFile = imageFiles[0]
+    const imageFile = profileImageFiles[0]
     const source = `${imageFile.path}/${imageFile.name}`
     const imageUrl = copyImageToPublic(source, 'profile_images')
     return imageUrl
   } else {
     return ''
   }
-
 }
-
 
 const AuthorCard = async ({slug}: {slug: string | null}) => {
   const authorFrontmatter = await getFrontmatter('authors')
@@ -36,7 +34,6 @@ const AuthorCard = async ({slug}: {slug: string | null}) => {
           <div className={`${imageUrl.length ? '' : 'hidden'} -ml-1 mr-2 h-14 w-14 border-2 border-blue-400 dark:border-blue-200 rounded-full object-cover overflow-hidden`}>
             <Image src={imageUrl} width="56" height="56" alt={`Profile image for ${authorData.name}`}></Image>
           </div>
-
         )}
         <div className="font-medium my-auto">
           {authorData ? authorData.name : ''}

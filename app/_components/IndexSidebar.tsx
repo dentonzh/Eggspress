@@ -2,6 +2,8 @@ import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import Sidebar from './Sidebar'
+import getFrontmatter from './getFrontmatter'
+import Thumbtack from '../../public/assets/thumbtack.svg'
 import { getEggspressSettings, getImageFilesRecursively, copyImageToPublic } from '@/app/utils'
 
 const IndexSidebar = async () => {
@@ -10,7 +12,25 @@ const IndexSidebar = async () => {
   return (
     <Sidebar>
       <div className='text-sm leading-relaxed'>
-        {[...Array(9).keys()].map(async (index: number) => {
+        {[...Array(4).keys()].map(async (index: number) => {
+          const postFrontmatter = await getFrontmatter('posts')
+          const postData = postFrontmatter.filter(fm => fm.slug === sidebarSettings['pinnedPost' + index])
+
+          if (postData.length) {
+            const frontmatter = postData[0]
+            return (
+              <div className="flex flex-wrap mb-3" key={`pinned-post-${index}`}>
+                <Image src={Thumbtack} alt="thumbtack icon" className="h-5 w-5 dark:border-gray-600 stroke-gray-200 fill-gray-200 p-0.5"></Image>
+                <div className="font-semibold text-gray-400 dark:text-gray-500 my-auto pl-2">Pinned post</div>
+                <div className="w-full font-medium text-gray-600 dark:text-gray-400">
+                  <Link className="hover:text-blue-700 dark:hover:text-blue-300" href={`/blog/${frontmatter.slug}`}>{frontmatter.title}</Link>
+                </div>
+              </div>
+            )
+          }
+        })}
+
+        {[...Array(10).keys()].map(async (index: number) => {
           const heading = sidebarSettings['heading' + index]
           const image = sidebarSettings['image' + index]
           const text = sidebarSettings['text' + index]
@@ -40,9 +60,7 @@ const IndexSidebar = async () => {
               </div>
             )
           }
-        }
-          
-        )}
+        })}
       </div>
     </Sidebar>
   )
