@@ -6,7 +6,7 @@ export interface PostItem {
   date: string | null;
   publishDate: string | null;
   expiryDate: string|null;
-  author: number | null;
+  author: string | null;
   snippet: string | null;
   body: string | null;
   layout: string | null;
