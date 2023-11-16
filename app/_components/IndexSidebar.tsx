@@ -1,41 +1,35 @@
 import React from 'react'
+import Link from 'next/link'
 import Sidebar from './Sidebar'
+import { getEggspressSettings } from '@/app/utils'
 
 const IndexSidebar = async () => {
-  
-  const aboutMe = {
-    biography: "I'm John Doe, a rugged wilderness guide. I navigate the untamed outdoors, and my survival skills make me a true nature's navigator.",
-    company: "Wild Trails Expeditions",
-    hobbies: "Hiking, camping",
-    social_media_handle: "@WildDoeExplorer"
-  }
+  const sidebarSettings = await getEggspressSettings('sidebar')
+
   return (
     <Sidebar>
-      <div className='grow text-gray-800 dark:text-gray-100 text-sm leading-relaxed'>
-        <div className="mb-3">
-          <div className="font-medium text-gray-600 dark:text-gray-300">Hello there!</div>
-          <div className="font-light text-gray-500 dark:text-gray-400">
-            {aboutMe.biography}
-          </div>
-        </div>
-        <div className="mb-3">
-          <div className="font-medium text-gray-600 dark:text-gray-300">Where I work</div>
-          <div className="font-light text-gray-500 dark:text-gray-400">
-            {aboutMe.company}
-          </div>
-        </div>
-        <div className="mb-3">
-          <div className="font-medium text-gray-600 dark:text-gray-300">My hobbies</div>
-          <div className="font-light text-gray-500 dark:text-gray-400">
-            {aboutMe.hobbies}
-          </div>
-        </div>
-        <div className="mb-3">
-          <div className="font-medium text-gray-600 dark:text-gray-300">Social Media</div>
-          <div className="font-light text-gray-500 dark:text-gray-400">
-            {aboutMe.social_media_handle}
-          </div>
-        </div>
+      <div className='text-sm leading-relaxed'>
+      {[...Array(9).keys()].map((index: number) => {
+        const heading = sidebarSettings['heading' + index]
+        const image = sidebarSettings['image' + index]
+        const text = sidebarSettings['text' + index]
+        const link = sidebarSettings['link' + index]
+        const linkText = sidebarSettings['linkText' + index]
+
+        if ( heading || image || text || link || linkText ) {
+          return (
+            <div key={`sidebar-item-${index}`} className="font-light text-gray-500 dark:text-gray-400 mb-3">
+              {heading && <div className="font-semibold text-gray-500 dark:text-gray-300">{heading}</div>}
+              {image && <div className="">{image}</div>}
+              {text && <div className="">{text}</div>}
+              {linkText && link && <Link target="_blank" href={link}>{linkText}</Link>}
+              {!linkText && link && <Link target="_blank" href={link}>{link.replace('https://', '')}</Link>}
+            </div>
+          )
+        }
+      }
+        
+      )}
       </div>
     </Sidebar>
   )
