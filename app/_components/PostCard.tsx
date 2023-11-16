@@ -37,9 +37,11 @@ const PostCard = async ({ post }: PostProps) => {
         <div className="px-1 text-sm text-gray-300 dark:text-gray-700">|</div>
         <div className="text-sm text-gray-700">{convertDate(post.publishDate)}</div>
       </div> */}
-      {post.image && 
-        <Image className="w-full h-48 md:h-64 object-cover mb-3" width={0} height={0} sizes="100vw" alt={`Image for ${post.title}`} src={`/images/${post.slug}/${post.image}`}></Image>
-      }
+        {post.image && 
+          <Link href={`/blog/${post.slug}`} className="w-full">
+            <Image className="w-full h-48 md:h-64 object-cover mb-3" width={0} height={0} sizes="100vw" alt={`Image for ${post.title}`} src={`/images/${post.slug}/${post.image}`}></Image>
+          </Link>
+        }
       
       <Link className="text-2xl font-semibold mb-3" href={`/blog/${post.slug}`}>{post.title}</Link>
       <div className='w-full mb-3 prose dark:prose-invert'>{post.snippet}</div>
