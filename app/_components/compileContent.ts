@@ -4,13 +4,14 @@ import rehypeSlug from 'rehype-slug'
 import remarkGfm from 'remark-gfm'
 import transformImgAttrs from '@/plugins/transform-img-src'
 import { ImageFile, OGImage } from '@/types/Blog'
+import { copyImageToPublic, getImageFilesRecursively } from '../utils'
 
 const fs = require('fs-extra')
 const sizeOf = require('image-size')
 
 
 const compileContent = async (type: string, slug:string,): Promise<{content: React.ReactNode, frontmatter: Record<any, any>, contentLength: number, images: OGImage[]}> => {
-  const { markdownData, imageFiles } = await getContent(type, slug)
+  const { markdownData, imageFiles, filePath } = await getContent(type, slug)
   const source = await compileMDX({
     source: markdownData,
     options: {
