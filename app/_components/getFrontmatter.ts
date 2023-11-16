@@ -6,11 +6,12 @@ import { getFilesRecursivelyWithExtensions } from '../utils'
 
 type ItemType<T extends string> = T extends 'posts' ? PostItem : T extends 'authors' ? AuthorItem : PostItem;
 
-const extractFrontmatter = async (markdownData: {content: string, slug: string}[]) => {
+const extractFrontmatter = async (markdownData: {content: string, slug: string, path: string}[]) => {
   const frontmatterData = await Promise.all(
     markdownData.map( async ( data ) => {
       let serializedData: any = await serialize(data.content, {parseFrontmatter: true})
       serializedData.frontmatter.slug = data.slug
+      serializedData.frontmatter.path = data.path
       return serializedData.frontmatter
     })
   )
@@ -27,7 +28,8 @@ const getFrontmatter = async <T extends string>(type: T): Promise<ItemType<T>[]>
     const content = fs.readFileSync(`${file.path}/${file.name}`, 'utf-8')
     return {
       content: content, 
-      slug: file.slug
+      slug: file.slug,
+      path: file.path
     }
   })
 

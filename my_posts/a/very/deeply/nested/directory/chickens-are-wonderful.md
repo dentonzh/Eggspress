@@ -3,6 +3,7 @@ title: The Marvelous World of Chickens
 seoTitle: Chickens are wonderful!
 author: "beakster, eggie"
 subtitle: A deeply nested chicken post
+image: _9780a6c3-5051-4b80-acc8-16ad567d1dc2.jpeg
 isPublished: true
 publishDate: 2023-10-28T09:15:00-0400
 layout: Article
