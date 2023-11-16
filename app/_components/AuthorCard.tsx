@@ -9,8 +9,8 @@ const getProfileImage =  async (imageFileName: string): Promise<string> => {
   const profileImageFiles = imageFiles.filter(file => file.name === imageFileName)
 
   if (profileImageFiles.length) {
-    const profileImageFile = profileImageFiles[0]
-    const source = `${profileImageFile.path}/${profileImageFile.name}`
+    const imageFile = imageFiles[0]
+    const source = `${imageFile.path}/${imageFile.name}`
     const imageUrl = copyImageToPublic(source, 'profile_images')
     return imageUrl
   } else {
