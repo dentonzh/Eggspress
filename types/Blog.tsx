@@ -2,11 +2,13 @@ export interface PostItem {
   [key: string]: any
   slug: string | null;
   title: string | null;
+  image: string | null;
   date: string | null;
-  userId: number | null;
-  body: string | null;
-  snippet: string | null;
   publishDate: string | null;
+  expiryDate: string|null;
+  author: number | null;
+  snippet: string | null;
+  body: string | null;
   layout: string | null;
   category: string | null;
   tags: string | null;
