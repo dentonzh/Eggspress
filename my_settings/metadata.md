@@ -1,6 +1,6 @@
 ---
 title: "Eggspress"
-tagline: "Turn your markdown files into a lightning fast blog 🌎"
+tagline: "The lightweight blog made for everyone 🌎"
 metaTitle: "Eggspress - The lightning fast blog anyone can deploy"
 metaDescription: "Share your captivating stories with the world. Eggspress turns your markdown files into an immersive reading experience. Discover the joy of seamless deployment and watch your words take flight!"
 metaBaseUrl: ""

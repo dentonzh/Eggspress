@@ -5,6 +5,7 @@ import Sidebar from '../../_components/Sidebar'
 import { createSlug, getEggspressSettings } from '../../utils'
 import Toc from '../../_components/Toc'
 import Link from 'next/link'
+import PageSidebar from '@/app/_components/PageSidebar'
 
 const env = process.env.NODE_ENV
 
@@ -63,6 +64,7 @@ const PagePage =  async ( {params}: {params: {slug: string}} ) => {
           </div>
         </div>
         <div>
+          <PageSidebar slug={frontmatter.sidebar}></PageSidebar>
           <Sidebar>
             <Toc />
           </Sidebar>

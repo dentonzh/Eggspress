@@ -40,7 +40,7 @@ const Footer = async () => {
         </div>
         <div className="w-1/2 md:w-1/3">
           <Link href='/'>
-            <Image src={Logo} alt='logo' className='grayscale opacity-50 dark:brightness-[3] ml-auto' />
+            <Image src={Logo} alt='logo' className='grayscale opacity-50 dark:brightness-[3] ml-auto max-h-18 w-auto' />
           </Link>
         </div>
       </div>
