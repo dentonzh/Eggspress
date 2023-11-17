@@ -116,8 +116,8 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
             {(frontmatter.relatedPost1 || frontmatter.relatedPost2 || frontmatter.relatedPost3 || frontmatter.relatedPost4) && 
               <div className="mb-16">
                 <div className="flex flex-wrap mb-3">
-                  <Image src={Relation} alt="relation icon" className="h-5 w-5 dark:border-gray-600 stroke-gray-200 fill-gray-200"></Image>
-                  <div className="font-medium text-sm text-gray-600 dark:text-gray-300 my-auto pl-2">Related Posts</div>
+                  <Image src={Relation} alt="relation icon" className="h-5 w-5 -ml-1 dark:border-gray-600 stroke-gray-200 fill-gray-200 brightness-50 dark:brightness-100"></Image>
+                  <div className="font-medium text-sm text-gray-600 dark:text-gray-300 my-auto pl-1">Related Posts</div>
                 </div>
                 {[1, 2, 3, 4].map(async (index: number) => {
                   const postFrontmatter = await getFrontmatter('posts')
@@ -128,7 +128,7 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
                     return (
                       <div className="mb-0.5 text-sm" key={`related-post-${index}`}>
                         <div className="font-normal text-gray-600 dark:text-gray-300">
-                          <Link className="flex underline-animated hover:text-blue-700 dark:hover:text-blue-300" href={`/blog/${frontmatter.slug}`}>
+                          <Link className="flex hover:text-blue-700 dark:hover:text-blue-300" href={`/blog/${frontmatter.slug}`}>
                             <svg width="3" height="24" viewBox="0 -9 3 24" 
                               className={"mr-2 text-slate-400 overflow-visible group-hover:text-slate-600 dark:text-slate-500 dark:group-hover:text-slate-400"}
                             >
