@@ -1,4 +1,6 @@
 ---
+sidebar: "index"
+
 colorDarkPrimary: "slate-900"
 colorDarkSecondary: "slate-800"
 colorDarkFooter: "gray-950"

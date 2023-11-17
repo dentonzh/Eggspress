@@ -1,7 +1,7 @@
 import getFrontmatter from '../_components/getFrontmatter'
 import { getEggspressSettings } from '../utils'
 import PostCard from '../_components/PostCard'
-import IndexSidebar from '../_components/IndexSidebar'
+import PageSidebar from '../_components/PageSidebar'
 
 
 export async function generateMetadata() {
@@ -24,7 +24,7 @@ export default async function Home() {
     <main className="flex flex-wrap">
       <div className={`hero bleed-${appearanceSettings.colorLightPrimary} dark:bleed-${appearanceSettings.colorDarkPrimary}`}>
         <h1 className="text-5xl font-bold mb-4 -ml-0.5">{blogSettings.title || 'Eggspress'}</h1>      
-        <div className="font-normal">{blogSettings.tagline || 'Turn your markdown files into a lightning fast blog 🌎'}</div>
+        <div className="font-normal">{blogSettings.tagline || 'The lightweight blog made for everyone 🌎'}</div>
       </div>
       <div className="flex justify-between w-full">
         <div className='max-w-prose'>
@@ -33,7 +33,7 @@ export default async function Home() {
           )}
         </div>
         <div>
-          <IndexSidebar></IndexSidebar>
+          <PageSidebar slug="index"></PageSidebar>
         </div>
       </div>
     </main>

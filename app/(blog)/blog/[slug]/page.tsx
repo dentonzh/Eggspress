@@ -6,6 +6,7 @@ import { createSlug, getEggspressSettings } from '@/app/utils'
 import Toc from '../../../_components/Toc'
 import Link from 'next/link'
 import AuthorCard from '@/app/_components/AuthorCard'
+import PageSidebar from '@/app/_components/PageSidebar'
 
 
 export async function generateStaticParams() {
@@ -78,6 +79,7 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
               )}
             </div>
           </Sidebar>
+          <PageSidebar isSticky={false} slug={frontmatter.sidebar}></PageSidebar>
           <Sidebar>
             <Toc />
           </Sidebar>
