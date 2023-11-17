@@ -78,6 +78,7 @@ export async function getImageFilesRecursively(dir: string): Promise<ImageFile[]
 
 export function copyImageToPublic(source: string, toPath: string): string {
   const fileName = source.slice(source.lastIndexOf('/') + 1).replaceAll('%20', '_').replaceAll(' ', '_')
+  console.log(source, fileName)
   const destinationPath = `public/${toPath}`
   const destinationFile = `${destinationPath}/${fileName}`
   

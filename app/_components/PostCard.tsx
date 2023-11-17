@@ -22,9 +22,12 @@ const convertDate = (inputDate: string|null) => {
 const PostCard = async ({ post }: PostProps) => {
   if (post.image) {
     const imageFiles = await getImageFilesRecursively(post.path)
-    const imageFile = imageFiles.filter(image => image.name === post.image)
-    if (imageFile) {
-      copyImageToPublic(`${imageFile[0].path}/${imageFile[0].name}`, `images/${post.slug}`)
+
+    if (imageFiles) {
+      const imageFile = imageFiles.filter(file => file.name === post.image)[0]
+      const source = `${imageFile.path}/${imageFile.name}`
+
+      copyImageToPublic(source, `images/${post.slug}`)
     }
   }
 

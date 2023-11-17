@@ -13,13 +13,13 @@ const Toc = () => {
 
   const [active, setActive] = useState<string>('')
   const [elements, setElements] = useState<Element[]>([])
-  const [hasNoHeaders, setHasNoHeaders] = useState<boolean>(false)  // Prevents infinite loop
+  const [hasNoHeadings, setHasNoHeadings] = useState<boolean>(false)  // Prevents infinite loop
   
   const getHeaderData = () => {
     const headings = document.querySelectorAll('h2, h3')  // For more extensive table of contents, add h4, h5, etc.
     let elements: Element[] = []
     if (!headings.length) {
-      setHasNoHeaders(true)
+      setHasNoHeadings(true)
       return []
     }
     headings.forEach(el => {
@@ -44,23 +44,23 @@ const Toc = () => {
   }
 
   useEffect(() => {
-    if (!elements.length && !hasNoHeaders) {
+    if (!elements.length && !hasNoHeadings) {
       setElements(getHeaderData)
     }
 
     const setLinkStyle = (position: number) => {
-      let headers = getHeaderData()
-      for ( let i = 0; i < headers.length - 1; i ++ ) {
+      let headings = getHeaderData()
+      for ( let i = 0; i < headings.length - 1; i ++ ) {
         if ( position < 121 ) {
           setActive('')
           return
         }
-        if ( position > headers[headers.length-1].top ) {
-          setActive(headers[headers.length-1].id)
+        if ( position > headings[headings.length-1].top ) {
+          setActive(headings[headings.length-1].id)
           break
         }
-        if ( (headers[i].top - 121 < position && headers[i+1].top - 121 >= position) ) {
-          setActive(headers[i].id)
+        if ( (headings[i].top - 121 < position && headings[i+1].top - 121 >= position) ) {
+          setActive(headings[i].id)
           break
         }
       }
@@ -73,7 +73,7 @@ const Toc = () => {
 
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
-  }, [elements, hasNoHeaders])
+  }, [elements, hasNoHeadings])
 
   
   return (
