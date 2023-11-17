@@ -74,7 +74,7 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
               )}
             </div>
           </div>
-          <div className="flex px-1 border-t mt-12 pt-12 max-w-prose">
+          <div className="flex border-t mt-12 pt-12 max-w-prose">
 
             {(frontmatter.relatedPost1 || frontmatter.relatedPost2 || frontmatter.relatedPost3 || frontmatter.relatedPost4)
               ?
