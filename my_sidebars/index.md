@@ -1,6 +1,6 @@
 ---
-pinnedPost1: ""
-pinnedPost2: ""
+pinnedPost1: "first-post"
+pinnedPost2: "second-post"
 pinnedPost3: ""
 
 heading1: "Welcome to my blog!"
