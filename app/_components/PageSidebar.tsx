@@ -27,8 +27,8 @@ const PageSidebar = async ({slug, isSticky=true}: {slug: string, isSticky?: bool
                   return (
                     <div className="flex flex-wrap mb-3" key={`pinned-post-${index}`}>
                       <Image src={Thumbtack} alt="thumbtack icon" className="h-5 w-5 dark:border-gray-600 stroke-gray-200 fill-gray-200 p-0.5"></Image>
-                      <div className="font-semibold text-gray-400 dark:text-gray-500 my-auto pl-2">Pinned post</div>
-                      <div className="w-full font-normal text-gray-600 dark:text-gray-300">
+                      <div className="font-medium text-gray-400 dark:text-gray-500 my-auto pl-2">Pinned</div>
+                      <div className="w-full font-medium text-gray-600 dark:text-gray-300">
                         <Link className="underline-animated hover:text-blue-700 dark:hover:text-blue-300" href={`/blog/${frontmatter.slug}`}>{frontmatter.title}</Link>
                       </div>
                     </div>
@@ -37,7 +37,7 @@ const PageSidebar = async ({slug, isSticky=true}: {slug: string, isSticky?: bool
               })}
             </div>
           }
-  
+
           {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(async (index: number) => {
             const heading = sidebarParameters['heading' + index]
             const image = sidebarParameters['image' + index]
