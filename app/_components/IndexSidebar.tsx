@@ -12,7 +12,7 @@ const IndexSidebar = async () => {
   return (
     <Sidebar>
       <div className='text-sm leading-relaxed'>
-        {[...Array(4).keys()].map(async (index: number) => {
+        {[1, 2, 3, 4].map(async (index: number) => {
           const postFrontmatter = await getFrontmatter('posts')
           const postData = postFrontmatter.filter(fm => fm.slug === sidebarSettings['pinnedPost' + index])
 
@@ -30,7 +30,7 @@ const IndexSidebar = async () => {
           }
         })}
 
-        {[...Array(10).keys()].map(async (index: number) => {
+        {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(async (index: number) => {
           const heading = sidebarSettings['heading' + index]
           const image = sidebarSettings['image' + index]
           const text = sidebarSettings['text' + index]
