@@ -77,12 +77,12 @@ const Toc = () => {
 
   
   return (
-    <div className="tracking-wide leading-relaxed text-sm font-light">
-      <ul className="text-gray-600 dark:text-gray-300">
+    <div className="tracking-wide leading-5 text-sm font-light">
+      <ul className="text-gray-500 dark:text-gray-400">
         {elements.map(el =>
           <li key={el.id} id={`toc-${el.id}`}
             className={`
-              ${isHeadingLevelGreaterThan(el.tag, 2) ? 'hidden lg:block' : 'mt-2'}
+              ${isHeadingLevelGreaterThan(el.tag, 2) ? 'hidden lg:block' : 'mt-2 mb-1'}
               ${active === el.id ? 'text-blue-700 hover:text-blue-800 dark:text-blue-300 dark:hover:text-blue- rounded-lg duration-100' : 'hover:text-blue-800 dark:hover:text-blue-400'}
             `}
             style={{paddingLeft: `${isHeadingLevelGreaterThan(el.tag, 2) ? (parseInt(el.tag) * 0.3) : 0}rem`}}
