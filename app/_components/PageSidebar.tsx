@@ -64,6 +64,7 @@ const PageSidebar = async ({slug, isSticky=true}: {slug: string, isSticky?: bool
                   {text && <div className="mb-0.5">{text}</div>}
                   {linkText && link && <Link className="font-normal duration-100 underline-animated border-b border-dotted border-gray-500 hover:border-transparent" target="_blank" href={link}>{linkText}</Link>}
                   {!linkText && link && <Link className="font-normal duration-100 underline-animated border-b border-dotted border-gray-500 hover:border-transparent" target="_blank" href={link}>{link.replace('https://', '')}</Link>}
+
                   {image && <Image alt={`Sidebar image`} src={`/sidebar_images/${image}`} className="w-full h-auto object-cover mt-2 mb-3" width={0} height={0} sizes="100vw"></Image>}
                 </div>
               )
