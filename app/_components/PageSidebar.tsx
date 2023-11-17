@@ -15,7 +15,7 @@ const PageSidebar = async ({slug, isSticky=true}: {slug: string, isSticky?: bool
 
     return (
       <Sidebar isSticky={isSticky}>
-        <div className='text-sm leading-relaxed'>
+        <div className="text-sm leading-relaxed mb-20">
           {[1, 2, 3, 4].map(async (index: number) => {
             const postFrontmatter = await getFrontmatter('posts')
             const postData = postFrontmatter.filter(fm => fm.slug === sidebarParameters['pinnedPost' + index])
