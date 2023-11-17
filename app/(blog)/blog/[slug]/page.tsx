@@ -117,7 +117,7 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
               <div className="mb-16">
                 <div className="flex flex-wrap mb-3">
                   <Image src={Relation} alt="relation icon" className="h-5 w-5 dark:border-gray-600 stroke-gray-200 fill-gray-200"></Image>
-                  <div className="font-medium text-sm text-gray-400 dark:text-gray-500 my-auto pl-2">Related Posts</div>
+                  <div className="font-medium text-sm text-gray-400 dark:text-gray-300 my-auto pl-2">Related Posts</div>
                 </div>
                 {[1, 2, 3, 4].map(async (index: number) => {
                   const postFrontmatter = await getFrontmatter('posts')
