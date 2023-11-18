@@ -61,6 +61,7 @@ const CategoryPage = async ({ params }: { params: { category: string }}) => {
     categoryName = categoryData.title
   }
 
+  categoryName = categoryName || category
 
   return (
     <div className="flex flex-wrap">

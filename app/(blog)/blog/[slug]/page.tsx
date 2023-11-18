@@ -49,13 +49,13 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
   const { slug } = params
   const { content, frontmatter } = await compileContent('posts', slug)
   const appearanceSettings = await getEggspressSettings('appearance')
-  const authors = frontmatter.author.split(',').map((author: string) => author.trim().replaceAll('_', '-').replaceAll(' ', '-'))
+  const authors = frontmatter && frontmatter.author ? frontmatter.author.split(',').map((author: string) => author.trim().replaceAll('_', '-').replaceAll(' ', '-')) : []
 
   return (
     <div className="flex flex-wrap">
       <div className={`hero bleed-${appearanceSettings.colorLightPrimary} dark:bleed-${appearanceSettings.colorDarkPrimary}`}>
-        {frontmatter.category && <Link href={`/${createSlug(frontmatter.category)}`}><div className="mb-3">{frontmatter.category}</div></Link>}
-        <h1 className="text-5xl font-bold mb-3 -ml-0.5">{`${frontmatter.title}`}</h1>      
+        {frontmatter && frontmatter.category && <Link href={`/${createSlug(frontmatter.category)}`}><div className="mb-3">{frontmatter.category}</div></Link>}
+        <h1 className="text-5xl font-bold mb-3 -ml-0.5">{`${frontmatter.title || 'Untitled Post'}`}</h1>      
         <div>{frontmatter.date || frontmatter.publishDate ? convertDate(frontmatter.date || frontmatter.publishDate) : ''}</div>
       </div>
       <div className="flex justify-between w-full">
@@ -67,13 +67,16 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
           <div className="prose dark:prose-invert">
             {content}
           </div>
-          <div className="flex lg:hidden px-1 border-t mt-12 -mb-16 pt-12">
-            <div className="md:w-5/6">
-              {authors.map((author: string) => 
-                <AuthorCard key={`author-body-${author}`} slug={author}></AuthorCard>
-              )}
+          {
+            authors.length &&
+            <div className="flex lg:hidden px-1 border-t mt-12 -mb-16 pt-12">
+              <div className="md:w-5/6">
+                {authors.map((author: string) => 
+                  <AuthorCard key={`author-body-${author}`} slug={author}></AuthorCard>
+                )}
+              </div>
             </div>
-          </div>
+          }
 
           {(frontmatter.relatedPost1 || frontmatter.relatedPost2 || frontmatter.relatedPost3 || frontmatter.relatedPost4)
             ?

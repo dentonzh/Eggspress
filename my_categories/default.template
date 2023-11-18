@@ -1,0 +1,9 @@
+---
+title: ""
+subtitle: ""
+sidebar: ""
+---
+
+Category files are optional. By default, Eggspress will generate categories dynamically. However, if you wish to override the default title or provide a custom tagline (to replace the post count) and add a sidebar, you may do so here.
+
+Take care to name the file properly. Lowercase your title and replace spaces and underscores with hyphens. For example, if your category is "My Thoughts," your filename should be my-thoughts.md.

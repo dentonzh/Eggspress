@@ -42,10 +42,10 @@ const PostCard = async ({ post }: PostProps) => {
       }
 
       <div className="flex flex-wrap w-full mb-2">
-        {appearanceSettings.showPostCardDate && 
-          <div className="text-sm text-gray-700">{convertDate(post.publishDate)}</div>
+        {appearanceSettings.showPostCardDate && (post.publishDate || post.date) &&
+          <div className="text-sm text-gray-700">{convertDate(post.publishDate || post.date)}</div>
         }
-        {appearanceSettings.showPostCardCategory &&
+        {appearanceSettings.showPostCardCategory && post.category &&
           <div className="flex flex-wrap">
             {
               appearanceSettings.showPostCardDate &&
@@ -58,7 +58,7 @@ const PostCard = async ({ post }: PostProps) => {
         }
       </div>
       
-      <Link className="text-2xl font-semibold mb-3" href={`/blog/${post.slug}`}>{post.title}</Link>
+      <Link className="text-2xl font-semibold mb-3" href={`/blog/${post.slug}`}>{post.title || 'Untitled Post'}</Link>
       {appearanceSettings.showPostCardSnippet &&
         <div className='w-full mb-3 prose dark:prose-invert'>{post.snippet}</div>
       }

@@ -1,7 +1,7 @@
 ---
 title: "Projects"
 tagline: "Here's what I've worked on"
-weight: "5"
+weight: 5
 ---
 
 These projects represent a passionate commitment to the great outdoors, sustainability, and education. In each endeavor, I aim to instill a profound love for nature while fostering a deep understanding of the environment's delicate balance. Whether it's guiding novice adventurers through the wilderness, creating eco-friendly campsites, preserving our mountain peaks, or teaching wildlife tracking and photography, these projects share a common thread: a dedication to preserving the wonders of the natural world and inspiring others to connect with it responsibly and wholeheartedly.

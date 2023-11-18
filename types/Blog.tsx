@@ -2,18 +2,24 @@ export interface PostItem {
   [key: string]: any
   slug: string | null;
   title: string | null;
+  subtitle: string | null;
   image: string | null;
   date: string | null;
   publishDate: string | null;
   expiryDate: string|null;
   author: string | null;
   snippet: string | null;
+  sidebar: string | null;
   body: string | null;
   layout: string | null;
   category: string | null;
   tags: string | null;
   tagline: string | null;
   weight: string | null;
+  relatedPost1: string | null;
+  relatedPost2: string | null;
+  relatedPost3: string | null;
+  relatedPost4: string | null;
 }
 
 export interface AuthorItem {

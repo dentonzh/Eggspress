@@ -6,7 +6,7 @@ sidebar: "about"
 subtitle: A deeply nested chicken post
 image: _9780a6c3-5051-4b80-acc8-16ad567d1dc2.jpeg
 isPublished: true
-publishDate: 2023-10-28T09:15:00-0400
+publishDate: 2023-10-28T00:00:00-0400
 layout: Article
 snippet: Chickens make charming pets and eco-friendly garden companions, enriching lives through their delightful personalities and natural contributions.
 category: Tree Talk
