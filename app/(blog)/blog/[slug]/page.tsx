@@ -74,10 +74,10 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
               )}
             </div>
           </div>
-          <div className="flex border-t mt-12 pt-12 max-w-prose">
 
-            {(frontmatter.relatedPost1 || frontmatter.relatedPost2 || frontmatter.relatedPost3 || frontmatter.relatedPost4)
-              ?
+          {(frontmatter.relatedPost1 || frontmatter.relatedPost2 || frontmatter.relatedPost3 || frontmatter.relatedPost4)
+            ?
+            <div className="flex border-t mt-12 pt-12 max-w-prose">
               <div className="mb-8">
                 <div className="flex flex-wrap mb-3">
                   <Image src={Relation} alt="relation icon" className="h-7 w-7 dark:border-gray-600 stroke-gray-200 fill-gray-200 brightness-50 dark:brightness-100"></Image>
@@ -99,10 +99,10 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
                   }
                 })}
               </div>
-              :
-              <div className="mb-16"></div>
-            }
-          </div>
+            </div>
+            :
+            <div className="mb-16"></div>
+          }
         </div>
         <div className="mb-20">
           <Sidebar isSticky={false}>
