@@ -88,11 +88,13 @@ const Toc = () => {
             style={{paddingLeft: `${isHeadingLevelGreaterThan(el.tag, 2) ? (parseInt(el.tag) * 0.3) : 0}rem`}}
           >
             <Link href={`#${el.id}`} onClick={(e) => {scrollToSection(e, el.id)}} className="flex">
-              <svg width="3" height="24" viewBox="0 -9 3 24" 
-                className={`${isHeadingLevelGreaterThan(el.tag, 2) ? '' : 'hidden'} mr-2 text-slate-400 overflow-visible group-hover:text-slate-600 dark:text-slate-500 dark:group-hover:text-slate-400`}
-              >
-                <path d="M0 0L3 3L0 6" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"></path>
-              </svg>
+              {isHeadingLevelGreaterThan(el.tag, 2) &&
+                <svg width="3" height="24" viewBox="0 -9 3 24" 
+                  className="mr-2 text-slate-400 overflow-visible group-hover:text-slate-600 dark:text-slate-500 dark:group-hover:text-slate-400"
+                >
+                  <path d="M0 0L3 3L0 6" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"></path>
+                </svg>
+              }
               {el.text}
             </Link>
           </li>
