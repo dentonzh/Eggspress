@@ -24,8 +24,8 @@ websiteLink: ""
 
 
 Notes on frontmatter:
-- For a link to a page to appear, it must have a title
-- weight is a number (do not wrap in quotation marks) that determines the position that a page appears when listed among other pages; higher weights move posts lower
+- All fields are optional
+- If name is left empty, the author's name will appear as the filename of the profile without its extension (.md, typically)
 
 Here is a demonstration of various markdown syntax you can include use in Eggspress pages:
 

@@ -55,6 +55,7 @@ const AuthorPage =  async ( {params}: {params: {slug: string}} ) => {
   const { slug } = params
   const { content, frontmatter, contentLength } = await compileContent('authors', slug)
   const postFrontmatter = await getFrontmatter('posts')
+  const authorPosts = postFrontmatter.filter(fm => fm.author === slug || fm.author?.split(',').map(x => x.trim()).includes(slug))
 
   const imageUrl = frontmatter && frontmatter.image ? await getProfileImage(frontmatter.image) : ''
   const appearanceSettings = await getEggspressSettings('appearance')
@@ -81,17 +82,32 @@ const AuthorPage =  async ( {params}: {params: {slug: string}} ) => {
               <Image src={imageUrl} width="96" height="96" alt={`Profile image for ${frontmatter.name}`}></Image>
             </div>
           ) : (
-            <div className="ml-auto my-auto ml-10 h-24 w-24 bg-gray-200 dark:bg-gray-600 duration-150 rounded-full object-cover overflow-hidden"></div>
+            <div className="ml-auto my-auto h-24 w-24 bg-gray-200 dark:bg-gray-600 duration-150 rounded-full object-cover overflow-hidden"></div>
           )}
         </div>
       </div>
+      
       <div className="flex flex-wrap">
         <div className="max-w-prose">
-          <h2 className="text-gray-600 font-semibold mb-3">Latest posts</h2>
-          {postFrontmatter.filter(fm => fm.author === slug || fm.author?.split(',').map(x => x.trim()).includes(slug)).map(fm =>
-            <PostCard key={fm.slug} post={fm}></PostCard>
+          {authorPosts &&
+            <div className="max-w-prose border-b">
+              <h2 className="text-gray-600 font-semibold mb-3">Latest posts</h2>
+              {authorPosts.map(fm =>
+                <PostCard key={fm.slug} post={fm}></PostCard>
+              )}
+            </div>
+          }
+
+          {contentLength > 0 && (
+            <div className="py-12">
+              <h2 className="text-gray-600 font-semibold mb-3">Biography</h2>
+              <div className="prose dark:prose-invert">
+                {content}
+              </div>
+            </div>
           )}
         </div>
+
         <Sidebar>
           {sections.map(section => {return (frontmatter[section] &&
             <div>
@@ -127,14 +143,6 @@ const AuthorPage =  async ( {params}: {params: {slug: string}} ) => {
             </div>
           )}
         </Sidebar>
-        {contentLength > 0 && (
-          <div className="py-12 border-t max-w-prose">
-            <h2 className="text-gray-600 font-semibold mb-3">Biography</h2>
-            <div className="prose dark:prose-invert">
-              {content}
-            </div>
-          </div>
-        )}
       </div>
     </div>
   )
