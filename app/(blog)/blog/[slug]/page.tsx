@@ -49,7 +49,7 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
   const { slug } = params
   const { content, frontmatter } = await compileContent('posts', slug)
   const appearanceSettings = await getEggspressSettings('appearance')
-  const authors = frontmatter.author.split(',').map((author: string) => author.trim())
+  const authors = frontmatter.author.split(',').map((author: string) => author.trim().replaceAll('_', '-').replaceAll(' ', '-'))
 
   return (
     <div className="flex flex-wrap">

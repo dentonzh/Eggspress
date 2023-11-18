@@ -77,8 +77,8 @@ const Toc = () => {
 
   
   return (
-    <div className="tracking-wide leading-5 text-sm font-light">
-      <ul className="text-gray-500 dark:text-gray-400">
+    <div className="tracking-wide leading-5 text-sm">
+      <ul className="text-gray-400 dark:text-gray-500">
         {elements.map(el =>
           <li key={el.id} id={`toc-${el.id}`}
             className={`

@@ -20,7 +20,7 @@ const getProfileImage =  async (imageFileName: string): Promise<string> => {
 
 const AuthorCard = async ({slug}: {slug: string | null}) => {
   const authorFrontmatter = await getFrontmatter('authors')
-  const authorData = authorFrontmatter.filter(frontmatter => {return frontmatter.slug === slug})[0]
+  const authorData = authorFrontmatter.filter(frontmatter => frontmatter.slug === slug)[0]
   const imageUrl = authorData && authorData.image ? await getProfileImage(authorData.image) : ''
 
   if (!authorData) {

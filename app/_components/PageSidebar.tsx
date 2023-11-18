@@ -8,7 +8,7 @@ import { getImageFilesRecursively, copyImageToPublic } from '@/app/utils'
 
 const PageSidebar = async ({slug, isSticky=true}: {slug: string, isSticky?: boolean}) => {
   const sidebarFrontmatter = await getFrontmatter('sidebars')
-  const sidebarData = sidebarFrontmatter.filter(fm => fm.slug === slug)
+  const sidebarData = sidebarFrontmatter.filter(fm => fm.slug === slug.replaceAll('_', '-').replaceAll(' ', '-'))
   
   if (sidebarData.length) {
     const sidebarParameters = sidebarData[0]
