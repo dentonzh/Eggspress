@@ -10,6 +10,8 @@ const PageSidebar = async ({slug, isSticky=true}: {slug: string, isSticky?: bool
   if (!slug) {
     return
   }
+  
+  const postFrontmatter = await getFrontmatter('posts')
   const sidebarFrontmatter = await getFrontmatter('sidebars')
   const sidebarData = sidebarFrontmatter.filter(fm => fm.slug === slug.replaceAll('_', '-').replaceAll(' ', '-'))
   
@@ -21,15 +23,14 @@ const PageSidebar = async ({slug, isSticky=true}: {slug: string, isSticky?: bool
         <div className='text-sm leading-relaxed mb-20'>
           {(sidebarParameters.pinnedPost1 || sidebarParameters.pinnedPost2 || sidebarParameters.pinnedPost3) && 
             <div className="mb-8">
-              {[1, 2, 3, 4].map(async (index: number) => {
-                const postFrontmatter = await getFrontmatter('posts')
+              {[1, 2, 3, 4].map((index: number) => {
                 const postData = postFrontmatter.filter(fm => fm.slug === (sidebarParameters['pinnedPost' + index] || "").replaceAll('_', '-').replaceAll(' ', '-'))
       
                 if (postData.length) {
                   const frontmatter = postData[0]
                   return (
                     <div className="flex flex-wrap mb-3" key={`pinned-post-${index}`}>
-                      <Image src={Thumbtack} alt="thumbtack icon" className="h-5 w-5 dark:border-gray-600 stroke-gray-200 fill-gray-200 p-0.5"></Image>
+                      <Image src={Thumbtack} alt="thumbtack icon" className="h-5 w-5 dark:border-gray-600 p-0.5"></Image>
                       <div className="font-medium text-gray-400 dark:text-gray-500 my-auto pl-2">Pinned</div>
                       <div className="w-full font-medium text-gray-600 dark:text-gray-300">
                         <Link className="underline-animated hover:text-blue-700 dark:hover:text-blue-300" href={`/blog/${frontmatter.slug}`}>{frontmatter.title}</Link>
