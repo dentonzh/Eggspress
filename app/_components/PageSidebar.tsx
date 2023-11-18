@@ -20,7 +20,7 @@ const PageSidebar = async ({slug, isSticky=true}: {slug: string, isSticky?: bool
             <div className="mb-8">
               {[1, 2, 3, 4].map(async (index: number) => {
                 const postFrontmatter = await getFrontmatter('posts')
-                const postData = postFrontmatter.filter(fm => fm.slug === sidebarParameters['pinnedPost' + index])
+                const postData = postFrontmatter.filter(fm => fm.slug === sidebarParameters['pinnedPost' + index].replaceAll('_', '-').replaceAll(' ', '-'))
       
                 if (postData.length) {
                   const frontmatter = postData[0]
@@ -47,10 +47,10 @@ const PageSidebar = async ({slug, isSticky=true}: {slug: string, isSticky?: bool
   
             if ( image ) {
               const imageFiles = await getImageFilesRecursively('my_sidebars')
-              const sidebarImageFiles = imageFiles.filter(file => file.name === image)
+              const sidebarImageFiles = imageFiles.filter(file => file.name === image.replaceAll('_', '-').replaceAll(' ', '-'))
   
               if ( sidebarImageFiles ) {
-                const imageFile = imageFiles.filter(file => file.name === image)[0]
+                const imageFile = sidebarImageFiles[0]
                 const source = `${imageFile.path}/${imageFile.name}`
           
                 copyImageToPublic(source, 'sidebar_images')

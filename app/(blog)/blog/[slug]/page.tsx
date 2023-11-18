@@ -85,7 +85,7 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
                 </div>
                 {[1, 2, 3, 4].map(async (index: number) => {
                   const postFrontmatter = await getFrontmatter('posts')
-                  const postData = postFrontmatter.filter(fm => fm.slug === frontmatter['relatedPost' + index])
+                  const postData = postFrontmatter.filter(fm => fm.slug === frontmatter['relatedPost' + index].replaceAll('_', '-').replaceAll(' ', '-'))
         
                   if (postData.length) {
                     const frontmatter = postData[0]
@@ -121,7 +121,7 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
                 </div>
                 {[1, 2, 3, 4].map(async (index: number) => {
                   const postFrontmatter = await getFrontmatter('posts')
-                  const postData = postFrontmatter.filter(fm => fm.slug === frontmatter['relatedPost' + index])
+                  const postData = postFrontmatter.filter(fm => fm.slug === frontmatter['relatedPost' + index].replaceAll('_', '-').replaceAll(' ', '-'))
         
                   if (postData.length) {
                     const frontmatter = postData[0]
@@ -129,7 +129,7 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
                       <div className="mb-0.5 text-sm" key={`related-post-footer-${index}`}>
                         <div className="font-normal text-gray-600 dark:text-gray-300">
                           <Link className="flex hover:text-blue-700 dark:hover:text-blue-300" href={`/blog/${frontmatter.slug}`}>
-                            <svg width="3" height="24" viewBox="0 -9 3 24" 
+                            <svg width="3" height="24" viewBox="0 -6 3 24" 
                               className={"mr-2 text-slate-400 overflow-visible group-hover:text-slate-600 dark:text-slate-500 dark:group-hover:text-slate-400"}
                             >
                               <path d="M0 0L3 3L0 6" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"></path>
