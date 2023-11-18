@@ -47,11 +47,11 @@ const PageSidebar = async ({slug, isSticky=true}: {slug: string, isSticky?: bool
             const text = sidebarParameters['text' + index]
             const link = sidebarParameters['link' + index]
             const linkText = sidebarParameters['linkText' + index]
-  
+            
             if ( image ) {
               const imageFiles = await getImageFilesRecursively('my_sidebars')
-              const sidebarImageFile = imageFiles.filter(file => file.name === image.replaceAll('_', '-').replaceAll(' ', '-'))[0]
-  
+              const sidebarImageFile = imageFiles.filter(file => file.name === image)[0]
+
               if ( sidebarImageFile ) {
                 const source = `${sidebarImageFile.path}/${sidebarImageFile.name}`
           

@@ -16,12 +16,12 @@ export async function getEggspressSettings(kind: string|null): Promise<any> {
   return serializedData.frontmatter
 }
 
-export function createSlug(categoryName: string|null) {
-  if (!categoryName) {
+export function createSlug(text: string|null) {
+  if (!text) {
     return ''
   }
-  return categoryName.toLowerCase()
-    .replace(/ /g, "-")
+  return text.toLowerCase()
+    .replace(/[_ ]/g, "-")
     .replace(/[^\w-]+/g, "");
 }
 
