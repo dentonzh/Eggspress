@@ -18,7 +18,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: { params: {category: string}}) {
   const { category } = params
   const postFrontmatter = await getFrontmatter('posts')
-  const filteredPosts = postFrontmatter.filter(post => {if ( createSlug(post.category) === category) { return true } return false })
+  const filteredPosts = postFrontmatter.filter(post => createSlug(post.category) === category)
   const blogSettings = await getEggspressSettings('metadata')
   
   const categoryFrontmatter = await getFrontmatter('categories')
@@ -48,7 +48,7 @@ export async function generateMetadata({ params }: { params: {category: string}}
 const CategoryPage = async ({ params }: { params: { category: string }}) => {
   const { category } = params
   const postFrontmatter = await getFrontmatter('posts')
-  const filteredPosts = postFrontmatter.filter(post => {if ( createSlug(post.category) === category) { return true } return false })
+  const filteredPosts = postFrontmatter.filter(post => createSlug(post.category) === category)
   const numbersAsWords: Record<number, string> = {0: 'No', 1: 'One', 2: 'Two', 3: 'Three', 4: 'Four', 5: 'Five', 6: 'Six', 7: 'Seven', 8: 'Eight', 9: 'Nine'}
   const appearanceSettings = await getEggspressSettings('appearance')
 

@@ -20,7 +20,7 @@ const getProfileImage =  async (imageFileName: string): Promise<string> => {
 
 const AuthorCard = async ({slug}: {slug: string | null}) => {
   const authorFrontmatter = await getFrontmatter('authors')
-  const authorData = authorFrontmatter.filter(frontmatter => {return frontmatter.slug === slug})[0]
+  const authorData = authorFrontmatter.filter(frontmatter => frontmatter.slug === slug)[0]
   const imageUrl = authorData && authorData.image ? await getProfileImage(authorData.image) : ''
 
   if (!authorData) {
@@ -28,10 +28,10 @@ const AuthorCard = async ({slug}: {slug: string | null}) => {
   }
 
   return (
-    <div className="mb-16 text-gray-700 dark:text-gray-200">
-      <Link href={`/author/${slug}`} className="mb-2 flex flex-wrap">
+    <div className="mb-16 text-gray-600 dark:text-gray-200">
+      <Link href={`/author/${slug}`} className="mb-1 flex flex-wrap">
         {imageUrl.length > 0 && (
-          <div className={`${imageUrl.length ? '' : 'hidden'} -ml-1 mr-2 h-14 w-14 border-2 border-blue-400 dark:border-blue-200 rounded-full object-cover overflow-hidden`}>
+          <div className={`${imageUrl.length ? '' : 'hidden'} -ml-2 mr-2 h-14 w-14 rounded-full object-cover overflow-hidden`}>
             <Image src={imageUrl} width="56" height="56" alt={`Profile image for ${authorData.name}`}></Image>
           </div>
         )}
@@ -40,11 +40,11 @@ const AuthorCard = async ({slug}: {slug: string | null}) => {
           {authorData.role && (<div className="text-xs">{authorData.role}</div>)}
         </div>
       </Link>
-      <div className="py-2 mb-1">
+      <div className="text-sm py-2 mb-1">
         {authorData ? authorData.description : ''}
       </div>
       {[1, 2].map(index => {return (authorData['socialLink' + index] &&
-        <div className="text-sm text-gray-500 w-full mb-1">
+        <div className="text-sm text-gray-500 w-full mb-1" key={`social-link-${authorData.slug}-${index}`}>
           <span>
             {authorData['socialPlatform' + index] && authorData['socialHandle' + index] ? `${authorData['socialPlatform' + index]}: ` : 'Social: '}
           </span>
