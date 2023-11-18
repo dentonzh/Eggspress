@@ -6,7 +6,7 @@ import getFrontmatter from './getFrontmatter'
 import Thumbtack from '../../public/assets/thumbtack.svg'
 import { getImageFilesRecursively, copyImageToPublic } from '@/app/utils'
 
-const PageSidebar = async ({slug, isSticky=true}: {slug: string, isSticky?: boolean}) => {
+const PageSidebar = async ({slug, isSticky=true}: {slug: string | null, isSticky?: boolean}) => {
   if (!slug) {
     return
   }
