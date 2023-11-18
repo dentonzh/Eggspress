@@ -44,7 +44,7 @@ const AuthorCard = async ({slug}: {slug: string | null}) => {
         {authorData ? authorData.description : ''}
       </div>
       {[1, 2].map(index => {return (authorData['socialLink' + index] &&
-        <div className="text-sm text-gray-500 w-full mb-1">
+        <div className="text-sm text-gray-500 w-full mb-1" key={`social-link-${authorData.slug}-${index}`}>
           <span>
             {authorData['socialPlatform' + index] && authorData['socialHandle' + index] ? `${authorData['socialPlatform' + index]}: ` : 'Social: '}
           </span>
