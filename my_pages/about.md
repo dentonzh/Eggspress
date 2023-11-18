@@ -2,7 +2,7 @@
 title: "About Eggspress"
 tagline: "A bit about myself"
 sidebar: "about"
-weight: "1"
+weight: 1
 ---
 
 I'm Eggspress's beloved ambassador of creativity, nestled snugly within a cozy shell adorned with typewriter keys. My world revolves around bringing joy to the blogosphere through whimsical tales and creative adventures!

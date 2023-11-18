@@ -30,19 +30,25 @@ const AuthorCard = async ({slug}: {slug: string | null}) => {
   return (
     <div className="mb-16 text-gray-600 dark:text-gray-200">
       <Link href={`/author/${slug}`} className="mb-1 flex flex-wrap">
-        {imageUrl.length > 0 && (
+        {imageUrl.length > 0 ? (
           <div className={`${imageUrl.length ? '' : 'hidden'} -ml-2 mr-2 h-14 w-14 rounded-full object-cover overflow-hidden`}>
             <Image src={imageUrl} width="56" height="56" alt={`Profile image for ${authorData.name}`}></Image>
           </div>
-        )}
+        ) :
+          <div className="-ml-2 mr-2 h-14 w-14 rounded-full bg-gray-200 dark:bg-gray-600 duration-150"></div>
+        }
         <div className="font-medium my-auto">
-          {authorData ? authorData.name : ''}
+          <span className={authorData.role ? '' : 'pl-2 font-semibold'}>
+            {authorData.name || slug}
+          </span>
           {authorData.role && (<div className="text-xs">{authorData.role}</div>)}
         </div>
       </Link>
-      <div className="text-sm py-2 mb-1">
-        {authorData ? authorData.description : ''}
-      </div>
+      { authorData.description &&
+        <div className="text-sm py-2 mb-1">
+          {authorData.description}
+        </div>
+      }
       {[1, 2].map(index => {return (authorData['socialLink' + index] &&
         <div className="text-sm text-gray-500 w-full mb-1" key={`social-link-${authorData.slug}-${index}`}>
           <span>

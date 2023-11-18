@@ -72,21 +72,23 @@ const AuthorPage =  async ( {params}: {params: {slug: string}} ) => {
           <div className="my-auto w-[65ch]">
             <div className="w-full">
               <div className="mb-3">Author Profile</div>
-              <h1 className="text-5xl font-bold mb-4 -ml-0.5">{frontmatter.name}</h1>   
+              <h1 className="text-5xl font-bold mb-4 -ml-0.5">{frontmatter.name || slug}</h1>   
               <div className="font-normal">{frontmatter.role}</div>
             </div>
           </div>
-          {imageUrl.length > 0 && (
-            <div className={`${imageUrl.length ? '' : 'hidden'} my-auto ml-10 h-24 w-24 border-2 border-blue-400 dark:border-blue-200 rounded-full object-cover overflow-hidden`}>
+          {imageUrl.length > 0 ? (
+            <div className={`${imageUrl.length ? '' : 'hidden'} ml-auto my-auto ml-10 h-24 w-24 rounded-full object-cover overflow-hidden`}>
               <Image src={imageUrl} width="96" height="96" alt={`Profile image for ${frontmatter.name}`}></Image>
             </div>
+          ) : (
+            <div className="ml-auto my-auto ml-10 h-24 w-24 bg-gray-200 dark:bg-gray-600 duration-150 rounded-full object-cover overflow-hidden"></div>
           )}
         </div>
       </div>
       <div className="flex flex-wrap">
         <div className="max-w-prose">
           <h2 className="text-gray-600 font-semibold mb-3">Latest posts</h2>
-          {postFrontmatter.filter(fm => fm.author === slug).map(fm =>
+          {postFrontmatter.filter(fm => fm.author === slug || fm.author?.split(',').map(x => x.trim()).includes(slug)).map(fm =>
             <PostCard key={fm.slug} post={fm}></PostCard>
           )}
         </div>
