@@ -90,7 +90,7 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
                   if (postData.length) {
                     const frontmatter = postData[0]
                     return (
-                      <div className="flex flex-wrap mb-3" key={`related-post-${index}`}>
+                      <div className="flex flex-wrap mb-3" key={`related-post-sidebar-${index}`}>
                         <div className="w-full font-normal text-gray-600 dark:text-gray-300">
                           <PostCard post={frontmatter}></PostCard>
                         </div>
@@ -126,7 +126,7 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
                   if (postData.length) {
                     const frontmatter = postData[0]
                     return (
-                      <div className="mb-0.5 text-sm" key={`related-post-${index}`}>
+                      <div className="mb-0.5 text-sm" key={`related-post-footer-${index}`}>
                         <div className="font-normal text-gray-600 dark:text-gray-300">
                           <Link className="flex hover:text-blue-700 dark:hover:text-blue-300" href={`/blog/${frontmatter.slug}`}>
                             <svg width="3" height="24" viewBox="0 -9 3 24" 
