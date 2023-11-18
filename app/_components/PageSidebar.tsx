@@ -7,6 +7,9 @@ import Thumbtack from '../../public/assets/thumbtack.svg'
 import { getImageFilesRecursively, copyImageToPublic } from '@/app/utils'
 
 const PageSidebar = async ({slug, isSticky=true}: {slug: string, isSticky?: boolean}) => {
+  if (!slug) {
+    return
+  }
   const sidebarFrontmatter = await getFrontmatter('sidebars')
   const sidebarData = sidebarFrontmatter.filter(fm => fm.slug === slug.replaceAll('_', '-').replaceAll(' ', '-'))
   
