@@ -27,13 +27,13 @@ const Footer = async () => {
       <div className="container flex justify-between text-gray-800 dark:text-gray-200">
         <div className="flex flex-col w-1/2 sm:w-2/3 font-light text-sm leading-6">
           <div className="flex flex-col w-full sm:w-1/2 mb-3">
-            {categoryData.map(category => 
-              <Link key={category.slug} href={`/${category.slug}`}>{category.name}</Link>
+            {categoryData.map(category =>
+              <Link className="pb-0.5" key={category.slug} href={`/${category.slug}`}>{category.name}</Link>
             )}
           </div>
           <div className="flex flex-col w-full sm:w-1/2 mb-3">
             {pageData.map(page => 
-              <Link key={page.slug} href={`/page/${page.slug}`}>{page.name}</Link>
+              <Link className="pb-0.5" key={page.slug} href={`/page/${page.slug}`}>{page.name}</Link>
             )}
           </div>
           <AuthorLinks />
@@ -45,7 +45,7 @@ const Footer = async () => {
         </div>
       </div>
       <div className="flex w-full text-center h-48">
-        <div className="mx-auto mt-auto inline-block text-xs text-gray-500 select-none font-normal hover:font-bold duration-150 delay-100">
+        <div className="mx-auto mt-auto inline-block text-xs text-gray-600 dark:text-gray-400 select-none font-normal hover:font-bold duration-150 delay-100">
           <Link href="https://github.com/dentonzh/Eggspress">
             <span>
               Made with 

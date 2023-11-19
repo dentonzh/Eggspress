@@ -9,7 +9,7 @@ showPostCardReadMoreButton: true
 
 colorDarkPrimary: "slate-900"
 colorDarkSecondary: "slate-800"
-colorDarkFooter: "gray-950"
+colorDarkFooter: "slate-900"
 colorLightPrimary: "gray-100"
 colorLightSecondary: "white"
 colorLightFooter: "gray-100"

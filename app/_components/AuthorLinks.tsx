@@ -21,7 +21,7 @@ const authorLinks = async () => {
 
         return (
           <div key={key}>
-            <a href={links[key]} target="_blank" rel="nofollow noopener">
+            <a className="pb-2 pt-0.5" href={links[key]} target="_blank" rel="nofollow noopener">
               {name}
             </a>
           </div>

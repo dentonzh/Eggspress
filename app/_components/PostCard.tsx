@@ -63,8 +63,9 @@ const PostCard = async ({ post }: PostProps) => {
         <div className='w-full mb-3 prose dark:prose-invert'>{post.snippet}</div>
       }
       {appearanceSettings.showPostCardReadMoreButton &&
-        <Link href={`/blog/${post.slug}`} className="underline-animated font-medium text-gray-800 hover:text-blue-800 dark:text-white hover:dark:text-blue-200">
+        <Link href={`/blog/${post.slug}`} aria-label={`Read the post ${post.title}`} className="underline-animated font-medium text-gray-800 hover:text-blue-800 dark:text-white hover:dark:text-blue-200">
           Read more
+          <span className="hidden">about {post.title}</span>
         </Link>
       }
     </div>
