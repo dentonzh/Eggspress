@@ -6,6 +6,9 @@ const Setup = () => {
     <main className="flex flex-wrap">
       <div className="flex w-full justify-center">
         <div className='max-w-prose'>
+          <div className="lg:hidden border-yellow-500 bg-yellow-200 dark:bg-yellow-700 text-yellow-900 dark:text-yellow-200 px-3 py-2 mt-2">
+            We recommend setting up on a non-mobile device for the best experience.
+          </div>
           <div className="py-12 prose dark:prose-invert">
             <h2>Welcome to Eggspress</h2>
             <p>
@@ -33,13 +36,14 @@ const Setup = () => {
               We recommend storing your workspace on a synced drive like <a target="_blank" href="https://www.dropbox.com/">Dropbox</a>.
             </p>
             <p>
-              Eggspress uses <a target="_blank" href="https://www.markdownguide.org/getting-started/">Markdown</a> to style your content. We recommend using <a target="_blank" href="https://obsidian.md/">Obsidian</a> as
-              your desktop editor. It's available on Windows, Mac, Linux, Android, and iOS.
+              Eggspress uses <a target="_blank" href="https://www.markdownguide.org/getting-started/">Markdown</a> to style content. We recommend using <a target="_blank" href="https://obsidian.md/">Obsidian</a> as
+              your desktop editor. It&apos;s available on Windows, Mac, Linux, Android, and iOS.
             </p>
-              Note: If you use Obsidian, you must go into its settings. Under the "Files & Links" tab:
+              Note: If you use Obsidian, you must configure its settings. Click the gear wheel icon to bring up settings. Under the &quot;Files & Links&quot; tab,
+              make the following changes:
             <ol>
-              <li>Disable "Use Wikilinks"</li>
-              <li>Set "Default location for new attachments" to "Same folder as current file"</li>
+              <li>Disable &quot;Use Wikilinks&quot;</li>
+              <li>Set &quot;Default location for new attachments&quot; to &quot;Same folder as current file&quot;</li>
             </ol>
           </div>
         </div>
