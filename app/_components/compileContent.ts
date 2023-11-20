@@ -1,5 +1,6 @@
 import { compileMDX } from 'next-mdx-remote/rsc'
 import getContent from '../_components/getContent'
+import NextImage from '../_components/NextImage'
 import rehypeSlug from 'rehype-slug'
 import remarkGfm from 'remark-gfm'
 import transformImgAttrs from '@/plugins/transform-img-src'
@@ -8,9 +9,10 @@ import { ImageFile, OGImage } from '@/types/Blog'
 const fs = require('fs-extra')
 const sizeOf = require('image-size')
 
+
 const compileContent = async (type: string, slug:string,): Promise<{content: React.ReactNode, frontmatter: Record<any, any>, contentLength: number, images: OGImage[]}> => {
   const { markdownData, imageFiles, filePath } = await getContent(type, slug)
-
+  
   const source = await compileMDX({
     source: markdownData,
     options: {
@@ -19,6 +21,9 @@ const compileContent = async (type: string, slug:string,): Promise<{content: Rea
         remarkPlugins: [remarkGfm, [transformImgAttrs, { slug, imageFiles }]],
         rehypePlugins: [rehypeSlug]
       }
+    },
+    components: {
+      img: NextImage as any
     }
   })
 

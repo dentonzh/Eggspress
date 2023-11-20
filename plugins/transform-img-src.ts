@@ -26,7 +26,7 @@ export default function transformImgAttrs({
             
             const sourceDir = `${file.path}/${file.name}`
             const dimensions = sizeOf(sourceDir)
-            
+
             image.data = {
               hProperties: {
                 width: dimensions.width,
