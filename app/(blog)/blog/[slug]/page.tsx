@@ -61,7 +61,6 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
       <div className="flex justify-between w-full">
         <div className="overflow-x-hidden">
           <div className="mb-12 lg:hidden">
-            <div className="text-gray-500 dark:text-gray-300 font-bold">Jump to...</div>
             <Toc />
           </div>
           <div className="prose dark:prose-invert">
