@@ -49,27 +49,29 @@ const AuthorCard = async ({slug}: {slug: string | null}) => {
           {authorData.description}
         </div>
       }
-      {[1, 2].map(index => {return (authorData['socialLink' + index] &&
-        <div className="text-sm text-gray-500 w-full mb-1" key={`social-link-${authorData.slug}-${index}`}>
-          <span>
-            {authorData['socialPlatform' + index] && authorData['socialHandle' + index] ? `${authorData['socialPlatform' + index]}: ` : 'Social: '}
-          </span>
-          <a href={authorData['socialLink' + index]} target="_blank" rel="nofollow noopener" className="text-gray-700 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-300 underline-animated">
-            {authorData['socialPlatform' + index] && authorData['socialHandle' + index] ? `@${authorData['socialHandle' + index].replace('@', '')}` : authorData['socialPlatform' + index]}
-            {(!authorData['socialPlatform' + index] || !authorData['socialPlatform' + index].length) ? authorData['socialLink' + index].slice(authorData['socialLink' + index].lastIndexOf('://')+3) : '' }
-          </a>
-        </div>
-      )})}
-      {authorData.websiteLink && (
-        <div className="text-sm w-full text-gray-500 mb-1">
-          <span className="pr-1">
-            Website:
-          </span>
-          <a href={authorData.websiteLink} target="_blank" rel="nofollow noopener" className="text-gray-700 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-300 underline-animated">
-            {authorData.websiteLink && authorData.websiteName ? authorData.websiteName : authorData.websiteLink.slice(authorData.websiteLink.lastIndexOf('://')+3)}
-          </a>
-        </div>
-      )}
+      <div className="flex flex-wrap">
+        {[1, 2].map(index => {return (authorData['socialLink' + index] &&
+          <div className="text-sm text-gray-500 w-1/2 md:w-full mb-4 md:mb-1" key={`social-link-${authorData.slug}-${index}`}>
+            <span>
+              {authorData['socialPlatform' + index] && authorData['socialHandle' + index] ? `${authorData['socialPlatform' + index]}: ` : 'Social: '}
+            </span>
+            <a href={authorData['socialLink' + index]} target="_blank" rel="nofollow noopener" className="text-gray-700 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-300 underline-animated">
+              {authorData['socialPlatform' + index] && authorData['socialHandle' + index] ? `@${authorData['socialHandle' + index].replace('@', '')}` : authorData['socialPlatform' + index]}
+              {(!authorData['socialPlatform' + index] || !authorData['socialPlatform' + index].length) ? authorData['socialLink' + index].slice(authorData['socialLink' + index].lastIndexOf('://')+3) : '' }
+            </a>
+          </div>
+        )})}
+        {authorData.websiteLink && (
+          <div className="text-sm w-1/2 md:w-full text-gray-500 mb-4 md:mb-1">
+            <span className="pr-1">
+              Website:
+            </span>
+            <a href={authorData.websiteLink} target="_blank" rel="nofollow noopener" className="text-gray-700 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-300 underline-animated">
+              {authorData.websiteLink && authorData.websiteName ? authorData.websiteName : authorData.websiteLink.slice(authorData.websiteLink.lastIndexOf('://')+3)}
+            </a>
+          </div>
+        )}
+      </div>
       
 
     </div>

@@ -25,9 +25,6 @@ export default function transformImgAttrs({
             const imageUrl = `${imagePath}/${fileName.replaceAll('%20', '_')}`
             
             const sourceDir = `${file.path}/${file.name}`
-            const destinationDir = `public${imagePath}/${fileName.replaceAll('%20', '_')}`
-            const destinationPath = `public${imagePath}`
-
             const dimensions = sizeOf(sourceDir)
             
             image.data = {
