@@ -9,7 +9,7 @@ heading2: "For everyone else"
 image2: ""
 text2: "Use our detailed guides to deploy and publish in under an hour. No command line or code needed."
 linkText2: "See: Getting Started"
-link2: "/getting-started"
+link2: "/"
 
 
 heading3: "Follow us"
