@@ -8,12 +8,16 @@ export async function getEggspressSettings(kind: string|null): Promise<any> {
   if (!kind) {
     kind = 'blog'
   }
-
-  const file = `./my_settings/${kind}.md`
-  const data = fs.readFileSync(file, 'utf-8')
-  const serializedData = await serialize(data, {parseFrontmatter: true})
   
-  return serializedData.frontmatter
+  try {
+    const file = `./my_settings/${kind}.md`
+    const data = fs.readFileSync(file, 'utf-8')
+    const serializedData = await serialize(data, {parseFrontmatter: true})
+    
+    return serializedData.frontmatter
+  } catch (e) {
+    return e
+  }
 }
 
 export function createSlug(text: string|null) {

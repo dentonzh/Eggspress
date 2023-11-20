@@ -10,6 +10,13 @@ const roboto_flex = Roboto_Flex({ subsets: ['latin'],  })
 
 export async function generateMetadata() {
   const blogSettings = await getEggspressSettings('metadata')
+
+  if (blogSettings && blogSettings.code && blogSettings.code === 'ENOENT') {
+    return {
+      title: 'Welcome to Eggspress',
+      description: 'This is a brand new Eggspress site. Check back later for updates!'
+    }
+  }
   
   return {
     metadataBase: blogSettings.metaBaseUrl.startsWith('http') ? new URL(blogSettings.metaBaseUrl) : '',
@@ -40,7 +47,17 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  const appearanceSettings = await getEggspressSettings('appearance')
+  let appearanceSettings = await getEggspressSettings('appearance')
+  if (appearanceSettings && appearanceSettings.code && appearanceSettings.code === 'ENOENT') {
+    appearanceSettings = {
+      colorDarkPrimary: "slate-900",
+      colorDarkSecondary: "slate-800",
+      colorDarkFooter: "slate-900",
+      colorLightPrimary: "gray-100",
+      colorLightSecondary: "white",
+      colorLightFooter: "gray-100",
+    }
+  }
 
   return (
     <html lang="en">
