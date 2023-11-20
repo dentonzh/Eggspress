@@ -9,8 +9,7 @@ const authorLinks = async () => {
   }
 
   return (
-    <div className="flex flex-col w-full sm:w-1/2 mt-3">
-      <div className="font-medium">Links</div>
+    <div className="flex flex-col w-full md:w-1/2">
       {Object.keys(links).filter(key => key.startsWith('link') && links[key].length ).map(key => {
         let name
         if (key.startsWith('linkToWebsite')) {
@@ -20,7 +19,7 @@ const authorLinks = async () => {
         }
 
         return (
-          <div key={key}>
+          <div className="mb-6 md:mb-3" key={key}>
             <a href={links[key]} target="_blank" rel="nofollow noopener">
               {name}
             </a>

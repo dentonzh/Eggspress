@@ -1,5 +1,5 @@
 import React from 'react'
-import Like from './Like'
+import ReadMore from './ReadMore'
 import Link from 'next/link';
 import { PostItem } from '@/types/Blog'
 import { copyImageToPublic, createSlug, getEggspressSettings, getImageFilesRecursively } from '../utils';
@@ -18,6 +18,7 @@ const convertDate = (inputDate: string|null) => {
   const formattedDate = date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
   return formattedDate
 }
+
 
 const PostCard = async ({ post }: PostProps) => {
   const appearanceSettings = await getEggspressSettings('appearance')
@@ -62,10 +63,8 @@ const PostCard = async ({ post }: PostProps) => {
       {appearanceSettings.showPostCardSnippet &&
         <div className='w-full mb-3 prose dark:prose-invert'>{post.snippet}</div>
       }
-      {appearanceSettings.showPostCardReadMoreButton &&
-        <Link href={`/blog/${post.slug}`} className="underline-animated font-medium text-gray-800 hover:text-blue-800 dark:text-white hover:dark:text-blue-200">
-          Read more
-        </Link>
+      {appearanceSettings.showPostCardReadMoreButton && post.slug &&
+        <ReadMore slug={post.slug}></ReadMore>
       }
     </div>
   )

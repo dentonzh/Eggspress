@@ -61,7 +61,6 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
       <div className="flex justify-between w-full">
         <div className="overflow-x-hidden">
           <div className="mb-12 lg:hidden">
-            <div className="text-gray-500 dark:text-gray-300 font-bold">Jump to...</div>
             <Toc />
           </div>
           <div className="prose dark:prose-invert">
@@ -119,7 +118,7 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
             {(frontmatter.relatedPost1 || frontmatter.relatedPost2 || frontmatter.relatedPost3 || frontmatter.relatedPost4) && 
               <div className="mb-16">
                 <div className="flex flex-wrap mb-3">
-                  <Image src={Relation} alt="relation icon" className="h-5 w-5 -ml-1 dark:border-gray-600 stroke-gray-200 fill-gray-200 brightness-50 dark:brightness-100"></Image>
+                  <Image src={Relation} alt="relation icon" className="h-5 w-5 -ml-2 dark:border-gray-600 stroke-gray-200 fill-gray-200 brightness-50 dark:brightness-100"></Image>
                   <div className="font-medium text-sm text-gray-600 dark:text-gray-300 my-auto pl-1">Related Posts</div>
                 </div>
                 {[1, 2, 3, 4].map(async (index: number) => {

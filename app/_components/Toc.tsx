@@ -13,6 +13,7 @@ const Toc = () => {
 
   const [active, setActive] = useState<string>('')
   const [elements, setElements] = useState<Element[]>([])
+  const [showToc, setShowToc] = useState<boolean>(false)  // allows fade-in animation
   const [hasNoHeadings, setHasNoHeadings] = useState<boolean>(false)  // Prevents infinite loop
   
   const getHeaderData = () => {
@@ -46,6 +47,7 @@ const Toc = () => {
   useEffect(() => {
     if (!elements.length && !hasNoHeadings) {
       setElements(getHeaderData)
+      setShowToc(true)
     }
 
     const setLinkStyle = (position: number) => {
@@ -77,13 +79,14 @@ const Toc = () => {
 
   
   return (
-    <div className="tracking-wide leading-5 text-sm">
-      <ul className="text-gray-400 dark:text-gray-500">
+    <div className={`${showToc ? 'opacity-100' : 'opacity-0'} tracking-wide leading-5 text-sm duration-200`}>
+      <div className="text-gray-600 dark:text-gray-300 font-bold mb-3 lg:hidden">Jump to...</div>
+      <ul className="text-gray-600 dark:text-gray-200">
         {elements.map(el =>
           <li key={el.id} id={`toc-${el.id}`}
             className={`
-              ${isHeadingLevelGreaterThan(el.tag, 2) ? 'hidden lg:block' : 'mt-2 mb-1'}
-              ${active === el.id ? 'text-blue-700 hover:text-blue-800 dark:text-blue-300 dark:hover:text-blue- rounded-lg duration-100' : 'hover:text-blue-800 dark:hover:text-blue-400'}
+              ${isHeadingLevelGreaterThan(el.tag, 2) ? 'hidden lg:block' : 'mt-2 mb-3 lg:mb-1'}
+              ${active === el.id ? 'text-blue-700 hover:text-blue-800 dark:text-blue-300 dark:hover:text-blue-200 rounded-lg duration-100' : 'hover:text-blue-800 dark:hover:text-blue-400'}
             `}
             style={{paddingLeft: `${isHeadingLevelGreaterThan(el.tag, 2) ? (parseInt(el.tag) * 0.3) : 0}rem`}}
           >
