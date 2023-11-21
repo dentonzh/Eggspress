@@ -21,7 +21,7 @@ const Setup = () => {
               <li>Move the extracted folders starting with <span className="font-mono font-bold text-sm px-1">my_</span> into <span className="font-medium text-indigo-700 dark:text-green-200">your new workspace</span></li>
               <li>Start editing!</li>
             </ol>
-            <p>
+            <p> 
               For more help, read the <a target="_blank" href="https://github.com/dentonzh/Eggspress/blob/main/README.md">getting started guide</a> on the Eggspress repository.
             </p>
           </div>
