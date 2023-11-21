@@ -6,16 +6,22 @@ const Setup = () => {
     <main className="flex flex-wrap">
       <div className="flex w-full justify-center">
         <div className='max-w-prose'>
-          <div className="lg:hidden border-yellow-500 bg-yellow-200 dark:bg-yellow-700 text-yellow-900 dark:text-yellow-200 px-3 py-2 mt-2">
+          <div className="md:hidden border-yellow-500 bg-yellow-200 dark:bg-yellow-700 text-yellow-900 dark:text-yellow-200 px-3 py-2 mt-2">
             We recommend setting up on a non-mobile device for the best experience.
           </div>
           <div className="py-12 prose dark:prose-invert">
             <h2>Welcome to Eggspress</h2>
             <p>
-              To add content to your site, download
-              the <Link href="/assets/eggspress_starter_workspace.zip">starter workspace</Link>. Then extract the contents
-              of <span className="font-mono font-light text-sm px-1">eggspress_starter_workspace.zip</span> to
-              a folder on your computer for all things Eggspress.
+              Congratulations on deploying your new site! To add your content to it,
+              <ol>
+                <li>Download the <Link href="/assets/eggspress_starter_workspace.zip">starter workspace</Link></li>
+                <li>On your computer, create a folder for <span className="font-medium text-indigo-700 dark:text-green-200">your new workspace</span></li>
+                <li>Extract the contents of <span className="font-mono font-light text-sm px-1">eggspress_starter_workspace.zip</span></li>
+                <li>Move the extracted folders starting with <span className="font-mono font-bold text-sm px-1">my_</span> into <span className="font-medium text-indigo-700 dark:text-green-200">your new workspace</span></li>
+                <li>Start editing!</li>
+              </ol>
+              
+              For more help, read the <a target="_blank" href="https://github.com/dentonzh/Eggspress/blob/main/README.md">getting started guide</a> on the Eggspress repository.
             </p>
           </div>
 
@@ -33,18 +39,22 @@ const Setup = () => {
 
           <div className="py-12 prose dark:prose-invert">
             <p>
-              We recommend storing your workspace on a synced drive like <a target="_blank" href="https://www.dropbox.com/">Dropbox</a>.
+              Eggspress uses <a target="_blank" href="https://www.markdownguide.org/getting-started/">Markdown</a> to style content. If you&apos;re new
+              to Markdown, try <a target="_blank" href="https://obsidian.md/">Obsidian</a> as your editor. It&apos;s available on Windows, Mac, Linux, Android, and iOS.
             </p>
             <p>
-              Eggspress uses <a target="_blank" href="https://www.markdownguide.org/getting-started/">Markdown</a> to style content. We recommend using <a target="_blank" href="https://obsidian.md/">Obsidian</a> as
-              your desktop editor. It&apos;s available on Windows, Mac, Linux, Android, and iOS.
+              Lastly, when you&apos;re ready to publish, upload your workspace to the forked repository
+              by dragging and dropping from your computer. The short video below will show you how:
             </p>
-              Note: If you use Obsidian, you must configure its settings. Click the gear wheel icon to bring up settings. Under the &quot;Files & Links&quot; tab,
+            <video playsInline muted autoPlay loop>
+              <source  src="/assets/workspace_upload.webm" type="video/webm" />
+            </video>
+              {/* Note: If you use Obsidian, you must configure its settings. Click the gear wheel icon to bring up settings. Under the &quot;Files & Links&quot; tab,
               make the following changes:
             <ol>
               <li>Disable &quot;Use Wikilinks&quot;</li>
               <li>Set &quot;Default location for new attachments&quot; to &quot;Same folder as current file&quot;</li>
-            </ol>
+            </ol> */}
           </div>
         </div>
       </div>
