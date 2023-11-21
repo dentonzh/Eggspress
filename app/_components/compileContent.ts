@@ -39,8 +39,8 @@ const compileContent = async (type: string, slug:string,): Promise<{content: Rea
     } else {
       return {
         url: '',
-        width: '',
-        height: ''
+        width: 0,
+        height: 0
       }
     }
   }).filter((image: OGImage) => image.url.length)

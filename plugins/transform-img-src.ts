@@ -25,19 +25,21 @@ export default function transformImgAttrs({
             const imageUrl = `${imagePath}/${fileName.replaceAll('%20', '_')}`
             
             const sourceDir = `${file.path}/${file.name}`
-            const dimensions = sizeOf(sourceDir)
 
-            image.data = {
-              hProperties: {
-                width: dimensions.width,
-                height: dimensions.height
+            if (fs.existsSync(sourceDir)) {
+              const dimensions = sizeOf(sourceDir)
+  
+              image.data = {
+                hProperties: {
+                  width: dimensions.width,
+                  height: dimensions.height
+                }
               }
+  
+              copyImageToPublic(sourceDir, imagePath)
+  
+              image.url = imageUrl
             }
-
-            copyImageToPublic(sourceDir, imagePath)
-
-            image.url = imageUrl
-            console.log(image.type, image.url)
 
           }
         })
