@@ -2,6 +2,7 @@ import getFrontmatter from '../_components/getFrontmatter'
 import { getEggspressSettings } from '../utils'
 import PostCard from '../_components/PostCard'
 import PageSidebar from '../_components/PageSidebar'
+import Setup from '../_components/Setup'
 
 
 export async function generateMetadata() {
@@ -19,6 +20,13 @@ export default async function Home() {
   const postFrontmatter = await getFrontmatter('posts')
   const blogSettings = await getEggspressSettings('metadata')
   const appearanceSettings = await getEggspressSettings('appearance')
+
+  if (blogSettings && blogSettings.code && blogSettings.code === 'ENOENT') {
+    return (
+      <Setup></Setup>
+    )
+  }
+
 
   return (
     <main className="flex flex-wrap">
