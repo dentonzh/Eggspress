@@ -37,12 +37,13 @@ export default function transformImgAttrs({
             copyImageToPublic(sourceDir, imagePath)
 
             image.url = imageUrl
+            console.log(image.type, image.url)
 
           }
         })
 
       }
-    })
+    })    
 
     if (tree.children && tree.children[0] && tree.children[0].children && tree.children[0].children[0].type === 'image') {
       const ledeImage = tree.children[0].children[0]

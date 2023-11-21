@@ -15,7 +15,6 @@ export async function generateMetadata() {
   }
 }
 
-
 export default async function Home() {
   const postFrontmatter = await getFrontmatter('posts')
   const blogSettings = await getEggspressSettings('metadata')
@@ -26,7 +25,6 @@ export default async function Home() {
       <Setup></Setup>
     )
   }
-
 
   return (
     <main className="flex flex-wrap">

@@ -33,7 +33,9 @@ export function createSlug(text: string|null) {
 export async function getMarkdownSlugs(dir: string): Promise<{ slug: string }[]> {
   const files = await getFilesRecursively(dir)
   const allowedExtensions = ['.md', '.mdx']
-  const markdownFiles = files.filter((file) => allowedExtensions.includes(file.extension))
+  const markdownFiles = files.filter(
+    (file) => allowedExtensions.includes(file.extension)
+  )
   
   const slugs = markdownFiles.map((file) => {
     return {'slug': file.slug }
@@ -47,14 +49,21 @@ export async function getMarkdownSlugs(dir: string): Promise<{ slug: string }[]>
 export async function getFilesRecursively(dir: string): Promise<PostFile[]> {
   let arrayOfFilenames: PostFile[] = []
   const files = await glob(`${dir}/**/*`)
-    arrayOfFilenames = files.filter((file) => {return file.indexOf('.') >= 0}).map((file) => {
+
+  arrayOfFilenames = files.filter(
+    file => file.slice(file.lastIndexOf('/') + 1).charAt(0) !== '#'
+  ).filter(
+    file => file.indexOf('.') >= 0
+  ).map(
+    (file) => {
       return {
         name: file.slice(file.lastIndexOf('/') + 1),
         path: file.slice(0, file.lastIndexOf('/')),
         extension: file.slice(file.lastIndexOf('.')),
         slug: createSlug(file.slice(file.lastIndexOf('/') + 1, file.lastIndexOf('.')))
       } 
-    })
+    }
+  )
   return arrayOfFilenames
 }
 
