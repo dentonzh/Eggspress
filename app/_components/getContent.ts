@@ -7,10 +7,10 @@ const getContent = async (type: string, slug:string ): Promise<{markdownData: st
   const dir = `./my_${type}/`
   const markdownFiles: PostFile[] = await getMarkdownFilesRecursively(dir)
   const imageFiles: ImageFile[] = await getImageFilesRecursively(dir)
-  const slugsToFilesMap: Record<string, PostFile> = markdownFiles.reduce((prev, cur) => (
+  const slugsToMarkdownFilesMap: Record<string, PostFile> = markdownFiles.reduce((prev, cur) => (
       {...prev, [cur.slug]: cur}
     ), {})
-  const file = slugsToFilesMap[slug]
+  const file = slugsToMarkdownFilesMap[slug]
   const markdownData = fs.readFileSync(`${file.path}/${file.name}`, 'utf-8')
   const filePath = file.path
   return { markdownData, imageFiles, filePath }

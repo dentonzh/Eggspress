@@ -83,17 +83,17 @@ export async function getMarkdownFilesRecursively(dir: string): Promise<PostFile
 
 
 export async function getImageFilesRecursively(dir: string): Promise<ImageFile[]> {
-  const extensions = ['.jpg', '.jpeg', '.png', '.svg', '.webp', '.gif', '.avif', '.apng', '.bmp', '.tif', '.ico']
+  const extensions = ['.jpg', '.jpeg', '.png', '.svg', '.webp', '.gif', '.avif', '.bmp', '.tif', '.ico', '.webm', '.mp4', '.m4v', '.mov', '.wmv', '.asf', '.avi', '.mpg', '.mpeg']
   const files = await getFilesRecursivelyWithExtensions(dir, extensions)
   return files
 }
 
 
-export function copyImageToPublic(source: string, toPath: string): string {
+export function copyImageToPublic(source: string, toPath: string) {
   const fileName = source.slice(source.lastIndexOf('/') + 1).replaceAll('%20', '_').replaceAll(' ', '_')
   const destinationPath = `public/${toPath}`
   const destinationFile = `${destinationPath}/${fileName}`
-  
+
   if (!fs.existsSync(destinationFile)) {
     if (!fs.existsSync(destinationPath)) {
       fs.mkdirSync(destinationPath, {recursive: true})
@@ -102,7 +102,6 @@ export function copyImageToPublic(source: string, toPath: string): string {
   }
 
   return `/${toPath}/${fileName}`
-
 }
 
 // Function below requires Node 20, which AWS Lambda does not support-- see above function for glob implementation
