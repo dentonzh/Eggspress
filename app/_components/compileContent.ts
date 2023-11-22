@@ -19,7 +19,7 @@ const compileContent = async (type: string, slug:string,): Promise<{content: Rea
     options: {
       parseFrontmatter: true,
       mdxOptions: {
-        remarkPlugins: [remarkGfm, [eggspressMedia, { slug, imageFiles }]],
+        remarkPlugins: [remarkGfm, [eggspressMedia, { slug, imageFiles, filePath }]],
         rehypePlugins: [rehypeSlug]
       }
     },

@@ -82,10 +82,39 @@ export async function getMarkdownFilesRecursively(dir: string): Promise<PostFile
 }
 
 
-export async function getImageFilesRecursively(dir: string): Promise<ImageFile[]> {
+export async function getImageFilesRecursively(dir: string, dirToSearchFirst?: string): Promise<ImageFile[]> {
   const extensions = ['.jpg', '.jpeg', '.png', '.svg', '.webp', '.gif', '.avif', '.bmp', '.tif', '.ico', '.webm', '.mp4', '.m4v', '.mov', '.wmv', '.asf', '.avi', '.mpg', '.mpeg']
   const files = await getFilesRecursivelyWithExtensions(dir, extensions)
   return files
+}
+
+export function sortFilesByProximity(toPath: string, files: PostFile[]): PostFile[] {
+  files.sort((a, b) => {
+    const aPath = a.path
+    const bPath = b.path
+
+    if (aPath === toPath) {return -1}
+    if (bPath === toPath) {return 1}
+    
+    const aLevel = aPath.split('/').length
+    const bLevel = bPath.split('/').length
+    const baseLevel = toPath.split('/').length
+
+    if (aPath.includes(toPath) && bPath.includes(toPath)) {
+      console.log(aLevel, bLevel, a, b)
+      if (aLevel < bLevel) {return -1}
+      if (aLevel > bLevel) {return 1}
+      return 0
+    } else {
+      if (aPath.includes(toPath)) {return -1}
+      if (bPath.includes(toPath)) {return 1}
+    }
+
+    return Math.abs(aLevel - baseLevel) - Math.abs(bLevel - baseLevel)
+  })
+
+  return files
+  
 }
 
 

@@ -1,4 +1,4 @@
-import { copyImageToPublic } from '@/app/utils'
+import { copyImageToPublic, sortFilesByProximity } from '@/app/utils'
 import { PostFile } from '@/types/Blog'
 import { visit } from 'unist-util-visit'
 
@@ -19,9 +19,11 @@ interface ImageNode {
 const videoExtensions = ['.webm', '.mp4', '.m4v', '.mov', '.wmv', '.asf', '.avi', '.mpg', '.mpeg']
 
 
-const processImage = (slug: string, image: ImageNode, imageFiles: PostFile[]) => {
+const processImage = (slug: string, image: ImageNode, imageFiles: PostFile[], filePath?: string) => {
   const fileName = image.url.slice(image.url.lastIndexOf('/') + 1)
-  imageFiles.forEach((file) => {
+
+  for (let i = 0; i < imageFiles.length; i++ ) {
+    const file = imageFiles[i]
     if (file.name === decodeURI(fileName)) {
       const imagePath = `/${publicImgDir}/${slug}`
       const imageUrl = `${imagePath}/${fileName.replaceAll('%20', '_')}`
@@ -42,25 +44,32 @@ const processImage = (slug: string, image: ImageNode, imageFiles: PostFile[]) =>
         copyImageToPublic(sourceDir, imagePath)
         image.url = imageUrl
       }
+      break
     }
-  })
+  }
 }
 
 
 export default function eggspressMedia({
     slug,
-    imageFiles 
+    imageFiles,
+    filePath
   }: {
     slug: string,
-    imageFiles: PostFile[]
+    imageFiles: PostFile[],
+    filePath: string
   }) {
+  let sortedImageFiles = imageFiles
+  if (filePath) {
+    sortedImageFiles = sortFilesByProximity(filePath, imageFiles)
+  }
   return (tree: any) => {
     visit(tree, 'paragraph', node => {
       const images = node.children.filter((child: any) => child.type === 'image');
 
       if (images) {
         images.forEach((image: ImageNode) => {
-          processImage(slug, image, imageFiles)
+          processImage(slug, image, sortedImageFiles)
         })
       }
     })
