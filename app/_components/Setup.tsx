@@ -48,7 +48,7 @@ const Setup = () => {
               by dragging and dropping from your computer. The short video below will show you how:
             </p>
             <video playsInline muted autoPlay loop>
-              <source  src="/assets/workspace_upload.webm" type="video/webm" />
+              <source  src="/assets/workspace_setup.webm" type="video/webm" />
             </video>
               {/* Note: If you use Obsidian, you must configure its settings. Click the gear wheel icon to bring up settings. Under the &quot;Files & Links&quot; tab,
               make the following changes:
