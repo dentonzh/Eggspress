@@ -25,11 +25,10 @@ const PostCard = async ({ post }: PostProps) => {
 
   if (post.image) {
     const imageFiles = await getImageFilesRecursively(post.path)
+    const imageFile = imageFiles.filter(file => file.name === post.image)[0]
 
-    if (imageFiles) {
-      const imageFile = imageFiles.filter(file => file.name === post.image)[0]
+    if (imageFile) {
       const source = `${imageFile.path}/${imageFile.name}`
-
       copyImageToPublic(source, `images/${post.slug}`)
     }
   }
