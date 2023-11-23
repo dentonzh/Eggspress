@@ -6,6 +6,7 @@ import Sidebar from '../../_components/Sidebar'
 import PostCard from '../../_components/PostCard'
 import { copyImageToPublic, getImageFilesRecursively, getEggspressSettings } from '../../utils'
 import Image from 'next/image'
+import egg from '@/public/assets/egg.svg'
 
 
 export async function generateStaticParams() {
@@ -78,11 +79,13 @@ const AuthorPage =  async ( {params}: {params: {slug: string}} ) => {
             </div>
           </div>
           {imageUrl && imageUrl.length > 0 ? (
-            <div className={`${imageUrl.length ? '' : 'hidden'} ml-auto my-auto ml-10 h-24 w-24 rounded-full object-cover overflow-hidden`}>
+            <div className={`${imageUrl.length ? '' : 'hidden'} ml-auto my-auto h-24 w-24 rounded-full object-cover overflow-hidden`}>
               <Image src={imageUrl} width="96" height="96" alt={`Profile image for ${frontmatter.name}`}></Image>
             </div>
           ) : (
-            <div className="ml-auto my-auto h-24 w-24 bg-gray-200 dark:bg-gray-600 duration-150 rounded-full object-cover overflow-hidden"></div>
+            <div className="ml-auto my-auto p-5 h-24 w-24 bg-gray-200 dark:bg-gray-600 duration-150 rounded-full object-cover overflow-hidden">
+              <Image src={egg} width="96" height="96" alt={`Profile image for ${frontmatter.name}`}></Image>
+            </div>
           )}
         </div>
       </div>

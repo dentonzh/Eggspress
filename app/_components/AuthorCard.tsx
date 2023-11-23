@@ -3,6 +3,8 @@ import getFrontmatter from './getFrontmatter'
 import { copyImageToPublic, getImageFilesRecursively } from '../utils'
 import Image from 'next/image'
 import Link from 'next/link'
+import egg from '@/public/assets/egg.svg'
+
 
 const getProfileImage =  async (imageFileName: string): Promise<string | null> => {
   const imageFiles = await getImageFilesRecursively('my_authors')
@@ -35,7 +37,9 @@ const AuthorCard = async ({slug}: {slug: string | null}) => {
             <Image src={imageUrl} width="56" height="56" alt={`Profile image for ${authorData.name}`}></Image>
           </div>
         ) :
-          <div className="-ml-2 mr-3 h-11 w-11 rounded-full bg-gray-200 dark:bg-gray-600 duration-150"></div>
+          <div className="-ml-2 mr-3 h-11 w-11 p-2 rounded-full bg-gray-200 dark:bg-gray-600 duration-150">
+            <Image src={egg} width="96" height="96" alt={`Profile image for ${authorData.name}`}></Image>
+          </div>
         }
         <div className="font-medium my-auto">
           <span className={authorData.role ? '' : 'pl-2 font-semibold'}>
