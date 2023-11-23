@@ -28,6 +28,8 @@ const compileContent = async (type: string, slug:string,): Promise<{content: Rea
     }
   })
 
+  source.frontmatter.path = filePath
+
   const images = imageFiles.map((image: ImageFile) => {
     const imageFile = `/images/${slug}/${image.name}`
     if (fs.existsSync(`public/${imageFile}`) && !videoExtensions.includes(image.extension)){

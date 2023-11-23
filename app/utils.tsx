@@ -123,6 +123,10 @@ export function copyImageToPublic(source: string, toPath: string) {
   const destinationPath = `public/${toPath}`
   const destinationFile = `${destinationPath}/${fileName}`
 
+  if (!fs.existsSync(source)) {
+    return null
+  }
+
   if (!fs.existsSync(destinationFile)) {
     if (!fs.existsSync(destinationPath)) {
       fs.mkdirSync(destinationPath, {recursive: true})

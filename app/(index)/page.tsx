@@ -33,9 +33,9 @@ export default async function Home() {
         <div className="font-normal">{blogSettings.tagline || 'The lightweight blog made for everyone 🌎'}</div>
       </div>
       <div className="flex justify-between w-full">
-        <div className='max-w-prose'>
-          {postFrontmatter.map(frontmatter => 
-            <PostCard key={frontmatter.slug} post={frontmatter}></PostCard>
+        <div className='lg:max-w-prose'>
+          {postFrontmatter.map((frontmatter, index) => 
+            <PostCard key={`${frontmatter.slug}-${index}`} post={frontmatter}></PostCard>
           )}
         </div>
         <div>
