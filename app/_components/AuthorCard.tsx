@@ -3,15 +3,17 @@ import getFrontmatter from './getFrontmatter'
 import { copyImageToPublic, getImageFilesRecursively } from '../utils'
 import Image from 'next/image'
 import Link from 'next/link'
+import egg from '@/public/assets/egg.svg'
 
-const getProfileImage =  async (imageFileName: string): Promise<string> => {
+
+const getProfileImage =  async (imageFileName: string): Promise<string | null> => {
   const imageFiles = await getImageFilesRecursively('my_authors')
   const profileImageFiles = imageFiles.filter(file => file.name === imageFileName)
 
   if (profileImageFiles.length) {
     const imageFile = profileImageFiles[0]
     const source = `${imageFile.path}/${imageFile.name}`
-    const imageUrl = copyImageToPublic(source, 'profile_images')
+    const imageUrl = copyImageToPublic(source, 'images/profile')
     return imageUrl
   } else {
     return ''
@@ -30,12 +32,14 @@ const AuthorCard = async ({slug}: {slug: string | null}) => {
   return (
     <div className="mb-16 text-gray-600 dark:text-gray-200">
       <Link href={`/author/${slug}`} className="mb-1 flex flex-wrap">
-        {imageUrl.length > 0 ? (
+        {imageUrl && imageUrl.length > 0 ? (
           <div className={`${imageUrl.length ? '' : 'hidden'} -ml-2 mr-3 h-11 w-11 rounded-full object-cover overflow-hidden`}>
             <Image src={imageUrl} width="56" height="56" alt={`Profile image for ${authorData.name}`}></Image>
           </div>
         ) :
-          <div className="-ml-2 mr-3 h-11 w-11 rounded-full bg-gray-200 dark:bg-gray-600 duration-150"></div>
+          <div className="-ml-2 mr-3 h-11 w-11 p-2 rounded-full bg-gray-200 dark:bg-gray-600 duration-150">
+            <Image src={egg} width="96" height="96" alt={`Profile image for ${authorData.name}`}></Image>
+          </div>
         }
         <div className="font-medium my-auto">
           <span className={authorData.role ? '' : 'pl-2 font-semibold'}>

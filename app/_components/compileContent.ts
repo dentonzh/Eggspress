@@ -1,14 +1,15 @@
 import { compileMDX } from 'next-mdx-remote/rsc'
 import getContent from '../_components/getContent'
-import NextImage from '../_components/NextImage'
+import EggspressImage from '../_components/EggspressImage'
 import rehypeSlug from 'rehype-slug'
 import remarkGfm from 'remark-gfm'
-import transformImgAttrs from '@/plugins/transform-img-src'
+import eggspressMedia from '@/plugins/eggspress-img-processor'
 import { ImageFile, OGImage } from '@/types/Blog'
 
 const fs = require('fs-extra')
 const sizeOf = require('image-size')
 
+const videoExtensions = ['.webm', '.mp4', '.m4v', '.mov', '.wmv', '.asf', '.avi', '.mpg', '.mpeg']
 
 const compileContent = async (type: string, slug:string,): Promise<{content: React.ReactNode, frontmatter: Record<any, any>, contentLength: number, images: OGImage[]}> => {
   const { markdownData, imageFiles, filePath } = await getContent(type, slug)
@@ -18,18 +19,20 @@ const compileContent = async (type: string, slug:string,): Promise<{content: Rea
     options: {
       parseFrontmatter: true,
       mdxOptions: {
-        remarkPlugins: [remarkGfm, [transformImgAttrs, { slug, imageFiles }]],
+        remarkPlugins: [remarkGfm, [eggspressMedia, { slug, imageFiles, filePath }]],
         rehypePlugins: [rehypeSlug]
       }
     },
     components: {
-      img: NextImage as any
+      img: EggspressImage as any
     }
   })
 
+  source.frontmatter.path = filePath
+
   const images = imageFiles.map((image: ImageFile) => {
     const imageFile = `/images/${slug}/${image.name}`
-    if (fs.existsSync(`public/${imageFile}`)) {
+    if (fs.existsSync(`public/${imageFile}`) && !videoExtensions.includes(image.extension)){
       const dimensions = sizeOf(`${image.path}/${image.name}`)
       return {
         url: imageFile,
@@ -39,8 +42,8 @@ const compileContent = async (type: string, slug:string,): Promise<{content: Rea
     } else {
       return {
         url: '',
-        width: '',
-        height: ''
+        width: 0,
+        height: 0
       }
     }
   }).filter((image: OGImage) => image.url.length)

@@ -6,6 +6,7 @@ import Sidebar from '../../_components/Sidebar'
 import PostCard from '../../_components/PostCard'
 import { copyImageToPublic, getImageFilesRecursively, getEggspressSettings } from '../../utils'
 import Image from 'next/image'
+import egg from '@/public/assets/egg.svg'
 
 
 export async function generateStaticParams() {
@@ -36,14 +37,14 @@ export async function generateMetadata({ params }: { params: {slug: string} }) {
 }
 
 
-const getProfileImage =  async (imageFileName: string): Promise<string> => {
+const getProfileImage =  async (imageFileName: string): Promise<string | null> => {
   const imageFiles = await getImageFilesRecursively('my_authors')
   const profileImageFiles = imageFiles.filter(file => file.name === imageFileName)
 
   if (profileImageFiles.length) {
     const profileImageFile = profileImageFiles[0]
     const source = `${profileImageFile.path}/${profileImageFile.name}`
-    const imageUrl = copyImageToPublic(source, 'profile_images')
+    const imageUrl = copyImageToPublic(source, 'images/profile')
     return imageUrl
   } else {
     return ''
@@ -77,12 +78,14 @@ const AuthorPage =  async ( {params}: {params: {slug: string}} ) => {
               <div className="font-normal">{frontmatter.role}</div>
             </div>
           </div>
-          {imageUrl.length > 0 ? (
-            <div className={`${imageUrl.length ? '' : 'hidden'} ml-auto my-auto ml-10 h-24 w-24 rounded-full object-cover overflow-hidden`}>
+          {imageUrl && imageUrl.length > 0 ? (
+            <div className={`${imageUrl.length ? '' : 'hidden'} ml-auto my-auto h-24 w-24 rounded-full object-cover overflow-hidden`}>
               <Image src={imageUrl} width="96" height="96" alt={`Profile image for ${frontmatter.name}`}></Image>
             </div>
           ) : (
-            <div className="ml-auto my-auto h-24 w-24 bg-gray-200 dark:bg-gray-600 duration-150 rounded-full object-cover overflow-hidden"></div>
+            <div className="ml-auto my-auto p-5 h-24 w-24 bg-gray-200 dark:bg-gray-600 duration-150 rounded-full object-cover overflow-hidden">
+              <Image src={egg} width="96" height="96" alt={`Profile image for ${frontmatter.name}`}></Image>
+            </div>
           )}
         </div>
       </div>

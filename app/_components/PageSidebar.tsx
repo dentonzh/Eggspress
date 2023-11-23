@@ -56,13 +56,13 @@ const PageSidebar = async ({slug, isSticky=true}: {slug: string | null, isSticky
               if ( sidebarImageFile ) {
                 const source = `${sidebarImageFile.path}/${sidebarImageFile.name}`
           
-                copyImageToPublic(source, 'sidebar_images')
+                copyImageToPublic(source, 'images/sidebar')
               }
             }
   
             if ( heading || image || text || link || linkText ) {
               return (
-                <div key={`sidebar-item-${index}`} className="font-light text-gray-600 dark:text-gray-300 mb-5">
+                <div key={`sidebar-item-${index}`} className="font-light text-gray-600 dark:text-gray-300 mb-8">
                   {heading && <div className="font-semibold mb-0.5">{heading}</div>}
                   {text && <div className="mb-1">{text}</div>}
                   {linkText && link &&
@@ -76,7 +76,7 @@ const PageSidebar = async ({slug, isSticky=true}: {slug: string | null, isSticky
                     </Link>
                   }
 
-                  {image && <Image alt={`Sidebar image`} src={`/sidebar_images/${image}`} className="w-full h-auto object-cover mt-2 mb-3" width={0} height={0} sizes="100vw"></Image>}
+                  {image && <Image alt={`Sidebar image`} src={`/images/sidebar/${image}`} className="w-full h-auto object-cover mt-4 mb-6" width={0} height={0} sizes="100vw"></Image>}
                 </div>
               )
             }
