@@ -36,7 +36,7 @@ export async function generateMetadata({ params }: { params: {slug: string} }) {
 }
 
 
-const getProfileImage =  async (imageFileName: string): Promise<string> => {
+const getProfileImage =  async (imageFileName: string): Promise<string | null> => {
   const imageFiles = await getImageFilesRecursively('my_authors')
   const profileImageFiles = imageFiles.filter(file => file.name === imageFileName)
 
@@ -77,7 +77,7 @@ const AuthorPage =  async ( {params}: {params: {slug: string}} ) => {
               <div className="font-normal">{frontmatter.role}</div>
             </div>
           </div>
-          {imageUrl.length > 0 ? (
+          {imageUrl && imageUrl.length > 0 ? (
             <div className={`${imageUrl.length ? '' : 'hidden'} ml-auto my-auto ml-10 h-24 w-24 rounded-full object-cover overflow-hidden`}>
               <Image src={imageUrl} width="96" height="96" alt={`Profile image for ${frontmatter.name}`}></Image>
             </div>

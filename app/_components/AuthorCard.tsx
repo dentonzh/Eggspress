@@ -4,7 +4,7 @@ import { copyImageToPublic, getImageFilesRecursively } from '../utils'
 import Image from 'next/image'
 import Link from 'next/link'
 
-const getProfileImage =  async (imageFileName: string): Promise<string> => {
+const getProfileImage =  async (imageFileName: string): Promise<string | null> => {
   const imageFiles = await getImageFilesRecursively('my_authors')
   const profileImageFiles = imageFiles.filter(file => file.name === imageFileName)
 
@@ -30,7 +30,7 @@ const AuthorCard = async ({slug}: {slug: string | null}) => {
   return (
     <div className="mb-16 text-gray-600 dark:text-gray-200">
       <Link href={`/author/${slug}`} className="mb-1 flex flex-wrap">
-        {imageUrl.length > 0 ? (
+        {imageUrl && imageUrl.length > 0 ? (
           <div className={`${imageUrl.length ? '' : 'hidden'} -ml-2 mr-3 h-11 w-11 rounded-full object-cover overflow-hidden`}>
             <Image src={imageUrl} width="56" height="56" alt={`Profile image for ${authorData.name}`}></Image>
           </div>
