@@ -4,9 +4,12 @@
 /public/images
 /public/profile_images
 /public/sidebar_images
+/app/_plugins/*
 /my_posts
 /my_pages
 /my_authors
+/my_plugins
+/my_components
 /my_categories
 /my_sidebars
 /my_settings
