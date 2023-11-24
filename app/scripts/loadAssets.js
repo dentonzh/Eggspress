@@ -6,15 +6,13 @@ assetsMap = {
   'og_logo.png': 'public/assets/',
 }
 
-sourceDir = 'my_settings/'
+sourceDir = 'my_settings/brand/'
 
 Object.keys(assetsMap).map((file) => {
-  console.log(file)
   const sourceFile = `./${sourceDir}${file}`
   const destinationFile = `./${assetsMap[file]}${file}`
 
   if (fs.existsSync(sourceFile)) {
-    console.log(sourceFile, destinationFile)
     fs.copySync(sourceFile, destinationFile)
   }
 })
