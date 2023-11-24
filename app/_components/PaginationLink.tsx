@@ -3,10 +3,14 @@
 import { useRouter } from 'next/navigation'
 import React from 'react'
 
-const PaginationLink = ({text, page}: {text: string, page: number}) => {
+const PaginationLink = ({text, page, category}: {text: string, page: number, category?: string}) => {
   const router = useRouter()
 
   const handleGotoPage = () => {
+    if (category) {
+      router.push(`/${category}/page/${page}`)
+      return
+    }
     router.push(`/blog/page/${page}`)
   }
 

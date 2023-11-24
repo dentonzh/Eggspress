@@ -7,19 +7,16 @@ import PaginationLink from '../../../_components/PaginationLink'
 
 export async function generateStaticParams() {
   const postFrontmatter = await getFrontmatter('posts')
-
   const appearanceSettings = await getEggspressSettings('appearance')
 
-  const categorySlugsAsSet = new Set(postFrontmatter.filter(post => 
-    {if (!post.category) {return false} return true}
-  ).map(post => {
-    createSlug(post.category)
-  }))
-  const categorySlugsAsArray = Array.from(categorySlugsAsSet)
+  const categoryMap: Record<any, any> = {}
+  postFrontmatter.map(post => {
+    categoryMap[createSlug(post.category)] = 1
+  })
+  
+  let params: {category: string, page: string}[] = []
 
-  let params = []
-  categorySlugsAsArray.forEach(categorySlug => {
-    // @ts-ignore
+  Object.keys(categoryMap).map(categorySlug => {
     const postCount = postFrontmatter.filter(post => createSlug(post.category) === categorySlug).length
     const pageCount = Math.ceil(postCount / (appearanceSettings.numberOfPostsPerPage || 8))
 
