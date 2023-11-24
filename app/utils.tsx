@@ -44,6 +44,11 @@ export async function getMarkdownSlugs(dir: string): Promise<{ slug: string }[]>
   return slugs
 }
 
+export async function getFolders(dir: string): Promise<string[]> {
+  const fileList = await fs.readdirSync(dir)
+  return fileList
+}
+
 
 // Implementation of getFilesRecursively using glob
 export async function getFilesRecursively(dir: string): Promise<PostFile[]> {
