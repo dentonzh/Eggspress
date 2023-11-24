@@ -12,6 +12,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "prebuild": "node ./app/scripts/loadAssets.js",
     "start": "next start",
     "lint": "next lint"
   },
