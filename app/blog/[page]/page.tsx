@@ -1,9 +1,8 @@
-import getFrontmatter from '../_components/getFrontmatter'
-import { getEggspressSettings } from '../utils'
-import PostCard from '../_components/PostCard'
-import PageSidebar from '../_components/PageSidebar'
-import PaginationLink from '../_components/PaginationLink'
-import Setup from '../_components/Setup'
+import getFrontmatter from '../../_components/getFrontmatter'
+import { getEggspressSettings } from '../../utils'
+import PostCard from '../../_components/PostCard'
+import PageSidebar from '../../_components/PageSidebar'
+import Setup from '../../_components/Setup'
 
 
 export async function generateMetadata() {
@@ -38,17 +37,7 @@ export default async function Home() {
           {postFrontmatter.map((frontmatter, index) => 
             <PostCard key={`${frontmatter.slug}-${index}`} post={frontmatter}></PostCard>
           )}
-          {postFrontmatter.length > appearanceSettings.numberOfPostsPerPage &&
-          <div className="py-12">
-            <div className="font-light text-sm mb-2 text-gray-800 dark:text-gray-100">
-              Displaying {appearanceSettings.numberOfPostsPerPage} of {postFrontmatter.length} posts
-            </div>
-            <PaginationLink text="Show more posts" page={2}></PaginationLink>
-          </div>
-          }
         </div>
-        
-
         <div>
           <PageSidebar slug="index"></PageSidebar>
         </div>
