@@ -12,7 +12,7 @@ export async function generateStaticParams() {
   let pages = []
 
   for (let i = 0; i < pageCount; i ++) {
-    pages.push(i + 1)
+    pages.push({page: (+i + 1).toString()})
   }
   return pages
 }
@@ -28,14 +28,15 @@ export async function generateMetadata() {
   }
 }
 
-export default async function BlogPage({ params }: { params: { page: number } }) {
+export default async function BlogPage({ params }: { params: { page: string } }) {
   const { page } = params
+  const pageNumber = parseInt(page)
   const postFrontmatter = await getFrontmatter('posts')
   const appearanceSettings = await getEggspressSettings('appearance')
   const numPostsPerPage = appearanceSettings.numberOfPostsPerPage || 8
 
-  const maxPostIndex = page * numPostsPerPage > postFrontmatter.length ? postFrontmatter.length : page * numPostsPerPage
-  const startIndex = page * numPostsPerPage - numPostsPerPage > postFrontmatter.length ? maxPostIndex - numPostsPerPage : page * numPostsPerPage - numPostsPerPage
+  const maxPostIndex = pageNumber * numPostsPerPage > postFrontmatter.length ? postFrontmatter.length : pageNumber * numPostsPerPage
+  const startIndex = pageNumber * numPostsPerPage - numPostsPerPage > postFrontmatter.length ? maxPostIndex - numPostsPerPage : pageNumber * numPostsPerPage - numPostsPerPage
 
   return (
     <main className="flex flex-wrap">
@@ -58,13 +59,13 @@ export default async function BlogPage({ params }: { params: { page: number } })
             Displaying posts {startIndex + 1} - {maxPostIndex} of {postFrontmatter.length}
           </div>
           <div className="flex">
-            {page > 1 &&
+            {pageNumber > 1 &&
               <div className="mr-6">
-                <PaginationLink text="Go back one page" page={+page - 1}></PaginationLink>
+                <PaginationLink text="Go back one page" page={+pageNumber - 1}></PaginationLink>
               </div>
             }
             {postFrontmatter.length > maxPostIndex &&
-              <PaginationLink text="Show more posts" page={+page + 1}></PaginationLink>
+              <PaginationLink text="Show more posts" page={+pageNumber + 1}></PaginationLink>
             }
           </div>
         </div>
