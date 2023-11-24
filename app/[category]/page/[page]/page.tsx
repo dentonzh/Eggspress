@@ -2,7 +2,7 @@ import getFrontmatter from '../../../_components/getFrontmatter'
 import { createSlug, getEggspressSettings } from '../../../utils'
 import PostCard from '../../../_components/PostCard'
 import PageSidebar from '../../../_components/PageSidebar'
-import PaginationLink from '../../../_components/PaginationLink'
+import PaginationCard from '../../../_components/PaginationCard'
 
 
 export async function generateStaticParams() {
@@ -46,20 +46,30 @@ export default async function BlogPage({ params }: { params: { category: string,
   const appearanceSettings = await getEggspressSettings('appearance')
   const numPostsPerPage = appearanceSettings.numberOfPostsPerPage || 8
   
-  const categoryPostFrontmatter = postFrontmatter.filter(post => createSlug(post.category) === category)
+  const filteredPosts = postFrontmatter.filter(post => createSlug(post.category) === category)
 
-  const maxPostIndex = pageNumber * numPostsPerPage > categoryPostFrontmatter.length ? categoryPostFrontmatter.length : pageNumber * numPostsPerPage
-  const startIndex = pageNumber * numPostsPerPage - numPostsPerPage > categoryPostFrontmatter.length ? maxPostIndex - numPostsPerPage : pageNumber * numPostsPerPage - numPostsPerPage
+  const endIndex = pageNumber * numPostsPerPage > filteredPosts.length ? filteredPosts.length : pageNumber * numPostsPerPage
+  const startIndex = pageNumber * numPostsPerPage - numPostsPerPage > filteredPosts.length ? endIndex - numPostsPerPage : pageNumber * numPostsPerPage - numPostsPerPage
+
+  const categoryFrontmatter = await getFrontmatter('categories')
+  const categoryData = categoryFrontmatter.filter(fm => fm.slug === category)[0]
+
+  let categoryName = filteredPosts && filteredPosts.length ? filteredPosts[0].category : decodeURI(category)
+  if (categoryData) {
+    categoryName = categoryData.title
+  }
+
+  categoryName = categoryName || category
 
   return (
     <main className="flex flex-wrap">
       <div className={`hero bleed-${appearanceSettings.colorLightPrimary} dark:bleed-${appearanceSettings.colorDarkPrimary}`}>
-        <h1 className="text-5xl font-bold mb-4 -ml-0.5">Posts <span className="text-gray-400 dark:text-gray-500">{`//`} Page {page}</span></h1>      
-        <div className="font-normal">Displaying {startIndex + 1} - {maxPostIndex} of {categoryPostFrontmatter.length}</div>
+        <h1 className="text-5xl font-bold mb-4 -ml-0.5">{categoryName} <span className="text-gray-400 dark:text-gray-500">{`//`} Page {page}</span></h1>      
+        <div className="font-normal">Displaying {startIndex + 1} - {endIndex} of {filteredPosts.length}</div>
       </div>
       <div className="flex justify-between w-full">
         <div className='lg:max-w-prose'>
-          {categoryPostFrontmatter.slice(startIndex, maxPostIndex).map((frontmatter, index) => 
+          {filteredPosts.slice(startIndex, endIndex).map((frontmatter, index) => 
             <PostCard key={`${frontmatter.slug}-${index}`} post={frontmatter}></PostCard>
           )}
         </div>
@@ -67,21 +77,7 @@ export default async function BlogPage({ params }: { params: { category: string,
           <PageSidebar slug="index"></PageSidebar>
         </div>
       </div>
-        <div className="py-12">
-          <div className="font-light text-sm mb-2 text-gray-800 dark:text-gray-100">
-            Displaying posts {startIndex + 1} - {maxPostIndex} of {categoryPostFrontmatter.length}
-          </div>
-          <div className="flex">
-            {pageNumber > 1 &&
-              <div className="mr-6">
-                <PaginationLink text="Go back one page" page={+pageNumber - 1}></PaginationLink>
-              </div>
-            }
-            {categoryPostFrontmatter.length > maxPostIndex &&
-              <PaginationLink text="Show more posts" page={+pageNumber + 1}></PaginationLink>
-            }
-          </div>
-        </div>
+      <PaginationCard currentPage={pageNumber} startIndex={startIndex} endIndex={endIndex} postCount={filteredPosts.length}></PaginationCard>
     </main>
   )
 }

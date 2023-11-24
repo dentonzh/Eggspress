@@ -2,7 +2,7 @@ import getFrontmatter from '../../../_components/getFrontmatter'
 import { getEggspressSettings } from '../../../utils'
 import PostCard from '../../../_components/PostCard'
 import PageSidebar from '../../../_components/PageSidebar'
-import PaginationLink from '../../../_components/PaginationLink'
+import PaginationCard from '../../../_components/PaginationCard'
 
 
 export async function generateStaticParams() {
@@ -35,18 +35,18 @@ export default async function BlogPage({ params }: { params: { page: string } })
   const appearanceSettings = await getEggspressSettings('appearance')
   const numPostsPerPage = appearanceSettings.numberOfPostsPerPage || 8
 
-  const maxPostIndex = pageNumber * numPostsPerPage > postFrontmatter.length ? postFrontmatter.length : pageNumber * numPostsPerPage
-  const startIndex = pageNumber * numPostsPerPage - numPostsPerPage > postFrontmatter.length ? maxPostIndex - numPostsPerPage : pageNumber * numPostsPerPage - numPostsPerPage
+  const endIndex = pageNumber * numPostsPerPage > postFrontmatter.length ? postFrontmatter.length : pageNumber * numPostsPerPage
+  const startIndex = pageNumber * numPostsPerPage - numPostsPerPage > postFrontmatter.length ? endIndex - numPostsPerPage : pageNumber * numPostsPerPage - numPostsPerPage
 
   return (
     <main className="flex flex-wrap">
       <div className={`hero bleed-${appearanceSettings.colorLightPrimary} dark:bleed-${appearanceSettings.colorDarkPrimary}`}>
         <h1 className="text-5xl font-bold mb-4 -ml-0.5">Posts <span className="text-gray-400 dark:text-gray-500">{`//`} Page {page}</span></h1>      
-        <div className="font-normal">Displaying {startIndex + 1} - {maxPostIndex} of {postFrontmatter.length}</div>
+        <div className="font-normal">Displaying {startIndex + 1} - {endIndex} of {postFrontmatter.length}</div>
       </div>
       <div className="flex justify-between w-full">
         <div className='lg:max-w-prose'>
-          {postFrontmatter.slice(startIndex, maxPostIndex).map((frontmatter, index) => 
+          {postFrontmatter.slice(startIndex, endIndex).map((frontmatter, index) => 
             <PostCard key={`${frontmatter.slug}-${index}`} post={frontmatter}></PostCard>
           )}
         </div>
@@ -54,21 +54,7 @@ export default async function BlogPage({ params }: { params: { page: string } })
           <PageSidebar slug="index"></PageSidebar>
         </div>
       </div>
-        <div className="py-12">
-          <div className="font-light text-sm mb-2 text-gray-800 dark:text-gray-100">
-            Displaying posts {startIndex + 1} - {maxPostIndex} of {postFrontmatter.length}
-          </div>
-          <div className="flex">
-            {pageNumber > 1 &&
-              <div className="mr-6">
-                <PaginationLink text="Go back one page" page={+pageNumber - 1}></PaginationLink>
-              </div>
-            }
-            {postFrontmatter.length > maxPostIndex &&
-              <PaginationLink text="Show more posts" page={+pageNumber + 1}></PaginationLink>
-            }
-          </div>
-        </div>
+      <PaginationCard currentPage={page} startIndex={startIndex} endIndex={endIndex} postCount={postFrontmatter.length}></PaginationCard>
     </main>
   )
 }
