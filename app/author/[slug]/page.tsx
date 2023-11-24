@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: { params: {slug: string} }) {
 
 
   return {
-    title: `${frontmatter.name} - ${blogSettings.title}`,  // add role here? like "Eggie Shellvetica, Editor-in-Chief at ..."
+    title: `${frontmatter.name}${frontmatter.role ? `, ${frontmatter.role}` : ''}`,  // add role here? like "Eggie Shellvetica, Editor-in-Chief at ..."
     description: frontmatter.description || frontmatter.snippet,
     url: `/${slug}`,
     openGraph: {

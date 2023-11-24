@@ -29,13 +29,26 @@ export async function generateStaticParams() {
 }
 
 
-export async function generateMetadata() {
+export async function generateMetadata({ params }: { params: { category: string, page: string}}) {
   const blogSettings = await getEggspressSettings('metadata')
+  const { category, page } = params
+  
+  const pageNumber = parseInt(page)
+  const postFrontmatter = await getFrontmatter('posts')
+
+  const categoryFrontmatter = await getFrontmatter('categories')
+  const categoryData = categoryFrontmatter.filter(fm => fm.slug === category)[0]
+  const filteredPosts = postFrontmatter.filter(post => createSlug(post.category) === category)
+
+  let categoryName = filteredPosts && filteredPosts.length ? filteredPosts[0].category : decodeURI(category)
+  if (categoryData) {
+    categoryName = categoryData.title
+  }
+
+  categoryName = categoryName || category
     
   return {
-    title: {
-      absolute: blogSettings.title
-    }
+    title: `Page ${page} - ${categoryName}`
   }
 }
 

@@ -32,7 +32,7 @@ export async function generateMetadata({ params }: { params: {category: string}}
 
 
   return {
-    title: `${categoryName} - ${blogSettings.title}`,
+    title: categoryName,
     description: `Read the latest ${categoryName} on ${blogSettings.title}`,
     url: `/${category}`,
     openGraph: {

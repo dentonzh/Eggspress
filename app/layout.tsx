@@ -20,7 +20,8 @@ export async function generateMetadata() {
   return {
     metadataBase: blogSettings.metaBaseUrl.startsWith('http') ? new URL(blogSettings.metaBaseUrl) : '',
     title: {
-      default: `%s - ${blogSettings.title}`,
+      template: `%s - ${blogSettings.title}`,
+      default: blogSettings.title
     },
     description: blogSettings.description || blogSettings.ogDescription,
     openGraph: {

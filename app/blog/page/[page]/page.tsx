@@ -18,13 +18,11 @@ export async function generateStaticParams() {
 }
 
 
-export async function generateMetadata() {
-  const blogSettings = await getEggspressSettings('metadata')
-    
+export async function generateMetadata({ params }: { params: { page: string } }) {
+  const { page } = params
+
   return {
-    title: {
-      absolute: blogSettings.title
-    }
+    title: `Page ${page} - Posts`
   }
 }
 

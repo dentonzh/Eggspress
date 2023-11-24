@@ -11,7 +11,7 @@ export async function generateMetadata() {
     
   return {
     title: {
-      absolute: blogSettings.title
+      absolute: blogSettings.indexTitle || blogSettings.title
     }
   }
 }
