@@ -3,6 +3,7 @@ import getFrontmatter from '../_components/getFrontmatter'
 import { createSlug, getEggspressSettings } from '../utils'
 import PostCard from '../_components/PostCard'
 import PageSidebar from '../_components/PageSidebar'
+import PaginationLink from '../_components/PaginationLink'
 
 export async function generateStaticParams() {
   const postFrontmatter = await getFrontmatter('posts')
@@ -31,7 +32,7 @@ export async function generateMetadata({ params }: { params: {category: string}}
 
 
   return {
-    title: `${categoryName} - ${blogSettings.title}`,
+    title: categoryName,
     description: `Read the latest ${categoryName} on ${blogSettings.title}`,
     url: `/${category}`,
     openGraph: {
@@ -76,9 +77,17 @@ const CategoryPage = async ({ params }: { params: { category: string }}) => {
       </div>
       <div className="flex justify-between w-full">
         <div className='max-w-prose'>
-          {filteredPosts.map(post => 
+          {postFrontmatter.slice(0, appearanceSettings.numberOfPostsPerPage || 8).map(post => 
             <PostCard key={post.slug} post={post}></PostCard>
-            )}
+          )}
+          {filteredPosts.length > (appearanceSettings.numberOfPostsPerPage || 8) &&
+          <div className="py-12">
+            <div className="font-light text-sm mb-2 text-gray-800 dark:text-gray-100">
+              Displaying posts 1 - {(appearanceSettings.numberOfPostsPerPage || 8)} of {filteredPosts.length} in {categoryName}
+            </div>
+            <PaginationLink text="Show more posts" page={2} category={category}></PaginationLink>
+          </div>
+          }
         </div>
         {categoryData && categoryData.subtitle && 
           <div>

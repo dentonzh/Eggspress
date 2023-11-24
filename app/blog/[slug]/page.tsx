@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: { params: {slug: string} }) {
 
 
   return {
-    title: `${frontmatter.title} - ${blogSettings.title}`,
+    title: frontmatter.title,
     description: frontmatter.description || frontmatter.snippet,
     url: `/${slug}`,
     openGraph: {

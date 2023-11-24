@@ -101,7 +101,6 @@ export function sortFilesByProximity(toPath: string, files: PostFile[]): PostFil
     const baseLevel = toPath.split('/').length
 
     if (aPath.includes(toPath) && bPath.includes(toPath)) {
-      console.log(aLevel, bLevel, a, b)
       if (aLevel < bLevel) {return -1}
       if (aLevel > bLevel) {return 1}
       return 0

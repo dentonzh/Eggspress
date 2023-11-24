@@ -30,10 +30,11 @@ const PageSidebar = async ({slug, isSticky=true}: {slug: string | null, isSticky
                   const frontmatter = postData[0]
                   return (
                     <div className="flex flex-wrap mb-3" key={`pinned-post-${index}`}>
-                      <Image src={Thumbtack} alt="thumbtack icon" className="-ml-7 opacity-60 h-5 w-5 dark:border-gray-600 p-0.5"></Image>
-                      <div className="font-medium text-gray-600 dark:text-gray-300 my-auto pl-2">Pinned</div>
-                      <div className="w-full font-medium text-gray-600 dark:text-gray-300 pt-1">
-                        <Link className="underline-animated hover:text-blue-700 dark:hover:text-blue-300" href={`/blog/${frontmatter.slug}`}>{frontmatter.title}</Link>
+                      <Image src={Thumbtack} alt="thumbtack icon" className="-ml-7 opacity-80 h-5 w-5 dark:border-gray-600 p-0.5"></Image>
+                      <div className="font-medium text-gray-600 dark:text-gray-300 my-auto pl-2">
+                        <Link className="underline-animated hover:text-blue-700 dark:hover:text-blue-300" href={`/blog/${frontmatter.slug}`}>
+                          {frontmatter.title}
+                        </Link>
                       </div>
                     </div>
                   )
