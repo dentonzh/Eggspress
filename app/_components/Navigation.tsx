@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import React from 'react'
-import Logo from '../../public/logo.png'
+import Logo from '../../public/assets/logo.png'
 import Image from 'next/image'
 import DarkModeToggle from './DarkModeToggle'
 import { getEggspressSettings } from '../utils'

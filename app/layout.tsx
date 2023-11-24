@@ -32,7 +32,7 @@ export async function generateMetadata() {
       siteName: blogSettings.title,
       images: [
         {
-          url: blogSettings.ogImageUrl,
+          url: `/assets/${blogSettings.ogImageFilename}`,
           width: blogSettings.ogImageWidth,
           height: blogSettings.ogImageHeight,
           alt: 'Brand icon'
