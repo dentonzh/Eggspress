@@ -2,9 +2,11 @@ import Image from 'next/image'
 import React from 'react'
 
 
-const EggspressImage: React.FC<{src: string, alt: string, width: number, height: number, className: string}> = ({src, alt, width, height, className}: {src: string, alt: string, width: number, height: number, className: string}) => {
+const EggspressImage: React.FC<{src: string, alt: string, width: number, height: number, className: string, fetchPriority?: "high" | "low" | "auto" | undefined}> = ({src, alt, width, height, className, fetchPriority}: {src: string, alt: string, width: number, height: number, className: string, fetchPriority?: "high" | "low" | "auto" | undefined}) => {
   const videoExtensions = ['.webm', '.mp4', '.m4v', '.mov', '.wmv', '.asf', '.avi', '.mpg', '.mpeg']
   const srcExtension = src.slice(src.lastIndexOf('.'))
+
+  const priority = fetchPriority === 'high' ? true : false
   
   if (videoExtensions.includes(srcExtension)) {
 
@@ -20,7 +22,7 @@ const EggspressImage: React.FC<{src: string, alt: string, width: number, height:
     return <img src={src} alt={alt}></img>
   }
   return (
-    <Image alt={alt} src={src} width={width} height={height} className={className}></Image>
+    <Image alt={alt} src={src} width={width} height={height} className={className} priority={priority}></Image>
   )
 }
 

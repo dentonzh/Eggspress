@@ -80,7 +80,7 @@ const AuthorPage =  async ( {params}: {params: {slug: string}} ) => {
           </div>
           {imageUrl && imageUrl.length > 0 ? (
             <div className={`${imageUrl.length ? '' : 'hidden'} ml-auto my-auto h-24 w-24 rounded-full object-cover overflow-hidden`}>
-              <Image src={imageUrl} width="96" height="96" alt={`Profile image for ${frontmatter.name}`}></Image>
+              <Image priority={true} src={imageUrl} width="96" height="96" alt={`Profile image for ${frontmatter.name}`}></Image>
             </div>
           ) : (
             <div className="ml-auto my-auto p-5 h-24 w-24 bg-gray-200 dark:bg-gray-600 duration-150 rounded-full object-cover overflow-hidden">

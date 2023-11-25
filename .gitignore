@@ -13,6 +13,9 @@
 /my_categories
 /my_sidebars
 /my_settings
+/my_plugins
+/my_components
+/app/_plugins/*
 
 # dependencies
 /node_modules
