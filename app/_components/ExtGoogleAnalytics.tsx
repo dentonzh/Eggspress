@@ -8,13 +8,13 @@ const ExtGoogleAnalytics = async () => {
 
   return (
     <>
-      <Script async src={`https://www.googletagmanager.com/gtag/js?id=${propertyId}`}></Script>
-      <Script id="google-analytics"
+      <Script strategy="lazyOnload" async src={`https://www.googletagmanager.com/gtag/js?id=${propertyId}`}></Script>
+      <Script strategy="lazyOnload" id="google-analytics"
         dangerouslySetInnerHTML={{
           __html: `
             window.dataLayer = window.dataLayer || []
             function gtag(){dataLayer.push(arguments)}
-            gtag('js', newDate())
+            gtag('js', new Date())
             gtag('config', '${propertyId}')
             `
         }}
