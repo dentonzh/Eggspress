@@ -123,7 +123,7 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
                 </div>
                 {[1, 2, 3, 4].map(async (index: number) => {
                   const postFrontmatter = await getFrontmatter('posts')
-                  const postData = postFrontmatter.filter(fm => fm.slug === frontmatter['relatedPost' + index].replaceAll('_', '-').replaceAll(' ', '-'))
+                  const postData = postFrontmatter.filter(fm => frontmatter['relatedPost' + index] && fm.slug === frontmatter['relatedPost' + index].replaceAll('_', '-').replaceAll(' ', '-'))
         
                   if (postData.length) {
                     const frontmatter = postData[0]
