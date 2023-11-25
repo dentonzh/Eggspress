@@ -7,7 +7,8 @@ import Image from 'next/image';
 // import styles from './PostCard.module.css'
 
 interface PostProps {
-  post: PostItem
+  post: PostItem,
+  index?: number
 }
 
 const convertDate = (inputDate: string|null) => {
@@ -20,7 +21,7 @@ const convertDate = (inputDate: string|null) => {
 }
 
 
-const PostCard = async ({ post }: PostProps) => {
+const PostCard = async ({ post, index }: PostProps) => {
   const appearanceSettings = await getEggspressSettings('appearance')
   let imagePath = null
 
@@ -45,6 +46,7 @@ const PostCard = async ({ post }: PostProps) => {
             alt={`Image for ${post.title}`} 
             src={`/images/${post.slug}/${post.image}`}
             style={{objectPosition: `${post.imagePositionX || 50}% ${post.imagePositionY || 50}%`}}
+            priority={index === 0 ? true : false}
           ></Image>
         </Link>
       }

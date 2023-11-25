@@ -36,7 +36,7 @@ export default async function Home() {
       <div className="flex justify-between w-full">
         <div className='lg:max-w-prose'>
           {postFrontmatter.slice(0, appearanceSettings.numberOfPostsPerPage || 8).map((frontmatter, index) => 
-            <PostCard key={`${frontmatter.slug}-${index}`} post={frontmatter}></PostCard>
+            <PostCard key={`${frontmatter.slug}-${index}`} post={frontmatter} index={index}></PostCard>
           )}
           {postFrontmatter.length > (appearanceSettings.numberOfPostsPerPage || 8) &&
           <div className="py-12">
