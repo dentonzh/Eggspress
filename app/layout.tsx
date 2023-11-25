@@ -1,6 +1,7 @@
 import './globals.css'
 import { Roboto_Flex } from 'next/font/google'
 import Navigation from './_components/Navigation'
+import ExtGoogleAnalytics from './_components/ExtGoogleAnalytics'
 import Footer from './_components/Footer'
 import { getEggspressSettings } from './utils'
 
@@ -47,6 +48,7 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  const variablesSetting = await getEggspressSettings('variables')
   let appearanceSettings = await getEggspressSettings('appearance')
   if (appearanceSettings && appearanceSettings.code && appearanceSettings.code === 'ENOENT') {
     appearanceSettings = {
@@ -62,6 +64,9 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={`${roboto_flex.className} flex flex-col duration-200 dark:bg-${appearanceSettings.colorDarkSecondary} overflow-x-hidden min-h-screen justify-between`}>
+        {process.env.NODE_ENV === 'production' && variablesSetting.googleAnalyticsPropertyId &&
+          <ExtGoogleAnalytics></ExtGoogleAnalytics>
+        }
         <Navigation />
         <div className={`mb-auto bg-${appearanceSettings.colorLightSecondary} dark:bg-${appearanceSettings.colorDarkSecondary}`}>
           <div className={`px-4 xs:px-0 container mb-12 grow bleed-bg bleed-${appearanceSettings.colorLightSecondary} dark:bleed-${appearanceSettings.colorDarkSecondary}`}>
