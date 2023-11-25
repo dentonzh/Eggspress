@@ -63,7 +63,7 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <body className={`${roboto_flex.className} flex flex-col duration-200 dark:bg-${appearanceSettings.colorDarkSecondary} overflow-x-hidden min-h-screen justify-between`}>
+      <body className={`${roboto_flex.className} flex flex-col duration-200 delay-75 dark:bg-${appearanceSettings.colorDarkSecondary} overflow-x-hidden min-h-screen justify-between`}>
         {process.env.NODE_ENV === 'production' && variablesSetting.googleAnalyticsPropertyId &&
           <ExtGoogleAnalytics></ExtGoogleAnalytics>
         }
