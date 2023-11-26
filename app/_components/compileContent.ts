@@ -1,6 +1,7 @@
 import { compileMDX } from 'next-mdx-remote/rsc'
 import getContent from '../_components/getContent'
 import EggspressImage from '../_components/EggspressImage'
+import EggspressLink from '../_components/EggspressLink'
 import rehypeSlug from 'rehype-slug'
 import remarkGfm from 'remark-gfm'
 import eggspressMedia from '@/plugins/eggspress-img-processor'
@@ -24,7 +25,8 @@ const compileContent = async (type: string, slug:string,): Promise<{content: Rea
       }
     },
     components: {
-      img: EggspressImage as any
+      img: EggspressImage as any,
+      a: EggspressLink as any
     }
   })
 
