@@ -115,7 +115,7 @@ const AuthorPage =  async ( {params}: {params: {slug: string}} ) => {
           {sections.map(section => {return (frontmatter[section] &&
             <div>
               <div key={`social-index`} className="text-sm text-gray-500 w-full mb-3">
-                <h4 className="font-semibold mb-0.5">{section.charAt(0).toUpperCase() + section.slice(1)}</h4>
+                <h4 className="font-semibold mb-0.5">{section ? section.charAt(0).toUpperCase() + section.slice(1) : ''}</h4>
                 <div className="text-gray-700 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-300">
                   {frontmatter[section]}
                 </div>

@@ -13,7 +13,7 @@ const PageSidebar = async ({slug, isSticky=true}: {slug: string | null, isSticky
   
   const postFrontmatter = await getFrontmatter('posts')
   const sidebarFrontmatter = await getFrontmatter('sidebars')
-  const sidebarData = sidebarFrontmatter.filter(fm => fm.slug === slug.replaceAll('_', '-').replaceAll(' ', '-'))
+  const sidebarData = sidebarFrontmatter.filter(fm => slug && fm.slug === slug.replaceAll('_', '-').replaceAll(' ', '-'))
   
   if (sidebarData.length) {
     const sidebarParameters = sidebarData[0]
@@ -24,7 +24,7 @@ const PageSidebar = async ({slug, isSticky=true}: {slug: string | null, isSticky
           {(sidebarParameters.pinnedPost1 || sidebarParameters.pinnedPost2 || sidebarParameters.pinnedPost3) && 
             <div className="mb-8">
               {[1, 2, 3, 4].map((index: number) => {
-                const postData = postFrontmatter.filter(fm => fm.slug === (sidebarParameters['pinnedPost' + index] || "").replaceAll('_', '-').replaceAll(' ', '-'))
+                const postData = postFrontmatter.filter(fm => sidebarParameters['pinnedPost' + index] && fm.slug ===sidebarParameters['pinnedPost' + index].replaceAll('_', '-').replaceAll(' ', '-'))
       
                 if (postData.length) {
                   const frontmatter = postData[0]
