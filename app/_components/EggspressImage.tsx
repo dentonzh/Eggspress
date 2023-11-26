@@ -1,8 +1,16 @@
 import Image from 'next/image'
 import React from 'react'
 
+interface EggspressImageProps {
+  src: string,
+  alt: string,
+  width: number,
+  height: number,
+  className: string,
+  fetchPriority?: "high" | "low" | "auto" | undefined
+}
 
-const EggspressImage: React.FC<{src: string, alt: string, width: number, height: number, className: string, fetchPriority?: "high" | "low" | "auto" | undefined}> = ({src, alt, width, height, className, fetchPriority}: {src: string, alt: string, width: number, height: number, className: string, fetchPriority?: "high" | "low" | "auto" | undefined}) => {
+const EggspressImage: React.FC<EggspressImageProps> = ({src, alt, width, height, className, fetchPriority}: EggspressImageProps) => {
   const videoExtensions = ['.webm', '.mp4', '.m4v', '.mov', '.wmv', '.asf', '.avi', '.mpg', '.mpeg']
   const srcExtension = src.slice(src.lastIndexOf('.'))
 
