@@ -1,6 +1,6 @@
 Eggspress is a lightweight blogging platform built on Next.js and React. It's designed to help anyone launch a new site with little to no coding experience. There's no command line needed. Best of all, it's lightning fast and completely free![^1]
 
-If you're new to Github or find yourself needing a bit more help, check out the Getting Started Guide. It's the expanded version of this README and it's hosted on Eggspress!
+This is an abridged version of our [Getting Started Guide](https://eggspress.vercel.app/blog/getting-started) hosted on an Eggspress site. If you're new to Github, need more help, or want a live demo, give it a spin! Otherwise, continue on.
 ## Prerequisites
 To use Eggspress, you'll need a:
 - Github account ([sign up](https://github.com/join))
