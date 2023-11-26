@@ -95,7 +95,7 @@ In the frontmatter of your posts, pay attention to the `title`, `description`, `
 
 `description` is the text that displays in search engine results. `snippet` is a short blurb that displays in a list of posts on your site.
 
-`date` is the date that appears on your post. It differs from `publishDate` or `expiryDate`, which determine the date range when your post should appear.[^6[^7]
+`date` is the date that appears on your post. It differs from `publishDate` or `expiryDate`, which determine the date range when your post should appear.[^6] [^7]
 
 For a complete list of frontmatter parameters you can set, see the [full documentation](https://eggspress.vercel.app).
 ## Custom pages
@@ -104,7 +104,7 @@ Custom pages (found in `my_pages`) and author profiles (`my_authors`) function v
 Pages are helpful for including one-off information.
 
 ## Author profiles
-Author profiles contain information that Eggspress uses to generate author pages and author cards. These files may have optional content sections. If populated, content in profiles will appear under the list of that author's post in a section titled "Biography."^8
+Author profiles contain information that Eggspress uses to generate author pages and author cards. These files may have optional content sections. If populated, content in profiles will appear under the list of that author's post in a section titled "Biography."[^8]
 
 To attribute a post to an author, set the `author` field of a post to the filename of the author profile without its extension. For example, setting `author: "eggie"` will generate an author card using data found in `my_authors/eggie.md`.
 
