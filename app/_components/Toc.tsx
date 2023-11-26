@@ -16,7 +16,7 @@ const Toc = () => {
   const [hasNoHeadings, setHasNoHeadings] = useState<boolean>(false)  // Prevents infinite loop
   
   const getHeaderData = () => {
-    const headings = document.querySelectorAll('h2, h3, h4')  // For more extensive table of contents, add h4, h5, etc.
+    const headings = document.querySelectorAll('h2, h3, h4')  // For more extensive table of contents, add, h5, h6 etc.
     let elements: Element[] = []
     if (!headings.length) {
       setHasNoHeadings(true)
