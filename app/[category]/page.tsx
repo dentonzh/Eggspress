@@ -48,22 +48,24 @@ export async function generateMetadata({ params }: { params: {category: string}}
 
 const CategoryPage = async ({ params }: { params: { category: string }}) => {
   const { category } = params
-  const postFrontmatter = await getFrontmatter('posts')
-  const filteredPosts = postFrontmatter.filter(post => createSlug(post.category) === category)
-  const numbersAsWords: Record<number, string> = {0: 'No', 1: 'One', 2: 'Two', 3: 'Three', 4: 'Four', 5: 'Five', 6: 'Six', 7: 'Seven', 8: 'Eight', 9: 'Nine'}
   const appearanceSettings = await getEggspressSettings('appearance')
 
-
+  const numbersAsWords: Record<number, string> = {0: 'No', 1: 'One', 2: 'Two', 3: 'Three', 4: 'Four', 5: 'Five', 6: 'Six', 7: 'Seven', 8: 'Eight', 9: 'Nine'}
+  
+  
   const categoryFrontmatter = await getFrontmatter('categories')
   const categoryData = categoryFrontmatter.filter(fm => fm.slug === category)[0]
+
+  const postFrontmatter = await getFrontmatter('posts', categoryData.orderPostsBy, categoryData.orderPostsByReversed)
+  const filteredPosts = postFrontmatter.filter(post => createSlug(post.category) === category)
   
   let categoryName = filteredPosts && filteredPosts.length ? filteredPosts[0].category : decodeURI(category)
   if (categoryData) {
     categoryName = categoryData.title
   }
-
+  
   categoryName = categoryName || category
-
+  
   return (
     <div className="flex flex-wrap">
       <div className={`hero bleed-${appearanceSettings.colorLightPrimary} dark:bleed-${appearanceSettings.colorDarkPrimary}`}>

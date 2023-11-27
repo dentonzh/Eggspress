@@ -55,7 +55,8 @@ const getProfileImage =  async (imageFileName: string): Promise<string | null> =
 const AuthorPage =  async ( {params}: {params: {slug: string}} ) => {
   const { slug } = params
   const { content, frontmatter, contentLength } = await compileContent('authors', slug)
-  const postFrontmatter = await getFrontmatter('posts')
+
+  const postFrontmatter = await getFrontmatter('posts', frontmatter.orderPostsBy, frontmatter.orderPostsByReversed)
   const authorPosts = postFrontmatter.filter(fm => fm.author === slug || fm.author?.split(',').map(x => x.trim()).includes(slug))
 
   const imageUrl = frontmatter && frontmatter.image ? await getProfileImage(frontmatter.image) : ''
@@ -94,9 +95,9 @@ const AuthorPage =  async ( {params}: {params: {slug: string}} ) => {
         <div className="max-w-prose">
           {authorPosts &&
             <div className="max-w-prose border-b">
-              <h2 className="text-gray-600 font-semibold mb-3">Latest posts</h2>
-              {authorPosts.map(fm =>
-                <PostCard key={fm.slug} post={fm}></PostCard>
+              <h2 className="text-gray-600 text-sm font-semibold mb-6">Posts by {frontmatter.name}</h2>
+              {authorPosts.map((fm, index) =>
+                <PostCard key={`${fm.slug}-${index}`} post={fm}></PostCard>
               )}
             </div>
           }
@@ -112,9 +113,9 @@ const AuthorPage =  async ( {params}: {params: {slug: string}} ) => {
         </div>
 
         <Sidebar>
-          {sections.map(section => {return (frontmatter[section] &&
+          {sections.map((section, index) => {return (frontmatter[section] &&
             <div>
-              <div key={`social-index`} className="text-sm text-gray-500 w-full mb-3">
+              <div key={`${section}-${index}`} className="text-sm text-gray-500 w-full mb-3">
                 <h4 className="font-semibold mb-0.5">{section ? section.charAt(0).toUpperCase() + section.slice(1) : ''}</h4>
                 <div className="text-gray-700 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-300">
                   {frontmatter[section]}
@@ -124,7 +125,7 @@ const AuthorPage =  async ( {params}: {params: {slug: string}} ) => {
           )})}
 
           {[1, 2].map(index => {return (frontmatter['socialLink' + index] &&
-            <div key={`social-index`} className="text-sm text-gray-500 w-full mb-3">
+            <div key={`${frontmatter['socialLink' + index]}-${index}`} className="text-sm text-gray-500 w-full mb-3">
               <div>
                 <h4 className="font-semibold mb-0.5">{frontmatter['socialPlatform' + index] ? `${frontmatter['socialPlatform' + index]}` : 'Social'}</h4>
                 <a href={frontmatter['socialLink' + index]} target="_blank" rel="nofollow noopener" className="text-gray-700 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-300 underline-animated">
@@ -137,7 +138,7 @@ const AuthorPage =  async ( {params}: {params: {slug: string}} ) => {
           
           {frontmatter.websiteLink && (
             <div>
-              <div key={`social-index`} className="text-sm text-gray-500 w-full mb-3">
+              <div className="text-sm text-gray-500 w-full mb-3">
                 <h4 className="font-semibold mb-0.5">Website</h4>
                 <a href={frontmatter.websiteLink} target="_blank" rel="nofollow noopener" className="text-gray-700 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-300 underline-animated">
                   {frontmatter.websiteLink && frontmatter.websiteName ? frontmatter.websiteName : frontmatter.websiteLink.slice(frontmatter.websiteLink.lastIndexOf('://')+3)}
