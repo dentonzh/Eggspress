@@ -16,13 +16,16 @@ const Setup = () => {
             </p>
             <ol>
               <li>Download the <Link href="/assets/eggspress_starter_workspace.zip">starter workspace</Link></li>
-              <li>On your computer, create a folder for <span className="font-medium text-indigo-700 dark:text-green-200">your new workspace</span></li>
+              <li>On your computer, create a new folder for <span className="font-medium text-indigo-700 dark:text-green-200">your new workspace</span></li>
               <li>Extract the contents of <span className="font-mono font-light text-sm px-1">eggspress_starter_workspace.zip</span></li>
               <li>Move the extracted folders starting with <span className="font-mono font-bold text-sm px-1">my_</span> into <span className="font-medium text-indigo-700 dark:text-green-200">your new workspace</span></li>
-              <li>Start editing!</li>
+              <li>Upload the contents of your <span className="font-medium text-indigo-700 dark:text-green-200">your new workspace</span> to Github</li>
             </ol>
+            <video playsInline muted autoPlay loop>
+              <source  src="/assets/workspace_setup.webm" type="video/webm" />
+            </video>  
             <p> 
-              For more help, read the <a target="_blank" href="https://github.com/dentonzh/Eggspress/blob/main/README.md">getting started guide</a> on the Eggspress repository.
+              For more help, read the <a target="_blank" href="https://eggspress.vercel.app/blog/getting-started">getting started guide</a>.
             </p>
           </div>
 
@@ -38,7 +41,7 @@ const Setup = () => {
             </Link>
           </div>
 
-          <div className="py-12 prose dark:prose-invert">
+          {/* <div className="py-12 prose dark:prose-invert">
             <p>
               Eggspress uses <a target="_blank" href="https://www.markdownguide.org/getting-started/">Markdown</a> to style content. If you&apos;re new
               to Markdown, try <a target="_blank" href="https://obsidian.md/">Obsidian</a> as your editor. It&apos;s available on Windows, Mac, Linux, Android, and iOS.
@@ -47,16 +50,13 @@ const Setup = () => {
               Lastly, when you&apos;re ready to publish, upload your workspace to the forked repository
               by dragging and dropping from your computer. The short video below will show you how:
             </p>
-            <video playsInline muted autoPlay loop>
-              <source  src="/assets/workspace_setup.webm" type="video/webm" />
-            </video>
-              {/* Note: If you use Obsidian, you must configure its settings. Click the gear wheel icon to bring up settings. Under the &quot;Files & Links&quot; tab,
+              Note: If you use Obsidian, you must configure its settings. Click the gear wheel icon to bring up settings. Under the &quot;Files & Links&quot; tab,
               make the following changes:
             <ol>
               <li>Disable &quot;Use Wikilinks&quot;</li>
               <li>Set &quot;Default location for new attachments&quot; to &quot;Same folder as current file&quot;</li>
-            </ol> */}
-          </div>
+            </ol>
+          </div> */}
         </div>
       </div>
     </main>
