@@ -52,8 +52,8 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
   const authors = frontmatter && frontmatter.author ? frontmatter.author.split(',').map((author: string) => author.trim().replaceAll('_', '-').replaceAll(' ', '-')) : []
 
   const postFrontmatter = await getFrontmatter('posts')
-  const prevPost = postFrontmatter.filter(post => post.slug === frontmatter.prevPost.replaceAll('_', '-').replaceAll(' ', '-'))[0]
-  const nextPost = postFrontmatter.filter(post => post.slug === frontmatter.nextPost.replaceAll('_', '-').replaceAll(' ', '-'))[0]
+  const prevPost = postFrontmatter.filter(post => frontmatter.prevPost && post.slug === frontmatter.prevPost.replaceAll('_', '-').replaceAll(' ', '-'))[0]
+  const nextPost = postFrontmatter.filter(post => frontmatter.nextPost && post.slug === frontmatter.nextPost.replaceAll('_', '-').replaceAll(' ', '-'))[0]
 
 
   return (
