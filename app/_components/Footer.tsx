@@ -8,19 +8,13 @@ import getFrontmatter from './getFrontmatter'
 import AuthorLinks from '../_components/AuthorLinks'
 
 const Footer = async () => {
-  const postFrontmatter = await getFrontmatter('posts')
-  const categoryNames = new Set(postFrontmatter.filter(
-    (post) => { if (!post.category) {return false} return true }
-  ).map((post) => post.category))
-  const arrayOfCategoryNames = Array.from(categoryNames)
-  const categoryData = arrayOfCategoryNames.map((name) => {return {name: name, slug: createSlug(name)}})
-  const pageFrontmatter = await getFrontmatter('pages')
-  const pages = pageFrontmatter.map((page) => {return {name: page.title, tagline: page.tagline, priority: page.weight, slug: page.slug}})
-  const pageData = pages.sort((a, b) => {
-    return (a.priority || 0) < (b.priority || 0) ? -1 : 1
-  })
-  const blogSettings = await getEggspressSettings('metadata')
   const appearanceSettings = await getEggspressSettings('appearance')
+
+  const categoryFrontmatter = await getFrontmatter('categories', appearanceSettings.orderCategoriesBy, appearanceSettings.orderCategoriesByReversed)
+  const categoryData = categoryFrontmatter.map((category) => {return {title: category.title, slug: createSlug(category.slug)}})
+
+  const pageFrontmatter = await getFrontmatter('pages', appearanceSettings.orderPagesBy, appearanceSettings.orderPagesByReversed)
+  const pageData = pageFrontmatter.map((page) => {return {name: page.title, tagline: page.tagline, priority: page.weight, slug: page.slug}})
 
   return (
     <div className={`px-3 md:px-0 py-8 min-w-full duration-100 bg-${appearanceSettings.colorLightFooter || appearanceSettings.colorLightPrimary} dark:bg-${appearanceSettings.colorDarkFooter || appearanceSettings.colorDarkPrimary} pt-12`}>
@@ -29,7 +23,7 @@ const Footer = async () => {
           <div className="w-1/2">
             <div className="flex flex-col w-full sm:w-1/2 mb-3">
               {categoryData.map(category => 
-                <Link className="mb-6 md:mb-3" key={category.slug} href={`/${category.slug}`}>{category.name}</Link>
+                <Link className="mb-6 md:mb-3" key={category.slug} href={`/${category.slug}`}>{category.title}</Link>
               )}
             </div>
             <div className="flex flex-col w-full sm:w-1/2 mb-3">

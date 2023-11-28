@@ -29,8 +29,9 @@ export async function generateMetadata({ params }: { params: { page: string } })
 export default async function BlogPage({ params }: { params: { page: string } }) {
   const { page } = params
   const pageNumber = parseInt(page)
-  const postFrontmatter = await getFrontmatter('posts')
   const appearanceSettings = await getEggspressSettings('appearance')
+  
+  const postFrontmatter = await getFrontmatter('posts', appearanceSettings.orderPostsBy, appearanceSettings.orderPostsByReversed)
   const numPostsPerPage = appearanceSettings.numberOfPostsPerPage || 8
 
   const endIndex = pageNumber * numPostsPerPage > postFrontmatter.length ? postFrontmatter.length : pageNumber * numPostsPerPage

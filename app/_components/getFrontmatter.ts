@@ -19,7 +19,7 @@ const extractFrontmatter = async (markdownData: {content: string, slug: string, 
   return frontmatterData
 }
 
-const getFrontmatter = async <T extends string>(type: T): Promise<ItemType<T>[]> => {
+const getFrontmatter = async <T extends string>(type: T, sortBy?: string, sortReversed?: boolean): Promise<ItemType<T>[]> => {
   const dir = `./my_${type}/`
   const allowedExtensions = ['.md', '.mdx']
   const files = await getFilesRecursivelyWithExtensions(dir, allowedExtensions)
@@ -35,7 +35,15 @@ const getFrontmatter = async <T extends string>(type: T): Promise<ItemType<T>[]>
 
   const frontmatterData = await extractFrontmatter(data)
   const sortedData = frontmatterData.sort((a, b) => {
-    const x = (a.date || a.publishDate || 0) < (b.date || b.publishDate || 0) ? 1 : -1
+    let x = (a.date || a.publishDate || 0) < (b.date || b.publishDate || 0) ? 1 : -1
+    if (sortBy === 'weight') {
+      x = a.weight < b.weight ? -1 : 1
+    } else if (sortBy?.startsWith('alpha')) {
+      x = (a.title || a.name || 0) < (b.title || b.name || 0) ? -1 : 1
+    }
+    if (sortReversed) {
+      return -x
+    }
     return x
   })
   

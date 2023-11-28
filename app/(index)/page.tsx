@@ -17,9 +17,10 @@ export async function generateMetadata() {
 }
 
 export default async function Home() {
-  const postFrontmatter = await getFrontmatter('posts')
   const blogSettings = await getEggspressSettings('metadata')
   const appearanceSettings = await getEggspressSettings('appearance')
+  console.log(appearanceSettings.orderPostsBy, appearanceSettings.orderPostsByReversed)
+  const postFrontmatter = await getFrontmatter('posts', appearanceSettings.orderPostsBy, appearanceSettings.orderPostsByReversed)
 
   if (blogSettings && blogSettings.code && blogSettings.code === 'ENOENT') {
     return (

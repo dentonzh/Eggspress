@@ -48,25 +48,27 @@ export async function generateMetadata({ params }: { params: { category: string,
   categoryName = categoryName || category
     
   return {
-    title: `Page ${page} - ${categoryName}`
+    title: `Page ${pageNumber} - ${categoryName}`
   }
 }
 
 export default async function BlogPage({ params }: { params: { category: string, page: string } }) {
   const { category, page } = params
   const pageNumber = parseInt(page)
-  const postFrontmatter = await getFrontmatter('posts')
   const appearanceSettings = await getEggspressSettings('appearance')
+
   const numPostsPerPage = appearanceSettings.numberOfPostsPerPage || 8
   
-  const filteredPosts = postFrontmatter.filter(post => createSlug(post.category) === category)
-
-  const endIndex = pageNumber * numPostsPerPage > filteredPosts.length ? filteredPosts.length : pageNumber * numPostsPerPage
-  const startIndex = pageNumber * numPostsPerPage - numPostsPerPage > filteredPosts.length ? endIndex - numPostsPerPage : pageNumber * numPostsPerPage - numPostsPerPage
-
+  
   const categoryFrontmatter = await getFrontmatter('categories')
   const categoryData = categoryFrontmatter.filter(fm => fm.slug === category)[0]
-
+  
+  const postFrontmatter = await getFrontmatter('posts', categoryData.orderPostsBy, categoryData.orderPostsByReversed)
+  const filteredPosts = postFrontmatter.filter(post => createSlug(post.category) === category)
+  
+  const endIndex = pageNumber * numPostsPerPage > filteredPosts.length ? filteredPosts.length : pageNumber * numPostsPerPage
+  const startIndex = pageNumber * numPostsPerPage - numPostsPerPage > filteredPosts.length ? endIndex - numPostsPerPage : pageNumber * numPostsPerPage - numPostsPerPage
+  
   let categoryName = filteredPosts && filteredPosts.length ? filteredPosts[0].category : decodeURI(category)
   if (categoryData) {
     categoryName = categoryData.title
