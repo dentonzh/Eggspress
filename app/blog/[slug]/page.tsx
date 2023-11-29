@@ -68,20 +68,20 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
           <div className="mb-12 lg:hidden">
             <Toc />
           </div>
-          <div className="prose dark:prose-invert">
+          <div className="prose dark:prose-invert mb-20">
             {content}
           </div>
 
           {(nextPost || prevPost) &&
-              <div className="flex flex-wrap border-t mt-12 py-6 text-gray-800 dark:text-gray-200">
+              <div className="flex flex-wrap border-t mt-12 py-6 text-gray-800 dark:text-gray-200 justify-between">
                 {prevPost &&
-                <Link className="grow" href={`/blog/${prevPost.slug}`}>
+                <Link className="grow my-3" href={`/blog/${prevPost.slug}`}>
                     <div className="text-sm font-light mb-2">Previous Post</div>
                     <div className="font-semibold">{prevPost.title}</div>
                 </Link>
                 }
                 {nextPost &&
-                <Link className="grow" href={`/blog/${nextPost.slug}`}>
+                <Link className="grow my-3" href={`/blog/${nextPost.slug}`}>
                     <div className="text-sm font-light mb-2">Next Post</div>
                     <div className="font-semibold">{nextPost.title}</div>
                 </Link>
@@ -101,9 +101,9 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
 
           {(frontmatter.relatedPost1 || frontmatter.relatedPost2 || frontmatter.relatedPost3 || frontmatter.relatedPost4)
             ?
-            <div className={`${(nextPost || prevPost || authors.length) ? '' : 'mt-12'}flex border-t pt-12 max-w-prose`}>
-              <div className="mb-8">
-                <div className="flex flex-wrap mb-3">
+            <div className={`${(nextPost || prevPost || authors.length) ? '' : 'mt-12'} flex border-t pt-20`}>
+              <div className="mb-8 max-w-prose">
+                <div className="flex flex-wrap mb-6">
                   <Image src={Relation} alt="relation icon" className="h-7 w-7 dark:border-gray-600 stroke-gray-200 fill-gray-200 brightness-50 dark:brightness-100"></Image>
                   <div className="font-medium text-gray-700 dark:text-gray-300 my-auto pl-2">Related Posts</div>
                 </div>
