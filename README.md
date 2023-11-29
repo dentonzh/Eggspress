@@ -1,6 +1,6 @@
 Eggspress is a lightweight blogging platform built on Next.js and React. It's designed to help anyone launch a new site with little to no coding experience. There's no command line needed. Best of all, it's lightning fast and completely free![^1]
 
-This guide is an abridged version of [Getting Started Guide](https://eggspress.vercel.app), which includes more details including screenshots. If you're new to Github and deploying sites or you want a live demo of Eggspress, check out the guide. Otherwise, continue on.
+This guide is an abridged version of [Getting Started Guide](https://eggspress.vercel.app/getting-started), which includes more details including screenshots. If you're new to Github and deploying sites or you want a live demo of Eggspress, check out the guide. Otherwise, continue on.
 ## Prerequisites
 To use Eggspress, you'll need a:
 - Github account ([sign up](https://github.com/join))
@@ -41,7 +41,7 @@ On the same page, Github will process your files. When all of your files are upl
 ## Publishing new changes to your site
 In addition to updating your repository, committing also triggers Vercel to start building a new site based on your latest changes. As with the initial build, this process takes about 45 seconds. As your site grows, this duration may increase very slightly.
 
-If your changes do not appear after two minutes, you may have errors stemming from improperly formed frontmatter or improperly formatted filenames. For troubleshooting, see the [full documentation](https://eggspress.vercel.app). 
+If your changes do not appear after two minutes, you may have errors stemming from improperly formed frontmatter or improperly formatted filenames. For troubleshooting, see the [our troubleshooting docs](https://eggspress.vercel.app/troubleshooting). 
 
 ## The `my_`-prefixed folders
 Your Eggspress workspace contains a series of folders prefixed with `my_`. When Eggspress builds your site, it looks through each of these folders to assemble your site's contents.[^3] 
@@ -107,7 +107,7 @@ In the frontmatter of your posts, pay attention to the `title`, `description`, `
 
 `date` is the date that appears on your post. It differs from `publishDate` or `expiryDate`, which determine the date range when your post should appear.[^6[^7]
 
-For a complete list of frontmatter parameters you can set, see the [full documentation](https://eggspress.vercel.app).
+For a complete list of frontmatter parameters you can set, see [Editing Eggspress Content](https://eggspress.vercel.app/blog/editing-content).
 ## Custom pages
 Custom pages (found in `my_pages`) and author profiles (`my_authors`) function very similarly to posts (`my_posts`). 
 
