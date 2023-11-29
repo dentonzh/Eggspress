@@ -78,7 +78,7 @@ const CategoryPage = async ({ params }: { params: { category: string }}) => {
       </div>
       <div className="flex justify-between w-full">
         <div className='max-w-prose'>
-          {postFrontmatter.slice(0, appearanceSettings.numberOfPostsPerPage || 8).map((post, index) => 
+          {filteredPosts.slice(0, appearanceSettings.numberOfPostsPerPage || 8).map((post, index) => 
             <PostCard key={`${post.slug}-${index}`} post={post} index={index}></PostCard>
           )}
           {filteredPosts.length > (appearanceSettings.numberOfPostsPerPage || 8) &&

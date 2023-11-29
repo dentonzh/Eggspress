@@ -98,7 +98,7 @@ const AuthorPage =  async ( {params}: {params: {slug: string}} ) => {
             <div className="max-w-prose border-b">
               <h2 className="text-gray-600 text-sm font-semibold mb-6">Posts by {frontmatter.name}</h2>
 
-              {postFrontmatter.slice(0, appearanceSettings.numberOfPostsPerPage || 8).map((post, index) => 
+              {filteredPosts.slice(0, appearanceSettings.numberOfPostsPerPage || 8).map((post, index) => 
                 <PostCard key={`${post.slug}-${index}`} post={post} index={index}></PostCard>
               )}
               {filteredPosts.length > (appearanceSettings.numberOfPostsPerPage || 8) &&
