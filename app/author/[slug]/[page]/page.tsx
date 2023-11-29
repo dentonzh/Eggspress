@@ -16,6 +16,8 @@ export async function generateStaticParams() {
 
   let params: {slug: string, page: string}[] = []
 
+  console.log('author slugs', slugs)
+
   slugs.map(({slug}) => {
     const filteredPosts = postFrontmatter.filter(fm => fm.author === slug || fm.author?.split(',').map(x => x.trim()).includes(slug))
 
@@ -26,7 +28,8 @@ export async function generateStaticParams() {
       params.push({slug: slug, page: (+i + 1).toString()})
     }
   })
-  return slugs
+  
+  return params
 }
 
 
@@ -40,9 +43,9 @@ export async function generateMetadata({ params }: { params: {slug: string, page
   return {
     title: `Page ${pageNumber} - ${frontmatter.name}${frontmatter.role ? `, ${frontmatter.role}` : ''}`,
     description: frontmatter.description || frontmatter.snippet,
-    url: `/author/${slug}`,
+    url: `/author/${slug}/${pageNumber}`,
     openGraph: {
-      title: `Page ${pageNumber} - ${frontmatter.title}`,
+      title: `Page ${pageNumber} - ${frontmatter.name}${frontmatter.role ? `, ${frontmatter.role}` : ''}`,
       description: frontmatter.description || frontmatter.snippet,
       url: `/author/${slug}/${pageNumber}`,
       type: 'article',
@@ -55,10 +58,9 @@ export async function generateMetadata({ params }: { params: {slug: string, page
 
 const getProfileImage =  async (imageFileName: string): Promise<string | null> => {
   const imageFiles = await getImageFilesRecursively('my_authors')
-  const profileImageFiles = imageFiles.filter(file => file.name === imageFileName)
+  const profileImageFile = imageFiles.filter(file => file.name === imageFileName)[0]
 
-  if (profileImageFiles.length) {
-    const profileImageFile = profileImageFiles[0]
+  if (profileImageFile) {
     const source = `${profileImageFile.path}/${profileImageFile.name}`
     const imageUrl = copyImageToPublic(source, 'images/profile')
     return imageUrl
@@ -68,7 +70,7 @@ const getProfileImage =  async (imageFileName: string): Promise<string | null> =
 }
 
 
-const AuthorPage =  async ( {params}: {params: {slug: string, page: string}} ) => {
+const AuthorPaginatedPage =  async ( {params}: {params: {slug: string, page: string}} ) => {
   const { slug, page } = params
   const { content, frontmatter, contentLength } = await compileContent('authors', slug)
 
@@ -178,4 +180,4 @@ const AuthorPage =  async ( {params}: {params: {slug: string, page: string}} ) =
   )
 }
 
-export default AuthorPage
+export default AuthorPaginatedPage

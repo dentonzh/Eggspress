@@ -48,11 +48,11 @@ export async function generateMetadata({ params }: { params: { category: string,
   categoryName = categoryName || category
     
   return {
-    title: `Page ${pageNumber} - ${categoryName}`
+    title: `Page ${pageNumber} - ${categoryName}`,
   }
 }
 
-export default async function BlogPage({ params }: { params: { category: string, page: string } }) {
+export default async function CategoryPaginatedPage({ params }: { params: { category: string, page: string } }) {
   const { category, page } = params
   const pageNumber = parseInt(page)
   const appearanceSettings = await getEggspressSettings('appearance')

@@ -27,7 +27,7 @@ export async function generateMetadata({ params }: { params: {slug: string} }) {
     description: frontmatter.description || frontmatter.snippet,
     url: `/author/${slug}`,
     openGraph: {
-      title: frontmatter.title,
+      title: `${frontmatter.name}${frontmatter.role ? `, ${frontmatter.role}` : ''}`,
       description: frontmatter.description || frontmatter.snippet,
       url: `/author/${slug}`,
       type: 'article',
@@ -37,13 +37,11 @@ export async function generateMetadata({ params }: { params: {slug: string} }) {
   }
 }
 
-
 const getProfileImage =  async (imageFileName: string): Promise<string | null> => {
   const imageFiles = await getImageFilesRecursively('my_authors')
-  const profileImageFiles = imageFiles.filter(file => file.name === imageFileName)
+  const profileImageFile = imageFiles.filter(file => file.name === imageFileName)[0]
 
-  if (profileImageFiles.length) {
-    const profileImageFile = profileImageFiles[0]
+  if (profileImageFile) {
     const source = `${profileImageFile.path}/${profileImageFile.name}`
     const imageUrl = copyImageToPublic(source, 'images/profile')
     return imageUrl

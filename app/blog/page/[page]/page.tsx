@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: { params: { page: string } })
   }
 }
 
-export default async function BlogPage({ params }: { params: { page: string } }) {
+export default async function BlogPaginatedPage({ params }: { params: { page: string } }) {
   const { page } = params
   const pageNumber = parseInt(page)
   const appearanceSettings = await getEggspressSettings('appearance')
