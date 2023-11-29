@@ -1,41 +1,58 @@
 import React from 'react'
-import compileContent from '../../_components/compileContent'
-import getFrontmatter from '../../_components/getFrontmatter'
-import getSlugs from '../../_components/getSlugs'
-import Sidebar from '../../_components/Sidebar'
-import PostCard from '../../_components/PostCard'
-import { copyImageToPublic, getImageFilesRecursively, getEggspressSettings } from '../../utils'
+import compileContent from '../../../_components/compileContent'
+import getFrontmatter from '../../../_components/getFrontmatter'
+import getSlugs from '../../../_components/getSlugs'
+import Sidebar from '../../../_components/Sidebar'
+import PostCard from '../../../_components/PostCard'
+import PaginationCard from '../../../_components/PaginationCard'
+import { copyImageToPublic, getImageFilesRecursively, getEggspressSettings } from '../../../utils'
 import Image from 'next/image'
-import egg from '@/public/assets/egg.svg'
-import PaginationLink from '@/app/_components/PaginationLink'
 
 
 export async function generateStaticParams() {
-  const slugs = getSlugs('authors')
-  return slugs
+  const postFrontmatter = await getFrontmatter('posts')
+  const appearanceSettings = await getEggspressSettings('appearance')
+  const slugs = await getSlugs('authors')
+
+  let params: {slug: string, page: string}[] = []
+
+  slugs.map(({slug}) => {
+    const filteredPosts = postFrontmatter.filter(fm => fm.author === slug || fm.author?.split(',').map(x => x.trim()).includes(slug))
+
+    const postCount = filteredPosts.length
+    const pageCount = Math.ceil(postCount / (appearanceSettings.numberOfPostsPerPage || 8))
+
+    for (let i = 0; i < pageCount; i ++) {
+      params.push({slug: slug, page: (+i + 1).toString()})
+    }
+  })
+
+  return params
 }
 
 
-export async function generateMetadata({ params }: { params: {slug: string} }) {
-  const { slug } = params
+export async function generateMetadata({ params }: { params: {slug: string, page: string} }) {
+  const { slug, page } = params
   const { frontmatter, images } = await compileContent('authors', slug)
   const blogSettings = await getEggspressSettings('metadata')
+  const pageNumber = parseInt(page)
 
 
   return {
-    title: `${frontmatter.name}${frontmatter.role ? `, ${frontmatter.role}` : ''}`,  // add role here? like "Eggie Shellvetica, Editor-in-Chief at ..."
+    title: `Page ${pageNumber} - ${frontmatter.name}${frontmatter.role ? `, ${frontmatter.role}` : ''}`,
     description: frontmatter.description || frontmatter.snippet,
-    url: `/author/${slug}`,
+    url: `/author/${slug}/${pageNumber}`,
     openGraph: {
-      title: `${frontmatter.name}${frontmatter.role ? `, ${frontmatter.role}` : ''}`,
+      title: `Page ${pageNumber} - ${frontmatter.name}${frontmatter.role ? `, ${frontmatter.role}` : ''}`,
       description: frontmatter.description || frontmatter.snippet,
-      url: `/author/${slug}`,
+      url: `/author/${slug}/${pageNumber}`,
       type: 'article',
       siteName: blogSettings.title,
       images: images
     }
   }
 }
+
 
 const getProfileImage =  async (imageFileName: string): Promise<string | null> => {
   const imageFiles = await getImageFilesRecursively('my_authors')
@@ -51,8 +68,8 @@ const getProfileImage =  async (imageFileName: string): Promise<string | null> =
 }
 
 
-const AuthorPage =  async ( {params}: {params: {slug: string}} ) => {
-  const { slug } = params
+const AuthorPaginatedPage =  async ( {params}: {params: {slug: string, page: string}} ) => {
+  const { slug, page } = params
   const { content, frontmatter, contentLength } = await compileContent('authors', slug)
 
   const postFrontmatter = await getFrontmatter('posts', frontmatter && frontmatter.orderPostsBy, frontmatter && frontmatter.orderPostsByReversed)
@@ -63,6 +80,11 @@ const AuthorPage =  async ( {params}: {params: {slug: string}} ) => {
 
   const sections = ['pronouns', 'location', 'education', 'degree', 'work', 'company', 'title', 'specialty', 'team']
 
+  const pageNumber = parseInt(page)
+  const numPostsPerPage = appearanceSettings.numberOfPostsPerPage || 8
+
+  const endIndex = pageNumber * numPostsPerPage > filteredPosts.length ? filteredPosts.length : pageNumber * numPostsPerPage
+  const startIndex = pageNumber * numPostsPerPage - numPostsPerPage > filteredPosts.length ? endIndex - numPostsPerPage : pageNumber * numPostsPerPage - numPostsPerPage
   if (!frontmatter) {
     return
   }
@@ -74,7 +96,7 @@ const AuthorPage =  async ( {params}: {params: {slug: string}} ) => {
           <div className="my-auto w-[65ch]">
             <div className="w-full">
               <div className="mb-3">Author Profile</div>
-              <h1 className="text-5xl font-bold mb-4 -ml-0.5">{frontmatter.name || slug}</h1>   
+              <h1 className="text-5xl font-bold mb-4 -ml-0.5">{frontmatter.name || slug} <span className="text-gray-400 dark:text-gray-500">{`//`} Page {page}</span></h1>   
               <div className="font-normal">{frontmatter.role}</div>
             </div>
           </div>
@@ -84,7 +106,6 @@ const AuthorPage =  async ( {params}: {params: {slug: string}} ) => {
             </div>
           ) : (
             <div className="ml-auto my-auto p-5 h-24 w-24 bg-gray-200 dark:bg-gray-600 duration-150 rounded-full object-cover overflow-hidden">
-              <Image src={egg} width="96" height="96" alt={`Profile image for ${frontmatter.name}`}></Image>
             </div>
           )}
         </div>
@@ -96,17 +117,10 @@ const AuthorPage =  async ( {params}: {params: {slug: string}} ) => {
             <div className="max-w-prose border-b">
               <h2 className="text-gray-600 text-sm font-semibold mb-6">Posts by {frontmatter.name}</h2>
 
-              {filteredPosts.slice(0, appearanceSettings.numberOfPostsPerPage || 8).map((post, index) => 
+              {postFrontmatter.slice(startIndex, endIndex).map((post, index) => 
                 <PostCard key={`${post.slug}-${index}`} post={post} index={index}></PostCard>
               )}
-              {filteredPosts.length > (appearanceSettings.numberOfPostsPerPage || 8) &&
-                <div className="py-12">
-                  <div className="font-light text-sm mb-2 text-gray-800 dark:text-gray-100">
-                    Displaying posts 1 - {(appearanceSettings.numberOfPostsPerPage || 8)} of {filteredPosts.length}
-                  </div>
-                  <PaginationLink text="Show more posts" page={2} type="author" slug={slug}></PaginationLink>
-                </div>
-              }
+              
             </div>
           }
 
@@ -155,9 +169,13 @@ const AuthorPage =  async ( {params}: {params: {slug: string}} ) => {
             </div>
           )}
         </Sidebar>
+
+        {filteredPosts.length > (appearanceSettings.numberOfPostsPerPage || 8) &&
+            <PaginationCard currentPage={pageNumber} startIndex={startIndex} endIndex={endIndex} postCount={filteredPosts.length} type="author" slug={slug}></PaginationCard>
+          }
       </div>
     </div>
   )
 }
 
-export default AuthorPage
+export default AuthorPaginatedPage
