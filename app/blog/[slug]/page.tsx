@@ -115,7 +115,7 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
                     return (
                       <div className="flex flex-wrap mb-3" key={`related-post-sidebar-${index}`}>
                         <div className="w-full font-normal text-gray-600 dark:text-gray-300">
-                          <PostCard post={frontmatter}></PostCard>
+                          <PostCard post={frontmatter} index={0}></PostCard>
                         </div>
                       </div>
                     )
