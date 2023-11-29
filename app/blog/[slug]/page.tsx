@@ -68,7 +68,7 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
           <div className="mb-12 lg:hidden">
             <Toc />
           </div>
-          <div className="prose dark:prose-invert mb-20">
+          <div className="prose dark:prose-invert mb-20 prose-code:px-0.5 prose-pre:bg-gray-100 prose-pre:text-gray-700 prose-pre:dark:bg-gray-700 prose-pre:dark:text-gray-200 prose-code:bg-gray-100 prose-code:dark:bg-gray-700">
             {content}
           </div>
 
