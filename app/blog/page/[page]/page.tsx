@@ -46,7 +46,7 @@ export default async function BlogPaginatedPage({ params }: { params: { page: st
       <div className="flex justify-between w-full">
         <div className='lg:max-w-prose'>
           {postFrontmatter.slice(startIndex, endIndex).map((frontmatter, index) => 
-            <PostCard key={`${frontmatter.slug}-${index}`} post={frontmatter}></PostCard>
+            <PostCard key={`${frontmatter.slug}-${index}`} post={frontmatter} index={index}></PostCard>
           )}
         </div>
         <div>

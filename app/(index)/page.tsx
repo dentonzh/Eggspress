@@ -39,7 +39,7 @@ export default async function Home() {
             <PostCard key={`${frontmatter.slug}-${index}`} post={frontmatter} index={index}></PostCard>
           )}
           {postFrontmatter.length > (appearanceSettings.numberOfPostsPerPage || 8) &&
-          <div className="py-12">
+          <div className="mb-12">
             <div className="font-light text-sm mb-2 text-gray-800 dark:text-gray-100">
               Displaying posts 1 - {(appearanceSettings.numberOfPostsPerPage || 8)} of {postFrontmatter.length}
             </div>

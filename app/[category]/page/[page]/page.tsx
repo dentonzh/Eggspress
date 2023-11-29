@@ -85,7 +85,7 @@ export default async function CategoryPaginatedPage({ params }: { params: { cate
       <div className="flex justify-between w-full">
         <div className='lg:max-w-prose'>
           {filteredPosts.slice(startIndex, endIndex).map((frontmatter, index) => 
-            <PostCard key={`${frontmatter.slug}-${index}`} post={frontmatter}></PostCard>
+            <PostCard key={`${frontmatter.slug}-${index}`} post={frontmatter} index={index}></PostCard>
           )}
         </div>
         <div>

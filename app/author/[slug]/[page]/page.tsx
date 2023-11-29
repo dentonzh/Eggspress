@@ -114,8 +114,7 @@ const AuthorPaginatedPage =  async ( {params}: {params: {slug: string, page: str
       <div className="flex flex-wrap">
         <div className="max-w-prose">
           {filteredPosts &&
-            <div className="max-w-prose border-b">
-              <h2 className="text-gray-600 text-sm font-semibold mb-6">Posts by {frontmatter.name}</h2>
+            <div className="max-w-prose">
 
               {postFrontmatter.slice(startIndex, endIndex).map((post, index) => 
                 <PostCard key={`${post.slug}-${index}`} post={post} index={index}></PostCard>
@@ -125,8 +124,8 @@ const AuthorPaginatedPage =  async ( {params}: {params: {slug: string, page: str
           }
 
           {contentLength > 0 && (
-            <div className="py-12">
-              <h2 className="text-gray-600 font-semibold mb-3">Biography</h2>
+            <div className="py-12 border-t">
+              <h2 className="text-gray-600 dark:text-gray-200 font-semibold mb-3">Biography</h2>
               <div className="prose dark:prose-invert">
                 {content}
               </div>

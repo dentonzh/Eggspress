@@ -37,7 +37,7 @@ const PostCard = async ({ post, index }: PostProps) => {
   }
 
   return (
-    <div className='flex flex-wrap items-baseline mb-16 text-gray-800 dark:text-gray-100'>
+    <div className={`${index === 0 ? (post.image && imagePath ? 'mt-0 mb-20': 'mt-0 mb-8') : post.image && imagePath ? 'my-20' : 'mt-8'} flex flex-wrap items-baseline text-gray-800 dark:text-gray-100`}>
       {post.image && imagePath && 
         <Link href={`/blog/${post.slug}`} className="w-full">
           <Image 

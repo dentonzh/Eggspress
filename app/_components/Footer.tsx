@@ -21,12 +21,17 @@ const Footer = async () => {
       <div className="container flex justify-between text-gray-800 dark:text-gray-200">
         <div className="flex flex-wrap w-full md:w-2/3 font-light md:text-sm leading-6">
           <div className="w-1/2">
-            <div className="flex flex-col w-full sm:w-1/2 mb-3">
+            <div className="flex flex-col w-full sm:w-1/2">
               {categoryData.map(category => 
                 <Link className="mb-6 md:mb-3" key={category.slug} href={`/${category.slug}`}>{category.title}</Link>
               )}
             </div>
-            <div className="flex flex-col w-full sm:w-1/2 mb-3">
+            {categoryData.length && pageData.length &&
+              <div className="w-2/3 mb-6 md:mb-3">
+                <div className="border-b border-dotted border-gray-400 dark:border-gray-600"></div>
+              </div>
+            }
+            <div className={`flex flex-col w-full sm:w-1/2 mb-3`}>
               {pageData.map(page => 
                 <Link className="mb-6 md:mb-3" key={page.slug} href={`/page/${page.slug}`}>{page.name}</Link>
               )}
