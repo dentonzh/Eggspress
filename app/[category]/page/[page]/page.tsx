@@ -63,7 +63,7 @@ export default async function BlogPage({ params }: { params: { category: string,
   const categoryFrontmatter = await getFrontmatter('categories')
   const categoryData = categoryFrontmatter.filter(fm => fm.slug === category)[0]
   
-  const postFrontmatter = await getFrontmatter('posts', categoryData.orderPostsBy, categoryData.orderPostsByReversed)
+  const postFrontmatter = await getFrontmatter('posts', categoryData && categoryData.orderPostsBy, categoryData && categoryData.orderPostsByReversed)
   const filteredPosts = postFrontmatter.filter(post => createSlug(post.category) === category)
   
   const endIndex = pageNumber * numPostsPerPage > filteredPosts.length ? filteredPosts.length : pageNumber * numPostsPerPage
@@ -92,7 +92,7 @@ export default async function BlogPage({ params }: { params: { category: string,
           <PageSidebar slug="index"></PageSidebar>
         </div>
       </div>
-      <PaginationCard currentPage={pageNumber} startIndex={startIndex} endIndex={endIndex} postCount={filteredPosts.length}></PaginationCard>
+      <PaginationCard currentPage={pageNumber} startIndex={startIndex} endIndex={endIndex} postCount={filteredPosts.length} type="category" slug={category}></PaginationCard>
     </main>
   )
 }

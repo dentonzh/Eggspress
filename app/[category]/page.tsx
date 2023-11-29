@@ -52,11 +52,10 @@ const CategoryPage = async ({ params }: { params: { category: string }}) => {
 
   const numbersAsWords: Record<number, string> = {0: 'No', 1: 'One', 2: 'Two', 3: 'Three', 4: 'Four', 5: 'Five', 6: 'Six', 7: 'Seven', 8: 'Eight', 9: 'Nine'}
   
-  
   const categoryFrontmatter = await getFrontmatter('categories')
   const categoryData = categoryFrontmatter.filter(fm => fm.slug === category)[0]
 
-  const postFrontmatter = await getFrontmatter('posts', categoryData.orderPostsBy, categoryData.orderPostsByReversed)
+  const postFrontmatter = await getFrontmatter('posts', categoryData && categoryData.orderPostsBy, categoryData && categoryData.orderPostsByReversed)
   const filteredPosts = postFrontmatter.filter(post => createSlug(post.category) === category)
   
   let categoryName = filteredPosts && filteredPosts.length ? filteredPosts[0].category : decodeURI(category)
@@ -87,7 +86,7 @@ const CategoryPage = async ({ params }: { params: { category: string }}) => {
             <div className="font-light text-sm mb-2 text-gray-800 dark:text-gray-100">
               Displaying posts 1 - {(appearanceSettings.numberOfPostsPerPage || 8)} of {filteredPosts.length} in {categoryName}
             </div>
-            <PaginationLink text="Show more posts" page={2} category={category}></PaginationLink>
+            <PaginationLink text="Show more posts" page={2} type="category" slug={category}></PaginationLink>
           </div>
           }
         </div>

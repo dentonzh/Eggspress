@@ -1,27 +1,33 @@
 'use client'
 
+import { Route } from 'next'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import React from 'react'
 
-const PaginationLink = ({text, page, category}: {text: string, page: number, category?: string}) => {
+const PaginationLink = ({text, page, type, slug}: {text: string, page: number, type?: string, slug?: string}) => {
   const router = useRouter()
 
+  const pushRoute = () => {
+    router.push(buildRoute())
+  }
+
   const buildRoute = () => {
-    if (category) {
-      router.push(`/${category}/page/${page}`)
-      return
+    if (type === 'category') {
+      return `/${slug}/page/${page}`
+    } else if (type === 'author') {
+      return `/author/${slug}/${page}`
     }
-    router.push(`/blog/page/${page}`)
+    return `/blog/page/${page}`
   }
 
   return (
     <div className="flex shrink">
-      <div onClick={buildRoute} className="underline-animated select-none cursor-pointer font-medium text-gray-800 hover:text-blue-800 dark:text-white hover:dark:text-blue-200">
+      <div onClick={pushRoute} className="underline-animated select-none cursor-pointer font-medium text-gray-800 hover:text-blue-800 dark:text-white hover:dark:text-blue-200">
         {text}
       </div>
       <div className="h-0.5 w-1 -ml-1 overflow-hidden">
-        <Link href={category? `/${category}/page/${page}` : `/blog/page/${page}`}>Go to page {page}</Link>
+        <Link href={buildRoute() as Route}>Go to page {page}</Link>
       </div>
     </div>
   )

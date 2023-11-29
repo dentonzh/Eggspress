@@ -11,7 +11,7 @@ const getContent = async (type: string, slug:string ): Promise<{markdownData: st
       {...prev, [cur.slug]: cur}
     ), {})
   const file = slugsToMarkdownFilesMap[slug]
-  const markdownData = fs.readFileSync(`${file.path}/${file.name}`, 'utf-8')
+  const markdownData = file === undefined ? '' : fs.readFileSync(`${file.path}/${file.name}`, 'utf-8')
   const filePath = file.path
   return { markdownData, imageFiles, filePath }
 }
