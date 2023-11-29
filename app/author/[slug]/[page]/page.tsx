@@ -16,8 +16,6 @@ export async function generateStaticParams() {
 
   let params: {slug: string, page: string}[] = []
 
-  console.log('author slugs', slugs)
-
   slugs.map(({slug}) => {
     const filteredPosts = postFrontmatter.filter(fm => fm.author === slug || fm.author?.split(',').map(x => x.trim()).includes(slug))
 
@@ -28,7 +26,7 @@ export async function generateStaticParams() {
       params.push({slug: slug, page: (+i + 1).toString()})
     }
   })
-  
+
   return params
 }
 
