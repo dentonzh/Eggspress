@@ -17,7 +17,7 @@ const ContentHero = async ({sectionString, sectionLink, headline, subtitle, date
   return (
     <div>
       <div className={`hero bleed-${appearanceSettings.colorThemeLightPrimary} dark:bleed-${appearanceSettings.colorThemeDarkPrimary}`}>
-        <h1 className={`text-5xl md:text-6xl font-bold -ml-0.5 leading-[1.16] md:leading-[1.2] ${subtitle ? 'mb-9 md:mb-12' : 'mb-3 md:mb-6'} text-${appearanceSettings.colorHeroHeadlineLight} dark:text-${appearanceSettings.colorHeroHeadlineDark} `}>{headline}</h1>
+        <h1 className={`text-5xl md:text-6xl font-bold -ml-0.5 leading-[1.16] md:leading-[1.2] ${subtitle && (sectionString || date) ? 'mb-9 md:mb-12' : (sectionString || date) ? 'mb-3 md:mb-6' : 'mb-6'} text-${appearanceSettings.colorHeroHeadlineLight} dark:text-${appearanceSettings.colorHeroHeadlineDark} `}>{headline}</h1>
         {subtitle &&
           <div className={`md:text-lg mb-2 md:mb-3 text-${appearanceSettings.colorHeroSubtitleLight} dark:text-${appearanceSettings.colorHeroSubtitleDark}`}>{subtitle}</div>
         }

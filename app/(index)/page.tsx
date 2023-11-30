@@ -4,6 +4,7 @@ import PostCard from '../_components/PostCard'
 import PageSidebar from '../_components/PageSidebar'
 import PaginationLink from '../_components/PaginationLink'
 import Setup from '../_components/Setup'
+import ContentHero from '../_components/ContentHero'
 
 
 export async function generateMetadata() {
@@ -29,10 +30,11 @@ export default async function Home() {
 
   return (
     <main className="flex flex-wrap">
-      <div className={`hero bleed-${appearanceSettings.colorThemeLightPrimary} dark:bleed-${appearanceSettings.colorThemeDarkPrimary}`}>
-        <h1 className="text-5xl font-bold mb-4 -ml-0.5">{blogSettings.title || 'Eggspress'}</h1>      
-        <div className="font-normal">{blogSettings.tagline || 'The lightweight blog made for everyone 🌎'}</div>
-      </div>
+      <ContentHero
+        headline={blogSettings.title || 'Eggspress'}
+        subtitle={blogSettings.tagline || 'The lightweight blog made for everyone 🌎'}
+      >
+      </ContentHero>
       <div className="flex justify-between w-full">
         <div className='lg:max-w-prose'>
           {postFrontmatter.slice(0, appearanceSettings.numberOfPostsPerPage || 8).map((frontmatter, index) => 
