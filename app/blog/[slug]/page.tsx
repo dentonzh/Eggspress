@@ -11,6 +11,7 @@ import PageSidebar from '@/app/_components/PageSidebar'
 import Image from 'next/image'
 import getFrontmatter from '@/app/_components/getFrontmatter'
 import PostCard from '@/app/_components/PostCard'
+import ContentHero from '@/app/_components/ContentHero'
 
 
 export async function generateStaticParams() {
@@ -58,11 +59,14 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
 
   return (
     <div className="flex flex-wrap">
-      <div className={`hero bleed-${appearanceSettings.colorLightPrimary} dark:bleed-${appearanceSettings.colorDarkPrimary}`}>
-        {frontmatter && frontmatter.category && <Link href={`/${createSlug(frontmatter.category)}`}><div className="mb-3">{frontmatter.category}</div></Link>}
-        <h1 className="text-5xl font-bold mb-3 -ml-0.5">{`${frontmatter.title || 'Untitled Post'}`}</h1>      
-        <div>{frontmatter.date || frontmatter.publishDate ? convertDate(frontmatter.date || frontmatter.publishDate) : ''}</div>
-      </div>
+      <ContentHero 
+        trailString={frontmatter.category} 
+        trailLink={`/${createSlug(frontmatter.category)}`} 
+        headline={frontmatter.title || 'Untitled Post'} 
+        subtitle={frontmatter.subtitle}
+        date={frontmatter.date || frontmatter.publishDate ? convertDate(frontmatter.date || frontmatter.publishDate) : ''}
+      >
+      </ContentHero>
       <div className="flex justify-between w-full">
         <div className="overflow-x-hidden">
           <div className="mb-12 lg:hidden">
