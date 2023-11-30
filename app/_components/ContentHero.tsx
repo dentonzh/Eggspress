@@ -3,10 +3,10 @@ import { getEggspressSettings } from '../utils'
 import Link from 'next/link'
 
 interface ContentHeroProps {
-  sectionString?: string,
-  sectionLink?: string,
   headline?: string,
   subtitle?: string,
+  sectionString?: string,
+  sectionLink?: string,
   date?: string,
   children?: React.ReactNode
 }
