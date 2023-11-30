@@ -4,7 +4,6 @@ import compileContent from '@/app/_components/compileContent'
 import Sidebar from '../../_components/Sidebar'
 import { createSlug, getEggspressSettings } from '../../utils'
 import Toc from '../../_components/Toc'
-import Link from 'next/link'
 import PageSidebar from '@/app/_components/PageSidebar'
 import ContentHero from '@/app/_components/ContentHero'
 
@@ -50,7 +49,7 @@ const PagePage =  async ( {params}: {params: {slug: string}} ) => {
     <div className="flex flex-wrap">
       <ContentHero
         headline={frontmatter.title || slug}
-        subtitle={frontmatter.tagline || ''}
+        subtitle={frontmatter.subtitle || ''}
         sectionString={frontmatter.category}
         sectionLink={frontmatter.category ? `/${createSlug(frontmatter.category)}` : ''}
         date={frontmatter.date || frontmatter.publishDate ? convertDate(frontmatter.date || frontmatter.publishDate) : ''}

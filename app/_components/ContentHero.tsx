@@ -21,11 +21,11 @@ const ContentHero = async ({sectionString, sectionLink, headline, subtitle, date
     <div className={`hero bleed-${appearanceSettings.colorThemeLightPrimary} dark:bleed-${appearanceSettings.colorThemeDarkPrimary}`}>
       <div className="flex">
         <h1 className={`grow text-5xl lg:text-6xl font-bold leading-[1.16] md:leading-[1.2] ${subtitle && (sectionString || date) ? 'mb-12 md:mb-8' : subtitle ? 'mb-6' : (sectionString || date) ? 'mb-3 md:mb-6' : 'mb-6'} text-${appearanceSettings.colorHeroHeadlineLight} dark:text-${appearanceSettings.colorHeroHeadlineDark} `}>{headline}</h1>
-          <div className="-mt-3 lg:h-36 lg:w-36 rounded-full object-cover overflow-hidden hidden md:block">
-            {imageSrc &&
-              <Image priority={true} src={imageSrc} width="144" height="144" alt={imageAlt ? `${imageAlt}` : 'Header image'}></Image>
-            }
-          </div>
+        <div className="-mt-3 lg:h-36 lg:w-36 rounded-full object-cover overflow-hidden hidden md:block">
+          {imageSrc &&
+            <Image priority={true} src={imageSrc} width="144" height="144" alt={imageAlt ? `${imageAlt}` : 'Header image'}></Image>
+          }
+        </div>
       </div>
       <div className="flex flex-wrap">
         <div>
