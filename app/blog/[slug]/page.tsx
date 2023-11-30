@@ -56,7 +56,6 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
   const prevPost = postFrontmatter.filter(post => frontmatter.prevPost && post.slug === frontmatter.prevPost.replaceAll('_', '-').replaceAll(' ', '-'))[0]
   const nextPost = postFrontmatter.filter(post => frontmatter.nextPost && post.slug === frontmatter.nextPost.replaceAll('_', '-').replaceAll(' ', '-'))[0]
 
-
   return (
     <div className="flex flex-wrap">
       <ContentHero 
@@ -65,6 +64,7 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
         headline={frontmatter.title || 'Untitled Post'} 
         subtitle={frontmatter.subtitle}
         date={frontmatter.date || frontmatter.publishDate ? convertDate(frontmatter.date || frontmatter.publishDate) : ''}
+        imageSrc={frontmatter.image && frontmatter.showImageInHeader ? `/images/${slug}/${frontmatter.image}` : ''}
       >
       </ContentHero>
       <div className="flex justify-between w-full">
