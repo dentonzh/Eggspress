@@ -4,6 +4,7 @@ import { createSlug, getEggspressSettings } from '../utils'
 import PostCard from '../_components/PostCard'
 import PageSidebar from '../_components/PageSidebar'
 import PaginationLink from '../_components/PaginationLink'
+import ContentHero from '../_components/ContentHero'
 
 export async function generateStaticParams() {
   const postFrontmatter = await getFrontmatter('posts')
@@ -67,15 +68,11 @@ const CategoryPage = async ({ params }: { params: { category: string }}) => {
   
   return (
     <div className="flex flex-wrap">
-      <div className={`hero bleed-${appearanceSettings.colorThemeLightPrimary} dark:bleed-${appearanceSettings.colorThemeDarkPrimary}`}>
-        <h1 className="text-5xl font-bold mb-3 -ml-0.5">{ categoryName }</h1>
-        {categoryData && categoryData.subtitle 
-          ?
-          <div>{categoryData.subtitle}</div>
-          :
-          <div>{filteredPosts.length < 10 ? numbersAsWords[filteredPosts.length] : filteredPosts.length} {filteredPosts.length === 1 ? 'post' : 'posts'}</div>
-        }
-      </div>
+      <ContentHero
+        headline={categoryName}
+        subtitle={categoryData.subtitle || ''}
+      >
+      </ContentHero>
       <div className="flex justify-between w-full">
         <div className='max-w-prose'>
           {filteredPosts.slice(0, appearanceSettings.numberOfPostsPerPage || 8).map((post, index) => 
