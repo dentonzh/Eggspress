@@ -17,7 +17,7 @@ const Footer = async () => {
   const pageData = pageFrontmatter.map((page) => {return {name: page.title, tagline: page.tagline, priority: page.weight, slug: page.slug}})
 
   return (
-    <div className={`px-3 md:px-0 py-8 min-w-full duration-100 bg-${appearanceSettings.colorLightFooter || appearanceSettings.colorLightPrimary} dark:bg-${appearanceSettings.colorDarkFooter || appearanceSettings.colorDarkPrimary} pt-12`}>
+    <div className={`px-3 md:px-0 py-8 min-w-full duration-100 bg-${appearanceSettings.colorThemeLightFooter || appearanceSettings.colorThemeLightPrimary} dark:bg-${appearanceSettings.colorThemeDarkFooter || appearanceSettings.colorThemeDarkPrimary} pt-12`}>
       <div className="container flex justify-between text-gray-800 dark:text-gray-200">
         <div className="flex flex-wrap w-full md:w-2/3 font-light md:text-sm leading-6">
           <div className="w-1/2">

@@ -3,31 +3,39 @@ import { getEggspressSettings } from '../utils'
 import Link from 'next/link'
 
 interface ContentHeroProps {
-  trailString?: string,
-  trailLink?: string,
+  sectionString?: string,
+  sectionLink?: string,
   headline?: string,
   subtitle?: string,
   date?: string,
   children?: React.ReactNode
 }
 
-const ContentHero = async ({trailString, trailLink, headline, subtitle, date}: ContentHeroProps) => {
+const ContentHero = async ({sectionString, sectionLink, headline, subtitle, date}: ContentHeroProps) => {
   const appearanceSettings = await getEggspressSettings('appearance')
 
   return (
     <div>
-      <div className={`hero bleed-${appearanceSettings.colorLightPrimary} dark:bleed-${appearanceSettings.colorDarkPrimary}`}>
-        <h1 className={`${subtitle ? 'mb-6 md:mb-9' : 'mb-3 md:mb-6'} text-4xl md:text-6xl font-bold -ml-0.5 leading-[1.26] md:leading-[1.2]`}>{headline}</h1>
+      <div className={`hero bleed-${appearanceSettings.colorThemeLightPrimary} dark:bleed-${appearanceSettings.colorThemeDarkPrimary}`}>
+        <h1 className={`text-5xl md:text-6xl font-bold -ml-0.5 leading-[1.16] md:leading-[1.2] ${subtitle ? 'mb-9 md:mb-12' : 'mb-3 md:mb-6'} text-${appearanceSettings.colorHeroHeadlineLight} dark:text-${appearanceSettings.colorHeroHeadlineDark} `}>{headline}</h1>
         {subtitle &&
-          <div className="text-sm md:text-lg mb-3 md:mb-6">{subtitle}</div>
+          <div className={`md:text-lg mb-2 md:mb-3 text-${appearanceSettings.colorHeroSubtitleLight} dark:text-${appearanceSettings.colorHeroSubtitleDark}`}>{subtitle}</div>
         }
-        {(trailString || date) &&
-          <div className="flex text-xs font-medium text-gray-700 dark:text-gray-300">
-            <div className={`${trailString && date ? 'border-r border-gray-300 dark:border-gray-500 pr-2 mr-2' : ''} shrink-0`}>
-              {trailLink ? <Link className="underline-animated" href={trailLink}>{trailString}</Link> : <div>{trailString}</div>}
+        {(sectionString || date) &&
+          <div className="flex text-xs font-medium">
+            <div className={`shrink-0 ${sectionString && date ? 'border-r border-gray-300 dark:border-gray-500 pr-2 mr-2' : ''}`}>
+              {sectionString &&
+                <div>
+                  {sectionLink ?
+                    <Link className={`underline-animated text-${appearanceSettings.colorHeroSectionLinkLight} dark:text-${appearanceSettings.colorHeroSectionLinkDark}`} href={sectionLink}>{sectionString}</Link> 
+                    :
+                    <div className={`text-${appearanceSettings.colorHeroSectionStringLight} dark:text-${appearanceSettings.colorHeroSectionStringDark}`}>{sectionString}</div>
+                  }
+                </div>
+              }
             </div>
             {date &&
-              <div className="">{date}</div>
+              <div className={`text-${appearanceSettings.colorHeroDateLight} dark:text-${appearanceSettings.colorHeroDateDark}`}>{date}</div>
             }
           </div>
         }

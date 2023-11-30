@@ -78,7 +78,7 @@ export default async function CategoryPaginatedPage({ params }: { params: { cate
 
   return (
     <main className="flex flex-wrap">
-      <div className={`hero bleed-${appearanceSettings.colorLightPrimary} dark:bleed-${appearanceSettings.colorDarkPrimary}`}>
+      <div className={`hero bleed-${appearanceSettings.colorThemeLightPrimary} dark:bleed-${appearanceSettings.colorThemeDarkPrimary}`}>
         <h1 className="text-5xl font-bold mb-4 -ml-0.5">{categoryName} <span className="text-gray-400 dark:text-gray-500">{`//`} Page {page}</span></h1>      
         <div className="font-normal">Displaying {startIndex + 1} - {endIndex} of {filteredPosts.length}</div>
       </div>

@@ -91,7 +91,7 @@ const AuthorPaginatedPage =  async ( {params}: {params: {slug: string, page: str
 
   return (
     <div className="flex flex-wrap">
-      <div className={`hero bleed-${appearanceSettings.colorLightPrimary} dark:bleed-${appearanceSettings.colorDarkPrimary}`}>
+      <div className={`hero bleed-${appearanceSettings.colorThemeLightPrimary} dark:bleed-${appearanceSettings.colorThemeDarkPrimary}`}>
         <div className="flex flex-wrap">
           <div className="my-auto w-[65ch]">
             <div className="w-full">

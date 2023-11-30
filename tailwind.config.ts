@@ -12,7 +12,7 @@ const config: Config = {
   ],
   safelist: [
   {
-    pattern: /(bg|bleed)-([a-z]+)-(50|100|200|800|900|950)$/,
+    pattern: /(bg|bleed|text)-([a-z]+)-(50|100|200|800|900|950)$/,
     variants: [
       'dark'
     ]
@@ -38,21 +38,6 @@ const config: Config = {
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
-      typography: {
-        DEFAULT: {
-          css: {
-            code: {
-              fontWeight: '400',
-            },
-            'code::before': {
-              content: 'none'
-            },
-            'code::after': {
-              content: 'none'
-            },
-          }
-        }
-      }
     },
   },
   plugins: [

@@ -29,7 +29,7 @@ export default async function Home() {
 
   return (
     <main className="flex flex-wrap">
-      <div className={`hero bleed-${appearanceSettings.colorLightPrimary} dark:bleed-${appearanceSettings.colorDarkPrimary}`}>
+      <div className={`hero bleed-${appearanceSettings.colorThemeLightPrimary} dark:bleed-${appearanceSettings.colorThemeDarkPrimary}`}>
         <h1 className="text-5xl font-bold mb-4 -ml-0.5">{blogSettings.title || 'Eggspress'}</h1>      
         <div className="font-normal">{blogSettings.tagline || 'The lightweight blog made for everyone 🌎'}</div>
       </div>

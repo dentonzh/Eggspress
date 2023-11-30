@@ -52,24 +52,24 @@ export default async function RootLayout({
   let appearanceSettings = await getEggspressSettings('appearance')
   if (appearanceSettings && appearanceSettings.code && appearanceSettings.code === 'ENOENT') {
     appearanceSettings = {
-      colorDarkPrimary: "slate-900",
-      colorDarkSecondary: "slate-800",
-      colorDarkFooter: "slate-900",
-      colorLightPrimary: "gray-100",
-      colorLightSecondary: "white",
-      colorLightFooter: "gray-100",
+      colorThemeDarkPrimary: "slate-900",
+      colorThemeDarkSecondary: "slate-800",
+      colorThemeDarkFooter: "slate-900",
+      colorThemeLightPrimary: "gray-100",
+      colorThemeLightSecondary: "white",
+      colorThemeLightFooter: "gray-100",
     }
   }
 
   return (
     <html lang="en">
-      <body className={`${roboto_flex.className} flex flex-col duration-200 delay-75 dark:bg-${appearanceSettings.colorDarkSecondary} overflow-x-hidden min-h-screen justify-between`}>
+      <body className={`${roboto_flex.className} flex flex-col duration-200 delay-75 dark:bg-${appearanceSettings.colorThemeDarkSecondary} overflow-x-hidden min-h-screen justify-between`}>
         {process.env.NODE_ENV === 'production' && variablesSetting.googleAnalyticsPropertyId &&
           <ExtGoogleAnalytics></ExtGoogleAnalytics>
         }
         <Navigation />
-        <div className={`mb-auto bg-${appearanceSettings.colorLightSecondary} dark:bg-${appearanceSettings.colorDarkSecondary}`}>
-          <div className={`px-4 xs:px-0 container mb-12 grow bleed-bg bleed-${appearanceSettings.colorLightSecondary} dark:bleed-${appearanceSettings.colorDarkSecondary}`}>
+        <div className={`mb-auto bg-${appearanceSettings.colorThemeLightSecondary} dark:bg-${appearanceSettings.colorThemeDarkSecondary}`}>
+          <div className={`px-4 xs:px-0 container mb-12 grow bleed-bg bleed-${appearanceSettings.colorThemeLightSecondary} dark:bleed-${appearanceSettings.colorThemeDarkSecondary}`}>
             {children}
           </div>
         </div>

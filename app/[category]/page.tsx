@@ -67,7 +67,7 @@ const CategoryPage = async ({ params }: { params: { category: string }}) => {
   
   return (
     <div className="flex flex-wrap">
-      <div className={`hero bleed-${appearanceSettings.colorLightPrimary} dark:bleed-${appearanceSettings.colorDarkPrimary}`}>
+      <div className={`hero bleed-${appearanceSettings.colorThemeLightPrimary} dark:bleed-${appearanceSettings.colorThemeDarkPrimary}`}>
         <h1 className="text-5xl font-bold mb-3 -ml-0.5">{ categoryName }</h1>
         {categoryData && categoryData.subtitle 
           ?

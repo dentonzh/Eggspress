@@ -60,8 +60,8 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
   return (
     <div className="flex flex-wrap">
       <ContentHero 
-        trailString={frontmatter.category} 
-        trailLink={`/${createSlug(frontmatter.category)}`} 
+        sectionString={frontmatter.category} 
+        sectionLink={`/${createSlug(frontmatter.category)}`} 
         headline={frontmatter.title || 'Untitled Post'} 
         subtitle={frontmatter.subtitle}
         date={frontmatter.date || frontmatter.publishDate ? convertDate(frontmatter.date || frontmatter.publishDate) : ''}
