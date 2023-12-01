@@ -11,12 +11,12 @@ const config: Config = {
     './app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   safelist: [
-  {
-    pattern: /(bg|bleed|text)-([a-z]+)-(50|100|200|800|900|950)$/,
-    variants: [
-      'dark'
-    ]
-  },
+    {
+      pattern: /(bg|bleed|text)-([a-z]+)-(50|100|200|800|900|950)$/,
+      variants: [
+        'dark'
+      ]
+    }
   ],
   theme: {
     screens: {

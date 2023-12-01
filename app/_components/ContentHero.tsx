@@ -30,11 +30,11 @@ const ContentHero = async ({sectionString, sectionLink, headline, subtitle, date
       <div className="flex flex-wrap">
         <div>
           {subtitle &&
-            <div className={`md:text-lg mb-2 md:mb-3 ${imageSrc ? '-mt-4' : '-mt-10'} text-${appearanceSettings.colorHeroSubtitleLight} dark:text-${appearanceSettings.colorHeroSubtitleDark}`}>{subtitle}</div>
+            <div className={`md:text-lg mb-2 md:mb-3 ${imageSrc ? '-mt-8' : '-mt-10'} text-${appearanceSettings.colorHeroSubtitleLight} dark:text-${appearanceSettings.colorHeroSubtitleDark}`}>{subtitle}</div>
           }
           <div className={imageSrc ? 'flex' : ''}></div>
           {(sectionString || date) &&
-            <div className="flex text-xs font-medium">
+            <div className="flex text-[13px] font-medium">
               <div className={`shrink-0 ${sectionString && date ? 'border-r border-gray-300 dark:border-gray-500 pr-2 mr-2' : ''}`}>
                 {sectionString &&
                   <div>

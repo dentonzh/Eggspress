@@ -1,11 +1,13 @@
-Eggspress is a lightweight blogging platform built on Next.js and React. It's designed to help anyone launch a new site with little to no coding experience. There's no command line needed. Best of all, it's lightning fast and completely free![^1]
+Eggspress is a lightweight blogging platform built on Next.js and React. It's designed to help anyone, even those without coding experience, launch a new site—no command line needed. Best of all, it's lightning fast and completely free![^1]
 
-This guide is an abridged version of [Getting Started Guide](https://eggspress.vercel.app/getting-started), which includes more details including screenshots. If you're new to Github and deploying sites or you want a live demo of Eggspress, check out the guide. Otherwise, continue on.
+If you're new to starting websites, need a bit more help, or want a live demo of Eggspress, check out the [Getting Started Guide](https://eggspress.vercel.app/getting-started). It's published entirely on Eggspress!
 ## Prerequisites
-To use Eggspress, you'll need a:
-- Github account ([sign up](https://github.com/join))
-- Vercel account ([sign up](https://vercel.com/signup) using "Continue with Github")
-- Markdown editor ([Obsidian](https://obsidian.md/) is recommended)
+To use Eggspress, you'll need to have accounts on:
+- Github ([sign up](https://github.com/join))
+- Vercel ([sign up](https://vercel.com/signup) using "Continue with Github")
+
+We also recommend a Markdown editor for your content. [Obsidian](https://obsidian.md/) is our editor of choice and is what we use in [Getting Started](https://eggspress.vercel.app/getting-started).
+
 ## Forking Eggspress
 Log into your Github account and [fork Eggspress](https://github.com/dentonzh/Eggspress/fork). Provide a name and description of your choosing and click "Create fork."
 
