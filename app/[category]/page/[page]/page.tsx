@@ -3,6 +3,7 @@ import { createSlug, getEggspressSettings } from '../../../utils'
 import PostCard from '../../../_components/PostCard'
 import PageSidebar from '../../../_components/PageSidebar'
 import PaginationCard from '../../../_components/PaginationCard'
+import ContentHero from '@/app/_components/ContentHero'
 
 
 export async function generateStaticParams() {
@@ -78,19 +79,23 @@ export default async function CategoryPaginatedPage({ params }: { params: { cate
 
   return (
     <main className="flex flex-wrap">
-      <div className={`hero bleed-${appearanceSettings.colorThemeLightPrimary} dark:bleed-${appearanceSettings.colorThemeDarkPrimary}`}>
-        <h1 className="text-5xl font-bold mb-4 -ml-0.5">{categoryName} <span className="text-gray-400 dark:text-gray-500">{`//`} Page {page}</span></h1>      
-        <div className="font-normal">Displaying {startIndex + 1} - {endIndex} of {filteredPosts.length}</div>
-      </div>
+      <ContentHero
+        headline={categoryName}
+        subtitle={`// Page ${pageNumber}`}
+        subheading={`Displaying posts ${startIndex + 1} - ${endIndex} of ${filteredPosts.length}`}
+      >
+      </ContentHero>
       <div className="flex justify-between w-full">
         <div className='lg:max-w-prose'>
           {filteredPosts.slice(startIndex, endIndex).map((frontmatter, index) => 
             <PostCard key={`${frontmatter.slug}-${index}`} post={frontmatter} index={index}></PostCard>
           )}
         </div>
-        <div>
-          <PageSidebar slug="index"></PageSidebar>
-        </div>
+        {categoryData && categoryData.sidebar && 
+          <div>
+            <PageSidebar slug={categoryData.sidebar}></PageSidebar>
+          </div>
+        }
       </div>
       <PaginationCard currentPage={pageNumber} startIndex={startIndex} endIndex={endIndex} postCount={filteredPosts.length} type="category" slug={category}></PaginationCard>
     </main>

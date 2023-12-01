@@ -72,7 +72,8 @@ const AuthorPage =  async ( {params}: {params: {slug: string}} ) => {
     <div className="flex flex-wrap">
       <ContentHero
         headline={frontmatter.name || slug}
-        subtitle={frontmatter.role || 'Author'}
+        subtitle={frontmatter.postnomials}
+        subheading={frontmatter.role || 'Author'}
         imageSrc={imageSrc}
         imageAlt={`Profile image for ${frontmatter.name}`}
       >

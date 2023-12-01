@@ -6,6 +6,7 @@ import Image from 'next/image'
 interface ContentHeroProps {
   headline?: string,
   subtitle?: string,
+  subheading?: string,
   sectionString?: string,
   sectionLink?: string,
   date?: string,
@@ -14,14 +15,16 @@ interface ContentHeroProps {
   children?: React.ReactNode
 }
 
-const ContentHero = async ({sectionString, sectionLink, headline, subtitle, date, imageSrc, imageAlt}: ContentHeroProps) => {
+const ContentHero = async ({sectionString, sectionLink, headline, subtitle, subheading, date, imageSrc, imageAlt}: ContentHeroProps) => {
   const appearanceSettings = await getEggspressSettings('appearance')
 
   return (
     <div className={`hero bleed-${appearanceSettings.colorThemeLightPrimary} dark:bleed-${appearanceSettings.colorThemeDarkPrimary}`}>
       <div className="flex">
-        <h1 className={`grow text-5xl lg:text-6xl font-bold leading-[1.16] md:leading-[1.2] ${subtitle && (sectionString || date) ? 'mb-12 md:mb-8' : subtitle ? 'mb-6' : (sectionString || date) ? 'mb-3 md:mb-6' : 'mb-6'} text-${appearanceSettings.colorHeroHeadlineLight} dark:text-${appearanceSettings.colorHeroHeadlineDark} `}>{headline}</h1>
-        <div className="-mt-3 lg:h-36 lg:w-36 rounded-full object-cover overflow-hidden hidden md:block">
+        <h1 className={`grow text-5xl lg:text-6xl font-bold leading-[1.16] md:leading-[1.2] ${subheading && (sectionString || date) ? 'mb-12 md:mb-8' : subheading ? 'mb-6' : (sectionString || date) ? 'mb-3 md:mb-6' : 'mb-6'} text-${appearanceSettings.colorHeroHeadlineLight} dark:text-${appearanceSettings.colorHeroHeadlineDark} `}>
+          {headline} <span className="text-gray-400 dark:text-gray-500">{subtitle}</span>
+        </h1>
+        <div className="-mt-3 lg:h-36 lg:w-36 rounded-full object-cover overflow-hidden hidden md:flex">
           {imageSrc &&
             <Image priority={true} src={imageSrc} width="144" height="144" alt={imageAlt ? `${imageAlt}` : 'Header image'}></Image>
           }
@@ -29,8 +32,8 @@ const ContentHero = async ({sectionString, sectionLink, headline, subtitle, date
       </div>
       <div className="flex flex-wrap">
         <div>
-          {subtitle &&
-            <div className={`md:text-lg mb-2 md:mb-3 ${imageSrc ? '-mt-8' : '-mt-10'} text-${appearanceSettings.colorHeroSubtitleLight} dark:text-${appearanceSettings.colorHeroSubtitleDark}`}>{subtitle}</div>
+          {subheading &&
+            <div className={`md:text-lg mb-2 md:mb-3 ${imageSrc ? '-mt-4' : '-mt-6'} text-${appearanceSettings.colorHeroSubheadingLight} dark:text-${appearanceSettings.colorHeroSubheadingDark}`}>{subheading}</div>
           }
           <div className={imageSrc ? 'flex' : ''}></div>
           {(sectionString || date) &&

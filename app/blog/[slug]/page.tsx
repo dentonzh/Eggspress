@@ -60,9 +60,10 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
     <div className="flex flex-wrap">
       <ContentHero 
         sectionString={frontmatter.category} 
-        sectionLink={`/${createSlug(frontmatter.category)}`} 
+        sectionLink={`/${createSlug(frontmatter.category)}`}
         headline={frontmatter.title || 'Untitled Post'} 
         subtitle={frontmatter.subtitle}
+        subheading={frontmatter.subheading}
         date={frontmatter.date || frontmatter.publishDate ? convertDate(frontmatter.date || frontmatter.publishDate) : ''}
         imageSrc={frontmatter.image && frontmatter.showImageInHeader ? `/images/${slug}/${frontmatter.image}` : ''}
       >
