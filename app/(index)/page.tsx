@@ -32,7 +32,8 @@ export default async function Home() {
     <main className="flex flex-wrap">
       <ContentHero
         headline={blogSettings.title || 'Eggspress'}
-        subtitle={blogSettings.tagline || 'The lightweight blog made for everyone 🌎'}
+        subtitle={blogSettings.subtitle || 'The lightweight blog made for everyone 🌎'}
+        subheading={blogSettings.subheading}
         headlineSeparator={blogSettings.indexHeadlineSeparator}
         subtitlePrefix={blogSettings.indexSubtitlePrefix}
       >
