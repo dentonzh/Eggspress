@@ -22,21 +22,21 @@ const ContentHero = async ({sectionString, sectionLink, headline, subtitle, head
 
   return (
     <div className={`hero bleed-${appearanceSettings.colorThemeLightPrimary} dark:bleed-${appearanceSettings.colorThemeDarkPrimary}`}>
-      <div className="flex">
+      <div className="flex items-center">
         <div className={`grow text-5xl lg:text-6xl font-bold ${headline && ['E', 'B', 'D', 'F', 'H', 'L', 'P', 'R'].includes(headline.charAt(0)) ? '-ml-0.5' : ''} ${subheading && (sectionString || date) ? 'mb-12 md:mb-8' : subheading ? 'mb-6' : (sectionString || date) ? 'mb-3 md:mb-6' : 'mb-6'} text-${appearanceSettings.colorHeroHeadlineLight} dark:text-${appearanceSettings.colorHeroHeadlineDark} `}>
-          <h1 className="inline leading-[1.21] md:leading-[1.36]">{headline}</h1>
+          <h1 className="inline leading-[1.21] md:leading-[1.42]">{headline}</h1>
           <span>
             {headlineSeparator && subtitle ? headlineSeparator : ''}
           </span>
-          <span className="inline leading-[1.21] md:leading-[1.36] text-gray-400 dark:text-gray-500">
+          <span className="inline leading-[1.21] md:leading-[1.42] text-gray-400 dark:text-gray-500">
             {subtitlePrefix && subtitle ? subtitlePrefix : ''}
           </span>
           {!headlineSeparator && !subtitlePrefix &&
             <div className="inline"> </div>
           }
-          <h2 className={`inline leading-[1.21] md:leading-[1.36] text-${appearanceSettings.colorHeroSubtitleLight || 'gray-400'} dark:text-${appearanceSettings.colorHeroSubtitleLight || 'gray-500'}`}>{subtitle}</h2>
+          <h2 className={`inline leading-[1.21] md:leading-[1.42] text-${appearanceSettings.colorHeroSubtitleLight || 'gray-400'} dark:text-${appearanceSettings.colorHeroSubtitleLight || 'gray-500'}`}>{subtitle}</h2>
         </div>
-        <div className="-mt-3 lg:h-36 lg:w-36 rounded-full object-cover overflow-hidden hidden md:flex">
+        <div className="-mt-3 flex-none lg:h-36 lg:w-36 rounded-full object-cover overflow-hidden hidden md:flex">
           {imageSrc &&
             <Image priority={true} src={imageSrc} width="144" height="144" alt={imageAlt ? `${imageAlt}` : 'Header image'}></Image>
           }
