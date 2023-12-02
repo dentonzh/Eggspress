@@ -33,6 +33,8 @@ export default async function Home() {
       <ContentHero
         headline={blogSettings.title || 'Eggspress'}
         subtitle={blogSettings.tagline || 'The lightweight blog made for everyone 🌎'}
+        headlineSeparator={blogSettings.indexHeadlineSeparator}
+        subtitlePrefix={blogSettings.indexSubtitlePrefix}
       >
       </ContentHero>
       <div className="flex justify-between w-full">
@@ -43,7 +45,7 @@ export default async function Home() {
           {postFrontmatter.length > (appearanceSettings.numberOfPostsPerPage || 8) &&
           <div className="mb-12">
             <div className="font-light text-sm mb-2 text-gray-800 dark:text-gray-100">
-              Displaying posts 1 - {(appearanceSettings.numberOfPostsPerPage || 8)} of {postFrontmatter.length}
+              {appearanceSettings.paginatedSubheadingIndexPrefix}1 - {appearanceSettings.numberOfPostsPerPage || 8}{appearanceSettings.paginatedSubheadingTotalPrefix}{postFrontmatter.length}
             </div>
             <PaginationLink text="Show more posts" page={2}></PaginationLink>
           </div>

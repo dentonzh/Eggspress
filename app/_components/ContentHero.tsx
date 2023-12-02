@@ -6,6 +6,8 @@ import Image from 'next/image'
 interface ContentHeroProps {
   headline?: string,
   subtitle?: string,
+  headlineSeparator?: string,
+  subtitlePrefix?: string,
   subheading?: string,
   sectionString?: string,
   sectionLink?: string,
@@ -15,15 +17,25 @@ interface ContentHeroProps {
   children?: React.ReactNode
 }
 
-const ContentHero = async ({sectionString, sectionLink, headline, subtitle, subheading, date, imageSrc, imageAlt}: ContentHeroProps) => {
+const ContentHero = async ({sectionString, sectionLink, headline, subtitle, headlineSeparator, subheading, subtitlePrefix, date, imageSrc, imageAlt}: ContentHeroProps) => {
   const appearanceSettings = await getEggspressSettings('appearance')
 
   return (
     <div className={`hero bleed-${appearanceSettings.colorThemeLightPrimary} dark:bleed-${appearanceSettings.colorThemeDarkPrimary}`}>
       <div className="flex">
-        <h1 className={`grow text-5xl lg:text-6xl font-bold leading-[1.16] md:leading-[1.2] ${subheading && (sectionString || date) ? 'mb-12 md:mb-8' : subheading ? 'mb-6' : (sectionString || date) ? 'mb-3 md:mb-6' : 'mb-6'} text-${appearanceSettings.colorHeroHeadlineLight} dark:text-${appearanceSettings.colorHeroHeadlineDark} `}>
-          {headline} <span className="text-gray-400 dark:text-gray-500">{subtitle}</span>
-        </h1>
+        <div className={`grow text-5xl lg:text-6xl font-bold ${headline && ['E', 'B', 'D', 'F', 'H', 'L', 'P', 'R'].includes(headline.charAt(0)) ? '-ml-0.5' : ''} ${subheading && (sectionString || date) ? 'mb-12 md:mb-8' : subheading ? 'mb-6' : (sectionString || date) ? 'mb-3 md:mb-6' : 'mb-6'} text-${appearanceSettings.colorHeroHeadlineLight} dark:text-${appearanceSettings.colorHeroHeadlineDark} `}>
+          <h1 className="inline leading-[1.21] md:leading-[1.36]">{headline}</h1>
+          <span>
+            {headlineSeparator && subtitle ? headlineSeparator : ''}
+          </span>
+          <span className="inline leading-[1.21] md:leading-[1.36] text-gray-400 dark:text-gray-500">
+            {subtitlePrefix && subtitle ? subtitlePrefix : ''}
+          </span>
+          {!headlineSeparator && !subtitlePrefix &&
+            <div className="inline"> </div>
+          }
+          <h2 className={`inline leading-[1.21] md:leading-[1.36] text-${appearanceSettings.colorHeroSubtitleLight || 'gray-400'} dark:text-${appearanceSettings.colorHeroSubtitleLight || 'gray-500'}`}>{subtitle}</h2>
+        </div>
         <div className="-mt-3 lg:h-36 lg:w-36 rounded-full object-cover overflow-hidden hidden md:flex">
           {imageSrc &&
             <Image priority={true} src={imageSrc} width="144" height="144" alt={imageAlt ? `${imageAlt}` : 'Header image'}></Image>
@@ -33,7 +45,9 @@ const ContentHero = async ({sectionString, sectionLink, headline, subtitle, subh
       <div className="flex flex-wrap">
         <div>
           {subheading &&
-            <div className={`md:text-lg mb-2 md:mb-3 ${imageSrc ? '-mt-4' : '-mt-6'} text-${appearanceSettings.colorHeroSubheadingLight} dark:text-${appearanceSettings.colorHeroSubheadingDark}`}>{subheading}</div>
+            <div className={`font-medium mb-2 md:mb-3 ${imageSrc ? '-mt-4' : '-mt-2 md:-mt-4 lg:-mt-8'} text-${appearanceSettings.colorHeroSubheadingLight} dark:text-${appearanceSettings.colorHeroSubheadingDark}`}>
+              {subheading}
+            </div>
           }
           <div className={imageSrc ? 'flex' : ''}></div>
           {(sectionString || date) &&

@@ -31,7 +31,6 @@ export async function generateStaticParams() {
 
 
 export async function generateMetadata({ params }: { params: { category: string, page: string}}) {
-  const blogSettings = await getEggspressSettings('metadata')
   const { category, page } = params
   
   const pageNumber = parseInt(page)
@@ -81,8 +80,9 @@ export default async function CategoryPaginatedPage({ params }: { params: { cate
     <main className="flex flex-wrap">
       <ContentHero
         headline={categoryName}
-        subtitle={`// Page ${pageNumber}`}
-        subheading={`Displaying posts ${startIndex + 1} - ${endIndex} of ${filteredPosts.length}`}
+        subtitle={page}
+        subtitlePrefix={appearanceSettings.paginatedCategorySubtitlePrefix}
+        subheading={`${appearanceSettings.paginatedSubheadingIndexPrefix}${startIndex + 1}${endIndex}${appearanceSettings.paginatedSubheadingTotalPrefix}${filteredPosts.length}`}
       >
       </ContentHero>
       <div className="flex justify-between w-full">

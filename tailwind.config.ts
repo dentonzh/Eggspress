@@ -12,7 +12,7 @@ const config: Config = {
   ],
   safelist: [
     {
-      pattern: /(bg|bleed|text)-([a-z]+)-(50|100|200|800|900|950)$/,
+      pattern: /(bg|bleed|text)-([a-z]+)-(50|100|200|300|700|800|900|950)$/,
       variants: [
         'dark'
       ]

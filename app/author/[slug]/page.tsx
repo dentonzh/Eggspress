@@ -74,6 +74,7 @@ const AuthorPage =  async ( {params}: {params: {slug: string}} ) => {
         headline={frontmatter.name || slug}
         subtitle={frontmatter.postnomials}
         subheading={frontmatter.role || 'Author'}
+        sectionString={frontmatter.description}
         imageSrc={imageSrc}
         imageAlt={`Profile image for ${frontmatter.name}`}
       >
@@ -90,7 +91,7 @@ const AuthorPage =  async ( {params}: {params: {slug: string}} ) => {
               {filteredPosts.length > (appearanceSettings.numberOfPostsPerPage || 8) &&
                 <div className="py-12">
                   <div className="font-light text-sm mb-2 text-gray-800 dark:text-gray-100">
-                    Displaying posts 1 - {(appearanceSettings.numberOfPostsPerPage || 8)} of {filteredPosts.length}
+                    {appearanceSettings.paginatedSubheadingIndexPrefix}1 - {appearanceSettings.numberOfPostsPerPage || 8}{appearanceSettings.paginatedSubheadingTotalPrefix}{filteredPosts.length}
                   </div>
                   <PaginationLink text="Show more posts" page={2} type="author" slug={slug}></PaginationLink>
                 </div>

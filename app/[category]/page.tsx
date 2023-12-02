@@ -81,7 +81,8 @@ const CategoryPage = async ({ params }: { params: { category: string }}) => {
           {filteredPosts.length > (appearanceSettings.numberOfPostsPerPage || 8) &&
           <div className="py-12">
             <div className="font-light text-sm mb-2 text-gray-800 dark:text-gray-100">
-              Displaying posts 1 - {(appearanceSettings.numberOfPostsPerPage || 8)} of {filteredPosts.length} in {categoryName}
+              {appearanceSettings.paginatedSubheadingIndexPrefix}1 - {appearanceSettings.numberOfPostsPerPage || 8}{appearanceSettings.paginatedSubheadingTotalPrefix}{filteredPosts.length}
+              in {categoryName}
             </div>
             <PaginationLink text="Show more posts" page={2} type="category" slug={category}></PaginationLink>
           </div>

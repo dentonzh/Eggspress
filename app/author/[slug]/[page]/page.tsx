@@ -4,6 +4,7 @@ import getFrontmatter from '../../../_components/getFrontmatter'
 import getSlugs from '../../../_components/getSlugs'
 import Sidebar from '../../../_components/Sidebar'
 import PostCard from '../../../_components/PostCard'
+import ContentHero from '../../../_components/ContentHero'
 import PaginationCard from '../../../_components/PaginationCard'
 import { copyImageToPublic, getImageFilesRecursively, getEggspressSettings } from '../../../utils'
 import Image from 'next/image'
@@ -60,8 +61,8 @@ const getProfileImage =  async (imageFileName: string): Promise<string | null> =
 
   if (profileImageFile) {
     const source = `${profileImageFile.path}/${profileImageFile.name}`
-    const imageUrl = copyImageToPublic(source, 'images/profile')
-    return imageUrl
+    const imageSrc = copyImageToPublic(source, 'images/profile')
+    return imageSrc
   } else {
     return ''
   }
@@ -75,7 +76,7 @@ const AuthorPaginatedPage =  async ( {params}: {params: {slug: string, page: str
   const postFrontmatter = await getFrontmatter('posts', frontmatter && frontmatter.orderPostsBy, frontmatter && frontmatter.orderPostsByReversed)
   const filteredPosts = postFrontmatter.filter(fm => fm.author === slug || fm.author?.split(',').map(x => x.trim()).includes(slug))
 
-  const imageUrl = frontmatter && frontmatter.image ? await getProfileImage(frontmatter.image) : ''
+  const imageSrc = frontmatter && frontmatter.image ? await getProfileImage(frontmatter.image) : ''
   const appearanceSettings = await getEggspressSettings('appearance')
 
   const sections = ['pronouns', 'location', 'education', 'degree', 'work', 'company', 'title', 'specialty', 'team']
@@ -91,25 +92,14 @@ const AuthorPaginatedPage =  async ( {params}: {params: {slug: string, page: str
 
   return (
     <div className="flex flex-wrap">
-      <div className={`hero bleed-${appearanceSettings.colorThemeLightPrimary} dark:bleed-${appearanceSettings.colorThemeDarkPrimary}`}>
-        <div className="flex flex-wrap">
-          <div className="my-auto w-[65ch]">
-            <div className="w-full">
-              <div className="mb-3">Author Profile</div>
-              <h1 className="text-5xl font-bold mb-4 -ml-0.5">{frontmatter.name || slug} <span className="text-gray-400 dark:text-gray-500">{`//`} Page {page}</span></h1>   
-              <div className="font-normal">{frontmatter.role}</div>
-            </div>
-          </div>
-          {imageUrl && imageUrl.length > 0 ? (
-            <div className={`${imageUrl.length ? '' : 'hidden'} ml-auto my-auto h-24 w-24 rounded-full object-cover overflow-hidden`}>
-              <Image priority={true} src={imageUrl} width="96" height="96" alt={`Profile image for ${frontmatter.name}`}></Image>
-            </div>
-          ) : (
-            <div className="ml-auto my-auto p-5 h-24 w-24 bg-gray-200 dark:bg-gray-600 duration-150 rounded-full object-cover overflow-hidden">
-            </div>
-          )}
-        </div>
-      </div>
+      <ContentHero
+        headline={`${frontmatter.name}${frontmatter.postnomials ? ' ' + frontmatter.postnomials : ''}` || slug}
+        subtitle={`// Page ${pageNumber}`}
+        subheading={frontmatter.role}
+        sectionString={frontmatter.description}
+        imageSrc={imageSrc}
+        imageAlt={`Profile image for ${frontmatter.name}`}
+      ></ContentHero>
       
       <div className="flex flex-wrap">
         <div className="max-w-prose">
