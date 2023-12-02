@@ -43,6 +43,11 @@ export default async function Home() {
           {postFrontmatter.slice(0, appearanceSettings.numberOfPostsPerPage || 8).map((frontmatter, index) => 
             <PostCard key={`${frontmatter.slug}-${index}`} post={frontmatter} index={index}></PostCard>
           )}
+          {(postFrontmatter && !postFrontmatter.length) &&
+            <div className="dark:text-gray-200">
+              There are currently no posts to display.
+            </div>
+          }
           {postFrontmatter.length > (appearanceSettings.numberOfPostsPerPage || 8) &&
           <div className="mb-12">
             <div className="font-light text-sm mb-2 text-gray-800 dark:text-gray-100">

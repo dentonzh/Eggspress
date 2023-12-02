@@ -88,6 +88,11 @@ const AuthorPage =  async ( {params}: {params: {slug: string}} ) => {
               {filteredPosts.slice(0, appearanceSettings.numberOfPostsPerPage || 8).map((post, index) => 
                 <PostCard key={`${post.slug}-${index}`} post={post} index={index}></PostCard>
               )}
+              {(filteredPosts && !filteredPosts.length) &&
+                <div className="dark:text-gray-200">
+                  There are currently no posts to display.
+                </div>
+              }
               {filteredPosts.length > (appearanceSettings.numberOfPostsPerPage || 8) &&
                 <div className="py-12">
                   <div className="font-light text-sm mb-2 text-gray-800 dark:text-gray-100">
