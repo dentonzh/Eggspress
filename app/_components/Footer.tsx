@@ -17,7 +17,7 @@ const Footer = async () => {
   const pageData = pageFrontmatter.map((page) => {return {name: page.title, tagline: page.tagline, priority: page.weight, slug: page.slug}})
 
   return (
-    <div className={`px-3 md:px-0 py-8 min-w-full duration-100 bg-${appearanceSettings.colorThemeLightFooter || appearanceSettings.colorThemeLightPrimary} dark:bg-${appearanceSettings.colorThemeDarkFooter || appearanceSettings.colorThemeDarkPrimary} pt-12`}>
+    <div className={`px-3 md:px-0 py-8 min-w-full duration-100 bg-${appearanceSettings.colorThemeLightFooter || appearanceSettings.colorThemeLightPrimary || 'gray-100'} dark:bg-${appearanceSettings.colorThemeDarkFooter || appearanceSettings.colorThemeDarkPrimary || 'slate-900'} pt-12`}>
       <div className="container flex justify-between text-gray-800 dark:text-gray-200">
         <div className="flex flex-wrap w-full md:w-2/3 font-light md:text-sm leading-6">
           <div className="w-1/2">
@@ -48,7 +48,7 @@ const Footer = async () => {
         </div>
       </div>
       <div className="flex w-full text-center h-48">
-        <div className="mx-auto mt-auto inline-block text-xs text-gray-600 dark:text-gray-400 select-none font-normal hover:font-bold duration-150 delay-100">
+        <div className="mx-auto mt-auto inline-block text-xs text-gray-600 dark:text-gray-400 select-none font-normal hover:font-bold duration-150">
           <Link href="https://github.com/dentonzh/Eggspress">
             <span>
               Made with 

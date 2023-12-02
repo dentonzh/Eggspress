@@ -10,7 +10,7 @@ const Navigation = async () => {
   const appearanceSettings = await getEggspressSettings('appearance')
 
   return (
-    <nav className={`sticky top-0 px-3 md:px-0 duration-200 bg-${appearanceSettings.colorThemeLightPrimary} dark:bg-${appearanceSettings.colorThemeDarkPrimary} py-2 z-10`}>
+    <nav className={`sticky top-0 px-3 md:px-0 duration-200 bg-${appearanceSettings.colorThemeLightPrimary || 'gray-100'} dark:bg-${appearanceSettings.colorThemeDarkPrimary || 'slate-900'} py-2 z-10`}>
       <div className="flex container justify-between">
         <div>
           <Link href='/'>

@@ -70,7 +70,7 @@ const CategoryPage = async ({ params }: { params: { category: string }}) => {
     <div className="flex flex-wrap">
       <ContentHero
         headline={categoryName}
-        subheading={categoryData.subheading || ''}
+        subheading={categoryData && categoryData.subheading ? categoryData.subheading: ''}
       >
       </ContentHero>
       <div className="flex justify-between w-full">
