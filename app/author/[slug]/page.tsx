@@ -4,6 +4,7 @@ import getFrontmatter from '../../_components/getFrontmatter'
 import getSlugs from '../../_components/getSlugs'
 import Sidebar from '../../_components/Sidebar'
 import PostCard from '../../_components/PostCard'
+import ContentHero from '../../_components/ContentHero'
 import { copyImageToPublic, getImageFilesRecursively, getEggspressSettings } from '../../utils'
 import Image from 'next/image'
 import egg from '@/public/assets/egg.svg'
@@ -37,14 +38,14 @@ export async function generateMetadata({ params }: { params: {slug: string} }) {
   }
 }
 
-const getProfileImage =  async (imageFileName: string): Promise<string | null> => {
+const getProfileImage =  async (imageFileName: string): Promise<string> => {
   const imageFiles = await getImageFilesRecursively('my_authors')
   const profileImageFile = imageFiles.filter(file => file.name === imageFileName)[0]
 
   if (profileImageFile) {
     const source = `${profileImageFile.path}/${profileImageFile.name}`
-    const imageUrl = copyImageToPublic(source, 'images/profile')
-    return imageUrl
+    const imageSrc = copyImageToPublic(source, 'images/profile')
+    return imageSrc || ''
   } else {
     return ''
   }
@@ -54,12 +55,12 @@ const getProfileImage =  async (imageFileName: string): Promise<string | null> =
 const AuthorPage =  async ( {params}: {params: {slug: string}} ) => {
   const { slug } = params
   const { content, frontmatter, contentLength } = await compileContent('authors', slug)
+  const appearanceSettings = await getEggspressSettings('appearance')
 
-  const postFrontmatter = await getFrontmatter('posts', frontmatter && frontmatter.orderPostsBy, frontmatter && frontmatter.orderPostsByReversed)
+  const postFrontmatter = await getFrontmatter('posts', (frontmatter && frontmatter.orderPostsBy) || appearanceSettings.orderPostsInAuthorsBy, (frontmatter && frontmatter.orderPostsByReversed) || appearanceSettings.orderPostsInAuthorsByReversed)
   const filteredPosts = postFrontmatter.filter(fm => fm.author === slug || fm.author?.split(',').map(x => x.trim()).includes(slug))
 
-  const imageUrl = frontmatter && frontmatter.image ? await getProfileImage(frontmatter.image) : ''
-  const appearanceSettings = await getEggspressSettings('appearance')
+  const imageSrc = frontmatter && frontmatter.image ? await getProfileImage(frontmatter.image) : ''
 
   const sections = ['pronouns', 'location', 'education', 'degree', 'work', 'company', 'title', 'specialty', 'team']
 
@@ -69,26 +70,15 @@ const AuthorPage =  async ( {params}: {params: {slug: string}} ) => {
 
   return (
     <div className="flex flex-wrap">
-      <div className={`hero bleed-${appearanceSettings.colorLightPrimary} dark:bleed-${appearanceSettings.colorDarkPrimary}`}>
-        <div className="flex flex-wrap">
-          <div className="my-auto w-[65ch]">
-            <div className="w-full">
-              <div className="mb-3">Author Profile</div>
-              <h1 className="text-5xl font-bold mb-4 -ml-0.5">{frontmatter.name || slug}</h1>   
-              <div className="font-normal">{frontmatter.role}</div>
-            </div>
-          </div>
-          {imageUrl && imageUrl.length > 0 ? (
-            <div className={`${imageUrl.length ? '' : 'hidden'} ml-auto my-auto h-24 w-24 rounded-full object-cover overflow-hidden`}>
-              <Image priority={true} src={imageUrl} width="96" height="96" alt={`Profile image for ${frontmatter.name}`}></Image>
-            </div>
-          ) : (
-            <div className="ml-auto my-auto p-5 h-24 w-24 bg-gray-200 dark:bg-gray-600 duration-150 rounded-full object-cover overflow-hidden">
-              <Image src={egg} width="96" height="96" alt={`Profile image for ${frontmatter.name}`}></Image>
-            </div>
-          )}
-        </div>
-      </div>
+      <ContentHero
+        headline={frontmatter.name || slug}
+        subtitle={frontmatter.postnomials}
+        subheading={frontmatter.role || 'Author'}
+        sectionString={frontmatter.description}
+        imageSrc={imageSrc}
+        imageAlt={`Profile image for ${frontmatter.name}`}
+      >
+      </ContentHero>
       
       <div className="flex flex-wrap">
         <div className="max-w-prose">
@@ -101,7 +91,7 @@ const AuthorPage =  async ( {params}: {params: {slug: string}} ) => {
               {filteredPosts.length > (appearanceSettings.numberOfPostsPerPage || 8) &&
                 <div className="py-12">
                   <div className="font-light text-sm mb-2 text-gray-800 dark:text-gray-100">
-                    Displaying posts 1 - {(appearanceSettings.numberOfPostsPerPage || 8)} of {filteredPosts.length}
+                    {appearanceSettings.paginatedSubheadingIndexPrefix}1 - {appearanceSettings.numberOfPostsPerPage || 8}{appearanceSettings.paginatedSubheadingTotalPrefix}{filteredPosts.length}
                   </div>
                   <PaginationLink text="Show more posts" page={2} type="author" slug={slug}></PaginationLink>
                 </div>

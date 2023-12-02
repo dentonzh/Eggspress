@@ -70,7 +70,7 @@ const PostCard = async ({ post, index }: PostProps) => {
       
       <Link className="text-2xl font-semibold mb-3" href={`/blog/${post.slug}`}>{post.title || 'Untitled Post'}</Link>
       {appearanceSettings.showPostCardSnippet &&
-        <div className='w-full mb-3 prose dark:prose-invert'>{post.snippet}</div>
+        <div className='w-full mb-3 prose dark:prose-invert line-clamp-4'>{post.snippet || post.description}</div>
       }
       {appearanceSettings.showPostCardReadMoreButton && post.slug &&
         <ReadMore slug={post.slug}></ReadMore>

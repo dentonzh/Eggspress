@@ -4,8 +4,8 @@ import compileContent from '@/app/_components/compileContent'
 import Sidebar from '../../_components/Sidebar'
 import { createSlug, getEggspressSettings } from '../../utils'
 import Toc from '../../_components/Toc'
-import Link from 'next/link'
 import PageSidebar from '@/app/_components/PageSidebar'
+import ContentHero from '@/app/_components/ContentHero'
 
 const env = process.env.NODE_ENV
 
@@ -47,12 +47,14 @@ const PagePage =  async ( {params}: {params: {slug: string}} ) => {
 
   return (
     <div className="flex flex-wrap">
-      <div className={`hero bleed-${appearanceSettings.colorLightPrimary} dark:bleed-${appearanceSettings.colorDarkPrimary}`}>
-        {frontmatter.category && <Link href={`/${createSlug(frontmatter.category)}`}><div className="mb-3">{frontmatter.category}</div></Link>}
-        <h1 className="text-5xl font-bold mb-3 -ml-0.5">{`${frontmatter.title}`}</h1>   
-        <div className="font-normal">{frontmatter.tagline || ''}</div>
-        <div>{frontmatter.date || frontmatter.publishDate ? convertDate(frontmatter.date || frontmatter.publishDate) : ''}</div>
-      </div>
+      <ContentHero
+        headline={frontmatter.title || slug}
+        subtitle={frontmatter.subtitle || ''}
+        sectionString={frontmatter.category}
+        sectionLink={frontmatter.category ? `/${createSlug(frontmatter.category)}` : ''}
+        date={frontmatter.date || frontmatter.publishDate ? convertDate(frontmatter.date || frontmatter.publishDate) : ''}
+      >
+      </ContentHero>
       <div className="flex justify-between w-full">
         <div className="overflow-x-hidden">
           <div className="mb-12 lg:hidden">

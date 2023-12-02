@@ -4,6 +4,7 @@ import PostCard from '../_components/PostCard'
 import PageSidebar from '../_components/PageSidebar'
 import PaginationLink from '../_components/PaginationLink'
 import Setup from '../_components/Setup'
+import ContentHero from '../_components/ContentHero'
 
 
 export async function generateMetadata() {
@@ -29,10 +30,13 @@ export default async function Home() {
 
   return (
     <main className="flex flex-wrap">
-      <div className={`hero bleed-${appearanceSettings.colorLightPrimary} dark:bleed-${appearanceSettings.colorDarkPrimary}`}>
-        <h1 className="text-5xl font-bold mb-4 -ml-0.5">{blogSettings.title || 'Eggspress'}</h1>      
-        <div className="font-normal">{blogSettings.tagline || 'The lightweight blog made for everyone 🌎'}</div>
-      </div>
+      <ContentHero
+        headline={blogSettings.title || 'Eggspress'}
+        subtitle={blogSettings.tagline || 'The lightweight blog made for everyone 🌎'}
+        headlineSeparator={blogSettings.indexHeadlineSeparator}
+        subtitlePrefix={blogSettings.indexSubtitlePrefix}
+      >
+      </ContentHero>
       <div className="flex justify-between w-full">
         <div className='lg:max-w-prose'>
           {postFrontmatter.slice(0, appearanceSettings.numberOfPostsPerPage || 8).map((frontmatter, index) => 
@@ -41,7 +45,7 @@ export default async function Home() {
           {postFrontmatter.length > (appearanceSettings.numberOfPostsPerPage || 8) &&
           <div className="mb-12">
             <div className="font-light text-sm mb-2 text-gray-800 dark:text-gray-100">
-              Displaying posts 1 - {(appearanceSettings.numberOfPostsPerPage || 8)} of {postFrontmatter.length}
+              {appearanceSettings.paginatedSubheadingIndexPrefix}1 - {appearanceSettings.numberOfPostsPerPage || 8}{appearanceSettings.paginatedSubheadingTotalPrefix}{postFrontmatter.length}
             </div>
             <PaginationLink text="Show more posts" page={2}></PaginationLink>
           </div>

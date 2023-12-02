@@ -3,6 +3,7 @@ import { createSlug, getEggspressSettings } from '../../../utils'
 import PostCard from '../../../_components/PostCard'
 import PageSidebar from '../../../_components/PageSidebar'
 import PaginationCard from '../../../_components/PaginationCard'
+import ContentHero from '@/app/_components/ContentHero'
 
 
 export async function generateStaticParams() {
@@ -30,7 +31,6 @@ export async function generateStaticParams() {
 
 
 export async function generateMetadata({ params }: { params: { category: string, page: string}}) {
-  const blogSettings = await getEggspressSettings('metadata')
   const { category, page } = params
   
   const pageNumber = parseInt(page)
@@ -63,7 +63,7 @@ export default async function CategoryPaginatedPage({ params }: { params: { cate
   const categoryFrontmatter = await getFrontmatter('categories')
   const categoryData = categoryFrontmatter.filter(fm => fm.slug === category)[0]
   
-  const postFrontmatter = await getFrontmatter('posts', categoryData && categoryData.orderPostsBy, categoryData && categoryData.orderPostsByReversed)
+  const postFrontmatter = await getFrontmatter('posts', (categoryData && categoryData.orderPostsBy) || appearanceSettings.orderPostsInCategoriesBy, (categoryData && categoryData.orderPostsByReversed) || appearanceSettings.orderPostsInCategoriesByReversed)
   const filteredPosts = postFrontmatter.filter(post => createSlug(post.category) === category)
   
   const endIndex = pageNumber * numPostsPerPage > filteredPosts.length ? filteredPosts.length : pageNumber * numPostsPerPage
@@ -78,19 +78,24 @@ export default async function CategoryPaginatedPage({ params }: { params: { cate
 
   return (
     <main className="flex flex-wrap">
-      <div className={`hero bleed-${appearanceSettings.colorLightPrimary} dark:bleed-${appearanceSettings.colorDarkPrimary}`}>
-        <h1 className="text-5xl font-bold mb-4 -ml-0.5">{categoryName} <span className="text-gray-400 dark:text-gray-500">{`//`} Page {page}</span></h1>      
-        <div className="font-normal">Displaying {startIndex + 1} - {endIndex} of {filteredPosts.length}</div>
-      </div>
+      <ContentHero
+        headline={categoryName}
+        subtitle={page}
+        subtitlePrefix={appearanceSettings.paginatedCategorySubtitlePrefix}
+        subheading={`${appearanceSettings.paginatedSubheadingIndexPrefix}${startIndex + 1}${endIndex}${appearanceSettings.paginatedSubheadingTotalPrefix}${filteredPosts.length}`}
+      >
+      </ContentHero>
       <div className="flex justify-between w-full">
         <div className='lg:max-w-prose'>
           {filteredPosts.slice(startIndex, endIndex).map((frontmatter, index) => 
             <PostCard key={`${frontmatter.slug}-${index}`} post={frontmatter} index={index}></PostCard>
           )}
         </div>
-        <div>
-          <PageSidebar slug="index"></PageSidebar>
-        </div>
+        {categoryData && categoryData.sidebar && 
+          <div>
+            <PageSidebar slug={categoryData.sidebar}></PageSidebar>
+          </div>
+        }
       </div>
       <PaginationCard currentPage={pageNumber} startIndex={startIndex} endIndex={endIndex} postCount={filteredPosts.length} type="category" slug={category}></PaginationCard>
     </main>

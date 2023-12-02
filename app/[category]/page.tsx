@@ -4,6 +4,7 @@ import { createSlug, getEggspressSettings } from '../utils'
 import PostCard from '../_components/PostCard'
 import PageSidebar from '../_components/PageSidebar'
 import PaginationLink from '../_components/PaginationLink'
+import ContentHero from '../_components/ContentHero'
 
 export async function generateStaticParams() {
   const postFrontmatter = await getFrontmatter('posts')
@@ -55,7 +56,7 @@ const CategoryPage = async ({ params }: { params: { category: string }}) => {
   const categoryFrontmatter = await getFrontmatter('categories')
   const categoryData = categoryFrontmatter.filter(fm => fm.slug === category)[0]
 
-  const postFrontmatter = await getFrontmatter('posts', categoryData && categoryData.orderPostsBy, categoryData && categoryData.orderPostsByReversed)
+  const postFrontmatter = await getFrontmatter('posts', (categoryData && categoryData.orderPostsBy) || appearanceSettings.orderPostsInCategoriesBy, (categoryData && categoryData.orderPostsByReversed) || appearanceSettings.orderPostsInCategoriesByReversed)
   const filteredPosts = postFrontmatter.filter(post => createSlug(post.category) === category)
   
   let categoryName = filteredPosts && filteredPosts.length ? filteredPosts[0].category : decodeURI(category)
@@ -67,15 +68,11 @@ const CategoryPage = async ({ params }: { params: { category: string }}) => {
   
   return (
     <div className="flex flex-wrap">
-      <div className={`hero bleed-${appearanceSettings.colorLightPrimary} dark:bleed-${appearanceSettings.colorDarkPrimary}`}>
-        <h1 className="text-5xl font-bold mb-3 -ml-0.5">{ categoryName }</h1>
-        {categoryData && categoryData.subtitle 
-          ?
-          <div>{categoryData.subtitle}</div>
-          :
-          <div>{filteredPosts.length < 10 ? numbersAsWords[filteredPosts.length] : filteredPosts.length} {filteredPosts.length === 1 ? 'post' : 'posts'}</div>
-        }
-      </div>
+      <ContentHero
+        headline={categoryName}
+        subheading={categoryData && categoryData.subheading ? categoryData.subheading: ''}
+      >
+      </ContentHero>
       <div className="flex justify-between w-full">
         <div className='max-w-prose'>
           {filteredPosts.slice(0, appearanceSettings.numberOfPostsPerPage || 8).map((post, index) => 
@@ -84,13 +81,14 @@ const CategoryPage = async ({ params }: { params: { category: string }}) => {
           {filteredPosts.length > (appearanceSettings.numberOfPostsPerPage || 8) &&
           <div className="py-12">
             <div className="font-light text-sm mb-2 text-gray-800 dark:text-gray-100">
-              Displaying posts 1 - {(appearanceSettings.numberOfPostsPerPage || 8)} of {filteredPosts.length} in {categoryName}
+              {appearanceSettings.paginatedSubheadingIndexPrefix}1 - {appearanceSettings.numberOfPostsPerPage || 8}{appearanceSettings.paginatedSubheadingTotalPrefix}{filteredPosts.length}
+              in {categoryName}
             </div>
             <PaginationLink text="Show more posts" page={2} type="category" slug={category}></PaginationLink>
           </div>
           }
         </div>
-        {categoryData && categoryData.subtitle && 
+        {categoryData && categoryData.sidebar && 
           <div>
             <PageSidebar slug={categoryData.sidebar}></PageSidebar>
           </div>
