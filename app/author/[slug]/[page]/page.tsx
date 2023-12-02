@@ -72,12 +72,12 @@ const getProfileImage =  async (imageFileName: string): Promise<string | null> =
 const AuthorPaginatedPage =  async ( {params}: {params: {slug: string, page: string}} ) => {
   const { slug, page } = params
   const { content, frontmatter, contentLength } = await compileContent('authors', slug)
+  const appearanceSettings = await getEggspressSettings('appearance')
 
-  const postFrontmatter = await getFrontmatter('posts', frontmatter && frontmatter.orderPostsBy, frontmatter && frontmatter.orderPostsByReversed)
+  const postFrontmatter = await getFrontmatter('posts', (frontmatter && frontmatter.orderPostsBy) || appearanceSettings.orderPostsInAuthorsBy, (frontmatter && frontmatter.orderPostsByReversed) || appearanceSettings.orderPostsInAuthorsByReversed)
   const filteredPosts = postFrontmatter.filter(fm => fm.author === slug || fm.author?.split(',').map(x => x.trim()).includes(slug))
 
   const imageSrc = frontmatter && frontmatter.image ? await getProfileImage(frontmatter.image) : ''
-  const appearanceSettings = await getEggspressSettings('appearance')
 
   const sections = ['pronouns', 'location', 'education', 'degree', 'work', 'company', 'title', 'specialty', 'team']
 

@@ -63,7 +63,7 @@ export default async function CategoryPaginatedPage({ params }: { params: { cate
   const categoryFrontmatter = await getFrontmatter('categories')
   const categoryData = categoryFrontmatter.filter(fm => fm.slug === category)[0]
   
-  const postFrontmatter = await getFrontmatter('posts', categoryData && categoryData.orderPostsBy, categoryData && categoryData.orderPostsByReversed)
+  const postFrontmatter = await getFrontmatter('posts', (categoryData && categoryData.orderPostsBy) || appearanceSettings.orderPostsInCategoriesBy, (categoryData && categoryData.orderPostsByReversed) || appearanceSettings.orderPostsInCategoriesByReversed)
   const filteredPosts = postFrontmatter.filter(post => createSlug(post.category) === category)
   
   const endIndex = pageNumber * numPostsPerPage > filteredPosts.length ? filteredPosts.length : pageNumber * numPostsPerPage
