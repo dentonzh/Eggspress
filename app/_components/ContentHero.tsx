@@ -28,13 +28,13 @@ const ContentHero = async ({sectionString, sectionLink, headline, subtitle, head
           <span>
             {headlineSeparator && subtitle ? headlineSeparator : ''}
           </span>
-          <span className="inline leading-[1.21] md:leading-[1.42] text-gray-400 dark:text-gray-500">
+          <span className={`inline leading-[1.21] md:leading-[1.42] text-${appearanceSettings.colorHeroSubtitleLight || 'gray-400'} dark:text-${appearanceSettings.colorHeroSubtitleLight || 'gray-400'}`}>
             {subtitlePrefix && subtitle ? subtitlePrefix : ''}
           </span>
           {!headlineSeparator && !subtitlePrefix &&
             <div className="inline"> </div>
           }
-          <h2 className={`inline leading-[1.21] md:leading-[1.42] text-${appearanceSettings.colorHeroSubtitleLight || 'gray-400'} dark:text-${appearanceSettings.colorHeroSubtitleLight || 'gray-500'}`}>{subtitle}</h2>
+          <h2 className={`inline leading-[1.21] md:leading-[1.42] text-${appearanceSettings.colorHeroSubtitleLight || 'gray-400'} dark:text-${appearanceSettings.colorHeroSubtitleLight || 'gray-400'}`}>{subtitle}</h2>
         </div>
         <div className="-mt-3 flex-none lg:h-36 lg:w-36 rounded-full object-cover overflow-hidden hidden md:flex">
           {imageSrc &&
@@ -45,7 +45,7 @@ const ContentHero = async ({sectionString, sectionLink, headline, subtitle, head
       <div className="flex flex-wrap">
         <div>
           {subheading &&
-            <div className={`font-medium mb-2 md:mb-3 ${imageSrc ? '-mt-4' : '-mt-2 md:-mt-4 lg:-mt-8'} text-${appearanceSettings.colorHeroSubheadingLight} dark:text-${appearanceSettings.colorHeroSubheadingDark}`}>
+            <div className={`font-medium mb-2 md:mb-3 ${imageSrc ? '-mt-4' : 'mt-8 lg:mt-0'} text-${appearanceSettings.colorHeroSubheadingLight} dark:text-${appearanceSettings.colorHeroSubheadingDark}`}>
               {subheading}
             </div>
           }
