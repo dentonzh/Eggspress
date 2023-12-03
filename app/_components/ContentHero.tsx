@@ -45,7 +45,7 @@ const ContentHero = async ({sectionString, sectionLink, headline, subtitle, head
       <div className="flex flex-wrap">
         <div>
           {subheading &&
-            <div className={`font-medium mb-2 md:mb-3 ${imageSrc ? '-mt-4' : 'mt-8 lg:mt-0'} text-${appearanceSettings.colorHeroSubheadingLight} dark:text-${appearanceSettings.colorHeroSubheadingDark}`}>
+            <div className={`font-medium mb-5 md:mb-3 ${imageSrc ? '-mt-4' : 'mt-8 lg:mt-0'} text-${appearanceSettings.colorHeroSubheadingLight} dark:text-${appearanceSettings.colorHeroSubheadingDark}`}>
               {subheading}
             </div>
           }
