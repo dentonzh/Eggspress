@@ -126,7 +126,7 @@ const AuthorPage =  async ( {params}: {params: {slug: string}} ) => {
             </div>
           )})}
 
-          {[1, 2].map(index => {return (frontmatter['socialLink' + index] &&
+          {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(index => {return (frontmatter['socialLink' + index] &&
             <div key={`${frontmatter['socialLink' + index]}-${index}`} className="text-sm text-gray-500 w-full mb-3">
               <div>
                 <h4 className="font-semibold mb-0.5">{frontmatter['socialPlatform' + index] ? `${frontmatter['socialPlatform' + index]}` : 'Social'}</h4>
@@ -137,17 +137,22 @@ const AuthorPage =  async ( {params}: {params: {slug: string}} ) => {
               </div>
             </div>
           )})}
-          
-          {frontmatter.websiteLink && (
-            <div>
-              <div className="text-sm text-gray-500 w-full mb-3">
-                <h4 className="font-semibold mb-0.5">Website</h4>
-                <a href={frontmatter.websiteLink} target="_blank" rel="nofollow noopener" className="text-gray-700 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-300 underline-animated">
-                  {frontmatter.websiteLink && frontmatter.websiteName ? frontmatter.websiteName : frontmatter.websiteLink.slice(frontmatter.websiteLink.lastIndexOf('://')+3)}
-                </a>
-              </div>
+          {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(index => {return (frontmatter['websiteLink' + index] &&
+            <div className="text-sm text-gray-500 w-1/2 md:w-full mb-4 md:mb-1" key={`website-link-${frontmatter.slug}-${index}`}>
+              <h4 className="font-semibold mb-0.5">
+                {frontmatter['websiteLabel' + index] || 'Website'}
+              </h4>
+              <a href={frontmatter['websiteLink' + index]} target="_blank" rel="" className="text-gray-700 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-300 underline-animated">
+                {frontmatter['websiteDescription' + index] &&
+                  <div className="text-gray-700 dark:text-gray-400">
+                    {frontmatter['websiteDescription' + index]}
+                  </div>
+                }
+                {frontmatter['websiteName' + index] ? frontmatter['websiteName' + index] : frontmatter['websiteLink' + index].slice(frontmatter['websiteLink' + index].lastIndexOf('://')+3)}
+              </a>
             </div>
-          )}
+          )})}
+          
         </Sidebar>
       </div>
     </div>
