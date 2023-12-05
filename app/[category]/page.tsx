@@ -50,8 +50,6 @@ export async function generateMetadata({ params }: { params: {category: string}}
 const CategoryPage = async ({ params }: { params: { category: string }}) => {
   const { category } = params
   const appearanceSettings = await getEggspressSettings('appearance')
-
-  const numbersAsWords: Record<number, string> = {0: 'No', 1: 'One', 2: 'Two', 3: 'Three', 4: 'Four', 5: 'Five', 6: 'Six', 7: 'Seven', 8: 'Eight', 9: 'Nine'}
   
   const categoryFrontmatter = await getFrontmatter('categories')
   const categoryData = categoryFrontmatter.filter(fm => fm.slug === category)[0]
@@ -78,6 +76,11 @@ const CategoryPage = async ({ params }: { params: { category: string }}) => {
           {filteredPosts.slice(0, appearanceSettings.numberOfPostsPerPage || 8).map((post, index) => 
             <PostCard key={`${post.slug}-${index}`} post={post} index={index}></PostCard>
           )}
+          {(filteredPosts && !filteredPosts.length) &&
+            <div className="dark:text-gray-200">
+              There are currently no posts to display.
+            </div>
+          }
           {filteredPosts.length > (appearanceSettings.numberOfPostsPerPage || 8) &&
           <div className="py-12">
             <div className="font-light text-sm mb-2 text-gray-800 dark:text-gray-100">

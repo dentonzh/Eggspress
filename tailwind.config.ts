@@ -38,6 +38,21 @@ const config: Config = {
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
+      typography: {
+        DEFAULT: {
+          css: {
+            code: {
+              fontWeight: '400',
+            },
+            'code::before': {
+              content: 'none'
+            },
+            'code::after': {
+              content: 'none'
+            },
+          }
+        }
+      }
     },
   },
   plugins: [

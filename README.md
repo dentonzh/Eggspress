@@ -1,73 +1,99 @@
-Eggspress is a lightweight blogging platform built on Next.js and React. It's designed to help anyone, even those without coding experience, launch a new site—no command line needed. Best of all, it's lightning fast and completely free![^1]
+Eggspress is a lightweight blogging platform built on Next.js and React. It's designed to help anyone publish on the web—no command line needed. Best of all, it's lightning fast and completely free![^1]
 
-If you're new to starting websites, need a bit more help, or want a live demo of Eggspress, check out the [Getting Started Guide](https://eggspress.vercel.app/getting-started). It's published entirely on Eggspress!
+If you're new to starting websites, get stuck setting up, or want a live demo of Eggspress, check out the [Getting Started Guide](https://eggspress.vercel.app/getting-started). It's an Eggspress chock full of screenshots and generated egg art!
+
 ## Prerequisites
 To use Eggspress, you'll need to have accounts on:
 - Github ([sign up](https://github.com/join))
 - Vercel ([sign up](https://vercel.com/signup) using "Continue with Github")
 
-We also recommend a Markdown editor for your content. [Obsidian](https://obsidian.md/) is our editor of choice and is what we use in [Getting Started](https://eggspress.vercel.app/getting-started).
+We also recommend a Markdown editor for your content. [Obsidian](https://obsidian.md/) is our editor of choice. When properly configured, it automates a lot of mundane tasks and makes publishing to Eggspress even easier.
 
 ## Forking Eggspress
-Log into your Github account and [fork Eggspress](https://github.com/dentonzh/Eggspress/fork). Provide a name and description of your choosing and click "Create fork."
+Log into Github and [fork Eggspress](https://github.com/dentonzh/Eggspress/fork). Provide a name and description of your choosing and click "Create fork."
 
-This process takes a few seconds. When completed, Github will take you to your forked copy of the Eggspress repository.
+This process takes a few seconds. When completed, Github will direct you to a page containing your forked Eggspress repository.
 
-Keep this tab open. We'll return to it in a moment.
+Keep this tab open for later.
 
 ## Deploy your site
-In a new tab, open [Vercel](https://vercel.com/), which we'll use to build and host our new site.[^2] To accomplish this, we'll tell Vercel where our forked repository is.
+In a new tab, open [Vercel](https://vercel.com/), which will build and host our site.[^2] For this step, we'll tell Vercel where our forked repository is. Vercel will do the rest.
 
-From the [dashboard view](https://vercel.com/dashboard), click the "Add new..." button and select "Project" from the dropdown menu.
+From the [dashboard view](https://vercel.com/dashboard), click the "Add new..." button and select "Project" from the dropdown menu. You'll be taken to a page where you can choose a project to import. Select your newly forked Eggspress repository.
 
-Select your newly forked Eggspress repository. When prompted for a Project Name, enter a name of your choosing. Under Framework Presets, select "Next.js".
+When prompted for a Project Name, enter a name of your choosing. Under Framework Presets, select "Next.js". Click "Deploy" when you're ready. Vercel will show you the current status of your build, which on average takes between 40-50 seconds to complete.
 
-When you're ready, click "Deploy" to build your new site. It will take about 45 seconds to a minute to build your new site. Vercel will redirect you to a new page when this process is complete. On this new page, click on the Project" link near the top of the page, then click the "Visit" button near the upper-right corner of the page.
+When your new site is ready, Vercel will show you a "Congratulations" page. Click on the "Continue to Dashboard" button on the upper-right corner of this page. From your dashboard, click the "Visit" button, which is also on the upper-right corner.
 
-The page that opens when you click "Visit" uses the public link to your site. Save this link by writing it down or bookmarking it. We will return to your site later. (If you want a different URL, you can set your Vercel address or add a custom domain by following [these steps](https://vercel.com/guides/how-do-i-add-a-custom-domain-to-my-vercel-project).)
+You'll now see your new site, which is currently in "set up" mode. Save or bookmark the address to this page, which should look something like `https://<your-project-name>.vercel.app`. With this link, anyone will be able to see your new site!
+
+Note: If you want a different URL, you can set your Vercel address or add a custom domain by following [these directions on custom domains](https://vercel.com/guides/how-do-i-add-a-custom-domain-to-my-vercel-project).
+
 ## Creating your workspace
-Your workspace is a folder on your computer where you'll do most of your editing. To set up your initial workspace, create a new folder on your computer.
+Your workspace is a folder on your computer that contains all of your settings and content. To set up your initial workspace, create a new folder on your computer.
 
-On your new site, look for a button that says "Download Eggspress Starter Workspace." Clicking this button will download `eggspress_starter_workspace.zip` to your computer. Open this file and extract its contents to the workspace folder you just created.
+On your new site, click "Download Eggspress Starter Workspace" to save `eggspress_starter_workspace.zip` to your computer. Open this file and extract its contents to the workspace folder you just created.
 
-This initial workspace contains a series of folders prefixed with `my_`. Files in these folders determine the content that appear on your pages and how they appear on them.
+This initial workspace contains a series of folders prefixed with `my_`, which separate your files into different content types. We'll return to these folders in a bit to explain how they work.
+
 ## Uploading your workspace to Github
-To get an idea of how these files work, we'll upload our new workspace to Github. Here, we'll upload everything in one go. As your site grows, however, you may want to upload files in smaller batches to avoid publishing drafts that you aren't ready to share yet.
+To publish changes to your new site, you will upload files from your workspace to Github.
 
-Keep your workspace folder open and return to your browser tab where Github is open. If you're reading this on Github, you may want to open another tab with this page.
+We'll upload everything at once. As your site grows, you may wish to upload files in smaller batches. This will prevent inadvertently publishing drafts that you aren't ready to share yet.
 
-Near the top of your forked repository page, you'll find a button labeled "Add file." Clicking this button displays a dropdown menu. Select "Upload files" from this menu. From your workspace folder, drag all of the `my_`-prefixed folders into the rectangle labeled "Drag files here."
+The easiest way to upload your files without using a command line or terminal is through Github's web interface. Here's how:
+1. With your workspace folder open, return to the tab in your browser where Github is open
+2. Navigate to your forked Eggspress repository if you aren't yet there
+3. Above the list of files and folders listed, look for a button labeled "Add file"
+4. From the dropdown that appears, select "Upload files"
+5. From your workspace folder, drag all of the folders prefixed with `my_` into the rectangle labeled "Drag files here"
 
-On the same page, Github will process your files. When all of your files are uploaded, scroll down and look for a section titled "Commit changes." You may wish to leave a commit message, but this is optional. When you're done, click the green button labeled "Commit changes."
+On the same page, Github will process your files. When all of your files are uploaded, scroll down and look for a section titled "Commit changes." You may wish to leave a commit message, but this is optional.
 
-## Publishing new changes to your site
-In addition to updating your repository, committing also triggers Vercel to start building a new site based on your latest changes. As with the initial build, this process takes about 45 seconds. As your site grows, this duration may increase very slightly.
+When you're done, click the green button labeled "Commit changes."
+
+If you're new to Github and need a bit more help, take a look at the [second part of this page](https://eggspress.vercel.app/blog/create-your-workspace) from our guide.
+
+## Building your site (again)
+When you commit changes to Github, Vercel will automatically detect the commit. When it does, it will build a new version of your site that incorporates all of the changes you made to your repository. In this case, these changes take the form of new files you added from your workspace.
+
+Wait a minute or two and try refreshing the tab containing your site. If everything went without a hitch, you'll now see your site filled with placeholder content! These placeholders are meant to give you an idea of what's possible on Eggspress and how you can implement certain features (like custom sidebars, author cards, custom pages, etc.).
 
 If your changes do not appear after two minutes, you may have errors stemming from improperly formed frontmatter or improperly formatted filenames. For troubleshooting, see the [our troubleshooting docs](https://eggspress.vercel.app/troubleshooting). 
 
 ## The `my_`-prefixed folders
-Your Eggspress workspace contains a series of folders prefixed with `my_`. When Eggspress builds your site, it looks through each of these folders to assemble your site's contents.[^3] 
+Your Eggspress workspace contains a series of folders prefixed with `my_`. During the build process, Eggspress looks through each of these folders to put together the pages of your site.[^3]
 
-You have full control over how you structure your files and folders within the `my_`-prefixed folders. You could keep all of your content and images in one folder or nest them in subfolders. Take care, however, not to rename or move the `my_`-prefixed folders themselves.
+These `my_`-prefixed folders can contain anything, but only files ending in in the extensions `.md` and `.mdx` will be read. These files will become either posts, pages, or settings that determine how your site appears and functions.
+
+During build, Eggspress will automatically move images and videos referenced in the `.md` and `.mdx` files and update their links.
+
+In general, you have a lot of flexibility when it comes to these folders. However, there are a few things you should know:
+- You can organize your files inside of the `my_` folders however you like (using subfolders)
+- You can tell Eggspress to skip building a file by adding a "#" in front of its filename
+- You must avoid renaming or moving the `my_`-prefixed folders themselves
+- You must avoid renaming files that end in `.md` in the `my_settings` folder
+
 ## Using Obsidian
-We recommend using a desktop editor like [Obsidian](https://obsidian.md/).
+To edit your content, you can use any text editor.
 
-If you are opening Obsidian for the first time, select "Open Folder As Vault" and select the folder that contains all of your `my_`-prefixed folders. This will allow you to view and organize all of your Eggspress files in one place from Obsidian's interface.
+We recommend using a Markdown editor that's specifically suited to the task. Among the many Markdown editors that are available, we recommend [Obsidian](https://obsidian.md/).
+
+If you are opening Obsidian for the first time, select "Open Folder As Vault" and select the folder that contains all of your `my_`-prefixed folders.
 
 If you're an existing Obsidian user, you will need to "Open another vault."
 
 At any time, you may create a new vault or select a different folder as your vault. You can do this by clicking the "Open Another Vault" button near the bottom-left corner of your Obsidian editor.
 
-In the same bottom-right grouping of icons, select the gearwheel icon to adjust your settings for Obsidian. Note: Obsidian settings are folder-specific. Modifying your settings for your workspace folder will not affect settings for your other Obsidian folders.
+If you're using the starter workspace, it will include Obsidian settings that we've configured to work best with Eggspress. If you are having issues with linking other files or images, you may need to [configure Obsidian manually](https://eggspress.vercel.app/blog/configure-obsidian).
 
-The following are changes you **must** make for your Eggspress workspace folder:
-- Under "Editor" tab, set "Properties in documents" to "Source"
-- Under "Files & Links," disable "Use Wikilinks"
-- Under "Files & Links," set "Default location for new attachments" to **either** "Same folder as current file" or "In subfolder under current folder"
 ## Editing your content
-Start by opening the `my_posts` folder, which contains drafts of your posts. In this folder, you'll find the placeholder file `welcome-to-eggspress.md`. You'll notice this file is structured into two parts: the frontmatter and the content.
+Editing your content is easy although there is a small learning curve if you're new to Markdown.
+
+To follow along in this section, open the file `welcome_to_eggspress.md`, which you can find in the `my_posts` folder. At a glance, you'll notice this file is structured into two parts. These are the frontmatter and the content.
+
 ### Frontmatter
-The frontmatter contains a set of "key-value" pairs. Each one represents a data point that Eggspress uses when building your post. 
+The frontmatter section contains a set of "key-value" pairs. Each one represents a data point that Eggspress uses when building your post. 
 
 These pairs are sandwiched between two sets of dashes ("---"). They include metadata and other post-specific preferences.
 
@@ -85,73 +111,97 @@ Frontmatter can point to other files in your workspace folder. For example, if y
 
 Your post will display a sidebar populated with information from `my_sidebars/upcoming_events.md`.
 
-### Content
-Everything below the frontmatter is your content, which you can style with Markdown. If you're new to Markdown, check out this [introduction](https://www.markdownguide.org/getting-started/) and the [syntax guide](https://www.markdownguide.org/basic-syntax/).
+If your site runs into errors during the build process, it's possible that something in the frontmatter of one (or more) of your files is improperly formatted. To learn more, check out our note about [how frontmatter works on Eggspress](https://eggspress.vercel.app/blog/frontmatter).
 
-Each of the `my_` prefixed folders aside from `my_settings` contains a `#.template.md` file. These templates contain all of the frontmatter fields you can use for that particular type of content. They also contain sample Markdown examples in the content section in case you need a quick refresher on how to style your content.
+### "Important" frontmatter
+Frontmatter is optional in Eggspress, but very much recommended.
 
-When linking internally to other pages on your site, use relative links. For example, to link to another blog post with the filename `my-second-post.md` with the text "here's my second post", you would use `[here's my second post](/blog/my-second-post)`.
-### Filenames for your content
-Filenames determine the path to your content on your site. They're also used as identifiers when you reference content from other content.
+If you opt to use frontmatter, the most "important" keys are `title`, `description`, `snippet`, and `date`. These fields provide valuable information for both your readers. They also help search engines index your site.
 
-When creating a path or making a reference, Eggspress replaces spaces and underscores with hyphens to create a "slug." 
+`title` is the name of the content that appears in lists of posts on your site and in the header of a given content item's page. It's also the text that appears on search engines and in Open Graph cards.
 
-For example, a file in your `my_posts` folder named `an introduction to eggspress.md` will be located at `https://<your-domain>/blog/introduction-to-eggspress`. 
+`description` is the text that appears on search engines and in Open Graph cards.
 
-Similarly, to attribute a post to an author whose profile is stored in the `my_authors` folder named `Eggie Shellvetica.md`, you would set the `author` key in the frontmatter of that post to `author: eggie-shellvetica`.
+`snippet` is the text that displays below the title in lists of posts that appear on your site. They do not appear on the content item's page.
 
-Because filenames are central to building links and references, you should avoid renaming files that you have already published. Doing so may cause existing links to break.
-
-### Important frontmatter in posts
-In the frontmatter of your posts, pay attention to the `title`, `description`, `snippet`, and `date`. These fields provide valuable information for both your readers as well as search engines that index your site. 
-
-`description` is the text that displays in search engine results. `snippet` is a short blurb that displays in a list of posts on your site.
-
-`date` is the date that appears on your post. It differs from `publishDate` or `expiryDate`, which determine the date range when your post should appear.[^6[^7]
+`date` is the date that appears on your post. By default, Eggspress sorts your posts by date, although you can opt to change ordering to by alphabetical or by weight.
 
 For a complete list of frontmatter parameters you can set, see [Editing Eggspress Content](https://eggspress.vercel.app/blog/editing-content).
-## Custom pages
-Custom pages (found in `my_pages`) and author profiles (`my_authors`) function very similarly to posts (`my_posts`). 
 
-Pages are helpful for including one-off information.
+### Content
+Everything below the frontmatter is your content. This is where you will write the body of text that will make up your posts and pages.
+
+Eggspress makes use of Markdown to style text. Markdown is widely used and very efficient for applying stylings quickly. If you're new to Markdown, check out this [introduction](https://www.markdownguide.org/getting-started/) and the [syntax guide](https://www.markdownguide.org/basic-syntax/).
+
+For your convenience, we've added a Markdown reference to most template files where content is required. You can find these files in `my_templates`.
+
+### Templates
+
+You can create your content by copying frontmatter from `my_templates` or from an existing content file.
+
+If you're using Obsidian, you can insert templates into a new file. To do this, open a newly created file in the editor and click the "Insert Template" icon found on the left-hand ribbon. This will display a pop-up modal where you can select the template you wish to use.
+
+If you use this feature, Obsidian will automatically populate the `title` and `date` fields for you.
+
+When linking internally to other pages on your site, use relative links. For example, to link to another blog post with the filename `my-second-post.md` with the text "here's my second post", you would use `[here's my second post](/blog/my-second-post)`.
+
+Note: when using templates, you must select the template that corresponds with the content type you're using. For example, if you created a file in `my_posts`, you must use `#.post.md`.
+
+### Filenames
+The filename you give your files determine their paths on your site. Filenames may contain spaces and underscores, but these will be replaced with hyphens in your path.
+
+For example, a file in your `my_posts` folder named `an introduction to eggspress.md` will have a path `https://<your-domain>/blog/an-introduction-to-eggspress`.
+
+When referencing another file from your content frontmatter, you should also replace spaces and underscore with hyphens. 
+
+For example, to reference a file in the `my_authors` folder named `Eggie Shellvetica.md`, you would set the `author` key in the frontmatter of that post to `author: eggie-shellvetica`.
+
+Where possible, avoid renaming files that you have already published. Doing so will cause existing links to break.
+
+## Custom pages
+Custom pages (found in `my_pages`) and author profiles (`my_authors`) are two content types on Eggspress that work very similarly to posts (`my_posts`). 
+
+Pages are helpful for including one-off information. They differ from posts in that they do not appear in any lists of posts. Their paths are also different. Where posts are located at `https://<your-domain>/blog/<post-slug>`, custom pages are located at `https://<your-domain>/<page-slug>`.
 
 ## Author profiles
-Author profiles contain information that Eggspress uses to generate author pages and author cards. These files may have optional content sections. If populated, content in profiles will appear under the list of that author's post in a section titled "Biography."^8
+Author profiles contain data used to generate author pages and author cards. These files have optional content sections. If populated, content in author profiles will appear under the list of that author's post in a section titled "Biography."^8
 
-To attribute a post to an author, set the `author` field of a post to the filename of the author profile without its extension. For example, setting `author: "eggie"` will generate an author card using data found in `my_authors/eggie.md`.
+To attribute a post to an author, set the `author` frontmatter field. 
+
+For example, setting `author: "eggie"` will generate an author card using data found in `my_authors/eggie.md`.
 
 You can list multiple authors on each post by separating author "slugs" with commas (e.g. `author: "eggie, beakster"`).
 
-## Configuring your preferences
+## Settings and Preferences
 Unlike files in other `my_`-prefixed folders, files in `my_settings` should not be renamed.[^9]
 
-Open and edit `metadata.md`. It contains important fields such as `title`, `tagline`, `metaTitle`, `metaDescription`, and `ogDescription`. 
+Of these files, the only file you must edit is `metadata.md`. It contains important fields such as `title`, `subtitle`, `metaTitle`, `metaDescription`, and `ogDescription`. Fields prefixed with `meta` are used to insert data onto your pages that are not visible to your readers. These are read by web crawlers (like those belonging to search engines).
 
-If you have your own domain name for your Eggspress site, you must also update `metaBaseUrl`.
+We recommend you update `metaBaseUrl` to the domain of your site. By default, Vercel assigns the domain `https://<project-name>.vercel.app`. If you are using your own custom domain, you must update `metaBaseUrl` or your Open Graph cards will not generate properly.
 
 `links.md` contains a set of fields where you can add links to your footer.
 
-`appearance.md` allows you to adjust the appearance of certain components on your site as well as set your color scheme.
+`appearance.md` allows you to adjust the appearance of your pages, ranging from how posts are ordered to the color schemes used on your site.
+
 ## Tidying up
 When you're ready to publish your next update, upload your workspace files again to your forked Eggspress repository.
 
-To remove an unwanted post (or any other content item), navigate to its file and follow the directions for [deleting a file](https://docs.github.com/en/repositories/working-with-files/managing-files/deleting-files-in-a-repository). For example, you may wish to delete `welcome-to-eggspress.md`, a file you committed earlier, to prevent it from appearing on your site.
+To remove an unwanted post (or any other content item), navigate to its file and follow the directions for [deleting a file](https://docs.github.com/en/repositories/working-with-files/managing-files/deleting-files-in-a-repository). 
+
+For example, you may wish to delete `welcome-to-eggspress.md`, a file you committed earlier, to prevent it from appearing on your site.
 
 You may also hide files by prefixing it with "#". `#welcome_to_eggspress.md` will not appear on your site.
 
-We suggest setting your repository's privacy settings so that they're only visible to you. You may do so by navigating to your repository, clicking the "settings" link near the top, and selecting "Change repository visibility."
-
-Image files should ideally be kept in the same folder as the `.md` files that reference them or in a subfolder below the `.md` file. This is strongly recommended if you intend on adding many images with the possibility of more than one image having the same filename.
-
 ## You're all set!
-If you've made it this far, then you know enough to set up and maintain your Eggspress site. 
-
 A few reminders as you begin your next post:
-- Copy and paste the frontmatter from `#.template.md` files to get a jump start on new posts and pages
+- Copy and paste the frontmatter from existing files or templates to get a jump start on new posts and pages
 - Filenames that you give to your posts, pages, and authors should be unique
 - Avoid changing filenames to posts, pages, and authors that have been published
 
-Happy blogging!
+If you have any feedback about this README, [the docs](https://eggspress.vercel.app), or Eggspress itself, please get in touch @EggspressBlog on most social media platforms or email using (social media handle) at (gmail).
+
+Thanks for trying Eggspress and happy blogging!
+
 
 [^1]: If you anticipate high traffic and/or plan on sharing lots of images, please read about limits and pricing at [Vercel](https://vercel.com/docs/limits/overview) and at [Netlify](https://www.netlify.com/pricing/).
 [^2]: For purposes of this guide, "build" in this context means preparing your files and directories so that the server can serve your site on the web. You may also opt to use a similar service like Netlify or AWS Amplify, although this guide does not cover deploying to those services.

@@ -65,7 +65,7 @@ const PagePage =  async ( {params}: {params: {slug: string}} ) => {
           </div>
         </div>
         <div>
-          <PageSidebar slug={frontmatter.sidebar}></PageSidebar>
+          <PageSidebar isSticky={false} slug={frontmatter.sidebar}></PageSidebar>
           <Sidebar>
             <Toc />
           </Sidebar>

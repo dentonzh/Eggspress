@@ -23,7 +23,7 @@ const PageSidebar = async ({slug, isSticky=true}: {slug: string | null, isSticky
         <div className='text-sm leading-relaxed mb-20'>
           {(sidebarParameters.pinnedPost1 || sidebarParameters.pinnedPost2 || sidebarParameters.pinnedPost3) && 
             <div className="mb-8">
-              {[1, 2, 3, 4].map((index: number) => {
+              {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((index: number) => {
                 const postData = postFrontmatter.filter(fm => sidebarParameters['pinnedPost' + index] && fm.slug ===sidebarParameters['pinnedPost' + index].replaceAll('_', '-').replaceAll(' ', '-'))
       
                 if (postData.length) {

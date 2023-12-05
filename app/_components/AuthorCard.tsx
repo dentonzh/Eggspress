@@ -24,7 +24,7 @@ const AuthorCard = async ({slug}: {slug: string | null}) => {
   const authorFrontmatter = await getFrontmatter('authors')
   const authorData = authorFrontmatter.filter(frontmatter => frontmatter.slug === slug)[0]
   const imageUrl = authorData && authorData.image ? await getProfileImage(authorData.image) : ''
-
+  
   if (!authorData) {
     return
   }
@@ -54,7 +54,7 @@ const AuthorCard = async ({slug}: {slug: string | null}) => {
         </div>
       }
       <div className="flex flex-wrap">
-        {[1, 2].map(index => {return (authorData['socialLink' + index] &&
+        {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(index => {return (authorData['socialLink' + index] &&
           <div className="text-sm text-gray-500 w-1/2 md:w-full mb-4 md:mb-1" key={`social-link-${authorData.slug}-${index}`}>
             <span>
               {authorData['socialPlatform' + index] && authorData['socialHandle' + index] ? `${authorData['socialPlatform' + index]}: ` : 'Social: '}
@@ -65,16 +65,16 @@ const AuthorCard = async ({slug}: {slug: string | null}) => {
             </a>
           </div>
         )})}
-        {authorData.websiteLink && (
-          <div className="text-sm w-1/2 md:w-full text-gray-500 mb-4 md:mb-1">
+        {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(index => {return (authorData['websiteLink' + index] &&
+          <div className="text-sm text-gray-500 w-1/2 md:w-full mb-4 md:mb-1" key={`website-link-${authorData.slug}-${index}`}>
             <span className="pr-1">
-              Website:
+              {authorData['websiteLabel' + index] || 'Website'}:
             </span>
-            <a href={authorData.websiteLink} target="_blank" rel="nofollow noopener" className="text-gray-700 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-300 underline-animated">
-              {authorData.websiteLink && authorData.websiteName ? authorData.websiteName : authorData.websiteLink.slice(authorData.websiteLink.lastIndexOf('://')+3)}
+            <a href={authorData['websiteLink' + index]} target="_blank" rel="" className="text-gray-700 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-300 underline-animated">
+              {authorData['websiteName' + index] ? authorData['websiteName' + index] : authorData['websiteLink' + index].slice(authorData['websiteLink' + index].lastIndexOf('://')+3)}
             </a>
           </div>
-        )}
+        )})}
       </div>
       
 

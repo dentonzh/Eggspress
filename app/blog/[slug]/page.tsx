@@ -112,7 +112,7 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
                   <Image src={Relation} alt="relation icon" className="h-7 w-7 dark:border-gray-600 stroke-gray-200 fill-gray-200 brightness-50 dark:brightness-100"></Image>
                   <div className="font-medium text-gray-700 dark:text-gray-300 my-auto pl-2">Related Posts</div>
                 </div>
-                {[1, 2, 3, 4].map(async (index: number) => {
+                {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(async (index: number) => {
                   const postData = postFrontmatter.filter(fm => frontmatter['relatedPost' + index] && fm.slug === frontmatter['relatedPost' + index].replaceAll('_', '-').replaceAll(' ', '-'))
         
                   if (postData.length) {
@@ -147,7 +147,7 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
                   <Image src={Relation} alt="relation icon" className="h-5 w-5 -ml-2 dark:border-gray-600 stroke-gray-200 fill-gray-200 brightness-50 dark:brightness-100"></Image>
                   <div className="font-medium text-sm text-gray-600 dark:text-gray-300 my-auto pl-1">Related Posts</div>
                 </div>
-                {[1, 2, 3, 4].map(async (index: number) => {
+                {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(async (index: number) => {
                   const postData = postFrontmatter.filter(fm => frontmatter['relatedPost' + index] && fm.slug === frontmatter['relatedPost' + index].replaceAll('_', '-').replaceAll(' ', '-'))
         
                   if (postData.length) {
