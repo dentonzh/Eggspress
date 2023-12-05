@@ -24,12 +24,14 @@ const Toc = () => {
     }
     headings.forEach(el => {
       const headingElement = el as HTMLElement
-      elements.push({
-        top: headingElement.offsetTop,
-        text: headingElement.innerText,
-        id: headingElement.id,
-        tag: headingElement.tagName.charAt(1),
-      })
+      if (headingElement.id !== 'hero-subtitle') {
+        elements.push({
+          top: headingElement.offsetTop,
+          text: headingElement.innerText,
+          id: headingElement.id,
+          tag: headingElement.tagName.charAt(1),
+        })
+      }
     })
     return elements
   }

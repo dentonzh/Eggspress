@@ -34,7 +34,7 @@ const ContentHero = async ({sectionString, sectionLink, headline, subtitle, head
           {!headlineSeparator && !subtitlePrefix &&
             <div className="inline"> </div>
           }
-          <h2 className={`inline leading-[1.21] md:leading-[1.42] text-${appearanceSettings.colorHeroSubtitleLight || 'gray-400'} dark:text-${appearanceSettings.colorHeroSubtitleLight || 'gray-400'}`}>{subtitle}</h2>
+          <h2 id="hero-subtitle" className={`inline leading-[1.21] md:leading-[1.42] text-${appearanceSettings.colorHeroSubtitleLight || 'gray-400'} dark:text-${appearanceSettings.colorHeroSubtitleLight || 'gray-400'}`}>{subtitle}</h2>
         </div>
         <div className="-mt-3 flex-none lg:h-36 lg:w-36 rounded-full object-cover overflow-hidden hidden md:flex">
           {imageSrc &&
