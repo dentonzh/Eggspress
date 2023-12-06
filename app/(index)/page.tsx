@@ -49,12 +49,12 @@ export default async function Home() {
             </div>
           }
           {postFrontmatter.length > (appearanceSettings.numberOfPostsPerPage || 8) &&
-          <div className="mb-12">
-            <div className="font-light text-sm mb-2 text-gray-800 dark:text-gray-100">
-              {appearanceSettings.paginatedSubheadingIndexPrefix}1 - {appearanceSettings.numberOfPostsPerPage || 8}{appearanceSettings.paginatedSubheadingTotalPrefix}{postFrontmatter.length}
+            <div className="my-12">
+              <div className="font-light text-sm mb-2 text-gray-800 dark:text-gray-100">
+                {appearanceSettings.paginatedSubheadingIndexPrefix}1 - {appearanceSettings.numberOfPostsPerPage || 8}{appearanceSettings.paginatedSubheadingTotalPrefix}{postFrontmatter.length}
+              </div>
+              <PaginationLink text="Show more posts" page={2}></PaginationLink>
             </div>
-            <PaginationLink text="Show more posts" page={2}></PaginationLink>
-          </div>
           }
         </div>
         
