@@ -24,14 +24,12 @@ const Toc = () => {
     }
     headings.forEach(el => {
       const headingElement = el as HTMLElement
-      if (headingElement.id !== 'hero-subtitle') {
-        elements.push({
-          top: headingElement.offsetTop,
-          text: headingElement.innerText,
-          id: headingElement.id,
-          tag: headingElement.tagName.charAt(1),
-        })
-      }
+      elements.push({
+        top: headingElement.offsetTop,
+        text: headingElement.innerText,
+        id: headingElement.id,
+        tag: headingElement.tagName.charAt(1),
+      })
     })
     return elements
   }
@@ -80,30 +78,34 @@ const Toc = () => {
 
   
   return (
-    <div className={`${showToc ? 'opacity-100' : 'opacity-0'} tracking-wide leading-5 text-sm duration-200`}>
-      <div className="text-gray-600 dark:text-gray-300 font-bold mb-3 lg:hidden">Jump to...</div>
-      <ul className="text-gray-600 dark:text-gray-200">
-        {elements.map(el =>
-          <li key={el.id} id={`toc-${el.id}`}
-            className={`
-              ${isHeadingLevelGreaterThan(el.tag, 2) ? 'hidden lg:block' : 'mt-2 mb-3 lg:mb-1'}
-              ${active === el.id ? 'text-blue-700 hover:text-blue-800 dark:text-blue-300 dark:hover:text-blue-200 rounded-lg duration-100' : 'hover:text-blue-800 dark:hover:text-blue-400'}
-            `}
-            style={{paddingLeft: `${isHeadingLevelGreaterThan(el.tag, 2) ? (parseInt(el.tag) * 0.5) : 0}rem`}}
-          >
-            <Link href={`#${el.id}`} onClick={(e) => {scrollToSection(e, el.id)}} className="flex">
-              {isHeadingLevelGreaterThan(el.tag, 2) &&
-                <svg width="3" height="24" viewBox="0 -6 3 24" 
-                  className="mr-2 text-slate-400 overflow-visible group-hover:text-slate-600 dark:text-slate-500 dark:group-hover:text-slate-400"
-                >
-                  <path d="M0 0L3 3L0 6" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"></path>
-                </svg>
-              }
-              {el.text}
-            </Link>
-          </li>
-        )}
-      </ul>
+    <div className={`${showToc && elements.filter(el => el.id !== 'hero-subtitle').length ? 'opacity-100' : 'opacity-0 h-0'} tracking-wide leading-5 text-sm duration-200`}>
+      {showToc && elements.filter(el => el.id !== 'hero-subtitle').length &&
+        <div>
+          <div className="text-gray-600 dark:text-gray-300 font-bold mb-3 lg:hidden">Jump to...</div>
+          <ul className="text-gray-600 dark:text-gray-200">
+            {elements.map(el =>
+              <li key={el.id} id={`toc-${el.id}`}
+                className={`
+                  ${isHeadingLevelGreaterThan(el.tag, 2) ? 'hidden lg:block' : 'mt-2 mb-3 lg:mb-1'}
+                  ${active === el.id ? 'text-blue-700 hover:text-blue-800 dark:text-blue-300 dark:hover:text-blue-200 rounded-lg duration-100' : 'hover:text-blue-800 dark:hover:text-blue-400'}
+                `}
+                style={{paddingLeft: `${isHeadingLevelGreaterThan(el.tag, 2) ? (parseInt(el.tag) * 0.5) : 0}rem`}}
+              >
+                <Link href={`#${el.id}`} onClick={(e) => {scrollToSection(e, el.id)}} className="flex">
+                  {isHeadingLevelGreaterThan(el.tag, 2) &&
+                    <svg width="3" height="24" viewBox="0 -6 3 24" 
+                      className="mr-2 text-slate-400 overflow-visible group-hover:text-slate-600 dark:text-slate-500 dark:group-hover:text-slate-400"
+                    >
+                      <path d="M0 0L3 3L0 6" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"></path>
+                    </svg>
+                  }
+                  {el.text}
+                </Link>
+              </li>
+            )}
+          </ul>
+        </div>
+      }
     </div>
   )
 }
