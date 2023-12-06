@@ -22,7 +22,7 @@ const ContentHero = async ({sectionString, sectionLink, headline, subtitle, head
 
   return (
     <div className={`hero bleed-${appearanceSettings.colorThemeLightPrimary || 'gray-100'} dark:bleed-${appearanceSettings.colorThemeDarkPrimary || 'slate-900'}`}>
-      <div className="flex items-center">
+      <div className="flex items-center overflow-x-hidden">
         <div className={`grow text-5xl lg:text-6xl font-bold ${headline && ['E', 'B', 'D', 'F', 'H', 'L', 'P', 'R'].includes(headline.charAt(0)) ? '-ml-0.5' : ''} ${subheading && (sectionString || date) ? 'mb-12 md:mb-8' : subheading ? 'mb-6' : (sectionString || date) ? 'mb-3 md:mb-6' : 'mb-6'} text-${appearanceSettings.colorHeroHeadlineLight} dark:text-${appearanceSettings.colorHeroHeadlineDark} `}>
           <h1 className="inline leading-[1.21] md:leading-[1.42]">{headline}</h1>
           <span>
