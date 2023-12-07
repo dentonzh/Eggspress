@@ -41,7 +41,7 @@ const PostCard = async ({ post, index }: PostProps) => {
       {post.image && imagePath && 
         <Link href={`/blog/${post.slug}`} className="w-full">
           <Image 
-            className="w-full h-64 sm:h-80 md:h-72 object-cover mb-3" 
+            className="w-full h-64 sm:h-80 md:h-72 object-cover mb-6" 
             width={0} height={0} sizes="100vw" 
             alt={`Image for ${post.title}`} 
             src={`/images/${post.slug}/${post.image}`}
@@ -51,24 +51,26 @@ const PostCard = async ({ post, index }: PostProps) => {
         </Link>
       }
 
-      <div className="flex flex-wrap w-full mb-2">
-        {appearanceSettings.showPostCardDate && (post.publishDate || post.date) &&
-          <div className="text-sm text-gray-700">{convertDate(post.publishDate || post.date)}</div>
-        }
+      <Link className="text-2xl font-semibold mb-3" href={`/blog/${post.slug}`}>
+        {post.title || 'Untitled Post'}
+      </Link>
+
+      <div className="flex flex-wrap w-full mb-4">
         {appearanceSettings.showPostCardCategory && post.category &&
           <div className="flex flex-wrap">
-            {
-              appearanceSettings.showPostCardDate &&
-              <div className="px-1 text-sm text-gray-300 dark:text-gray-700">|</div>
-            }
-            <Link className="text-sm underline-animated" href={`/${createSlug(post.category)}`}>
+            <Link className="text-sm font-medium underline-animated" href={`/${createSlug(post.category)}`}>
               {post.category}
             </Link>
+            {
+              appearanceSettings.showPostCardDate &&
+              <div className="px-1 text-sm font-medium text-gray-300 dark:text-gray-700">|</div>
+            }
           </div>
         }
+        {appearanceSettings.showPostCardDate && (post.publishDate || post.date) &&
+          <div className="text-sm font-medium text-gray-700">{convertDate(post.publishDate || post.date)}</div>
+        }
       </div>
-      
-      <Link className="text-2xl font-semibold mb-3" href={`/blog/${post.slug}`}>{post.title || 'Untitled Post'}</Link>
       {appearanceSettings.showPostCardSnippet &&
         <div className='w-full mb-3 prose dark:prose-invert line-clamp-4'>{post.snippet || post.description}</div>
       }
