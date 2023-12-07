@@ -64,9 +64,9 @@ const PostCard = async ({ post, index }: PostProps) => {
           <div className="flex flex-wrap">
             {authorData.map((author, ix) => {
               return (
-                <span key={`${author.slug}-${index}`} >
+                <span key={`${author.slug}-${index}`} className="text-sm font-medium">
                   {ix ? ', ' : ''}
-                  <Link className="text-sm font-medium underline-animated" href={`/author/${author.slug}`}>
+                  <Link className="underline-animated" href={`/author/${author.slug}`}>
                     {author.name}
                   </Link>
                 </span>
