@@ -192,9 +192,9 @@ To remove an unwanted post (or any other content item), navigate to its file and
 
 For example, you may wish to delete `welcome-to-eggspress.md`, a file you committed earlier, to prevent it from appearing on your site.
 
-To "hide" a file and prevent it from appearing on your site, you can set the frontmatter field `isVisible` for it to `false`.
+To "hide" a file and prevent it from appearing on your site, you can set the frontmatter field `isVisible` for it to `false`. Note that hiding a file like this will only prevent it from appearing on other pages. Those with the direct link to the content will still be able to access it.
 
-You may also hide files by prefixing it with "#", which is the convention we use for files in `my_templates`. However, we do not recommend using this convention for content. The preferred method for hiding content is through `isVisible`.
+You may also hide files by prefixing it with "#", which is the convention we use for files in `my_templates`. This convention should only be used with files that you do not intend to unhide. 
 
 ## You're all set!
 A few reminders as you begin your next post:
