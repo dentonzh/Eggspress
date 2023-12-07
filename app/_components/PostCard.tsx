@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { PostItem } from '@/types/Blog'
 import { copyImageToPublic, createSlug, getEggspressSettings, getImageFilesRecursively, sortFilesByProximity } from '../utils';
 import Image from 'next/image';
+import getFrontmatter from './getFrontmatter';
 // import styles from './PostCard.module.css'
 
 interface PostProps {
@@ -25,9 +26,12 @@ const PostCard = async ({ post, index }: PostProps) => {
   const appearanceSettings = await getEggspressSettings('appearance')
   let imagePath = null
 
+  const authors = post && post.author ? post.author.split(',').map((author: string) => author.trim().replaceAll('_', '-').replaceAll(' ', '-')) : []
+  const authorFrontmatter = await getFrontmatter('authors')
+  const authorData = authors.map(author => {return authorFrontmatter.filter(fm => fm.slug === author)[0]})
+
   if (post.image) {
     const imageFiles = await getImageFilesRecursively(post.path)
-    const sortedImageFiles = sortFilesByProximity(post.path, imageFiles)
     const imageFile = imageFiles.filter(file => file.name === post.image)[0]
 
     if (imageFile) {
@@ -55,7 +59,25 @@ const PostCard = async ({ post, index }: PostProps) => {
         {post.title || 'Untitled Post'}
       </Link>
       
-      <div className={`flex flex-wrap w-full ${(appearanceSettings.showPostCardCategory && post.category) || (appearanceSettings.showPostCardDate && (post.date || post.publishDate)) ? 'mb-4' : ''}`}>
+      <div className={`flex flex-wrap w-full ${(appearanceSettings.showPostCardCategory && post.category) || (appearanceSettings.showPostCardDate && (post.date || post.publishDate) || (appearanceSettings.showPostCardAuthor && (post.author))) ? 'mb-4' : ''}`}>
+        {appearanceSettings.showPostCardAuthor && authorData &&
+          <div className="flex flex-wrap">
+            {authorData.map((author, ix) => {
+              return (
+                <span key={`${author.slug}-${index}`} >
+                  {ix ? ', ' : ''}
+                  <Link className="text-sm font-medium underline-animated" href={`/author/${author.slug}`}>
+                    {author.name}
+                  </Link>
+                </span>
+              )
+            })}
+            {
+              (appearanceSettings.showPostCardCategory || appearanceSettings.showPostCardDate) &&
+              <div className="px-1 text-sm font-medium text-gray-300 dark:text-gray-700">|</div>
+            }
+          </div>
+        }
         {appearanceSettings.showPostCardCategory && post.category &&
           <div className="flex flex-wrap">
             <Link className="text-sm font-medium underline-animated" href={`/${createSlug(post.category)}`}>
