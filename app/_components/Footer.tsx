@@ -26,7 +26,7 @@ const Footer = async () => {
                 <Link className="mb-6 md:mb-3" key={category.slug} href={`/${category.slug}`}>{category.title}</Link>
               )}
             </div>
-            {categoryData.length && pageData.length &&
+            {categoryData.length > 0 && pageData.length > 0 &&
               <div className="w-2/3 mb-6 md:mb-3">
                 <div className="border-b border-dotted border-gray-400 dark:border-gray-600"></div>
               </div>

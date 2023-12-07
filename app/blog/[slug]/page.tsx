@@ -93,7 +93,7 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
               </div>
           }
 
-          {authors.length &&
+          {authors.length > 0 &&
             <div className={`${(nextPost || prevPost) ? '' : 'mt-12' }flex lg:hidden px-1 border-t -mb-16 pt-12`}>
               <div className="md:w-5/6">
                 {authors.map((author: string) => 
