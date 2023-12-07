@@ -49,7 +49,6 @@ const convertDate = (inputDate: string) => {
 const PostPage =  async ( {params}: {params: {slug: string}} ) => {
   const { slug } = params
   const { content, frontmatter } = await compileContent('posts', slug)
-  const appearanceSettings = await getEggspressSettings('appearance')
   const authors = frontmatter && frontmatter.author ? frontmatter.author.split(',').map((author: string) => author.trim().replaceAll('_', '-').replaceAll(' ', '-')) : []
 
   const postFrontmatter = await getFrontmatter('posts')
