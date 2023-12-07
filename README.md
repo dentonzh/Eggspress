@@ -192,9 +192,9 @@ To remove an unwanted post (or any other content item), navigate to its file and
 
 For example, you may wish to delete `welcome-to-eggspress.md`, a file you committed earlier, to prevent it from appearing on your site.
 
-If you want to keep a file on your repository, but wish to keep it hidden from your site, set its frontmatter field `isVisible` to `false`. This will prevent Eggspress from rendering it during the build process.
+To "hide" a file and prevent it from appearing on your site, you can set the frontmatter field `isVisible` for it to `false`.
 
-You may also hide files by prefixing it with "#". `#welcome_to_eggspress.md` will not appear on your site.
+You may also hide files by prefixing it with "#", which is the convention we use for files in `my_templates`. However, we do not recommend using this convention for content. The preferred method for hiding content is through `isVisible`.
 
 ## You're all set!
 A few reminders as you begin your next post:
