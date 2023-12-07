@@ -37,7 +37,7 @@ const processInternalUrl = async (url: string): Promise<string> => {
       const prefix = internalUrlPrefixMap[contentType]
       return `${prefix}${slug}`
     }
-  } else { // perform recursive search if only a filename or slug is given
+  } else { // perform recursive search on filename or slug as fallback
     const contentTypesToSearch = ['posts', 'pages', 'authors']
     let files = []
     for ( let i = 0; i < contentTypesToSearch.length; i ++ ) {
