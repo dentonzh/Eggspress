@@ -183,12 +183,16 @@ We recommend you update `metaBaseUrl` to the domain of your site. By default, Ve
 
 `appearance.md` allows you to adjust the appearance of your pages, ranging from how posts are ordered to the color schemes used on your site.
 
+The folder at `my_settings/brand` contains a set of `.png` files that you can replace. These files represent the favicon, brand logo that appears in the navbar and footer, and the Open Graph image.
+
 ## Tidying up
 When you're ready to publish your next update, upload your workspace files again to your forked Eggspress repository.
 
-To remove an unwanted post (or any other content item), navigate to its file and follow the directions for [deleting a file](https://docs.github.com/en/repositories/working-with-files/managing-files/deleting-files-in-a-repository). 
+To remove an unwanted post (or any other content item), navigate to its file and follow the directions for [deleting a file](https://docs.github.com/en/repositories/working-with-files/managing-files/deleting-files-in-a-repository).
 
 For example, you may wish to delete `welcome-to-eggspress.md`, a file you committed earlier, to prevent it from appearing on your site.
+
+If you want to keep a file on your repository, but wish to keep it hidden from your site, set its frontmatter field `isVisible` to `false`. This will prevent Eggspress from rendering it during the build process.
 
 You may also hide files by prefixing it with "#". `#welcome_to_eggspress.md` will not appear on your site.
 
