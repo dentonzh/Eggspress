@@ -55,24 +55,22 @@ const PostCard = async ({ post, index }: PostProps) => {
         {post.title || 'Untitled Post'}
       </Link>
       
-      {(appearanceSettings.showPostCardCategory && post.category) || (appearanceSettings.showPostCardDate && (post.date || post.publishDate)) &&
-        <div className="flex flex-wrap w-full mb-4">
-          {appearanceSettings.showPostCardCategory && post.category &&
-            <div className="flex flex-wrap">
-              <Link className="text-sm font-medium underline-animated" href={`/${createSlug(post.category)}`}>
-                {post.category}
-              </Link>
-              {
-                appearanceSettings.showPostCardDate &&
-                <div className="px-1 text-sm font-medium text-gray-300 dark:text-gray-700">|</div>
-              }
-            </div>
-          }
-          {appearanceSettings.showPostCardDate && (post.date || post.publishDate) &&
-            <div className="text-sm font-medium text-gray-700">{convertDate(post.date || post.publishDate)}</div>
-          }
-        </div>
-      }
+      <div className={`flex flex-wrap w-full ${(appearanceSettings.showPostCardCategory && post.category) || (appearanceSettings.showPostCardDate && (post.date || post.publishDate)) ? 'mb-4' : ''}`}>
+        {appearanceSettings.showPostCardCategory && post.category &&
+          <div className="flex flex-wrap">
+            <Link className="text-sm font-medium underline-animated" href={`/${createSlug(post.category)}`}>
+              {post.category}
+            </Link>
+            {
+              appearanceSettings.showPostCardDate &&
+              <div className="px-1 text-sm font-medium text-gray-300 dark:text-gray-700">|</div>
+            }
+          </div>
+        }
+        {appearanceSettings.showPostCardDate && (post.date || post.publishDate) &&
+          <div className="text-sm font-medium text-gray-700">{convertDate(post.date || post.publishDate)}</div>
+        }
+      </div>
       {appearanceSettings.showPostCardSnippet &&
         <div className='w-full mb-3 prose dark:prose-invert line-clamp-4'>{post.snippet || post.description}</div>
       }
