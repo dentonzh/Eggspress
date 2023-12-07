@@ -33,7 +33,7 @@ const PageSidebar = async ({slug, isSticky=true}: {slug: string | null, isSticky
     
     return (
       <Sidebar isSticky={isSticky}>
-        <div className={`text-sm leading-relaxed ${pinnedPosts ? 'mb-20' : ''}`}>
+        <div className="text-sm leading-relaxed mb-24">
           {pinnedPosts.length > 0 && 
             <div className="mb-8">
               {pinnedPosts.map((frontmatter, index) => {
