@@ -46,6 +46,7 @@ const convertDate = (inputDate: string) => {
 const PagePage =  async ( {params}: {params: {slug: string}} ) => {
   const { slug } = params
   const { content, frontmatter } = await compileContent('pages', slug)
+  const appearanceSettings = await getEggspressSettings('appearance')
 
   return (
     <div className="flex flex-wrap">
@@ -66,7 +67,16 @@ const PagePage =  async ( {params}: {params: {slug: string}} ) => {
             <Toc />
           </div>
           <div className="prose dark:prose-invert">
-            {content}
+            {frontmatter.isVisible === false && (appearanceSettings.hiddenContentIsHidden === true || frontmatter.hideContent === true) ?
+              <div>
+                <h2 id="hero-subtitle">{appearanceSettings.hiddenContentIsHiddenMessageHeading}</h2>
+                <p>{appearanceSettings.hiddenContentIsHiddenMessageBodyText}</p>
+              </div>
+              :
+              <div>
+                {content}
+              </div>
+            }
           </div>
         </div>
         <div>
