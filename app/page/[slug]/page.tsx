@@ -6,6 +6,7 @@ import { createSlug, getEggspressSettings } from '../../utils'
 import Toc from '../../_components/Toc'
 import PageSidebar from '@/app/_components/PageSidebar'
 import ContentHero from '@/app/_components/ContentHero'
+import HiddenContentMessage from '@/app/_components/HiddenContentMessage'
 
 const env = process.env.NODE_ENV
 
@@ -29,8 +30,10 @@ export async function generateMetadata({ params }: { params: {slug: string} }) {
       url: `/${slug}`,
       type: 'article',
       siteName: blogSettings.title
+    },
+    robots: {
+      index: frontmatter.isVisible === false ? false : true
     }
-
   }
 }
 
@@ -55,16 +58,28 @@ const PagePage =  async ( {params}: {params: {slug: string}} ) => {
         date={frontmatter.date || frontmatter.publishDate ? convertDate(frontmatter.date || frontmatter.publishDate) : ''}
       >
       </ContentHero>
+      {frontmatter.isVisible === false && 
+        <HiddenContentMessage />
+      }
       <div className="flex justify-between w-full">
         <div className="overflow-x-hidden">
           <div className="mb-12 lg:hidden">
             <Toc />
           </div>
-          <div className="prose dark:prose-invert">
-            {content}
+          <div className="prose dark:prose-invert -mt-2">
+            {frontmatter.isVisible === false && (appearanceSettings.hiddenContentIsHidden === true || frontmatter.hideContent === true) ?
+              <div>
+                <h2 id="hero-subtitle">{appearanceSettings.hiddenContentIsHiddenMessageHeading}</h2>
+                <p>{appearanceSettings.hiddenContentIsHiddenMessageBodyText}</p>
+              </div>
+              :
+              <div>
+                {content}
+              </div>
+            }
           </div>
         </div>
-        <div>
+        <div className="mt-8">
           <PageSidebar isSticky={false} slug={frontmatter.sidebar}></PageSidebar>
           <Sidebar>
             <Toc />

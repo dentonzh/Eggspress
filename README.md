@@ -183,14 +183,22 @@ We recommend you update `metaBaseUrl` to the domain of your site. By default, Ve
 
 `appearance.md` allows you to adjust the appearance of your pages, ranging from how posts are ordered to the color schemes used on your site.
 
+The folder at `my_settings/brand` contains a set of `.png` files that you can replace. These files represent the favicon, brand logo that appears in the navbar and footer, and the Open Graph image.
+
 ## Tidying up
 When you're ready to publish your next update, upload your workspace files again to your forked Eggspress repository.
 
-To remove an unwanted post (or any other content item), navigate to its file and follow the directions for [deleting a file](https://docs.github.com/en/repositories/working-with-files/managing-files/deleting-files-in-a-repository). 
+To remove an unwanted post (or any other content item), navigate to its file and follow the directions for [deleting a file](https://docs.github.com/en/repositories/working-with-files/managing-files/deleting-files-in-a-repository).
 
 For example, you may wish to delete `welcome-to-eggspress.md`, a file you committed earlier, to prevent it from appearing on your site.
 
-You may also hide files by prefixing it with "#". `#welcome_to_eggspress.md` will not appear on your site.
+To "hide" a file and prevent it from appearing on your site, you can set its `isVisible` frontmatter field to `false`. Note that Eggspress will still build files that are set with `isVisible: false`. Anyone with the direct link to the content will still be able to view it on the web.
+
+To prevent a file from rendering at all, you must do one of the following:
+- Remove it from your repository
+- Prefix its filename with "#"
+
+We follow the convention to prefix filenames with "#" for files in `my_templates`. This prevents templates from rendering into pages on your site, but allows them to remain in your repository for your reference.
 
 ## You're all set!
 A few reminders as you begin your next post:

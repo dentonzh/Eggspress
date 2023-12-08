@@ -17,7 +17,7 @@ const Footer = async () => {
   const pageData = pageFrontmatter.map((page) => {return {name: page.title, tagline: page.tagline, priority: page.weight, slug: page.slug}})
 
   return (
-    <div className={`px-3 md:px-0 py-8 min-w-full duration-100 bg-${appearanceSettings.colorThemeLightFooter || appearanceSettings.colorThemeLightPrimary || 'gray-100'} dark:bg-${appearanceSettings.colorThemeDarkFooter || appearanceSettings.colorThemeDarkPrimary || 'slate-900'} pt-12`}>
+    <div className={`px-3 md:px-0 py-8 mt-6 min-w-full duration-100 bg-${appearanceSettings.colorThemeLightFooter || appearanceSettings.colorThemeLightPrimary || 'gray-100'} dark:bg-${appearanceSettings.colorThemeDarkFooter || appearanceSettings.colorThemeDarkPrimary || 'slate-900'} pt-12`}>
       <div className="container flex justify-between text-gray-800 dark:text-gray-200">
         <div className="flex flex-wrap w-full md:w-2/3 font-light md:text-sm leading-6">
           <div className="w-1/2">
@@ -26,7 +26,7 @@ const Footer = async () => {
                 <Link className="mb-6 md:mb-3" key={category.slug} href={`/${category.slug}`}>{category.title}</Link>
               )}
             </div>
-            {categoryData.length && pageData.length &&
+            {categoryData.length > 0 && pageData.length > 0 &&
               <div className="w-2/3 mb-6 md:mb-3">
                 <div className="border-b border-dotted border-gray-400 dark:border-gray-600"></div>
               </div>

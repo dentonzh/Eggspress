@@ -79,7 +79,7 @@ const Toc = () => {
   
   return (
     <div className={`${showToc && elements.filter(el => el.id !== 'hero-subtitle').length ? 'opacity-100' : 'opacity-0 h-0'} tracking-wide leading-5 text-sm duration-200`}>
-      {showToc && elements.filter(el => el.id !== 'hero-subtitle').length &&
+      {showToc && elements.filter(el => el.id !== 'hero-subtitle').length > 0 &&
         <div>
           <div className="text-gray-600 dark:text-gray-300 font-bold mb-3 lg:hidden">Jump to...</div>
           <ul className="text-gray-600 dark:text-gray-200">

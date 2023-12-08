@@ -12,6 +12,7 @@ import Image from 'next/image'
 import getFrontmatter from '@/app/_components/getFrontmatter'
 import PostCard from '@/app/_components/PostCard'
 import ContentHero from '@/app/_components/ContentHero'
+import HiddenContentMessage from '@/app/_components/HiddenContentMessage'
 
 
 export async function generateStaticParams() {
@@ -24,7 +25,6 @@ export async function generateMetadata({ params }: { params: {slug: string} }) {
   const { frontmatter, images } = await compileContent('posts', slug)
   const blogSettings = await getEggspressSettings('metadata')
 
-
   return {
     title: frontmatter.title,
     description: frontmatter.description || frontmatter.snippet,
@@ -34,8 +34,11 @@ export async function generateMetadata({ params }: { params: {slug: string} }) {
       description: frontmatter.description || frontmatter.snippet,
       url: `/${slug}`,
       type: 'article',
-      siteName: blogSettings.title,
+      siteName: frontmatter.title,
       images: images
+    },
+    robots: {
+      index: frontmatter.isVisible === false ? false : true
     }
   }
 }
@@ -50,10 +53,21 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
   const { slug } = params
   const { content, frontmatter } = await compileContent('posts', slug)
   const authors = frontmatter && frontmatter.author ? frontmatter.author.split(',').map((author: string) => author.trim().replaceAll('_', '-').replaceAll(' ', '-')) : []
+  const appearanceSettings = await getEggspressSettings('appearance')
 
   const postFrontmatter = await getFrontmatter('posts')
   const prevPost = postFrontmatter.filter(post => frontmatter.prevPost && post.slug === frontmatter.prevPost.replaceAll('_', '-').replaceAll(' ', '-'))[0]
   const nextPost = postFrontmatter.filter(post => frontmatter.nextPost && post.slug === frontmatter.nextPost.replaceAll('_', '-').replaceAll(' ', '-'))[0]
+  
+  let relatedPosts = []
+  for (let i = 1; i < 10; i++ ) {
+    const postData = postFrontmatter.filter(fm => frontmatter['relatedPost' + i] && fm.slug === frontmatter['relatedPost' + i].replaceAll('_', '-').replaceAll(' ', '-'))
+    const relatedPostFrontmatter = postData[0]
+    
+    if (relatedPostFrontmatter) {
+      relatedPosts.push(relatedPostFrontmatter)
+    }
+  }
 
   return (
     <div className="flex flex-wrap">
@@ -67,13 +81,25 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
         imageSrc={frontmatter.image && frontmatter.showImageInHeader ? `/images/${slug}/${frontmatter.image}` : ''}
       >
       </ContentHero>
+      {frontmatter.isVisible === false && 
+        <HiddenContentMessage />
+      }
       <div className="flex justify-between w-full">
         <div className="overflow-x-hidden">
           <div className="mb-12 lg:hidden">
             <Toc />
           </div>
-          <div className="prose dark:prose-invert mb-20 prose-code:px-0.5 prose-pre:bg-gray-100 prose-pre:text-gray-700 prose-pre:dark:bg-gray-700 prose-pre:dark:text-gray-200 prose-code:bg-gray-100 prose-code:dark:bg-gray-700">
-            {content}
+          <div className="prose dark:prose-invert -mt-2 mb-20 prose-code:px-0.5 prose-pre:bg-gray-100 prose-pre:text-gray-700 prose-pre:dark:bg-gray-700 prose-pre:dark:text-gray-200 prose-code:bg-gray-100 prose-code:dark:bg-gray-700">
+            {frontmatter.isVisible === false && (appearanceSettings.hiddenContentIsHidden === true || frontmatter.hideContent === true) ?
+              <div>
+                <h2 id="hero-subtitle">{appearanceSettings.hiddenContentIsHiddenMessageHeading}</h2>
+                <p>{appearanceSettings.hiddenContentIsHiddenMessageBodyText}</p>
+              </div>
+              :
+              <div>
+                {content}
+              </div>
+            }
           </div>
 
           {(nextPost || prevPost) &&
@@ -93,7 +119,7 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
               </div>
           }
 
-          {authors.length &&
+          {authors.length > 0 &&
             <div className={`${(nextPost || prevPost) ? '' : 'mt-12' }flex lg:hidden px-1 border-t -mb-16 pt-12`}>
               <div className="md:w-5/6">
                 {authors.map((author: string) => 
@@ -103,7 +129,7 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
             </div>
           }
 
-          {(frontmatter.relatedPost1 || frontmatter.relatedPost2 || frontmatter.relatedPost3 || frontmatter.relatedPost4)
+          {relatedPosts.length > 0
             ?
             <div className={`${(nextPost || prevPost || authors.length) ? '' : 'mt-12'} flex border-t pt-20`}>
               <div className="mb-8 max-w-prose">
@@ -131,7 +157,7 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
             <div className="mb-16"></div>
           }
         </div>
-        <div className="mb-20">
+        <div className="mb-20 mt-8">
           <Sidebar isSticky={false}>
             <div>
               {authors.map((author: string) => 
