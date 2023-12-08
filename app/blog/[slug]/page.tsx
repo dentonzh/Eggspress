@@ -79,7 +79,7 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
           <div className="mb-12 lg:hidden">
             <Toc />
           </div>
-          <div className="prose dark:prose-invert -mt-8 mb-20 prose-code:px-0.5 prose-pre:bg-gray-100 prose-pre:text-gray-700 prose-pre:dark:bg-gray-700 prose-pre:dark:text-gray-200 prose-code:bg-gray-100 prose-code:dark:bg-gray-700">
+          <div className="prose dark:prose-invert -mt-2 mb-20 prose-code:px-0.5 prose-pre:bg-gray-100 prose-pre:text-gray-700 prose-pre:dark:bg-gray-700 prose-pre:dark:text-gray-200 prose-code:bg-gray-100 prose-code:dark:bg-gray-700">
             {frontmatter.isVisible === false && (appearanceSettings.hiddenContentIsHidden === true || frontmatter.hideContent === true) ?
               <div>
                 <h2 id="hero-subtitle">{appearanceSettings.hiddenContentIsHiddenMessageHeading}</h2>
@@ -147,7 +147,7 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
             <div className="mb-16"></div>
           }
         </div>
-        <div className="mb-20 mt-5">
+        <div className="mb-20 mt-8">
           <Sidebar isSticky={false}>
             <div>
               {authors.map((author: string) => 

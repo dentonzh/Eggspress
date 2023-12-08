@@ -66,7 +66,7 @@ const PagePage =  async ( {params}: {params: {slug: string}} ) => {
           <div className="mb-12 lg:hidden">
             <Toc />
           </div>
-          <div className="prose dark:prose-invert">
+          <div className="prose dark:prose-invert -mt-2">
             {frontmatter.isVisible === false && (appearanceSettings.hiddenContentIsHidden === true || frontmatter.hideContent === true) ?
               <div>
                 <h2 id="hero-subtitle">{appearanceSettings.hiddenContentIsHiddenMessageHeading}</h2>
@@ -79,7 +79,7 @@ const PagePage =  async ( {params}: {params: {slug: string}} ) => {
             }
           </div>
         </div>
-        <div>
+        <div className="mt-8">
           <PageSidebar isSticky={false} slug={frontmatter.sidebar}></PageSidebar>
           <Sidebar>
             <Toc />
