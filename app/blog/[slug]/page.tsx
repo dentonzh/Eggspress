@@ -53,6 +53,7 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
   const { slug } = params
   const { content, frontmatter } = await compileContent('posts', slug)
   const authors = frontmatter && frontmatter.author ? frontmatter.author.split(',').map((author: string) => author.trim().replaceAll('_', '-').replaceAll(' ', '-')) : []
+  const appearanceSettings = await getEggspressSettings('appearance')
 
   const postFrontmatter = await getFrontmatter('posts')
   const prevPost = postFrontmatter.filter(post => frontmatter.prevPost && post.slug === frontmatter.prevPost.replaceAll('_', '-').replaceAll(' ', '-'))[0]
@@ -79,7 +80,16 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
             <Toc />
           </div>
           <div className="prose dark:prose-invert mb-20 prose-code:px-0.5 prose-pre:bg-gray-100 prose-pre:text-gray-700 prose-pre:dark:bg-gray-700 prose-pre:dark:text-gray-200 prose-code:bg-gray-100 prose-code:dark:bg-gray-700">
-            {content}
+            {frontmatter.isVisible === false && appearanceSettings.hiddenContentIsHidden === true ?
+              <div>
+                <h2 id="hero-subtitle">{appearanceSettings.hiddenContentIsHiddenMessageHeading}</h2>
+                <p>{appearanceSettings.hiddenContentIsHiddenMessageBodyText}</p>
+              </div>
+              :
+              <div>
+                {content}
+              </div>
+            }
           </div>
 
           {(nextPost || prevPost) &&
