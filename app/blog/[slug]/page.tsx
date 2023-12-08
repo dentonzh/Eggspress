@@ -58,6 +58,16 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
   const postFrontmatter = await getFrontmatter('posts')
   const prevPost = postFrontmatter.filter(post => frontmatter.prevPost && post.slug === frontmatter.prevPost.replaceAll('_', '-').replaceAll(' ', '-'))[0]
   const nextPost = postFrontmatter.filter(post => frontmatter.nextPost && post.slug === frontmatter.nextPost.replaceAll('_', '-').replaceAll(' ', '-'))[0]
+  
+  let relatedPosts = []
+  for (let i = 1; i < 10; i++ ) {
+    const postData = postFrontmatter.filter(fm => frontmatter['relatedPost' + i] && fm.slug === frontmatter['relatedPost' + i].replaceAll('_', '-').replaceAll(' ', '-'))
+    const relatedPostFrontmatter = postData[0]
+    
+    if (relatedPostFrontmatter) {
+      relatedPosts.push(relatedPostFrontmatter)
+    }
+  }
 
   return (
     <div className="flex flex-wrap">
@@ -119,7 +129,7 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
             </div>
           }
 
-          {(frontmatter.relatedPost1 || frontmatter.relatedPost2 || frontmatter.relatedPost3 || frontmatter.relatedPost4)
+          {relatedPosts.length > 0
             ?
             <div className={`${(nextPost || prevPost || authors.length) ? '' : 'mt-12'} flex border-t pt-20`}>
               <div className="mb-8 max-w-prose">
