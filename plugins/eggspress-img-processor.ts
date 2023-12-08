@@ -77,6 +77,9 @@ export default function eggspressMedia({
     if (tree.children && tree.children[0] && tree.children[0].children && tree.children[0].children[0].type === 'image') {
       const ledeImage = tree.children[0].children[0]
       ledeImage.data.hProperties.className = ['mt-0']
+      tree.children[0].data = {}
+      tree.children[0].data.hProperties = {}
+      tree.children[0].data.hProperties.className = ['mt-0']
       ledeImage.data.hProperties.fetchpriority = "high"
     }
   }
