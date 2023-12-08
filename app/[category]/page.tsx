@@ -42,6 +42,9 @@ export async function generateMetadata({ params }: { params: {category: string}}
       url: `/${category}`,
       type: 'website',
       siteName: blogSettings.title
+    },
+    robots: {
+      index: categoryData.isVisible === false ? false : true
     }
 
   }

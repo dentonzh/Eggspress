@@ -24,7 +24,6 @@ export async function generateMetadata({ params }: { params: {slug: string} }) {
   const { frontmatter, images } = await compileContent('posts', slug)
   const blogSettings = await getEggspressSettings('metadata')
 
-
   return {
     title: frontmatter.title,
     description: frontmatter.description || frontmatter.snippet,
@@ -34,8 +33,11 @@ export async function generateMetadata({ params }: { params: {slug: string} }) {
       description: frontmatter.description || frontmatter.snippet,
       url: `/${slug}`,
       type: 'article',
-      siteName: blogSettings.title,
+      siteName: frontmatter.title,
       images: images
+    },
+    robots: {
+      index: frontmatter.isVisible === false ? false : true
     }
   }
 }

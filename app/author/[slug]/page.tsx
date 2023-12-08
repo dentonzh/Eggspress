@@ -34,6 +34,9 @@ export async function generateMetadata({ params }: { params: {slug: string} }) {
       type: 'article',
       siteName: blogSettings.title,
       images: images
+    },
+    robots: {
+      index: frontmatter.isVisible === false ? false : true
     }
   }
 }

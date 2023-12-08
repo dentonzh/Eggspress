@@ -29,8 +29,10 @@ export async function generateMetadata({ params }: { params: {slug: string} }) {
       url: `/${slug}`,
       type: 'article',
       siteName: blogSettings.title
+    },
+    robots: {
+      index: frontmatter.isVisible === false ? false : true
     }
-
   }
 }
 
@@ -43,7 +45,6 @@ const convertDate = (inputDate: string) => {
 const PagePage =  async ( {params}: {params: {slug: string}} ) => {
   const { slug } = params
   const { content, frontmatter } = await compileContent('pages', slug)
-  const appearanceSettings = await getEggspressSettings('appearance')
 
   return (
     <div className="flex flex-wrap">
