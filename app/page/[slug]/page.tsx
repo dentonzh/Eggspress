@@ -6,6 +6,7 @@ import { createSlug, getEggspressSettings } from '../../utils'
 import Toc from '../../_components/Toc'
 import PageSidebar from '@/app/_components/PageSidebar'
 import ContentHero from '@/app/_components/ContentHero'
+import HiddenContentMessage from '@/app/_components/HiddenContentMessage'
 
 const env = process.env.NODE_ENV
 
@@ -56,6 +57,9 @@ const PagePage =  async ( {params}: {params: {slug: string}} ) => {
         date={frontmatter.date || frontmatter.publishDate ? convertDate(frontmatter.date || frontmatter.publishDate) : ''}
       >
       </ContentHero>
+      {frontmatter.isVisible === false && 
+        <HiddenContentMessage />
+      }
       <div className="flex justify-between w-full">
         <div className="overflow-x-hidden">
           <div className="mb-12 lg:hidden">

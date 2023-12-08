@@ -12,6 +12,7 @@ import Image from 'next/image'
 import getFrontmatter from '@/app/_components/getFrontmatter'
 import PostCard from '@/app/_components/PostCard'
 import ContentHero from '@/app/_components/ContentHero'
+import HiddenContentMessage from '@/app/_components/HiddenContentMessage'
 
 
 export async function generateStaticParams() {
@@ -69,6 +70,9 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
         imageSrc={frontmatter.image && frontmatter.showImageInHeader ? `/images/${slug}/${frontmatter.image}` : ''}
       >
       </ContentHero>
+      {frontmatter.isVisible === false && 
+        <HiddenContentMessage />
+      }
       <div className="flex justify-between w-full">
         <div className="overflow-x-hidden">
           <div className="mb-12 lg:hidden">

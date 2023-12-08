@@ -9,6 +9,7 @@ import { copyImageToPublic, getImageFilesRecursively, getEggspressSettings } fro
 import Image from 'next/image'
 import egg from '@/public/assets/egg.svg'
 import PaginationLink from '@/app/_components/PaginationLink'
+import HiddenContentMessage from '@/app/_components/HiddenContentMessage'
 
 
 export async function generateStaticParams() {
@@ -82,6 +83,10 @@ const AuthorPage =  async ( {params}: {params: {slug: string}} ) => {
         imageAlt={`Profile image for ${frontmatter.name}`}
       >
       </ContentHero>
+      
+      {frontmatter.isVisible === false && 
+        <HiddenContentMessage />
+      }
       
       <div className="flex flex-wrap">
         <div className="max-w-prose">

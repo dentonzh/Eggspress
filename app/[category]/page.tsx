@@ -5,6 +5,7 @@ import PostCard from '../_components/PostCard'
 import PageSidebar from '../_components/PageSidebar'
 import PaginationLink from '../_components/PaginationLink'
 import ContentHero from '../_components/ContentHero'
+import HiddenContentMessage from '../_components/HiddenContentMessage'
 
 export async function generateStaticParams() {
   const postFrontmatter = await getFrontmatter('posts')
@@ -23,7 +24,7 @@ export async function generateMetadata({ params }: { params: {category: string}}
   const filteredPosts = postFrontmatter.filter(post => createSlug(post.category) === category)
   const blogSettings = await getEggspressSettings('metadata')
   
-  const categoryFrontmatter = await getFrontmatter('categories')
+  const categoryFrontmatter = await getFrontmatter('categories', 'alphabetical', false, true)
   const categoryData = categoryFrontmatter.filter(fm => fm.slug === category)[0]
   
   let categoryName = filteredPosts && filteredPosts.length ? filteredPosts[0].category : decodeURI(category)
@@ -44,7 +45,7 @@ export async function generateMetadata({ params }: { params: {category: string}}
       siteName: blogSettings.title
     },
     robots: {
-      index: categoryData.isVisible === false ? false : true
+      index: categoryData && categoryData.isVisible === false ? false : true
     }
 
   }
@@ -54,7 +55,7 @@ const CategoryPage = async ({ params }: { params: { category: string }}) => {
   const { category } = params
   const appearanceSettings = await getEggspressSettings('appearance')
   
-  const categoryFrontmatter = await getFrontmatter('categories')
+  const categoryFrontmatter = await getFrontmatter('categories', 'alphabetical', false, true)
   const categoryData = categoryFrontmatter.filter(fm => fm.slug === category)[0]
 
   const postFrontmatter = await getFrontmatter('posts', (categoryData && categoryData.orderPostsBy) || appearanceSettings.orderPostsInCategoriesBy, (categoryData && categoryData.orderPostsByReversed) || appearanceSettings.orderPostsInCategoriesByReversed)
@@ -74,6 +75,9 @@ const CategoryPage = async ({ params }: { params: { category: string }}) => {
         subheading={categoryData && categoryData.subheading ? categoryData.subheading: ''}
       >
       </ContentHero>
+      {categoryData && categoryData.isVisible === false && 
+        <HiddenContentMessage />
+      }
       <div className="flex justify-between w-full">
         <div className='max-w-prose'>
           {filteredPosts.slice(0, appearanceSettings.numberOfPostsPerPage || 8).map((post, index) => 
