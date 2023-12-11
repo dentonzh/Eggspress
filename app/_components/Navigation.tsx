@@ -6,6 +6,7 @@ import DarkModeToggle from './DarkModeToggle'
 import { getEggspressSettings } from '../utils'
 import DropdownMenu from './DropdownMenu'
 import SiteLinks from './SiteLinks'
+import NavigationMenu from './NavigationMenu'
 
 const Navigation = async () => {
   const appearanceSettings = await getEggspressSettings('appearance')
@@ -24,9 +25,11 @@ const Navigation = async () => {
             {/* <div className="mr-1">Contact</div> */}
             <DarkModeToggle />
             <DropdownMenu>
-              <div className="w-48 pl-6 pt-6">
-                <SiteLinks></SiteLinks>
-              </div>
+              <NavigationMenu>
+                <div className="w-48 pl-6 pt-6">
+                  <SiteLinks></SiteLinks>
+                </div>
+              </NavigationMenu>
             </DropdownMenu>
             {/* <div className="mr-1">Website</div>
             <div className="mr-1">Blah</div> */}
