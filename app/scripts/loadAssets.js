@@ -23,7 +23,9 @@ const processByLine = async (path) => {
   }
 }
 
-processByLine('my_settings/appearance.md')
+try {
+  processByLine('my_settings/appearance.md')
+} catch {} // if settings are not available, typically during setup
 
 assetsMap = {
   'icon.png': 'app/',
