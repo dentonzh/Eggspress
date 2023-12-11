@@ -52,24 +52,24 @@ export default async function RootLayout({
   let appearanceSettings = await getEggspressSettings('appearance')
   if (appearanceSettings && appearanceSettings.code && appearanceSettings.code === 'ENOENT') {
     appearanceSettings = {
-      colorThemeDarkPrimary: "slate-900",
-      colorThemeDarkSecondary: "slate-800",
-      colorThemeDarkFooter: "slate-900",
-      colorThemeLightPrimary: "gray-100",
-      colorThemeLightSecondary: "white",
-      colorThemeLightFooter: "gray-100",
+      colorThemeHeroDark: "slate-900",
+      colorThemeBodyDark: "slate-800",
+      colorThemeFooterDark: "slate-900",
+      colorThemeHeroLight: "gray-100",
+      colorThemeBodyLight: "white",
+      colorThemeFooterLight: "gray-100",
     }
   }
 
   return (
     <html lang="en">
-      <body className={`${font.className} flex flex-col duration-200 bg-${appearanceSettings.colorThemeLightSecondary || 'white'} dark:bg-${appearanceSettings.colorThemeDarkSecondary || 'slate-800'} overflow-x-hidden min-h-screen justify-between`}>
+      <body className={`${font.className} flex flex-col duration-200 bg-${appearanceSettings.colorThemeBodyLight || 'white'} dark:bg-${appearanceSettings.colorThemeBodyDark || 'slate-800'} overflow-x-hidden min-h-screen justify-between`}>
         {process.env.NODE_ENV === 'production' && variablesSetting.googleAnalyticsPropertyId &&
           <ExtGoogleAnalytics></ExtGoogleAnalytics>
         }
         <Navigation />
-        <div className={`mb-auto bg-${appearanceSettings.colorThemeLightSecondary} dark:bg-${appearanceSettings.colorThemeDarkSecondary}`}>
-          <div className={`px-4 xs:px-0 container mb-12 grow bleed-bg bleed-${appearanceSettings.colorThemeLightSecondary} dark:bleed-${appearanceSettings.colorThemeDarkSecondary}`}>
+        <div className={`mb-auto bg-${appearanceSettings.colorThemeBodyLight} dark:bg-${appearanceSettings.colorThemeBodyDark}`}>
+          <div className={`px-4 xs:px-0 container mb-12 grow bleed-bg bleed-${appearanceSettings.colorThemeBodyLight} dark:bleed-${appearanceSettings.colorThemeBodyDark}`}>
             {children}
           </div>
         </div>
