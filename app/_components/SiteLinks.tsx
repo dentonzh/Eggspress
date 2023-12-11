@@ -15,9 +15,13 @@ const SiteLinks = async () => {
 
   return (
     <div className="flex flex-col w-full">
-      <div className="flex flex-col w-full ">
+      <div className="flex flex-col w-full">
         {categoryData.map(category => 
-          <Link className="mb-6 md:mb-3" key={category.slug} href={`/${category.slug}`}>{category.title}</Link>
+          <Link className="mb-6 md:mb-3" key={category.slug} href={`/${category.slug}`}>
+            <span className="underline-animated">
+              {category.title}
+            </span>
+          </Link>
         )}
       </div>
       {categoryData.length > 0 && pageData.length > 0 &&
@@ -27,7 +31,11 @@ const SiteLinks = async () => {
       }
       <div className={`flex flex-col w-full  mb-3`}>
         {pageData.map(page => 
-          <Link className="mb-6 md:mb-3" key={page.slug} href={`/page/${page.slug}`}>{page.name}</Link>
+          <Link className="mb-6 md:mb-3" key={page.slug} href={`/page/${page.slug}`}>
+            <span className="underline-animated">
+              {page.name}
+            </span>
+          </Link>
         )}
       </div>
     </div>

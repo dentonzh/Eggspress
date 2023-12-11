@@ -20,7 +20,7 @@ const authorLinks = async () => {
 
         return (
           <div className="mb-6 md:mb-3" key={key}>
-            <a href={links[key]} target="_blank" rel="nofollow noopener">
+            <a className="underline-animated" href={links[key]} target="_blank" rel="nofollow noopener">
               {name}
             </a>
           </div>
