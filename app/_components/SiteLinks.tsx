@@ -15,17 +15,17 @@ const SiteLinks = async () => {
 
   return (
     <div className="flex flex-col w-full">
-      <div className="flex flex-col w-full sm:w-1/2">
+      <div className="flex flex-col w-full ">
         {categoryData.map(category => 
           <Link className="mb-6 md:mb-3" key={category.slug} href={`/${category.slug}`}>{category.title}</Link>
         )}
       </div>
       {categoryData.length > 0 && pageData.length > 0 &&
-        <div className="w-2/3 mb-6 md:mb-3">
+        <div className="w-4/5 max-w-[12rem] mb-6 md:mb-3">
           <div className="border-b border-dotted border-gray-400 dark:border-gray-600"></div>
         </div>
       }
-      <div className={`flex flex-col w-full sm:w-1/2 mb-3`}>
+      <div className={`flex flex-col w-full  mb-3`}>
         {pageData.map(page => 
           <Link className="mb-6 md:mb-3" key={page.slug} href={`/page/${page.slug}`}>{page.name}</Link>
         )}
