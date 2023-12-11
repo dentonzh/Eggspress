@@ -24,7 +24,9 @@ const Navigation = async () => {
             {/* <div className="mr-1">Contact</div> */}
             <DarkModeToggle />
             <DropdownMenu>
-              <SiteLinks></SiteLinks>
+              <div className="w-48 pl-6 pt-6">
+                <SiteLinks></SiteLinks>
+              </div>
             </DropdownMenu>
             {/* <div className="mr-1">Website</div>
             <div className="mr-1">Blah</div> */}
