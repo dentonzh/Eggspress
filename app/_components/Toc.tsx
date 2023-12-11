@@ -83,7 +83,7 @@ const Toc = () => {
         <div>
           <div className="text-gray-600 dark:text-gray-300 font-bold mb-3 lg:hidden">Jump to...</div>
           <ul className="text-gray-600 dark:text-gray-200">
-            {elements.map(el =>
+            {elements.filter(el => el.id !== 'hero-subtitle').map(el =>
               <li key={el.id} id={`toc-${el.id}`}
                 className={`
                   ${isHeadingLevelGreaterThan(el.tag, 2) ? 'hidden lg:block' : 'mt-2 mb-3 lg:mb-1'}
