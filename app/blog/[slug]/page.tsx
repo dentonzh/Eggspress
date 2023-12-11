@@ -166,7 +166,7 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
             </div>
           </Sidebar>
           <Sidebar isSticky={false}>
-            {(frontmatter.relatedPost1 || frontmatter.relatedPost2 || frontmatter.relatedPost3 || frontmatter.relatedPost4) && 
+            {relatedPosts.length > 0 && 
               <div className="mb-16">
                 <div className="flex flex-wrap mb-3">
                   <Image src={Relation} alt="relation icon" className="h-5 w-5 -ml-2 dark:border-gray-600 stroke-gray-200 fill-gray-200 brightness-50 dark:brightness-100"></Image>
