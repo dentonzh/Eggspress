@@ -55,7 +55,7 @@ const PostCard = async ({ post, index }: PostProps) => {
         </Link>
       }
 
-      <Link className="text-2xl font-semibold mb-3" href={`/blog/${post.slug}`}>
+      <Link className={`text-2xl font-semibold ${(appearanceSettings.showPostCardCategory && post.category) || (appearanceSettings.showPostCardDate && (post.date || post.publishDate) || (appearanceSettings.showPostCardAuthor && (post.author))) ? 'mb-4' : 'mb-3'}`} href={`/blog/${post.slug}`}>
         {post.title || 'Untitled Post'}
       </Link>
       
@@ -84,13 +84,13 @@ const PostCard = async ({ post, index }: PostProps) => {
               {post.category}
             </Link>
             {
-              appearanceSettings.showPostCardDate &&
-              <div className="px-1 text-sm font-medium text-gray-300 dark:text-gray-700">|</div>
+              appearanceSettings.showPostCardDate && (post.date || post.publishDate) &&
+              <div className={`px-1 text-sm font-medium text-gray-300 dark:text-gray-700 ${(post.date || post.publishDate) && appearanceSettings.showPostCardCategory && post.category && appearanceSettings.showPostCardAuthor && authorData ? 'hidden sm:inline-block' : ''}`}>|</div>
             }
           </div>
         }
         {appearanceSettings.showPostCardDate && (post.date || post.publishDate) &&
-          <div className="text-sm font-medium text-gray-700">{convertDate(post.date || post.publishDate)}</div>
+          <div className={`text-sm font-medium text-gray-700 dark:text-gray-300 ${(appearanceSettings.showPostCardAuthor && authorData) && appearanceSettings.showPostCardCategory && post.category ? 'w-full sm:w-auto mt-2 sm:mt-0' : ''}`}>{convertDate(post.date || post.publishDate)}</div>
         }
       </div>
       {appearanceSettings.showPostCardSnippet &&
