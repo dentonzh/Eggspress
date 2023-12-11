@@ -1,4 +1,29 @@
 const fs = require('fs-extra')
+const readline = require('readline')
+
+const processByLine = async (path) => {
+  const fileStream = fs.createReadStream(path)
+
+  const rl = readline.createInterface({
+    input: fileStream,
+    crlfDelay: Infinity
+  })
+
+  for await (const line of rl) {
+    if (line.startsWith('fontFamily:')) {
+      const fontFamily = line.slice(line.indexOf(':') + 1).replaceAll('"', '').replaceAll("'", "").trim().replaceAll(' ', '_')
+      if ( fontFamily ) {
+        fs.writeFileSync(
+          'app/_components/UserFont.tsx',
+          `import {${fontFamily}} from 'next/font/google'\nconst font = ${fontFamily}({ subsets: ['latin'], })\nexport default font`
+        )
+      }
+      break
+    }
+  }
+}
+
+processByLine('my_settings/appearance.md')
 
 assetsMap = {
   'icon.png': 'app/',
@@ -16,3 +41,4 @@ Object.keys(assetsMap).map((file) => {
     fs.copySync(sourceFile, destinationFile)
   }
 })
+
