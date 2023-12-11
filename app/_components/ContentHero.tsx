@@ -28,13 +28,13 @@ const ContentHero = async ({sectionString, sectionLink, headline, subtitle, head
           <span>
             {headlineSeparator && subtitle ? headlineSeparator : ''}
           </span>
-          <span className={`inline leading-[1.21] md:leading-[1.42] text-${appearanceSettings.colorHeroSubtitleLight || 'gray-400'} dark:text-${appearanceSettings.colorHeroSubtitleLight || 'gray-400'}`}>
+          <span className={`inline leading-[1.21] md:leading-[1.42] text-${appearanceSettings.colorHeroSubtitleLight || 'gray-500'} dark:text-${appearanceSettings.colorHeroSubtitleLight || 'gray-400'}`}>
             {subtitlePrefix && subtitle ? subtitlePrefix : ''}
           </span>
           {!headlineSeparator && !subtitlePrefix &&
             <div className="inline"> </div>
           }
-          <h2 id="hero-subtitle" className={`inline leading-[1.21] md:leading-[1.42] text-${appearanceSettings.colorHeroSubtitleLight || 'gray-400'} dark:text-${appearanceSettings.colorHeroSubtitleLight || 'gray-400'}`}>{subtitle}</h2>
+          <h2 id="hero-subtitle" className={`inline leading-[1.21] md:leading-[1.42] text-${appearanceSettings.colorHeroSubtitleLight || 'gray-500'} dark:text-${appearanceSettings.colorHeroSubtitleLight || 'gray-400'}`}>{subtitle}</h2>
         </div>
         <div className="flex-none lg:h-36 lg:w-36 rounded-full object-cover overflow-hidden hidden md:flex">
           {imageSrc &&
