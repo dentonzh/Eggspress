@@ -1,11 +1,11 @@
 import './globals.css'
-import { Roboto_Flex } from 'next/font/google'
 import Navigation from './_components/Navigation'
 import ExtGoogleAnalytics from './_components/ExtGoogleAnalytics'
 import Footer from './_components/Footer'
 import { getEggspressSettings } from './utils'
+import Font from './_components/UserFont'
 
-const roboto_flex = Roboto_Flex({ subsets: ['latin'],  })
+const font = Font
 
 
 export async function generateMetadata() {
@@ -63,7 +63,7 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <body className={`${roboto_flex.className} flex flex-col duration-200 bg-${appearanceSettings.colorThemeLightSecondary || 'white'} dark:bg-${appearanceSettings.colorThemeDarkSecondary || 'slate-800'} overflow-x-hidden min-h-screen justify-between`}>
+      <body className={`${font.className} flex flex-col duration-200 bg-${appearanceSettings.colorThemeLightSecondary || 'white'} dark:bg-${appearanceSettings.colorThemeDarkSecondary || 'slate-800'} overflow-x-hidden min-h-screen justify-between`}>
         {process.env.NODE_ENV === 'production' && variablesSetting.googleAnalyticsPropertyId &&
           <ExtGoogleAnalytics></ExtGoogleAnalytics>
         }
