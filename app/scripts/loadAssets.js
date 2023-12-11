@@ -2,7 +2,9 @@ const fs = require('fs-extra')
 const readline = require('readline')
 
 const processByLine = async (path) => {
-  const fileStream = fs.createReadStream(path)
+  try {
+    const fileStream = fs.createReadStream(path)
+  } catch { return } // skip setting custom font if settings are not available, typically during setup
 
   const rl = readline.createInterface({
     input: fileStream,
@@ -23,9 +25,8 @@ const processByLine = async (path) => {
   }
 }
 
-try {
-  processByLine('my_settings/appearance.md')
-} catch {} // if settings are not available, typically during setup
+processByLine('my_settings/appearance.md')
+
 
 assetsMap = {
   'icon.png': 'app/',
