@@ -90,7 +90,7 @@ const PostCard = async ({ post, index }: PostProps) => {
           </div>
         }
         {appearanceSettings.showPostCardDate && (post.date || post.publishDate) &&
-          <div className="text-sm font-medium text-gray-700">{convertDate(post.date || post.publishDate)}</div>
+          <div className="text-sm font-medium text-gray-700 dark:text-gray-300">{convertDate(post.date || post.publishDate)}</div>
         }
       </div>
       {appearanceSettings.showPostCardSnippet &&
