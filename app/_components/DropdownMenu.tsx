@@ -23,7 +23,7 @@ const DropdownMenu = ({children}: DropdownMenuProps) => {
           <Image className="text-gray-500" src={Navigation} alt="navigation button"></Image>
       </div>
       <div ref={ref} className={`duration-100 absolute right-2 bg-gray-500 ${expanded ? 'top-12 opacity-100' : 'top-9 opacity-0'}`}>
-        <div className="bg-white dark:bg-slate-700 relative -top-0.5 -right-0.5 -left-0.5 -bottom-0.5 border border-gray-500">
+        <div className="text-gray-800 dark:text-gray-200 bg-white dark:bg-slate-700 relative -top-0.5 -right-0.5 -left-0.5 -bottom-0.5 border border-gray-500">
           {children}
         </div>
       </div>
