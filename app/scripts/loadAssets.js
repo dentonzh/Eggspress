@@ -41,19 +41,21 @@ const setSafelist = async (path) => {
       for await (const line of rl) {
         if (line.startsWith('color')) {
           const value = line.slice(line.indexOf(':') + 1).replaceAll('"', '').replaceAll("'", "").trim().replaceAll(' ', '-')
-
-          if (line.startsWith('colorTheme')) {
-            safelist.push(`bleed-${value}`)
+          
+          if (value) {
+            if (line.startsWith('colorTheme')) {
+              safelist.push(`bleed-${value}`)
+            }
+  
+            safelist.push(`bg-${value}`)
+            safelist.push(`text-${value}`)
           }
-
-          safelist.push(`bg-${value}`)
-          safelist.push(`text-${value}`)
         }
       }
 
       fs.writeFileSync(
         'app/safelist.ts',
-        `const safelist = ${safelist}\nexport default safelist`
+        `const safelist = [${safelist.map(x => `'${x}'`)}]\nexport default safelist`
       )
     }
   } catch { return } // skip setting custom font if settings are not available, typically during setup

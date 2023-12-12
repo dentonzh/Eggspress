@@ -10,7 +10,14 @@ const config: Config = {
     './components/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
-  safelist: safelist,
+  safelist: process.env.NODE_ENV === 'development' ? [
+    {
+      pattern: /(bg|bleed|text)-([a-z]+)-(50|100|200|300|400|500|600|700|800|900|950)$/,
+      variants: [
+        'dark'
+      ]
+    }
+  ] : safelist,
   theme: {
     screens: {
       'xs': '480px',
