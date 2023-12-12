@@ -38,6 +38,7 @@ const setSafelist = async (path) => {
       })
       
       let safelist = []
+      let contentClasses = []
       for await (const line of rl) {
         if (line.startsWith('color')) {
           const value = line.slice(line.indexOf(':') + 1).replaceAll('"', '').replaceAll("'", "").trim().replaceAll(' ', '-')
@@ -45,30 +46,36 @@ const setSafelist = async (path) => {
           if (value) {
             if (line.startsWith('colorContent')) {
               if (line.startsWith('colorContentBodyHeadingDark')) {
-                safelist.push(`dark:prose-headings:${value}`)
+                contentClasses.push(`dark:prose-headings:text-${value}`)
               }
               if (line.startsWith('colorContentBodyHeadingLight')) {
-                safelist.push(`prose-headings:${value}`)
+                contentClasses.push(`prose-headings:text-${value}`)
               }
               if (line.startsWith('colorContentBodyTextDark')) {
-                safelist.push(`dark:prose-p:${value}`)
+                contentClasses.push(`dark:prose-p:text-${value}`)
+                contentClasses.push(`dark:prose-table:text-${value}`)
               }
               if (line.startsWith('colorContentBodyTextLight')) {
-                safelist.push(`prose-p:${value}`)
+                contentClasses.push(`prose-p:text-${value}`)
+                contentClasses.push(`prose-table:text-${value}`)
               }
               if (line.startsWith('colorContentLinkTextDark')) {
-                safelist.push(`dark:prose-a:${value}`)
+                contentClasses.push(`dark:prose-a:text-${value}`)
               }
               if (line.startsWith('colorContentLinkTextLight')) {
-                safelist.push(`prose-a:${value}`)
+                contentClasses.push(`prose-a:text-${value}`)
               }
             }
             else if (line.startsWith('colorTheme')) {
               safelist.push(`bleed-${value}`)
               safelist.push(`bg-${value}`)
+              safelist.push(`dark:bleed-${value}`)
+              safelist.push(`dark:bg-${value}`)
             } else {
               safelist.push(`bg-${value}`)
               safelist.push(`text-${value}`)
+              safelist.push(`dark:bg-${value}`)
+              safelist.push(`dark:text-${value}`)
             }
           }
         }
@@ -78,6 +85,13 @@ const setSafelist = async (path) => {
         'app/safelist.ts',
         `const safelist = [${safelist.map(x => `'${x}'`)}]\nexport default safelist`
       )
+
+
+      if (contentClasses) {
+        fs.appendFileSync(
+          'app/globals.css', 
+          `.eggspress-content-extended {\n@apply ${contentClasses.join(' ')};\n}`)
+      }
     }
   } catch { return } // skip setting custom font if settings are not available, typically during setup
 

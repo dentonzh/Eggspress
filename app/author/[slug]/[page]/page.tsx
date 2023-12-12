@@ -8,7 +8,6 @@ import ContentHero from '../../../_components/ContentHero'
 import PaginationCard from '../../../_components/PaginationCard'
 import { copyImageToPublic, getImageFilesRecursively, getEggspressSettings } from '../../../utils'
 import Image from 'next/image'
-import getContentClasses from '@/app/_components/getContentClasses'
 
 
 export async function generateStaticParams() {
@@ -91,8 +90,6 @@ const AuthorPaginatedPage =  async ( {params}: {params: {slug: string, page: str
     return
   }
 
-  const contentClasses = await getContentClasses()
-
   return (
     <div className="flex flex-wrap">
       <ContentHero
@@ -119,7 +116,7 @@ const AuthorPaginatedPage =  async ( {params}: {params: {slug: string, page: str
           {contentLength > 0 && (
             <div className="py-12 border-t">
               <h2 className="text-gray-600 dark:text-gray-200 font-semibold mb-3">Biography</h2>
-              <div className={`eggspress-content ${contentClasses}`}>
+              <div className={`eggspress-content eggspress-content-extended`}>
                 {content}
               </div>
             </div>

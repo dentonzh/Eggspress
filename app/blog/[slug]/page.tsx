@@ -13,7 +13,6 @@ import getFrontmatter from '@/app/_components/getFrontmatter'
 import PostCard from '@/app/_components/PostCard'
 import ContentHero from '@/app/_components/ContentHero'
 import HiddenContentMessage from '@/app/_components/HiddenContentMessage'
-import getContentClasses from '@/app/_components/getContentClasses'
 
 
 export async function generateStaticParams() {
@@ -70,8 +69,6 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
     }
   }
 
-  const contentClasses = await getContentClasses()
-
   return (
     <div className="flex flex-wrap">
       <ContentHero 
@@ -92,7 +89,7 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
           <div className="mb-12 lg:hidden">
             <Toc />
           </div>
-          <div className={`eggspress-content ${contentClasses}`}>
+          <div className={`eggspress-content eggspress-content-extended`}>
             {frontmatter.isVisible === false && (appearanceSettings.hiddenContentIsHidden === true || frontmatter.hideContent === true) ?
               <div>
                 <h2 id="hero-subtitle">{appearanceSettings.hiddenContentIsHiddenMessageHeading}</h2>
