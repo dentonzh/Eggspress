@@ -10,6 +10,7 @@ import Image from 'next/image'
 import egg from '@/public/assets/egg.svg'
 import PaginationLink from '@/app/_components/PaginationLink'
 import HiddenContentMessage from '@/app/_components/HiddenContentMessage'
+import getContentClasses from '@/app/_components/getContentClasses'
 
 
 export async function generateStaticParams() {
@@ -72,6 +73,8 @@ const AuthorPage =  async ( {params}: {params: {slug: string}} ) => {
     return
   }
 
+  const contentClasses = await getContentClasses()
+
   return (
     <div className="flex flex-wrap">
       <ContentHero
@@ -115,7 +118,7 @@ const AuthorPage =  async ( {params}: {params: {slug: string}} ) => {
           {contentLength > 0 && (
             <div className="py-12 border-t">
               <h2 className="text-gray-600 dark:text-gray-200 font-semibold mb-3">Biography</h2>
-              <div className="eggspress-content">
+              <div className={`eggspress-content ${contentClasses}`}>
                 {content}
               </div>
             </div>

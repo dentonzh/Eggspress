@@ -7,6 +7,7 @@ import Toc from '../../_components/Toc'
 import PageSidebar from '@/app/_components/PageSidebar'
 import ContentHero from '@/app/_components/ContentHero'
 import HiddenContentMessage from '@/app/_components/HiddenContentMessage'
+import getContentClasses from '@/app/_components/getContentClasses'
 
 const env = process.env.NODE_ENV
 
@@ -48,6 +49,8 @@ const PagePage =  async ( {params}: {params: {slug: string}} ) => {
   const { content, frontmatter } = await compileContent('pages', slug)
   const appearanceSettings = await getEggspressSettings('appearance')
 
+  const contentClasses = await getContentClasses()
+
   return (
     <div className="flex flex-wrap">
       <ContentHero
@@ -66,7 +69,7 @@ const PagePage =  async ( {params}: {params: {slug: string}} ) => {
           <div className="mb-12 lg:hidden">
             <Toc />
           </div>
-          <div className="eggspress-content -mt-2">
+          <div className={`eggspress-content ${contentClasses} -mt-2`}>
             {frontmatter.isVisible === false && (appearanceSettings.hiddenContentIsHidden === true || frontmatter.hideContent === true) ?
               <div>
                 <h2 id="hero-subtitle">{appearanceSettings.hiddenContentIsHiddenMessageHeading}</h2>

@@ -43,12 +43,33 @@ const setSafelist = async (path) => {
           const value = line.slice(line.indexOf(':') + 1).replaceAll('"', '').replaceAll("'", "").trim().replaceAll(' ', '-')
           
           if (value) {
-            if (line.startsWith('colorTheme')) {
-              safelist.push(`bleed-${value}`)
+            if (line.startsWith('colorContent')) {
+              if (line.startsWith('colorContentBodyHeadingDark')) {
+                safelist.push(`dark:prose-headings:${value}`)
+              }
+              if (line.startsWith('colorContentBodyHeadingLight')) {
+                safelist.push(`prose-headings:${value}`)
+              }
+              if (line.startsWith('colorContentBodyTextDark')) {
+                safelist.push(`dark:prose-p:${value}`)
+              }
+              if (line.startsWith('colorContentBodyTextLight')) {
+                safelist.push(`prose-p:${value}`)
+              }
+              if (line.startsWith('colorContentLinkTextDark')) {
+                safelist.push(`dark:prose-a:${value}`)
+              }
+              if (line.startsWith('colorContentLinkTextLight')) {
+                safelist.push(`prose-a:${value}`)
+              }
             }
-  
-            safelist.push(`bg-${value}`)
-            safelist.push(`text-${value}`)
+            else if (line.startsWith('colorTheme')) {
+              safelist.push(`bleed-${value}`)
+              safelist.push(`bg-${value}`)
+            } else {
+              safelist.push(`bg-${value}`)
+              safelist.push(`text-${value}`)
+            }
           }
         }
       }
