@@ -1,7 +1,7 @@
 const fs = require('fs-extra')
 const readline = require('readline')
 
-const processByLine = async (path) => {
+const setFontFamily = async (path) => {
   try {
     const fileStream = fs.createReadStream(path)
     if (fileStream) {
@@ -27,7 +27,42 @@ const processByLine = async (path) => {
 
 }
 
-processByLine('my_settings/appearance.md')
+
+const setSafelist = async (path) => {
+  try {
+    const fileStream = fs.createReadStream(path)
+    if (fileStream) {
+      const rl = readline.createInterface({
+        input: fileStream,
+        crlfDelay: Infinity
+      })
+      
+      let safelist = []
+      for await (const line of rl) {
+        if (line.startsWith('color')) {
+          const value = line.slice(line.indexOf(':') + 1).replaceAll('"', '').replaceAll("'", "").trim().replaceAll(' ', '-')
+
+          if (line.startsWith('colorTheme')) {
+            safelist.push(`bleed-${value}`)
+          }
+
+          safelist.push(`bg-${value}`)
+          safelist.push(`text-${value}`)
+        }
+      }
+
+      fs.writeFileSync(
+        'app/safelist.ts',
+        `const safelist = ${safelist}\nexport default safelist`
+      )
+    }
+  } catch { return } // skip setting custom font if settings are not available, typically during setup
+
+}
+
+
+setFontFamily('my_settings/appearance.md')
+setSafelist('my_settings/appearance.md')
 
 
 assetsMap = {
