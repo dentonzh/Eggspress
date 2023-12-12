@@ -41,7 +41,7 @@ const PostCard = async ({ post, index }: PostProps) => {
   }
 
   return (
-    <div className={`${index === 0 ? (post.image && imagePath ? 'mt-0 mb-20': 'mt-0 mb-8') : post.image && imagePath ? 'my-20' : 'mt-8'} flex flex-wrap items-baseline text-gray-800 dark:text-gray-100`}>
+    <div className={`${index === 0 ? (post.image && imagePath ? 'mt-0 mb-20': 'mt-0 mb-8') : post.image && imagePath ? 'my-20' : 'mt-8'} flex flex-wrap items-baseline ${appearanceSettings.colorPostCardTextDark ? `dark:text-${appearanceSettings.colorPostCardTextDark}` : 'dark:text-gray-100' } ${appearanceSettings.colorPostCardTextLight ? `text-${appearanceSettings.colorPostCardTextLight}` : 'text-gray-800' }`}>
       {post.image && imagePath && 
         <Link href={`/blog/${post.slug}`} className="w-full">
           <Image 
@@ -55,7 +55,7 @@ const PostCard = async ({ post, index }: PostProps) => {
         </Link>
       }
 
-      <Link className={`text-2xl font-semibold ${(appearanceSettings.showPostCardCategory && post.category) || (appearanceSettings.showPostCardDate && (post.date || post.publishDate) || (appearanceSettings.showPostCardAuthor && (post.author))) ? 'mb-4' : 'mb-3'}`} href={`/blog/${post.slug}`}>
+      <Link className={`text-2xl font-semibold ${appearanceSettings.colorPostCardHeadingDark ? `dark:text-${appearanceSettings.colorPostCardHeadingDark}` : '' } ${appearanceSettings.colorPostCardHeadingLight ? `text-${appearanceSettings.colorPostCardHeadingLight}` : '' } ${(appearanceSettings.showPostCardCategory && post.category) || (appearanceSettings.showPostCardDate && (post.date || post.publishDate) || (appearanceSettings.showPostCardAuthor && (post.author))) ? 'mb-4' : 'mb-3'}`} href={`/blog/${post.slug}`}>
         {post.title || 'Untitled Post'}
       </Link>
       
@@ -90,14 +90,16 @@ const PostCard = async ({ post, index }: PostProps) => {
           </div>
         }
         {appearanceSettings.showPostCardDate && (post.date || post.publishDate) &&
-          <div className={`text-sm font-medium text-gray-700 dark:text-gray-300 ${(appearanceSettings.showPostCardAuthor && authorData) && appearanceSettings.showPostCardCategory && post.category ? 'w-full sm:w-auto mt-2 sm:mt-0' : ''}`}>{convertDate(post.date || post.publishDate)}</div>
+          <div className={`text-sm font-medium ${(appearanceSettings.showPostCardAuthor && authorData) && appearanceSettings.showPostCardCategory && post.category ? 'w-full sm:w-auto mt-2 sm:mt-0' : ''}`}>{convertDate(post.date || post.publishDate)}</div>
         }
       </div>
       {appearanceSettings.showPostCardSnippet &&
-        <div className='w-full mb-3 prose dark:prose-invert line-clamp-4'>{post.snippet || post.description}</div>
+        <div className='w-full mb-3 leading-7 line-clamp-4'>{post.snippet || post.description}</div>
       }
       {appearanceSettings.showPostCardReadMoreButton && post.slug &&
-        <ReadMore slug={post.slug}></ReadMore>
+        <div className={`${appearanceSettings.colorPostCardReadMoreTextDark ? `dark:text-${appearanceSettings.colorPostCardReadMoreTextDark}` : 'dark:text-white' } ${appearanceSettings.colorPostCardReadMoreTextLight ? `text-${appearanceSettings.colorPostCardReadMoreTextLight}` : 'dark:text-gray-800' }`}>
+          <ReadMore slug={post.slug}></ReadMore>
+        </div>
       }
     </div>
   )
