@@ -116,7 +116,7 @@ const AuthorPaginatedPage =  async ( {params}: {params: {slug: string, page: str
           {contentLength > 0 && (
             <div className="py-12 border-t">
               <h2 className="text-gray-600 dark:text-gray-200 font-semibold mb-3">Biography</h2>
-              <div className="prose dark:prose-invert">
+              <div className="eggspress-content">
                 {content}
               </div>
             </div>
