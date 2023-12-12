@@ -23,7 +23,7 @@ const setFontFamily = async (path) => {
         }
       }
     }
-  } catch { return } // skip setting custom font if settings are not available, typically during setup
+  } catch (e) { console.warn(`Prebuild error encountered while adding custom font: ${e}`) } // skip setting custom font if settings are not available, typically during setup
 
 }
 
@@ -42,7 +42,8 @@ const setSafelist = async (path) => {
       for await (const line of rl) {
         if (line.startsWith('color')) {
           const value = line.slice(line.indexOf(':') + 1).replaceAll('"', '').replaceAll("'", "").trim().replaceAll(' ', '-')
-          
+          const key = line.slice(0, line.indexOf(':')).trim()
+
           if (value) {
             if (line.startsWith('colorContent')) {
               if (line.startsWith('colorContentBodyHeadingDark')) {
@@ -71,15 +72,21 @@ const setSafelist = async (path) => {
               }
             }
             else if (line.startsWith('colorTheme')) {
-              safelist.push(`bleed-${value}`)
-              safelist.push(`bg-${value}`)
-              safelist.push(`dark:bleed-${value}`)
-              safelist.push(`dark:bg-${value}`)
+              if (key.endsWith('Dark')) {
+                safelist.push(`dark:bleed-${value}`)
+                safelist.push(`dark:bg-${value}`)
+              } else {
+                safelist.push(`bleed-${value}`)
+                safelist.push(`bg-${value}`)
+              }
             } else {
-              safelist.push(`bg-${value}`)
-              safelist.push(`text-${value}`)
-              safelist.push(`dark:bg-${value}`)
-              safelist.push(`dark:text-${value}`)
+              if (key.endsWith('Dark')) {
+                safelist.push(`dark:bg-${value}`)
+                safelist.push(`dark:text-${value}`)
+              } else {
+                safelist.push(`bg-${value}`)
+                safelist.push(`text-${value}`)
+              }
             }
           }
         }
@@ -97,7 +104,7 @@ const setSafelist = async (path) => {
           `.eggspress-content-extended {\n@apply ${contentClasses.join(' ')};\n}`)
       }
     }
-  } catch { return } // skip setting custom font if settings are not available, typically during setup
+  } catch (e) { console.warn(`Prebuild error encountered while adding custom colors: ${e}`) } // skip setting custom font if settings are not available, typically during setup
 
 }
 
