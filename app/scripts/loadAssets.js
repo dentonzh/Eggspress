@@ -81,10 +81,8 @@ const setSafelist = async (path) => {
               }
             } else {
               if (key.endsWith('Dark')) {
-                safelist.push(`dark:bg-${value}`)
                 safelist.push(`dark:text-${value}`)
               } else {
-                safelist.push(`bg-${value}`)
                 safelist.push(`text-${value}`)
               }
             }
