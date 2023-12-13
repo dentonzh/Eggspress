@@ -11,8 +11,8 @@ import SiteLinks from './SiteLinks'
 const Footer = async () => {
   const appearanceSettings = await getEggspressSettings('appearance')
   return (
-    <div className={`px-3 md:px-0 py-8 mt-6 min-w-full duration-100 bg-${appearanceSettings.colorThemeLightFooter || appearanceSettings.colorThemeLightPrimary || 'gray-100'} dark:bg-${appearanceSettings.colorThemeDarkFooter || appearanceSettings.colorThemeDarkPrimary || 'slate-900'} pt-12`}>
-      <div className="container flex justify-between text-gray-800 dark:text-gray-200">
+    <div className={`px-3 md:px-0 py-8 mt-6 min-w-full duration-100 bg-${appearanceSettings.colorThemeFooterLight || appearanceSettings.colorThemeHeroLight || 'gray-100'} dark:bg-${appearanceSettings.colorThemeFooterDark || appearanceSettings.colorThemeHeroDark || 'slate-900'} pt-12`}>
+      <div className={`container flex justify-between ${appearanceSettings.colorFooterLinkTextDark ? `dark:text-${appearanceSettings.colorFooterLinkTextDark}` : 'dark:text-gray-200' } ${appearanceSettings.colorFooterLinkTextLight ? `text-${appearanceSettings.colorFooterLinkTextLight}` : 'text-gray-800'}`}>
         <div className="flex flex-wrap w-full md:w-2/3 font-light md:text-sm leading-6">
           <div className="w-1/2">
             <SiteLinks></SiteLinks>

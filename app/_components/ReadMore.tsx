@@ -11,7 +11,7 @@ const ReadMore = ({slug}: {slug: string}) => {
   }
 
   return (
-    <div onClick={handleReadMore} className="underline-animated select-none cursor-pointer font-medium text-gray-800 hover:text-blue-800 dark:text-white hover:dark:text-blue-200">
+    <div onClick={handleReadMore} className="underline-animated select-none cursor-pointer font-medium hover:text-blue-800 hover:dark:text-blue-200">
       Read more
     </div>
   )

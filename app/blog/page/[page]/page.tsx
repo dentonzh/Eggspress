@@ -39,7 +39,7 @@ export default async function BlogPaginatedPage({ params }: { params: { page: st
 
   return (
     <main className="flex flex-wrap">
-      <div className={`hero bleed-${appearanceSettings.colorThemeLightPrimary} dark:bleed-${appearanceSettings.colorThemeDarkPrimary}`}>
+      <div className={`hero bleed-${appearanceSettings.colorThemeHeroLight} dark:bleed-${appearanceSettings.colorThemeHeroDark}`}>
         <h1 className="text-5xl font-bold mb-4 -ml-0.5">Posts <span className="text-gray-400 dark:text-gray-500">{`//`} Page {page}</span></h1>      
         <div className="font-normal">
           {appearanceSettings.paginatedSubheadingIndexPrefix}{startIndex + 1} - {endIndex}{appearanceSettings.paginatedSubheadingTotalPrefix}{postFrontmatter.length}

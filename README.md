@@ -181,7 +181,7 @@ We recommend you update `metaBaseUrl` to the domain of your site. By default, Ve
 
 `links.md` contains a set of fields where you can add links to your footer.
 
-`appearance.md` allows you to adjust the appearance of your pages, ranging from how posts are ordered to the color schemes used on your site.
+`appearance.md` allows you to adjust the appearance of your pages, ranging from how posts are ordered to the color schemes used on your site. You'll also be able to set your preferred font and update text found throughout your Eggspress site.
 
 The folder at `my_settings/brand` contains a set of `.png` files that you can replace. These files represent the favicon, brand logo that appears in the navbar and footer, and the Open Graph image.
 
