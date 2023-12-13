@@ -85,6 +85,8 @@ const setSafelist = async (path) => {
                   safelist.push(`dark:hover:text-${value}`)
                 } else if (key.includes('Background')) {
                   safelist.push(`dark:bg-${value}`)
+                } else if (key.includes('Border')) {
+                  safelist.push(`dark:border-${value}`)
                 } else {
                   safelist.push(`dark:text-${value}`)
                 }
@@ -93,6 +95,8 @@ const setSafelist = async (path) => {
                   safelist.push(`hover:text-${value}`)
                 } else if (key.includes('Background')) {
                   safelist.push(`bg-${value}`)
+                } else if (key.includes('Border')) {
+                  safelist.push(`border-${value}`)
                 } else {
                   safelist.push(`text-${value}`)
                 }
