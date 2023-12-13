@@ -96,14 +96,14 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
                 <p>{appearanceSettings.hiddenContentIsHiddenMessageBodyText}</p>
               </div>
               :
-              <div>
+              <div className="">
                 {content}
               </div>
             }
           </div>
 
           {(nextPost || prevPost) &&
-              <div className="flex flex-wrap border-t mt-12 py-6 text-gray-800 dark:text-gray-200 justify-between">
+              <div className="flex flex-wrap border-t dark:border-gray-700 mt-12 py-6 text-gray-800 dark:text-gray-200 justify-between">
                 {prevPost &&
                 <Link className="grow my-3" href={`/blog/${prevPost.slug}`}>
                     <div className="text-sm font-light mb-2">Previous Post</div>
@@ -120,7 +120,7 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
           }
 
           {authors.length > 0 &&
-            <div className={`${(nextPost || prevPost) ? '' : 'mt-12' }flex lg:hidden px-1 border-t -mb-16 pt-12`}>
+            <div className={`${(nextPost || prevPost) ? '' : 'mt-12' } flex lg:hidden px-1 border-t dark:border-gray-700 -mb-16 pt-12`}>
               <div className="md:w-5/6">
                 {authors.map((author: string) => 
                   <AuthorCard key={`author-body-${author}`} slug={author}></AuthorCard>
