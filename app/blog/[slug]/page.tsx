@@ -13,6 +13,7 @@ import getFrontmatter from '@/app/_components/getFrontmatter'
 import PostCard from '@/app/_components/PostCard'
 import ContentHero from '@/app/_components/ContentHero'
 import HiddenContentMessage from '@/app/_components/HiddenContentMessage'
+import { PostponedPathnameNormalizer } from 'next/dist/server/future/normalizers/request/postponed'
 
 
 export async function generateStaticParams() {
@@ -69,10 +70,14 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
     }
   }
 
+  const categoryFrontmatter = await getFrontmatter('categories', 'alphabetical', false, true)
+  const categoryData = categoryFrontmatter.filter(fm => fm.slug === frontmatter.category)[0]
+  const categoryName = categoryData && categoryData.title ? categoryData.title : frontmatter.category 
+
   return (
     <div className="flex flex-wrap">
       <ContentHero 
-        sectionString={frontmatter.category} 
+        sectionString={categoryName} 
         sectionLink={`/${createSlug(frontmatter.category)}`}
         headline={frontmatter.title || 'Untitled Post'} 
         subtitle={frontmatter.subtitle}
