@@ -108,7 +108,7 @@ const setSafelist = async (path) => {
       )
 
 
-      if (contentClasses) {
+      if (contentClasses.join(' ').trim()) {
         fs.appendFileSync(
           'app/globals.css', 
           `.eggspress-content-extended {\n@apply ${contentClasses.join(' ')};\n}`)
