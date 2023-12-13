@@ -3,6 +3,7 @@ import { getEggspressSettings } from '../../../utils'
 import PostCard from '../../../_components/PostCard'
 import PageSidebar from '../../../_components/PageSidebar'
 import PaginationCard from '../../../_components/PaginationCard'
+import ContentHero from '@/app/_components/ContentHero'
 
 
 export async function generateStaticParams() {
@@ -39,13 +40,11 @@ export default async function BlogPaginatedPage({ params }: { params: { page: st
 
   return (
     <main className="flex flex-wrap">
-      <div className={`hero bleed-${appearanceSettings.colorThemeHeroLight} dark:bleed-${appearanceSettings.colorThemeHeroDark}`}>
-        <h1 className="text-5xl font-bold mb-4 -ml-0.5">Posts <span className="text-gray-400 dark:text-gray-500">{`//`} Page {page}</span></h1>      
-        <div className="font-normal">
-          {appearanceSettings.paginatedSubheadingIndexPrefix}{startIndex + 1} - {endIndex}{appearanceSettings.paginatedSubheadingTotalPrefix}{postFrontmatter.length}
-
-        </div>
-      </div>
+      <ContentHero
+        headline={'Posts'}
+        subtitle={`${appearanceSettings.paginatedPostSubtitlePrefix}${page}`}
+        subheading={`${appearanceSettings.paginatedSubheadingIndexPrefix}${startIndex + 1} - ${endIndex}${appearanceSettings.paginatedSubheadingTotalPrefix}${postFrontmatter.length}`}
+      ></ContentHero>
       <div className="flex justify-between w-full">
         <div className='lg:max-w-prose'>
           {postFrontmatter.slice(startIndex, endIndex).map((frontmatter, index) => 
