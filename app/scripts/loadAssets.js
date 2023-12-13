@@ -83,12 +83,16 @@ const setSafelist = async (path) => {
               if (key.endsWith('Dark')) {
                 if (key.includes('Hover')) {
                   safelist.push(`dark:hover:text-${value}`)
+                } else if (key.includes('Background')) {
+                  safelist.push(`dark:bg-${value}`)
                 } else {
                   safelist.push(`dark:text-${value}`)
                 }
               } else {
                 if (key.includes('Hover')) {
                   safelist.push(`hover:text-${value}`)
+                } else if (key.includes('Background')) {
+                  safelist.push(`bg-${value}`)
                 } else {
                   safelist.push(`text-${value}`)
                 }
