@@ -94,8 +94,8 @@ const AuthorPaginatedPage =  async ( {params}: {params: {slug: string, page: str
     <div className="flex flex-wrap">
       <ContentHero
         headline={`${frontmatter.name}${frontmatter.postnomials ? ' ' + frontmatter.postnomials : ''}` || slug}
-        subtitle={`// Page ${pageNumber}`}
-        subheading={frontmatter.role}
+        subtitle={`${appearanceSettings.paginatedAuthorSubtitlePrefix}${pageNumber}`}
+        subheading={`${frontmatter.role} ${frontmatter.role ? '•' : ''} ${appearanceSettings.paginatedSubheadingIndexPrefix}${startIndex + 1} - ${endIndex}${appearanceSettings.paginatedSubheadingTotalPrefix}${filteredPosts.length}`}
         sectionString={frontmatter.description}
         imageSrc={imageSrc}
         imageAlt={`Profile image for ${frontmatter.name}`}

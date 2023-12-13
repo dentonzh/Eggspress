@@ -82,7 +82,7 @@ export default async function CategoryPaginatedPage({ params }: { params: { cate
         headline={categoryName}
         subtitle={page}
         subtitlePrefix={appearanceSettings.paginatedCategorySubtitlePrefix}
-        subheading={`${appearanceSettings.paginatedSubheadingIndexPrefix}${startIndex + 1}${endIndex}${appearanceSettings.paginatedSubheadingTotalPrefix}${filteredPosts.length}`}
+        subheading={`${appearanceSettings.paginatedSubheadingIndexPrefix}${startIndex + 1} - ${endIndex}${appearanceSettings.paginatedSubheadingTotalPrefix}${filteredPosts.length}`}
       >
       </ContentHero>
       <div className="flex justify-between w-full">

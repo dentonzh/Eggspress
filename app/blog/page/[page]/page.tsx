@@ -42,7 +42,8 @@ export default async function BlogPaginatedPage({ params }: { params: { page: st
     <main className="flex flex-wrap">
       <ContentHero
         headline={'Posts'}
-        subtitle={`${appearanceSettings.paginatedPostSubtitlePrefix}${page}`}
+        subtitle={page}
+        subtitlePrefix={appearanceSettings.paginatedPostSubtitlePrefix}
         subheading={`${appearanceSettings.paginatedSubheadingIndexPrefix}${startIndex + 1} - ${endIndex}${appearanceSettings.paginatedSubheadingTotalPrefix}${postFrontmatter.length}`}
       ></ContentHero>
       <div className="flex justify-between w-full">
