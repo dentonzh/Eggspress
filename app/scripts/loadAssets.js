@@ -81,9 +81,17 @@ const setSafelist = async (path) => {
               }
             } else {
               if (key.endsWith('Dark')) {
-                safelist.push(`dark:text-${value}`)
+                if (key.includes('Hover')) {
+                  safelist.push(`dark:hover:text-${value}`)
+                } else {
+                  safelist.push(`dark:text-${value}`)
+                }
               } else {
-                safelist.push(`text-${value}`)
+                if (key.includes('Hover')) {
+                  safelist.push(`hover:text-${value}`)
+                } else {
+                  safelist.push(`text-${value}`)
+                }
               }
             }
           }
