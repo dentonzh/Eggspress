@@ -16,16 +16,16 @@ const Setup = () => {
             </p>
             <ol>
               <li>Download the <Link className="text-blue-700 hover:text-blue-800 dark:text-blue-300 dark:hover:text-blue-200" href="/assets/eggspress_starter_workspace.zip">starter workspace</Link></li>
-              <li>On your computer, create a new folder for <span className="font-medium text-indigo-700 dark:text-green-200">your new workspace</span></li>
+              <li>On your computer, create a new folder for <span className="font-medium text-indigo-900 dark:text-green-200">your new workspace</span></li>
               <li>Extract the contents of <span className="font-mono font-light text-sm px-1">eggspress_starter_workspace.zip</span></li>
-              <li>Move the folders that start with <span className="font-mono font-bold text-sm px-1 text-green-800 dark:text-fuchsia-300">my_</span> into <span className="font-medium text-indigo-700 dark:text-green-200">your new workspace</span></li>
-              <li>Upload the contents of your <span className="font-medium text-indigo-700 dark:text-green-200">your new workspace</span> to Github</li>
+              <li>Move the folders that start with <span className="font-mono font-bold text-sm px-1 text-fuchsia-800 dark:text-fuchsia-300">my_</span> into <span className="font-medium text-indigo-900 dark:text-green-200">your new workspace</span></li>
+              <li>Upload the contents of your <span className="font-medium text-indigo-900 dark:text-green-200">your new workspace</span> to Github</li>
             </ol>
             <video playsInline muted autoPlay loop>
               <source  src="/assets/workspace_setup.webm" type="video/webm" />
             </video>  
             <p> 
-              For more help, read the docs at <a target="_blank" href="https://eggspress.vercel.app/blog/create-your-workspace">Create Your Workspace</a>.
+              Need more help? Get in-depth instructions on how to <a className="text-blue-700 hover:text-blue-800 dark:text-blue-300 dark:hover:text-blue-200" target="_blank" href="https://eggspress.vercel.app/blog/create-your-workspace">create your workspace</a>
             </p>
           </div>
 
