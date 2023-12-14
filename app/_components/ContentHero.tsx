@@ -28,13 +28,13 @@ const ContentHero = async ({sectionString, sectionLink, headline, subtitle, head
           <span>
             {headlineSeparator && subtitle ? headlineSeparator : ''}
           </span>
-          <span className={`inline leading-[1.21] md:leading-[1.42] text-${appearanceSettings.colorHeroSubtitleLight || 'gray-500'} dark:text-${appearanceSettings.colorHeroSubtitleLight || 'gray-400'}`}>
+          <span className={`inline leading-[1.21] md:leading-[1.42] text-${appearanceSettings.colorHeroSubtitleLight || 'gray-500'} dark:text-${appearanceSettings.colorHeroSubtitleDark || 'gray-400'}`}>
             {subtitlePrefix && subtitle ? subtitlePrefix : ''}
           </span>
           {!headlineSeparator && !subtitlePrefix &&
             <div className="inline"> </div>
           }
-          <h2 id="hero-subtitle" className={`inline leading-[1.21] md:leading-[1.42] text-${appearanceSettings.colorHeroSubtitleLight || 'gray-500'} dark:text-${appearanceSettings.colorHeroSubtitleLight || 'gray-400'}`}>{subtitle}</h2>
+          <h2 id="hero-subtitle" className={`inline leading-[1.21] md:leading-[1.42] text-${appearanceSettings.colorHeroSubtitleLight || 'gray-500'} dark:text-${appearanceSettings.colorHeroSubtitleDark || 'gray-400'}`}>{subtitle}</h2>
         </div>
         <div className="flex-none lg:h-36 lg:w-36 rounded-full object-cover overflow-hidden hidden md:flex">
           {imageSrc &&
@@ -52,7 +52,7 @@ const ContentHero = async ({sectionString, sectionLink, headline, subtitle, head
           <div className={imageSrc ? 'flex' : ''}></div>
           {(sectionString || date) &&
             <div className="flex text-[13px] font-medium">
-              <div className={`shrink-0 ${sectionString && date ? 'border-r border-gray-300 dark:border-gray-500 pr-2 mr-2' : ''}`}>
+              <div className={`shrink-0 ${sectionString && date ? `border-r ${appearanceSettings.colorHeroSectionDateBorderDark ? `dark:border-${appearanceSettings.colorHeroSectionDateBorderDark}` : 'dark:border-gray-500'} ${appearanceSettings.colorHeroSectionDateBorderLight ? `border-${appearanceSettings.colorHeroSectionDateBorderLight}` : 'border-gray-300'} pr-2 mr-2` : ''}`}>
                 {sectionString &&
                   <div>
                     {sectionLink ?
