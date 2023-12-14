@@ -37,6 +37,11 @@ const SiteLinks = async () => {
             </span>
           </Link>
         )}
+        <Link className="mb-6 md:mb-3" href="/">
+          <span className="underline-animated">
+            Home
+          </span>
+        </Link>
       </div>
     </div>
   )

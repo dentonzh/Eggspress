@@ -12,20 +12,20 @@ const Setup = () => {
           <div className="py-12 prose dark:prose-invert">
             <h2>Welcome to Eggspress</h2>
             <p>
-              Congratulations on deploying your new site! To add your content to it,
+              Congratulations! Your site is now deployed. Here are your next steps:
             </p>
             <ol>
               <li>Download the <Link href="/assets/eggspress_starter_workspace.zip">starter workspace</Link></li>
               <li>On your computer, create a new folder for <span className="font-medium text-indigo-700 dark:text-green-200">your new workspace</span></li>
               <li>Extract the contents of <span className="font-mono font-light text-sm px-1">eggspress_starter_workspace.zip</span></li>
-              <li>Move the extracted folders starting with <span className="font-mono font-bold text-sm px-1">my_</span> into <span className="font-medium text-indigo-700 dark:text-green-200">your new workspace</span></li>
+              <li>Move the folders that start with <span className="font-mono font-bold text-sm px-1 text-green-800 dark:text-fuchsia-300">my_</span> into <span className="font-medium text-indigo-700 dark:text-green-200">your new workspace</span></li>
               <li>Upload the contents of your <span className="font-medium text-indigo-700 dark:text-green-200">your new workspace</span> to Github</li>
             </ol>
             <video playsInline muted autoPlay loop>
               <source  src="/assets/workspace_setup.webm" type="video/webm" />
             </video>  
             <p> 
-              For more help, read the <a target="_blank" href="https://eggspress.vercel.app/blog/getting-started">getting started guide</a>.
+              For more help, read the <a target="_blank" href="https://eggspress.vercel.app/blog/create-your-workspace">Create your workspace</a> section of the <a target="_blank" href="https://eggspress.vercel.app/blog/getting-started">getting started guide</a>.
             </p>
           </div>
 

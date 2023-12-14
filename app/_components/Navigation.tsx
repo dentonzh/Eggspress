@@ -10,7 +10,6 @@ import NavigationMenu from './NavigationMenu'
 
 const Navigation = async () => {
   const appearanceSettings = await getEggspressSettings('appearance')
-  const links: Record<string, string> = await getEggspressSettings('links')
 
 
   return (
