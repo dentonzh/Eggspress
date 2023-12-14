@@ -21,12 +21,12 @@ const Setup = () => {
               <li>Move the folders that start with <span className="font-mono font-bold text-sm px-1 text-fuchsia-800 dark:text-fuchsia-300">my_</span> into <span className="font-medium text-indigo-900 dark:text-green-200">your new workspace</span></li>
               <li>Upload the contents of your <span className="font-medium text-indigo-900 dark:text-green-200">your new workspace</span> to Github</li>
             </ol>
-            <video playsInline muted autoPlay loop>
-              <source  src="/assets/workspace_setup.webm" type="video/webm" />
-            </video>  
             <p> 
               Need more help? Get in-depth instructions on how to <a className="text-blue-700 hover:text-blue-800 dark:text-blue-300 dark:hover:text-blue-200" target="_blank" href="https://eggspress.vercel.app/blog/create-your-workspace">create your workspace</a>
             </p>
+            <video className="border rounded-lg" playsInline muted autoPlay loop>
+              <source  src="/assets/workspace_setup.webm" type="video/webm" />
+            </video>  
           </div>
 
           <div className="flex cursor-pointer select-none duration-200 bg-green-600 hover:bg-green-700 text-white font-semibold text-lg mb-1 px-6 py-3 rounded border">
