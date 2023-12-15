@@ -3,10 +3,9 @@ import Navigation from './_components/Navigation'
 import Footer from './_components/Footer'
 import { getEggspressSettings } from './utils'
 import Font from './_components/UserFont'
-import { track } from '@minimal-analytics/ga4'
+import Analytics from './_components/Analytics'
 
 const font = Font
-
 
 export async function generateMetadata() {
   const blogSettings = await getEggspressSettings('metadata')
@@ -61,10 +60,6 @@ export default async function RootLayout({
     }
   }
 
-  if ( process.env.NODE_ENV === 'production' && variablesSettings.googleAnalyticsPropertyId ) {
-    track(variablesSettings.googleAnalyticsPropertyId)
-  }
-
   return (
     <html lang="en">
       <body className={`${font.className} flex flex-col duration-200 bg-${appearanceSettings.colorThemeBodyLight || 'white'} dark:bg-${appearanceSettings.colorThemeBodyDark || 'slate-800'} overflow-x-hidden min-h-screen justify-between`}>
@@ -72,6 +67,10 @@ export default async function RootLayout({
         <div className={`mb-auto bg-${appearanceSettings.colorThemeBodyLight} dark:bg-${appearanceSettings.colorThemeBodyDark}`}>
           <div className={`px-4 xs:px-0 container mb-12 grow bleed-bg bleed-${appearanceSettings.colorThemeBodyLight} dark:bleed-${appearanceSettings.colorThemeBodyDark}`}>
             {children}
+
+            {process.env.NODE_ENV === 'production' && variablesSettings.googleAnalyticsPropertyId  &&
+              <Analytics propertyId={variablesSettings.googleAnalyticsPropertyId}></Analytics>
+            } 
           </div>
         </div>
         <Footer />
