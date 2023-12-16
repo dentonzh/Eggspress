@@ -9,7 +9,8 @@ import getFrontmatter from './getFrontmatter';
 
 interface PostProps {
   post: PostItem,
-  index?: number
+  index?: number,
+  priority?: boolean
 }
 
 const convertDate = (inputDate: string|null) => {
@@ -22,7 +23,8 @@ const convertDate = (inputDate: string|null) => {
 }
 
 
-const PostCard = async ({ post, index }: PostProps) => {
+// if priority is true and this is the first PostCard to load (index is 0), then add fetchpriority="high" to image 
+const PostCard = async ({ post, index, priority=true }: PostProps) => { 
   const appearanceSettings = await getEggspressSettings('appearance')
   let imagePath = null
 
@@ -41,16 +43,16 @@ const PostCard = async ({ post, index }: PostProps) => {
   }
 
   return (
-    <div className={`${index === 0 ? (post.image && imagePath ? 'mt-0 mb-20': 'mt-0 mb-8') : post.image && imagePath ? 'my-20' : 'mt-8'} flex flex-wrap items-baseline ${appearanceSettings.colorPostCardTextDark ? `dark:text-${appearanceSettings.colorPostCardTextDark}` : 'dark:text-gray-100' } ${appearanceSettings.colorPostCardTextLight ? `text-${appearanceSettings.colorPostCardTextLight}` : 'text-gray-800' }`}>
+    <div className={`${index === 0 ? (post.image && imagePath ? 'mt-0 mb-12': 'mt-0 mb-8') : post.image && imagePath ? 'my-12' : 'mt-8'} flex flex-wrap items-baseline ${appearanceSettings.colorPostCardTextDark ? `dark:text-${appearanceSettings.colorPostCardTextDark}` : 'dark:text-gray-100' } ${appearanceSettings.colorPostCardTextLight ? `text-${appearanceSettings.colorPostCardTextLight}` : 'text-gray-800' }`}>
       {post.image && imagePath && 
         <Link href={`/blog/${post.slug}`} className="w-full">
-          <Image 
+          <Image
             className="w-full h-64 sm:h-80 md:h-72 object-cover mb-6" 
-            width={0} height={0} sizes="100vw" 
+            width={0} height={0} sizes="100vw"
             alt={`Image for ${post.title}`} 
             src={`/images/${post.slug}/${post.image}`}
             style={{objectPosition: `${post.imagePositionX || 50}% ${post.imagePositionY || 50}%`}}
-            priority={index === 0 ? true : false}
+            priority={index === 0 && priority ? true : false}
           ></Image>
         </Link>
       }

@@ -150,7 +150,7 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
                     return (
                       <div className="flex flex-wrap mb-3" key={`related-post-sidebar-${index}`}>
                         <div className="w-full font-normal text-gray-600 dark:text-gray-300">
-                          <PostCard post={frontmatter} index={0}></PostCard>
+                          <PostCard post={frontmatter} index={0} priority={false}></PostCard>
                         </div>
                       </div>
                     )
@@ -162,6 +162,7 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
             <div className="mb-16"></div>
           }
         </div>
+
         <div className="mb-20 mt-8">
           <Sidebar isSticky={false}>
             <div>
