@@ -32,6 +32,10 @@ const PostCard = async ({ post, index, priority=true }: PostProps) => {
   const authorFrontmatter = await getFrontmatter('authors')
   const authorData = authors.map(author => {return authorFrontmatter.filter(fm => fm.slug === author)[0]})
 
+  const categoryFrontmatter = await getFrontmatter('categories', 'alphabetical', false, true)
+  const categoryData = categoryFrontmatter.filter(fm => fm.slug === post.category)[0]
+  const categoryName = categoryData && categoryData.title ? categoryData.title : post.category 
+
   if (post.image) {
     const imageFiles = await getImageFilesRecursively(post.path)
     const imageFile = imageFiles.filter(file => file.name === post.image)[0]
@@ -85,7 +89,7 @@ const PostCard = async ({ post, index, priority=true }: PostProps) => {
         {appearanceSettings.showPostCardCategory && post.category &&
           <div className="flex flex-wrap">
             <Link className="text-sm font-medium underline-animated" href={`/${createSlug(post.category)}`}>
-              {post.category}
+              {categoryName}
             </Link>
             {
               appearanceSettings.showPostCardDate && (post.date || post.publishDate) &&
