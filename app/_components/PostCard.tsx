@@ -48,7 +48,9 @@ const PostCard = async ({ post, index, priority=true }: PostProps) => {
         <Link href={`/blog/${post.slug}`} className="w-full">
           <Image
             className="w-full h-64 sm:h-80 md:h-72 object-cover mb-6" 
-            width={0} height={0} sizes="100vw"
+            width={0} 
+            height={0} 
+            sizes="(max-width: 1024px) 90vw, 60vw"
             alt={`Image for ${post.title}`} 
             src={`/images/${post.slug}/${post.image}`}
             style={{objectPosition: `${post.imagePositionX || 50}% ${post.imagePositionY || 50}%`}}
@@ -64,9 +66,9 @@ const PostCard = async ({ post, index, priority=true }: PostProps) => {
       <div className={`flex flex-wrap w-full ${(appearanceSettings.showPostCardCategory && post.category) || (appearanceSettings.showPostCardDate && (post.date || post.publishDate) || (appearanceSettings.showPostCardAuthor && (post.author))) ? 'mb-4' : ''}`}>
         {appearanceSettings.showPostCardAuthor && authorData &&
           <div className="flex flex-wrap">
-            {authorData.map((author, ix) => {
+            {authorData && authorData.map((author, ix) => {
               return (
-                <span key={`${author.slug}-${index}`} className="text-sm font-medium">
+                <span key={`post-card-${index}-${author.slug}-${ix}`} className="text-sm font-medium">
                   {ix ? ', ' : ''}
                   <Link className="underline-animated" href={`/author/${author.slug}`}>
                     {author.name}
