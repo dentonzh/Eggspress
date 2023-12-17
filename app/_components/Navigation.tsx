@@ -3,17 +3,14 @@ import React from 'react'
 import Logo from '../../public/assets/logo.png'
 import Image from 'next/image'
 import DarkModeToggle from './DarkModeToggle'
-import { getEggspressSettings } from '../utils'
+import { getColors } from '../utils'
 import DropdownMenu from './DropdownMenu'
 import SiteLinks from './SiteLinks'
 import NavigationMenu from './NavigationMenu'
 
 const Navigation = async () => {
-  const appearanceSettings = await getEggspressSettings('appearance')
-
-
   return (
-    <nav className={`sticky top-0 px-3 md:px-0 duration-200 bg-${appearanceSettings.colorThemeNavLight || 'gray-100'} dark:bg-${appearanceSettings.colorThemeNavDark || 'slate-900'} py-2 z-10`}>
+    <nav className={`sticky top-0 px-3 md:px-0 duration-200 ${await getColors('bg', 'ThemeNav', 'slate-900', 'gray-100')} py-2 z-10`}>
       <div className="flex container justify-between">
         <div>
           <Link href='/'>
