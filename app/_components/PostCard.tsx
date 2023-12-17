@@ -9,7 +9,8 @@ import getFrontmatter from './getFrontmatter';
 
 interface PostProps {
   post: PostItem,
-  index?: number
+  index?: number,
+  priority?: boolean
 }
 
 const convertDate = (inputDate: string|null) => {
@@ -22,13 +23,18 @@ const convertDate = (inputDate: string|null) => {
 }
 
 
-const PostCard = async ({ post, index }: PostProps) => {
+// if priority is true and this is the first PostCard to load (index is 0), then add fetchpriority="high" to image 
+const PostCard = async ({ post, index, priority=true }: PostProps) => { 
   const appearanceSettings = await getEggspressSettings('appearance')
   let imagePath = null
 
   const authors = post && post.author ? post.author.split(',').map((author: string) => author.trim().replaceAll('_', '-').replaceAll(' ', '-')) : []
   const authorFrontmatter = await getFrontmatter('authors')
   const authorData = authors.map(author => {return authorFrontmatter.filter(fm => fm.slug === author)[0]})
+
+  const categoryFrontmatter = await getFrontmatter('categories', 'alphabetical', false, true)
+  const categoryData = categoryFrontmatter.filter(fm => fm.slug === post.category)[0]
+  const categoryName = categoryData && categoryData.title ? categoryData.title : post.category 
 
   if (post.image) {
     const imageFiles = await getImageFilesRecursively(post.path)
@@ -41,16 +47,18 @@ const PostCard = async ({ post, index }: PostProps) => {
   }
 
   return (
-    <div className={`${index === 0 ? (post.image && imagePath ? 'mt-0 mb-20': 'mt-0 mb-8') : post.image && imagePath ? 'my-20' : 'mt-8'} flex flex-wrap items-baseline ${appearanceSettings.colorPostCardTextDark ? `dark:text-${appearanceSettings.colorPostCardTextDark}` : 'dark:text-gray-100' } ${appearanceSettings.colorPostCardTextLight ? `text-${appearanceSettings.colorPostCardTextLight}` : 'text-gray-800' }`}>
+    <div className={`${index === 0 ? (post.image && imagePath ? 'mt-0 mb-12': 'mt-0 mb-8') : post.image && imagePath ? 'my-12' : 'mt-8'} flex flex-wrap items-baseline ${appearanceSettings.colorPostCardTextDark ? `dark:text-${appearanceSettings.colorPostCardTextDark}` : 'dark:text-gray-100' } ${appearanceSettings.colorPostCardTextLight ? `text-${appearanceSettings.colorPostCardTextLight}` : 'text-gray-800' }`}>
       {post.image && imagePath && 
         <Link href={`/blog/${post.slug}`} className="w-full">
-          <Image 
+          <Image
             className="w-full h-64 sm:h-80 md:h-72 object-cover mb-6" 
-            width={0} height={0} sizes="100vw" 
+            width={0} 
+            height={0} 
+            sizes="(max-width: 1024px) 90vw, 60vw"
             alt={`Image for ${post.title}`} 
             src={`/images/${post.slug}/${post.image}`}
             style={{objectPosition: `${post.imagePositionX || 50}% ${post.imagePositionY || 50}%`}}
-            priority={index === 0 ? true : false}
+            priority={index === 0 && priority ? true : false}
           ></Image>
         </Link>
       }
@@ -62,9 +70,9 @@ const PostCard = async ({ post, index }: PostProps) => {
       <div className={`flex flex-wrap w-full ${(appearanceSettings.showPostCardCategory && post.category) || (appearanceSettings.showPostCardDate && (post.date || post.publishDate) || (appearanceSettings.showPostCardAuthor && (post.author))) ? 'mb-4' : ''}`}>
         {appearanceSettings.showPostCardAuthor && authorData &&
           <div className="flex flex-wrap">
-            {authorData.map((author, ix) => {
+            {authorData && authorData.map((author, ix) => {
               return (
-                <span key={`${author.slug}-${index}`} className="text-sm font-medium">
+                <span key={`post-card-${index}-${author.slug}-${ix}`} className="text-sm font-medium">
                   {ix ? ', ' : ''}
                   <Link className="underline-animated" href={`/author/${author.slug}`}>
                     {author.name}
@@ -81,7 +89,7 @@ const PostCard = async ({ post, index }: PostProps) => {
         {appearanceSettings.showPostCardCategory && post.category &&
           <div className="flex flex-wrap">
             <Link className="text-sm font-medium underline-animated" href={`/${createSlug(post.category)}`}>
-              {post.category}
+              {categoryName}
             </Link>
             {
               appearanceSettings.showPostCardDate && (post.date || post.publishDate) &&

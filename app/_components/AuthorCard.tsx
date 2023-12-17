@@ -35,7 +35,7 @@ const AuthorCard = async ({slug}: {slug: string | null}) => {
       <Link href={`/author/${slug}`} className="mb-1 flex flex-wrap">
         {imageUrl && imageUrl.length > 0 ? (
           <div className={`${imageUrl.length ? '' : 'hidden'} lg:-ml-2 mr-3 h-11 w-11 rounded-full object-cover overflow-hidden`}>
-            <Image priority={true} src={imageUrl} width="56" height="56" alt={`Profile image for ${authorData.name}`}></Image>
+            <Image src={imageUrl} width="56" height="56" alt={`Profile image for ${authorData.name}`}></Image>
           </div>
         ) :
           <div className="-ml-2 mr-3 h-11 w-11 p-2 rounded-full bg-gray-200 dark:bg-gray-600 duration-150">

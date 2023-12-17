@@ -38,7 +38,14 @@ const ContentHero = async ({sectionString, sectionLink, headline, subtitle, head
         </div>
         <div className="flex-none lg:h-36 lg:w-36 rounded-full object-cover overflow-hidden hidden md:flex">
           {imageSrc &&
-            <Image priority={true} src={imageSrc} width="144" height="144" alt={imageAlt ? `${imageAlt}` : 'Header image'}></Image>
+            <Image 
+              priority={true} 
+              src={imageSrc} 
+              width="144" 
+              height="144" 
+              sizes="(max-width: 768px) 0vw, 12vw"
+              alt={imageAlt ? `${imageAlt}` : 'Header image'}
+            ></Image>
           }
         </div>
       </div>

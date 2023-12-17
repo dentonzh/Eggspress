@@ -86,7 +86,16 @@ const PageSidebar = async ({slug, isSticky=true}: {slug: string | null, isSticky
                     </Link>
                   }
 
-                  {image && <Image alt={`Sidebar image`} src={`/images/sidebar/${image}`} className="w-full h-auto object-cover mt-4 mb-6" width={0} height={0} sizes="100vw"></Image>}
+                  {image && 
+                    <Image 
+                      alt={`Sidebar image`} 
+                      src={`/images/sidebar/${image}`} 
+                      className="w-full h-auto object-cover mt-4 mb-6" 
+                      width={0} 
+                      height={0} 
+                      sizes="(max-width: 768px) 100vw, 24vw"
+                    ></Image>
+                  }
                 </div>
               )
             }
