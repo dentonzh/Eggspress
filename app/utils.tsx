@@ -141,6 +141,35 @@ export function copyImageToPublic(source: string, toPath: string) {
   return `/${toPath}/${fileName}`
 }
 
+export async function getColors(prefix: string, colorKey: string, fallbackDark='', fallbackLight='') {
+  // Looks up color keys in appearance.md and, given a prefix or a fallback, returns
+  // the correct color classes. This automatically checks for Light- and Dark- suffixed keys
+
+  const appearanceSettings = await getEggspressSettings('appearance')
+  const key = `color${colorKey}`
+  
+  let classNames = []
+
+  if (appearanceSettings[`${key}Dark`]) {
+    const className = `dark:${prefix}-${appearanceSettings[`${key}Dark`]}`
+    classNames.push(className)
+  } else if (fallbackDark) {
+    const className = `dark:${prefix}-${fallbackDark}`
+    classNames.push(className)
+  }
+  
+  if (appearanceSettings[`${key}Light`]) {
+    const className = `${prefix}-${appearanceSettings[`${key}Light`]}`
+    classNames.push(className)
+  } else if (fallbackLight) {
+    const className = `${prefix}-${fallbackLight}`
+    classNames.push(className)
+  }
+
+  return classNames.join(' ')
+
+}
+
 // Function below requires Node 20, which AWS Lambda does not support-- see above function for glob implementation
 // export async function getFilesRecursively(dir: string): Promise<PostFile[]> {
 //   let arrayOfFilenames: PostFile[] = []

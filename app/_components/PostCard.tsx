@@ -5,7 +5,6 @@ import { PostItem } from '@/types/Blog'
 import { copyImageToPublic, createSlug, getEggspressSettings, getImageFilesRecursively, sortFilesByProximity } from '../utils';
 import Image from 'next/image';
 import getFrontmatter from './getFrontmatter';
-// import styles from './PostCard.module.css'
 
 interface PostProps {
   post: PostItem,
