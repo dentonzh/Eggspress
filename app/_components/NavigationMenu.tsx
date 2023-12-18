@@ -1,5 +1,5 @@
-import { ReactNode, useEffect, useRef, useState } from 'react'
-import { getEggspressSettings } from '../utils'
+import { ReactNode } from 'react'
+import { getColors } from '../utils'
 
 
 type NavigationMenuProps = {
@@ -7,12 +7,11 @@ type NavigationMenuProps = {
 }
 
 const NavigationMenu = async ({children}: NavigationMenuProps) => {
-  const appearanceSettings = await getEggspressSettings('appearance')
 
   return (
-    <div className={`font-medium ${appearanceSettings.colorNavMenuTextDark ? `dark:text-${appearanceSettings.colorNavMenuTextDark}` : 'dark:text-gray-200'} ${appearanceSettings.colorNavMenuTextLight ? `text-${appearanceSettings.colorNavMenuTextLight}` : 'text-gray-800'}`}>
-      <div className={`rounded-lg ${appearanceSettings.colorNavMenuBackgroundShadowLight ? 'bg-' + appearanceSettings.colorNavMenuBackgroundShadowLight : 'bg-gray-500'} ${appearanceSettings.colorNavMenuBackgroundShadowDark ? 'dark:bg-' + appearanceSettings.colorNavMenuBackgroundShadowDark : 'dark:bg-gray-500'}`}>
-        <div className={`rounded-lg relative -top-1 -right-1 -left-1 -bottom-1 border border-gray-500 ${appearanceSettings.colorNavMenuBackgroundLight ? 'bg-' + appearanceSettings.colorNavMenuBackgroundLight : 'bg-white'} ${appearanceSettings.colorNavMenuBackgroundDark ? 'dark:bg-' + appearanceSettings.colorNavMenuBackgroundDark : 'dark:bg-slate-800'}`}>
+    <div className={`font-medium ${await getColors('text', 'NavMenuText', 'gray-200', 'gray-800')}`}>
+      <div className={`rounded-lg ${await getColors('bg', 'NavMenuBackgroundShadow', 'gray-500', 'gray-500')}`}>
+        <div className={`rounded-lg relative -top-1 -right-1 -left-1 -bottom-1 border border-gray-500 ${await getColors('bg', 'NavMenuBackground', 'slate-800', 'white')}`}>
           {children}
         </div>
       </div>

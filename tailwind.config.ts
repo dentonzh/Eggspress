@@ -16,7 +16,8 @@ const config: Config = {
       variants: [
         'dark', 'hover'
       ]
-    }
+    },
+    'bg-white'
   ] : safelist,
   theme: {
     screens: {
