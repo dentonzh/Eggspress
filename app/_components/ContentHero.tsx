@@ -58,7 +58,7 @@ const ContentHero = async ({sectionString, sectionLink, headline, subtitle, head
           <div className={imageSrc ? 'flex' : ''}></div>
           {(sectionString || date) &&
             <div className="flex text-[13px] font-medium">
-              <div className={`shrink-0 ${sectionString && date ? `border-r ${await getColors('border', 'HeroSectionDateBorder', 'gray-500', 'gray-300')} pr-2 mr-2` : ''}`}>
+              <div className={`${sectionString && date ? `border-r ${await getColors('border', 'HeroSectionDateBorder', 'gray-500', 'gray-300')} pr-2 mr-2` : ''}`}>
                 {sectionString &&
                   <div>
                     {sectionLink ?
