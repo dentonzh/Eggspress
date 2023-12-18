@@ -6,8 +6,6 @@ import Sidebar from '../../_components/Sidebar'
 import PostCard from '../../_components/PostCard'
 import ContentHero from '../../_components/ContentHero'
 import { copyImageToPublic, getImageFilesRecursively, getEggspressSettings, getColors } from '../../utils'
-import Image from 'next/image'
-import egg from '@/public/assets/egg.svg'
 import PaginationLink from '@/app/_components/PaginationLink'
 import HiddenContentMessage from '@/app/_components/HiddenContentMessage'
 
