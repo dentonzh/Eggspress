@@ -64,7 +64,7 @@ const AuthorCard = async ({slug}: {slug: string | null}) => {
               href={authorData['socialLink' + index]} 
               target="_blank" 
               rel="nofollow noopener" 
-              className={`underline-animated ${await getColors('text', 'AuthorCardLinkText', 'gray-400', 'gray-700')} ${await getColors('hover:text', 'AuthorCardLinkTextHover', 'gray-300', 'gray-800')}`}
+              className={`underline-animated underline-dotted ${await getColors('text', 'AuthorCardLinkText', 'gray-400', 'gray-700')} ${await getColors('hover:text', 'AuthorCardLinkTextHover', 'gray-300', 'gray-800')}`}
             >
               {authorData['socialPlatform' + index] && authorData['socialHandle' + index] ? `@${authorData['socialHandle' + index].replace('@', '')}` : authorData['socialPlatform' + index]}
               {(!authorData['socialPlatform' + index] || !authorData['socialPlatform' + index].length) ? authorData['socialLink' + index].slice(authorData['socialLink' + index].lastIndexOf('://')+3) : '' }
@@ -76,7 +76,7 @@ const AuthorCard = async ({slug}: {slug: string | null}) => {
             <span className="pr-1">
               {authorData['websiteLabel' + index] || 'Website'}:
             </span>
-            <a href={authorData['websiteLink' + index]} target="_blank" rel="" className={`underline-animated ${await getColors('text', 'AuthorCardLinkText', 'gray-400', 'gray-700')} ${await getColors('hover:text', 'AuthorCardLinkTextHover', 'gray-300', 'gray-800')}`}>
+            <a href={authorData['websiteLink' + index]} target="_blank" rel="" className={`underline-animated underline-dotted ${await getColors('text', 'AuthorCardLinkText', 'gray-400', 'gray-700')} ${await getColors('hover:text', 'AuthorCardLinkTextHover', 'gray-300', 'gray-800')}`}>
               {authorData['websiteName' + index] ? authorData['websiteName' + index] : authorData['websiteLink' + index].slice(authorData['websiteLink' + index].lastIndexOf('://')+3)}
             </a>
           </div>

@@ -195,7 +195,9 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
                             >
                               <path d="M0 0L3 3L0 6" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"></path>
                             </svg>
-                            {frontmatter.title}
+                            <div className="underline-animated underline-dotted mb-1">
+                              {frontmatter.title}
+                            </div>
                           </Link>
                         </div>
                       </div>
