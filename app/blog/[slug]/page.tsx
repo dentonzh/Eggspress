@@ -2,7 +2,7 @@ import React from 'react'
 import compileContent from '../../_components/compileContent'
 import getSlugs from '../../_components/getSlugs'
 import Sidebar from '../../_components/Sidebar'
-import { createSlug, getEggspressSettings } from '@/app/utils'
+import { createSlug, getColors, getEggspressSettings } from '@/app/utils'
 import Relation from '@/public/assets/relation.svg'
 import Toc from '../../_components/Toc'
 import Link from 'next/link'
@@ -185,8 +185,11 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
                     const frontmatter = postData[0]
                     return (
                       <div className="mb-0.5 text-sm" key={`related-post-footer-${index}`}>
-                        <div className={`font-normal ${appearanceSettings.colorSidebarRelatedPostDark ? `dark:text-${appearanceSettings.colorSidebarRelatedPostDark}` : 'dark:text-gray-300'} ${appearanceSettings.colorSidebarRelatedPostLight ? `text-${appearanceSettings.colorSidebarRelatedPostLight}` : 'text-gray-600'}`}>
-                          <Link className={`flex ${appearanceSettings.colorSidebarRelatedPostHoverDark ? `dark:hover:text-${appearanceSettings.colorSidebarRelatedPostHoverDark}` : 'dark:hover:text-blue-300'} ${appearanceSettings.colorSidebarRelatedPostHoverLight ? `hover:text-${appearanceSettings.colorSidebarRelatedPostHoverLight}` : 'hover:text-blue-700'}  `} href={`/blog/${frontmatter.slug}`}>
+                        <div className={`font-normal ${await getColors('text', 'SidebarRelatedPost', 'gray-300', 'gray-600')}`}>
+                          <Link 
+                            className={`flex ${await getColors('hover:text', 'SidebarRelatedPostHover', 'blue-300', 'blue-700')}`} 
+                            href={`/blog/${frontmatter.slug}`}
+                          >
                             <svg width="3" height="24" viewBox="0 -6 3 24" 
                               className={"mr-2 text-slate-400 overflow-visible group-hover:text-slate-600 dark:text-slate-500 dark:group-hover:text-slate-400"}
                             >
