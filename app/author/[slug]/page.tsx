@@ -5,7 +5,7 @@ import getSlugs from '../../_components/getSlugs'
 import Sidebar from '../../_components/Sidebar'
 import PostCard from '../../_components/PostCard'
 import ContentHero from '../../_components/ContentHero'
-import { copyImageToPublic, getImageFilesRecursively, getEggspressSettings } from '../../utils'
+import { copyImageToPublic, getImageFilesRecursively, getEggspressSettings, getColors } from '../../utils'
 import Image from 'next/image'
 import egg from '@/public/assets/egg.svg'
 import PaginationLink from '@/app/_components/PaginationLink'
@@ -123,39 +123,37 @@ const AuthorPage =  async ( {params}: {params: {slug: string}} ) => {
         </div>
 
         <Sidebar>
-          {sections.map((section, index) => {return (frontmatter[section] &&
-            <div>
-              <div key={`${section}-${index}`} className="text-sm text-gray-500 w-full mb-3">
-                <h4 className="font-semibold mb-0.5">{section ? section.charAt(0).toUpperCase() + section.slice(1) : ''}</h4>
-                <div className="text-gray-700 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-300">
-                  {frontmatter[section]}
-                </div>
+          {sections.map(async (section, index) => {return (frontmatter[section] &&
+            <div key={`${section}-${index}`} className={`text-sm text-gray-500 w-full mb-3 ${await getColors('text', 'SidebarText', 'gray-300', 'gray-600')}`}>
+              <h4 className={`sidebar-heading ${await getColors('text', 'SidebarHeading')}`}>{section ? section.charAt(0).toUpperCase() + section.slice(1) : ''}</h4>
+              <div>
+                {frontmatter[section]}
               </div>
             </div>
           )})}
 
-          {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(index => {return (frontmatter['socialLink' + index] &&
-            <div key={`${frontmatter['socialLink' + index]}-${index}`} className="text-sm text-gray-500 w-full mb-3">
+          {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(async (index) => {return (frontmatter['socialLink' + index] &&
+            <div key={`${frontmatter['socialLink' + index]}-${index}`} className={`text-sm text-gray-500 w-full mb-3 ${await getColors('text', 'SidebarText', 'gray-300', 'gray-600')}`}>
               <div>
-                <h4 className="font-semibold mb-0.5">{frontmatter['socialPlatform' + index] ? `${frontmatter['socialPlatform' + index]}` : 'Social'}</h4>
-                <a href={frontmatter['socialLink' + index]} target="_blank" rel="nofollow noopener" className="text-gray-700 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-300 underline-animated">
+                <h4 className={`sidebar-heading ${await getColors('text', 'SidebarHeading')}`}>{frontmatter['socialPlatform' + index] ? `${frontmatter['socialPlatform' + index]}` : 'Social'}</h4>
+                <a href={frontmatter['socialLink' + index]} target="_blank" rel="nofollow noopener" className={`underline-animated underline-dotted ${await getColors('text', 'SidebarLinkText')} ${await getColors('hover:text', 'SidebarLinkTextHover')} `}>
                   {frontmatter['socialHandle' + index] ? `@${frontmatter['socialHandle' + index].replace('@', '')}` : ''}
                   {!frontmatter['socialHandle' + index] ? frontmatter['socialLink' + index].slice(frontmatter['socialLink' + index].lastIndexOf('://')+3) : '' }
                 </a>
               </div>
             </div>
           )})}
-          {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(index => {return (frontmatter['websiteLink' + index] &&
-            <div className="text-sm text-gray-500 w-1/2 md:w-full mb-4 md:mb-1" key={`website-link-${frontmatter.slug}-${index}`}>
-              <h4 className="font-semibold mb-0.5">
+          {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(async (index) => {return (frontmatter['websiteLink' + index] &&
+            <div className={`text-sm text-gray-500 w-1/2 md:w-full mb-4 md:mb-1 ${await getColors('text', 'SidebarText', 'gray-300', 'gray-600')}`} key={`website-link-${frontmatter.slug}-${index}`}>
+              <h4 className={`sidebar-heading ${await getColors('text', 'SidebarHeading')}`}>
                 {frontmatter['websiteLabel' + index] || 'Website'}
               </h4>
-              <a href={frontmatter['websiteLink' + index]} target="_blank" rel="" className="text-gray-700 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-300 underline-animated">
-                {frontmatter['websiteDescription' + index] &&
-                  <div className="text-gray-700 dark:text-gray-400">
-                    {frontmatter['websiteDescription' + index]}
-                  </div>
-                }
+              {frontmatter['websiteDescription' + index] &&
+                <div className='mb-1'>
+                  {frontmatter['websiteDescription' + index]}
+                </div>
+              }
+              <a href={frontmatter['websiteLink' + index]} target="_blank" rel="" className={`underline-animated underline-dotted ${await getColors('text', 'SidebarLinkText')} ${await getColors('hover:text', 'SidebarLinkTextHover')} `}>
                 {frontmatter['websiteName' + index] ? frontmatter['websiteName' + index] : frontmatter['websiteLink' + index].slice(frontmatter['websiteLink' + index].lastIndexOf('://')+3)}
               </a>
             </div>

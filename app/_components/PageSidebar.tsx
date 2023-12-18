@@ -78,10 +78,10 @@ const PageSidebar = async ({slug, isSticky=true}: {slug: string | null, isSticky
             if ( heading || image || text || link || linkText ) {
               return (
                 <div key={`sidebar-item-${index}`} className={`font-light mb-8 ${await getColors('text', 'SidebarText', 'gray-300', 'gray-600')}`}>
-                  {heading && <div className={`font-semibold mb-0.5 ${await getColors('text', 'SidebarHeading')}`}>{heading}</div>}
-                  {text && <div className="mb-1">{text}</div>}
+                  {heading && <div className={`sidebar-heading ${await getColors('text', 'SidebarHeading')}`}>{heading}</div>}
+                  {text && <div className="sidebar-body">{text}</div>}
                   {linkText && link &&
-                    <Link className={`font-normal duration-100 underline-animated border-b border-dotted border-gray-500 hover:border-transparent ${await getColors('text', 'SidebarLinkText')}`} 
+                    <Link className={`font-normal duration-100 underline-animated underline-dotted ${await getColors('text', 'SidebarLinkText')} ${await getColors('hover:text', 'SidebarLinkTextHover')}`} 
                       target="_blank" 
                       href={link}
                     >
@@ -89,7 +89,7 @@ const PageSidebar = async ({slug, isSticky=true}: {slug: string | null, isSticky
                     </Link>
                   }
                   {!linkText && link &&
-                    <Link className={`font-normal duration-100 underline-animated border-b border-dotted border-gray-500 hover:border-transparent ${await getColors('text', 'SidebarLinkText')}`} 
+                    <Link className={`font-normal duration-100 underline-animated underline-dotted ${await getColors('text', 'SidebarLinkText')} ${await getColors('hover:text', 'SidebarLinkTextHover')}`} 
                       target="_blank" 
                       href={link}
                     >

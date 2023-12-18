@@ -28,10 +28,30 @@ body {
           before:transition before:ease-in-out before:duration-100
 }
 
+.underline-dotted {
+  @apply border-b border-dotted border-gray-400 dark:border-gray-600;
+}
+
+.underline-dotted:hover {
+  @apply border-transparent;
+}
+
 .hero {
   @apply w-full mb-12 pt-32 pb-12 duration-200 text-gray-800 dark:text-gray-100 bleed-bg;
 }
 
 .eggspress-content {
   @apply prose dark:prose-invert prose-h1:font-bold prose-blockquote:not-italic prose-blockquote:font-normal -mt-2 mb-20 prose-code:px-0.5 prose-pre:bg-gray-100 prose-pre:text-gray-700 prose-pre:dark:bg-gray-700 prose-pre:dark:text-gray-200 prose-code:bg-gray-100 prose-code:dark:bg-gray-700;
+}
+
+.sidebar-section {
+  @apply mb-3;
+}
+
+.sidebar-heading {
+  @apply mb-1.5 font-medium;
+}
+
+.sidebar-body {
+  @apply leading-relaxed;
 }
