@@ -51,7 +51,7 @@ const ContentHero = async ({sectionString, sectionLink, headline, subtitle, head
           }
         </div>
       </div>
-      <div className="flex flex-wrap">
+      <div className={`flex flex-wrap ${imageSrc ? 'md:mt-12 lg:mt-0' : ''}`}>
         <div>
           {subheading &&
             <div className={`font-medium mb-5 md:mb-3 ${imageSrc ? '-mt-4' : 'mt-8 lg:mt-0'} ${await getColors('text', 'HeroSubheading')}`}>
