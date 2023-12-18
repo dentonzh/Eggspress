@@ -175,7 +175,7 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
             {relatedPosts.length > 0 && 
               <div className="mb-16">
                 <div className="flex flex-wrap mb-3">
-                  <Image src={Relation} alt="relation icon" className="h-5 w-5 -ml-2 dark:border-gray-600 stroke-gray-200 fill-gray-200 brightness-50 dark:brightness-100"></Image>
+                  <Image src={Relation} alt="relation icon" className="h-5 w-5 -ml-4 opacity-50 dark:opacity-100 dark:border-gray-600 stroke-gray-200 fill-gray-200 brightness-50 dark:brightness-100"></Image>
                   <div className="font-medium text-sm text-gray-600 dark:text-gray-300 my-auto pl-1">Related Posts</div>
                 </div>
                 {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(async (index: number) => {
@@ -191,7 +191,7 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
                             href={`/blog/${frontmatter.slug}`}
                           >
                             <svg width="3" height="24" viewBox="0 -6 3 24" 
-                              className={"mr-2 text-slate-400 overflow-visible group-hover:text-slate-600 dark:text-slate-500 dark:group-hover:text-slate-400"}
+                              className={"mr-2 -ml-0.5 text-slate-400 overflow-visible group-hover:text-slate-600 dark:text-slate-500 dark:group-hover:text-slate-400"}
                             >
                               <path d="M0 0L3 3L0 6" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"></path>
                             </svg>

@@ -77,7 +77,7 @@ const PageSidebar = async ({slug, isSticky=true}: {slug: string | null, isSticky
   
             if ( heading || image || text || link || linkText ) {
               return (
-                <div key={`sidebar-item-${index}`} className={`font-light mb-8 ${await getColors('text', 'SidebarText', 'gray-300', 'gray-600')}`}>
+                <div key={`sidebar-item-${index}`} className={`sidebar-section ${await getColors('text', 'SidebarText', 'gray-300', 'gray-600')}`}>
                   {heading && <div className={`sidebar-heading ${await getColors('text', 'SidebarHeading')}`}>{heading}</div>}
                   {text && <div className="sidebar-body">{text}</div>}
                   {linkText && link &&

@@ -45,7 +45,7 @@ body {
 }
 
 .sidebar-section {
-  @apply mb-3;
+  @apply text-sm mb-8;
 }
 
 .sidebar-heading {

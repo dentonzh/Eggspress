@@ -126,7 +126,7 @@ const AuthorPaginatedPage =  async ( {params}: {params: {slug: string, page: str
         <Sidebar>
           {sections.map((section, index) => {return (frontmatter[section] &&
             <div>
-              <div key={`${section}-${index}`} className="text-sm text-gray-500 w-full mb-3">
+              <div key={`${section}-${index}`} className="sidebar-section">
                 <h4 className="sidebar-heading">{section ? section.charAt(0).toUpperCase() + section.slice(1) : ''}</h4>
                 <div className="text-gray-700 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-300">
                   {frontmatter[section]}
@@ -136,7 +136,7 @@ const AuthorPaginatedPage =  async ( {params}: {params: {slug: string, page: str
           )})}
 
           {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(index => {return (frontmatter['socialLink' + index] &&
-            <div key={`${frontmatter['socialLink' + index]}-${index}`} className="text-sm text-gray-500 w-full mb-3">
+            <div key={`${frontmatter['socialLink' + index]}-${index}`} className="sidebar-section">
               <div>
                 <h4 className="sidebar-heading">{frontmatter['socialPlatform' + index] ? `${frontmatter['socialPlatform' + index]}` : 'Social'}</h4>
                 <a href={frontmatter['socialLink' + index]} target="_blank" rel="nofollow noopener" className="text-gray-700 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-300 underline-animated">

@@ -122,7 +122,7 @@ const AuthorPage =  async ( {params}: {params: {slug: string}} ) => {
 
         <Sidebar>
           {sections.map(async (section, index) => {return (frontmatter[section] &&
-            <div key={`${section}-${index}`} className={`text-sm text-gray-500 w-full mb-3 ${await getColors('text', 'SidebarText', 'gray-300', 'gray-600')}`}>
+            <div key={`${section}-${index}`} className={`sidebar-section ${await getColors('text', 'SidebarText', 'gray-300', 'gray-600')}`}>
               <h4 className={`sidebar-heading ${await getColors('text', 'SidebarHeading')}`}>{section ? section.charAt(0).toUpperCase() + section.slice(1) : ''}</h4>
               <div>
                 {frontmatter[section]}
@@ -131,7 +131,7 @@ const AuthorPage =  async ( {params}: {params: {slug: string}} ) => {
           )})}
 
           {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(async (index) => {return (frontmatter['socialLink' + index] &&
-            <div key={`${frontmatter['socialLink' + index]}-${index}`} className={`text-sm text-gray-500 w-full mb-3 ${await getColors('text', 'SidebarText', 'gray-300', 'gray-600')}`}>
+            <div key={`${frontmatter['socialLink' + index]}-${index}`} className={`sidebar-section ${await getColors('text', 'SidebarText', 'gray-300', 'gray-600')}`}>
               <div>
                 <h4 className={`sidebar-heading ${await getColors('text', 'SidebarHeading')}`}>{frontmatter['socialPlatform' + index] ? `${frontmatter['socialPlatform' + index]}` : 'Social'}</h4>
                 <a href={frontmatter['socialLink' + index]} target="_blank" rel="nofollow noopener" className={`underline-animated underline-dotted ${await getColors('text', 'SidebarLinkText')} ${await getColors('hover:text', 'SidebarLinkTextHover')} `}>
