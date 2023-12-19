@@ -1,6 +1,4 @@
 import React from 'react'
-import Logo from '../../public/assets/logo.png'
-import Eggsmark from '../../public/assets/eggsmark.png'
 import Image from 'next/image'
 import Link from 'next/link'
 import { getColors, getEggspressSettings } from '../utils'
@@ -22,7 +20,7 @@ const Footer = async () => {
         </div>
         <div className="md:w-1/3">
           <Link href='/'>
-            <Image src={Logo} alt='logo' className='grayscale opacity-50 dark:brightness-[3] ml-auto max-h-18 w-auto' />
+            <Image src="/assets/logo.png" height={64} width={64} alt='logo' className='grayscale opacity-50 dark:brightness-[3] ml-auto max-h-18 w-auto' />
           </Link>
         </div>
       </div>
@@ -32,7 +30,7 @@ const Footer = async () => {
             <span>
               Made with 
             </span>
-            <Image className="inline-block mx-1 dark:brightness-[3]" src={Eggsmark} alt='Eggspress brand icon'></Image>
+            <Image className="inline-block mx-1 dark:brightness-[3]" src="/assets/eggsmark.png" height={18} width={20} alt='Eggspress brand icon'></Image>
             <span>
               Eggspress
             </span>

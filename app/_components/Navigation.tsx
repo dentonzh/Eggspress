@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import React from 'react'
-import Logo from '../../public/assets/logo.png'
 import Image from 'next/image'
 import DarkModeToggle from './DarkModeToggle'
 import { getColors, getEggspressSettings } from '../utils'
@@ -17,7 +16,7 @@ const Navigation = async () => {
         <div className="flex">
           <Link className="flex items-center" href='/'>
             {appearanceSettings.showBrandLogo && 
-              <Image src={Logo} height={32} style={{width: 'auto', height: 'auto'}} alt='Eggspress blog logo' className='dark:hue-rotate-270 dark:brightness-[3] mr-2' />
+              <Image src="/assets/logo.png" height={32} width={32} style={{width: 'auto', height: 'auto'}} alt='Eggspress blog logo' className='dark:hue-rotate-270 dark:brightness-[3] mr-2' />
             }
             {appearanceSettings.showBrandText &&
               <span className={`flex font-bold ${await getColors('text', 'NavBarBrandText', 'gray-200', 'gray-800')}`}>{appearanceSettings.brandText}</span>

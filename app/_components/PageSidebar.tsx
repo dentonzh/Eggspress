@@ -3,7 +3,6 @@ import Link from 'next/link'
 import Image from 'next/image'
 import Sidebar from './Sidebar'
 import getFrontmatter from './getFrontmatter'
-import Thumbtack from '../../public/assets/thumbtack.svg'
 import { getImageFilesRecursively, copyImageToPublic, getColors } from '@/app/utils'
 
 const PageSidebar = async ({slug, isSticky=true}: {slug: string | null, isSticky?: boolean}) => {
@@ -42,7 +41,7 @@ const PageSidebar = async ({slug, isSticky=true}: {slug: string | null, isSticky
               {pinnedPosts.map((frontmatter, index) => {
                 return (
                   <div className="flex flex-wrap mb-3" key={`pinned-post-${index}`}>
-                    <Image src={Thumbtack} alt="thumbtack icon" className="-ml-7 opacity-80 h-5 w-5 dark:border-gray-600 p-0.5"></Image>
+                    <Image src="/assets/thumbtack.svg" alt="thumbtack icon" width={32} height={32} className="-ml-7 opacity-80 h-5 w-5 dark:border-gray-600 p-0.5"></Image>
                     <div className="font-medium text-gray-600 dark:text-gray-300 my-auto pl-2">
                       <Link 
                         className={`underline-animated hover:text-blue-700 dark:hover:text-blue-300 ${sidebarPinnedPostClasses}`} 

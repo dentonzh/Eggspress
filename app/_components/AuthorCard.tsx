@@ -3,7 +3,6 @@ import getFrontmatter from './getFrontmatter'
 import { getColors, copyImageToPublic, getEggspressSettings, getImageFilesRecursively } from '../utils'
 import Image from 'next/image'
 import Link from 'next/link'
-import egg from '@/public/assets/egg.svg'
 
 
 const getProfileImage =  async (imageFileName: string): Promise<string | null> => {
@@ -39,7 +38,7 @@ const AuthorCard = async ({slug}: {slug: string | null}) => {
           </div>
         ) :
           <div className="-ml-2 mr-3 h-11 w-11 p-2 rounded-full bg-gray-200 dark:bg-gray-600 duration-150">
-            <Image src={egg} width="96" height="96" alt={`Profile image for ${authorData.name}`}></Image>
+            <Image src="/assets/egg.svg" width={96} height={96} alt={`Profile image for ${authorData.name}`}></Image>
           </div>
         }
         <div className={`font-medium my-auto ${await getColors('text', 'AuthorCardHeading')}`}>
