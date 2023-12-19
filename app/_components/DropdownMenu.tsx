@@ -4,20 +4,34 @@ import Navigation from '../../public/assets/navigation.svg'
 import Image from 'next/image'
 import useOuterClick from '../hooks/useOuterClick'
 import { setTimeout } from 'timers'
+import { usePathname } from 'next/navigation'
+import path from 'path'
 
 
 type DropdownMenuProps = {
-  children: ReactNode
+  children: ReactNode,
+  closeOnRouteChange: boolean
 }
 
-const DropdownMenu = ({children}: DropdownMenuProps) => {
+const DropdownMenu = ({children, closeOnRouteChange = true}: DropdownMenuProps) => {
   const [expanded, setExpanded] = useState(false)
   const [menuVisible, setMenuVisible] = useState(false)
   const ref: any = useRef()
+  const pathname = usePathname()
   
   useOuterClick(ref.current, () => {
     setExpanded(false)
   })
+  
+  useEffect(() => {
+    if (closeOnRouteChange) {
+      let currentPathname = ''
+      
+      if (pathname !== currentPathname) {
+        setExpanded(false)
+      }
+    }
+  }, [closeOnRouteChange, pathname])
 
   const toggleDropdownMenu = () => {
     if (!expanded) {
