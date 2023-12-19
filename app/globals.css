@@ -53,5 +53,5 @@ body {
 }
 
 .sidebar-body {
-  @apply leading-relaxed;
+  @apply leading-relaxed font-light my-2;
 }
