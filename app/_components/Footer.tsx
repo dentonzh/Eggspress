@@ -6,7 +6,6 @@ import AuthorLinks from '../_components/AuthorLinks'
 import SiteLinks from './SiteLinks'
 
 const Footer = async () => {
-  const appearanceSettings = await getEggspressSettings('appearance')
   return (
     <div className={`px-3 md:px-0 py-8 mt-6 min-w-full duration-100 ${await getColors('bg', 'ThemeFooter', 'slate-900', 'gray-100')}`}>
       <div className={`container flex justify-between ${await getColors('text', 'FooterLinkText', 'gray-200', 'gray-800')}`}>
