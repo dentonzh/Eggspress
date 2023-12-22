@@ -1,6 +1,9 @@
-Eggspress is a lightweight blogging platform built on Next.js and React. It's designed to help anyone publish on the web—no command line needed. Best of all, it's lightning fast and completely free![^1]
 
-If you're new to starting websites, get stuck setting up, or want a live demo of Eggspress, check out the [Getting Started Guide](https://eggspress.vercel.app/getting-started). It's an Eggspress chock full of screenshots and generated egg art!
+<a href="https://eggspress.vercel.app/blog/getting-started"><img align="left" alt="Eggspress app icon" src="public/assets/icon-72.webp"/></a>
+
+Eggspress is a lightweight blogging platform built on Next.js and React. It's designed to help anyone publish on the web—no command line needed. Best of all, it's lightning fast and completely free.[^1]
+
+If you're new to starting websites, get stuck setting up, or want a live demo of Eggspress, check out the [Getting Started Guide](https://eggspress.vercel.app/getting-started). It's an Eggspress site that makes full use of most of Eggspress' features.
 
 ## Prerequisites
 To use Eggspress, you'll need to have accounts on:
@@ -164,7 +167,7 @@ Custom pages (found in `my_pages`) and author profiles (`my_authors`) are two co
 Pages are helpful for including one-off information. They differ from posts in that they do not appear in any lists of posts. Their paths are also different. Where posts are located at `https://<your-domain>/blog/<post-slug>`, custom pages are located at `https://<your-domain>/<page-slug>`.
 
 ## Author profiles
-Author profiles contain data used to generate author pages and author cards. These files have optional content sections. If populated, content in author profiles will appear under the list of that author's post in a section titled "Biography."^8
+Author profiles contain data used to generate author pages and author cards. These files have optional content sections. If populated, content in author profiles will appear under the list of that author's post in a section titled "Biography."
 
 To attribute a post to an author, set the `author` frontmatter field. 
 

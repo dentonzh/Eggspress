@@ -14,9 +14,10 @@ const config: Config = {
     {
       pattern: /(bg|bleed|text)-([a-z]+)-(50|100|200|300|400|500|600|700|800|900|950)$/,
       variants: [
-        'dark'
+        'dark', 'hover'
       ]
-    }
+    },
+    'bg-white'
   ] : safelist,
   theme: {
     screens: {

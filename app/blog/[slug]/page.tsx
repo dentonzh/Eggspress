@@ -2,8 +2,7 @@ import React from 'react'
 import compileContent from '../../_components/compileContent'
 import getSlugs from '../../_components/getSlugs'
 import Sidebar from '../../_components/Sidebar'
-import { createSlug, getEggspressSettings } from '@/app/utils'
-import Relation from '@/public/assets/relation.svg'
+import { createSlug, getColors, getEggspressSettings } from '@/app/utils'
 import Toc from '../../_components/Toc'
 import Link from 'next/link'
 import AuthorCard from '@/app/_components/AuthorCard'
@@ -139,7 +138,7 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
             <div className={`${(nextPost || prevPost || authors.length) ? '' : 'mt-12'} flex border-t pt-20`}>
               <div className="mb-8 max-w-prose">
                 <div className="flex flex-wrap mb-6">
-                  <Image src={Relation} alt="relation icon" className="h-7 w-7 dark:border-gray-600 stroke-gray-200 fill-gray-200 brightness-50 dark:brightness-100"></Image>
+                  <Image src="/assets/relation.svg" alt="relation icon" width={32} height={32} className="h-7 w-7 dark:border-gray-600 stroke-gray-200 fill-gray-200 brightness-50 dark:brightness-100"></Image>
                   <div className="font-medium text-gray-700 dark:text-gray-300 my-auto pl-2">Related Posts</div>
                 </div>
                 {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(async (index: number) => {
@@ -175,7 +174,7 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
             {relatedPosts.length > 0 && 
               <div className="mb-16">
                 <div className="flex flex-wrap mb-3">
-                  <Image src={Relation} alt="relation icon" className="h-5 w-5 -ml-2 dark:border-gray-600 stroke-gray-200 fill-gray-200 brightness-50 dark:brightness-100"></Image>
+                  <Image src="/assets/relation.svg" alt="relation icon" width={32} height={32} className="h-5 w-5 -ml-4 opacity-50 dark:opacity-100 dark:border-gray-600 stroke-gray-200 fill-gray-200 brightness-50 dark:brightness-100"></Image>
                   <div className="font-medium text-sm text-gray-600 dark:text-gray-300 my-auto pl-1">Related Posts</div>
                 </div>
                 {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(async (index: number) => {
@@ -185,14 +184,19 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
                     const frontmatter = postData[0]
                     return (
                       <div className="mb-0.5 text-sm" key={`related-post-footer-${index}`}>
-                        <div className={`font-normal ${appearanceSettings.colorSidebarRelatedPostDark ? `dark:text-${appearanceSettings.colorSidebarRelatedPostDark}` : 'dark:text-gray-300'} ${appearanceSettings.colorSidebarRelatedPostLight ? `text-${appearanceSettings.colorSidebarRelatedPostLight}` : 'text-gray-600'}`}>
-                          <Link className={`flex ${appearanceSettings.colorSidebarRelatedPostHoverDark ? `dark:hover:text-${appearanceSettings.colorSidebarRelatedPostHoverDark}` : 'dark:hover:text-blue-300'} ${appearanceSettings.colorSidebarRelatedPostHoverLight ? `hover:text-${appearanceSettings.colorSidebarRelatedPostHoverLight}` : 'hover:text-blue-700'}  `} href={`/blog/${frontmatter.slug}`}>
+                        <div className={`font-normal ${await getColors('text', 'SidebarRelatedPost', 'gray-300', 'gray-600')}`}>
+                          <Link 
+                            className={`flex ${await getColors('hover:text', 'SidebarRelatedPostHover', 'blue-300', 'blue-700')}`} 
+                            href={`/blog/${frontmatter.slug}`}
+                          >
                             <svg width="3" height="24" viewBox="0 -6 3 24" 
-                              className={"mr-2 text-slate-400 overflow-visible group-hover:text-slate-600 dark:text-slate-500 dark:group-hover:text-slate-400"}
+                              className={"mr-2 -ml-0.5 text-slate-400 overflow-visible group-hover:text-slate-600 dark:text-slate-500 dark:group-hover:text-slate-400"}
                             >
                               <path d="M0 0L3 3L0 6" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"></path>
                             </svg>
-                            {frontmatter.title}
+                            <div className="underline-animated underline-dotted mb-1">
+                              {frontmatter.title}
+                            </div>
                           </Link>
                         </div>
                       </div>

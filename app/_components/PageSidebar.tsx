@@ -3,8 +3,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import Sidebar from './Sidebar'
 import getFrontmatter from './getFrontmatter'
-import Thumbtack from '../../public/assets/thumbtack.svg'
-import { getImageFilesRecursively, copyImageToPublic, getEggspressSettings } from '@/app/utils'
+import { getImageFilesRecursively, copyImageToPublic, getColors } from '@/app/utils'
 
 const PageSidebar = async ({slug, isSticky=true}: {slug: string | null, isSticky?: boolean}) => {
   if (!slug) {
@@ -14,7 +13,6 @@ const PageSidebar = async ({slug, isSticky=true}: {slug: string | null, isSticky
   const postFrontmatter = await getFrontmatter('posts')
   const sidebarFrontmatter = await getFrontmatter('sidebars')
   const sidebarData = sidebarFrontmatter.filter(fm => slug && fm.slug === slug.replaceAll('_', '-').replaceAll(' ', '-'))
-  const appearanceSettings = await getEggspressSettings('appearance')
   
   
   if (sidebarData.length) {
@@ -31,6 +29,9 @@ const PageSidebar = async ({slug, isSticky=true}: {slug: string | null, isSticky
         }
       }
     }
+
+    // To prevent hydration mismatch for Pinned Posts' classes, define constant here rather than inline
+    const sidebarPinnedPostClasses = await getColors('text', 'SidebarPinnedPost')
     
     return (
       <Sidebar isSticky={isSticky}>
@@ -40,9 +41,12 @@ const PageSidebar = async ({slug, isSticky=true}: {slug: string | null, isSticky
               {pinnedPosts.map((frontmatter, index) => {
                 return (
                   <div className="flex flex-wrap mb-3" key={`pinned-post-${index}`}>
-                    <Image src={Thumbtack} alt="thumbtack icon" className="-ml-7 opacity-80 h-5 w-5 dark:border-gray-600 p-0.5"></Image>
+                    <Image src="/assets/thumbtack.svg" alt="thumbtack icon" width={32} height={32} className="-ml-7 opacity-80 h-5 w-5 dark:border-gray-600 p-0.5"></Image>
                     <div className="font-medium text-gray-600 dark:text-gray-300 my-auto pl-2">
-                      <Link className={`underline-animated hover:text-blue-700 dark:hover:text-blue-300 ${appearanceSettings.colorSidebarPinnedPostDark ? `dark:text-${appearanceSettings.colorSidebarPinnedPostDark}` : '' } ${appearanceSettings.colorSidebarPinnedPostLight ? `text-${appearanceSettings.colorSidebarPinnedPostLight}` : '' }`} href={`/blog/${frontmatter.slug}`}>
+                      <Link 
+                        className={`underline-animated hover:text-blue-700 dark:hover:text-blue-300 ${sidebarPinnedPostClasses}`} 
+                        href={`/blog/${frontmatter.slug}`}
+                      >
                         {frontmatter.title}
                       </Link>
                     </div>
@@ -72,16 +76,22 @@ const PageSidebar = async ({slug, isSticky=true}: {slug: string | null, isSticky
   
             if ( heading || image || text || link || linkText ) {
               return (
-                <div key={`sidebar-item-${index}`} className={`font-light mb-8 ${appearanceSettings.colorSidebarTextDark ? `dark:text-${appearanceSettings.colorSidebarTextDark}` : 'dark:text-gray-300' } ${appearanceSettings.colorSidebarTextLight ? `text-${appearanceSettings.colorSidebarTextLight}` : 'text-gray-600' }`}>
-                  {heading && <div className={`font-semibold mb-0.5 ${appearanceSettings.colorSidebarHeadingDark ? `dark:text-${appearanceSettings.colorSidebarHeadingDark}` : '' } ${appearanceSettings.colorSidebarHeadingLight ? `text-${appearanceSettings.colorSidebarHeadingLight}` : '' }`}>{heading}</div>}
-                  {text && <div className="mb-1">{text}</div>}
+                <div key={`sidebar-item-${index}`} className={`sidebar-section ${await getColors('text', 'SidebarText', 'gray-300', 'gray-600')}`}>
+                  {heading && <div className={`sidebar-heading ${await getColors('text', 'SidebarHeading')}`}>{heading}</div>}
+                  {text && <div className="sidebar-body">{text}</div>}
                   {linkText && link &&
-                    <Link className={`font-normal duration-100 underline-animated border-b border-dotted border-gray-500 hover:border-transparent ${appearanceSettings.colorSidebarLinkTextDark ? `dark:text-${appearanceSettings.colorSidebarLinkTextDark}` : '' } ${appearanceSettings.colorSidebarLinkTextLight ? `text-${appearanceSettings.colorSidebarLinkTextLight}` : '' }`} target="_blank" href={link}>
+                    <Link className={`font-normal duration-100 underline-animated underline-dotted ${await getColors('text', 'SidebarLinkText')} ${await getColors('hover:text', 'SidebarLinkTextHover')}`} 
+                      target="_blank" 
+                      href={link}
+                    >
                       {linkText}
                     </Link>
                   }
                   {!linkText && link &&
-                    <Link className={`font-normal duration-100 underline-animated border-b border-dotted border-gray-500 hover:border-transparent ${appearanceSettings.colorSidebarLinkTextDark ? `dark:text-${appearanceSettings.colorSidebarLinkTextDark}` : '' } ${appearanceSettings.colorSidebarLinkTextLight ? `text-${appearanceSettings.colorSidebarLinkTextLight}` : '' }`} target="_blank" href={link}>
+                    <Link className={`font-normal duration-100 underline-animated underline-dotted ${await getColors('text', 'SidebarLinkText')} ${await getColors('hover:text', 'SidebarLinkTextHover')}`} 
+                      target="_blank" 
+                      href={link}
+                    >
                       {link.replace('https://', '')}
                     </Link>
                   }

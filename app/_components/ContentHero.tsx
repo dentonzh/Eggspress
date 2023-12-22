@@ -1,5 +1,5 @@
 import React from 'react'
-import { getEggspressSettings } from '../utils'
+import { getColors } from '../utils'
 import Link from 'next/link'
 import Image from 'next/image'
 
@@ -18,23 +18,25 @@ interface ContentHeroProps {
 }
 
 const ContentHero = async ({sectionString, sectionLink, headline, subtitle, headlineSeparator, subheading, subtitlePrefix, date, imageSrc, imageAlt}: ContentHeroProps) => {
-  const appearanceSettings = await getEggspressSettings('appearance')
+  const headlineMarginLeft = headline && ['E', 'B', 'D', 'F', 'H', 'L', 'P', 'R'].includes(headline.charAt(0)) ? '-ml-0.5' : ''
+  const headlineMarginBottom = subheading && (sectionString || date) ? 'mb-12 md:mb-8' : subheading ? 'mb-6' : (sectionString || date) ? 'mb-3 md:mb-6' : 'mb-6'
+
 
   return (
-    <div className={`hero bleed-${appearanceSettings.colorThemeHeroLight || 'gray-100'} dark:bleed-${appearanceSettings.colorThemeHeroDark || 'slate-900'}`}>
+    <div className={`hero ${await getColors('bleed', 'ThemeHero', 'slate-900', 'gray-100')}`}>
       <div className="flex items-center overflow-x-hidden">
-        <div className={`grow text-5xl lg:text-6xl font-bold ${headline && ['E', 'B', 'D', 'F', 'H', 'L', 'P', 'R'].includes(headline.charAt(0)) ? '-ml-0.5' : ''} ${subheading && (sectionString || date) ? 'mb-12 md:mb-8' : subheading ? 'mb-6' : (sectionString || date) ? 'mb-3 md:mb-6' : 'mb-6'} text-${appearanceSettings.colorHeroHeadlineLight} dark:text-${appearanceSettings.colorHeroHeadlineDark} `}>
+        <div className={`grow text-5xl lg:text-6xl font-bold ${headlineMarginLeft} ${headlineMarginBottom} ${await getColors('text', 'HeroHeadline')}`}>
           <h1 className="inline leading-[1.21] md:leading-[1.42]">{headline}</h1>
           <span>
             {headlineSeparator && subtitle ? headlineSeparator : ''}
           </span>
-          <span className={`inline leading-[1.21] md:leading-[1.42] text-${appearanceSettings.colorHeroSubtitleLight || 'gray-500'} dark:text-${appearanceSettings.colorHeroSubtitleDark || 'gray-400'}`}>
+          <span className={`inline leading-[1.21] md:leading-[1.42] ${await getColors('text', 'HeroSubtitle', 'gray-500', 'gray-400')}`}>
             {subtitlePrefix && subtitle ? subtitlePrefix : ''}
           </span>
           {!headlineSeparator && !subtitlePrefix &&
             <div className="inline"> </div>
           }
-          <h2 id="hero-subtitle" className={`inline leading-[1.21] md:leading-[1.42] text-${appearanceSettings.colorHeroSubtitleLight || 'gray-500'} dark:text-${appearanceSettings.colorHeroSubtitleDark || 'gray-400'}`}>{subtitle}</h2>
+          <h2 id="hero-subtitle" className={`inline leading-[1.21] md:leading-[1.42] ${await getColors('text', 'HeroSubtitle', 'gray-500', 'gray-400')}`}>{subtitle}</h2>
         </div>
         <div className="flex-none lg:h-36 lg:w-36 rounded-full object-cover overflow-hidden hidden md:flex">
           {imageSrc &&
@@ -49,29 +51,29 @@ const ContentHero = async ({sectionString, sectionLink, headline, subtitle, head
           }
         </div>
       </div>
-      <div className="flex flex-wrap">
+      <div className={`flex flex-wrap ${imageSrc ? 'md:mt-12 lg:mt-0' : ''}`}>
         <div>
           {subheading &&
-            <div className={`font-medium mb-5 md:mb-3 ${imageSrc ? '-mt-4' : 'mt-8 lg:mt-0'} text-${appearanceSettings.colorHeroSubheadingLight} dark:text-${appearanceSettings.colorHeroSubheadingDark}`}>
+            <div className={`font-medium mb-5 md:mb-3 ${imageSrc ? '-mt-4' : 'mt-8 lg:mt-0'} ${await getColors('text', 'HeroSubheading')}`}>
               {subheading}
             </div>
           }
           <div className={imageSrc ? 'flex' : ''}></div>
           {(sectionString || date) &&
             <div className="flex text-[13px] font-medium">
-              <div className={`shrink-0 ${sectionString && date ? `border-r ${appearanceSettings.colorHeroSectionDateBorderDark ? `dark:border-${appearanceSettings.colorHeroSectionDateBorderDark}` : 'dark:border-gray-500'} ${appearanceSettings.colorHeroSectionDateBorderLight ? `border-${appearanceSettings.colorHeroSectionDateBorderLight}` : 'border-gray-300'} pr-2 mr-2` : ''}`}>
+              <div className={`${sectionString && date ? `border-r ${await getColors('border', 'HeroSectionDateBorder', 'gray-500', 'gray-300')} pr-2 mr-2` : ''}`}>
                 {sectionString &&
                   <div>
                     {sectionLink ?
-                      <Link className={`underline-animated text-${appearanceSettings.colorHeroSectionLinkLight} dark:text-${appearanceSettings.colorHeroSectionLinkDark}`} href={sectionLink}>{sectionString}</Link> 
+                      <Link className={`underline-animated ${await getColors('text', 'HeroSectionLink')}`} href={sectionLink}>{sectionString}</Link> 
                       :
-                      <div className={`text-${appearanceSettings.colorHeroSectionStringLight} dark:text-${appearanceSettings.colorHeroSectionStringDark}`}>{sectionString}</div>
+                      <div className={await getColors('text', 'HeroSectionString')}>{sectionString}</div>
                     }
                   </div>
                 }
               </div>
               {date &&
-                <div className={`text-${appearanceSettings.colorHeroDateLight} dark:text-${appearanceSettings.colorHeroDateDark}`}>{date}</div>
+                <div className={await getColors('text', 'HeroDate')}>{date}</div>
               }
             </div>
           }

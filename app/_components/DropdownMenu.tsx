@@ -1,23 +1,35 @@
 'use client'
 import { ReactNode, useEffect, useRef, useState } from 'react'
-import Navigation from '../../public/assets/navigation.svg'
 import Image from 'next/image'
 import useOuterClick from '../hooks/useOuterClick'
 import { setTimeout } from 'timers'
+import { usePathname } from 'next/navigation'
 
 
 type DropdownMenuProps = {
-  children: ReactNode
+  children: ReactNode,
+  closeOnRouteChange?: boolean
 }
 
-const DropdownMenu = ({children}: DropdownMenuProps) => {
+const DropdownMenu = ({children, closeOnRouteChange = true}: DropdownMenuProps) => {
   const [expanded, setExpanded] = useState(false)
   const [menuVisible, setMenuVisible] = useState(false)
   const ref: any = useRef()
+  const pathname = usePathname()
   
   useOuterClick(ref.current, () => {
     setExpanded(false)
   })
+  
+  useEffect(() => {
+    if (closeOnRouteChange) {
+      let currentPathname = ''
+
+      if (pathname !== currentPathname) {
+        setExpanded(false)
+      }
+    }
+  }, [closeOnRouteChange, pathname])
 
   const toggleDropdownMenu = () => {
     if (!expanded) {
@@ -32,7 +44,7 @@ const DropdownMenu = ({children}: DropdownMenuProps) => {
   return (
     <div className="ml-3 relative">
       <div onClick={toggleDropdownMenu}>
-          <Image className="text-gray-500" src={Navigation} alt="navigation button"></Image>
+          <Image className="text-gray-500" src="/assets/navigation.svg" width={24} height={24} alt="navigation button"></Image>
       </div>
       <div ref={ref} className={`rounded-lg duration-100 absolute right-2 ${expanded ? 'top-12 opacity-100' : 'top-9 opacity-0'}`}>
         {menuVisible && children}

@@ -17,6 +17,7 @@
 /my_templates
 /my_components
 /app/_plugins/*
+colors.md
 
 # dependencies
 /node_modules

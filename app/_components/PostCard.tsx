@@ -2,10 +2,9 @@ import React from 'react'
 import ReadMore from './ReadMore'
 import Link from 'next/link';
 import { PostItem } from '@/types/Blog'
-import { copyImageToPublic, createSlug, getEggspressSettings, getImageFilesRecursively, sortFilesByProximity } from '../utils';
+import { copyImageToPublic, createSlug, getColors, getEggspressSettings, getImageFilesRecursively, sortFilesByProximity } from '../utils';
 import Image from 'next/image';
 import getFrontmatter from './getFrontmatter';
-// import styles from './PostCard.module.css'
 
 interface PostProps {
   post: PostItem,
@@ -46,8 +45,10 @@ const PostCard = async ({ post, index, priority=true }: PostProps) => {
     }
   }
 
+  const hasSubheading = (appearanceSettings.showPostCardCategory && post.category) || (appearanceSettings.showPostCardDate && (post.date || post.publishDate) || (appearanceSettings.showPostCardAuthor && (post.author)))
+
   return (
-    <div className={`${index === 0 ? (post.image && imagePath ? 'mt-0 mb-12': 'mt-0 mb-8') : post.image && imagePath ? 'my-12' : 'mt-8'} flex flex-wrap items-baseline ${appearanceSettings.colorPostCardTextDark ? `dark:text-${appearanceSettings.colorPostCardTextDark}` : 'dark:text-gray-100' } ${appearanceSettings.colorPostCardTextLight ? `text-${appearanceSettings.colorPostCardTextLight}` : 'text-gray-800' }`}>
+    <div className={`${index === 0 ? '' : 'my-20'} flex flex-wrap items-baseline ${await getColors('text', 'PostCardText', 'gray-100', 'gray-800')}`}>
       {post.image && imagePath && 
         <Link href={`/blog/${post.slug}`} className="w-full">
           <Image
@@ -63,11 +64,14 @@ const PostCard = async ({ post, index, priority=true }: PostProps) => {
         </Link>
       }
 
-      <Link className={`text-2xl font-semibold ${appearanceSettings.colorPostCardHeadingDark ? `dark:text-${appearanceSettings.colorPostCardHeadingDark}` : '' } ${appearanceSettings.colorPostCardHeadingLight ? `text-${appearanceSettings.colorPostCardHeadingLight}` : '' } ${(appearanceSettings.showPostCardCategory && post.category) || (appearanceSettings.showPostCardDate && (post.date || post.publishDate) || (appearanceSettings.showPostCardAuthor && (post.author))) ? 'mb-4' : 'mb-3'}`} href={`/blog/${post.slug}`}>
+      <Link 
+        className={`text-2xl font-semibold ${await getColors('text', 'PostCardHeading')} ${hasSubheading ? 'mb-4' : 'mb-3'}`} 
+        href={`/blog/${post.slug}`}
+      >
         {post.title || 'Untitled Post'}
       </Link>
       
-      <div className={`flex flex-wrap w-full ${(appearanceSettings.showPostCardCategory && post.category) || (appearanceSettings.showPostCardDate && (post.date || post.publishDate) || (appearanceSettings.showPostCardAuthor && (post.author))) ? 'mb-4' : ''}`}>
+      <div className={`flex flex-wrap w-full ${hasSubheading ? 'mb-4' : ''}`}>
         {appearanceSettings.showPostCardAuthor && authorData &&
           <div className="flex flex-wrap">
             {authorData && authorData.map((author, ix) => {
@@ -80,8 +84,7 @@ const PostCard = async ({ post, index, priority=true }: PostProps) => {
                 </span>
               )
             })}
-            {
-              (appearanceSettings.showPostCardCategory || appearanceSettings.showPostCardDate) &&
+            {(appearanceSettings.showPostCardCategory || appearanceSettings.showPostCardDate) &&
               <div className="px-1 text-sm font-medium text-gray-300 dark:text-gray-700">|</div>
             }
           </div>
@@ -105,7 +108,7 @@ const PostCard = async ({ post, index, priority=true }: PostProps) => {
         <div className='w-full mb-3 leading-7 line-clamp-4'>{post.snippet || post.description}</div>
       }
       {appearanceSettings.showPostCardReadMoreButton && post.slug &&
-        <div className={`${appearanceSettings.colorPostCardReadMoreTextDark ? `dark:text-${appearanceSettings.colorPostCardReadMoreTextDark}` : 'dark:text-white' } ${appearanceSettings.colorPostCardReadMoreTextLight ? `text-${appearanceSettings.colorPostCardReadMoreTextLight}` : 'dark:text-gray-800' }`}>
+        <div className={`${await getColors('text', 'PostCardReadMoreText', 'white', 'gray-800')}`}>
           <ReadMore slug={post.slug}></ReadMore>
         </div>
       }
