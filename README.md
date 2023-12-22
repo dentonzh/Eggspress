@@ -1,5 +1,5 @@
 
-<a href="https://eggspress.vercel.app"><img align="left" alt="Eggspress app icon" src="public/assets/icon-72.webp"/></a>
+<a href="https://eggspress.vercel.app/blog/getting-started"><img align="left" alt="Eggspress app icon" src="public/assets/icon-72.webp"/></a>
 
 Eggspress is a lightweight blogging platform built on Next.js and React. It's designed to help anyone publish on the web—no command line needed. Best of all, it's lightning fast and completely free.[^1]
 
