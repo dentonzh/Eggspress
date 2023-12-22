@@ -1,8 +1,8 @@
-![Eggspress app icon](public/assets/readme_icon.webp) Eggspress
+![Eggspress app icon](public/assets/icon-48.png) **Eggspress: The fast and lightweight blogging platform anyone can deploy**
 
-Eggspress is a lightweight blogging platform built on Next.js and React. It's designed to help anyone publish on the web—no command line needed. Best of all, it's lightning fast and completely free![^1]
+Eggspress is a lightweight blogging platform built on Next.js and React. It's designed to help anyone publish on the web—no command line needed. Best of all, it's lightning fast and completely free.[^1]
 
-If you're new to starting websites, get stuck setting up, or want a live demo of Eggspress, check out the [Getting Started Guide](https://eggspress.vercel.app/getting-started). It's an Eggspress chock full of screenshots and generated egg art!
+If you're new to starting websites, get stuck setting up, or want a live demo of Eggspress, check out the [Getting Started Guide](https://eggspress.vercel.app/getting-started). It's an Eggspress site that makes full use of most of Eggspress' features.
 
 ## Prerequisites
 To use Eggspress, you'll need to have accounts on:
