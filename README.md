@@ -1,4 +1,4 @@
-![Eggspress app icon](public/assets/icon-48.png) **Eggspress: The fast and lightweight blogging platform anyone can deploy**
+![Eggspress app icon](public/assets/icon-48.png) **Eggspress: The fast and lightweight blog anyone can deploy**
 
 Eggspress is a lightweight blogging platform built on Next.js and React. It's designed to help anyone publish on the web—no command line needed. Best of all, it's lightning fast and completely free.[^1]
 
