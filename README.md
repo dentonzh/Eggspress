@@ -167,7 +167,7 @@ Custom pages (found in `my_pages`) and author profiles (`my_authors`) are two co
 Pages are helpful for including one-off information. They differ from posts in that they do not appear in any lists of posts. Their paths are also different. Where posts are located at `https://<your-domain>/blog/<post-slug>`, custom pages are located at `https://<your-domain>/<page-slug>`.
 
 ## Author profiles
-Author profiles contain data used to generate author pages and author cards. These files have optional content sections. If populated, content in author profiles will appear under the list of that author's post in a section titled "Biography."^8
+Author profiles contain data used to generate author pages and author cards. These files have optional content sections. If populated, content in author profiles will appear under the list of that author's post in a section titled "Biography."[^8]
 
 To attribute a post to an author, set the `author` frontmatter field. 
 
