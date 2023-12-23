@@ -46,6 +46,8 @@ const Toc = () => {
       setShowReturnToTop(false)
       returnToTopTimer = undefined
     } else {
+      clearTimeout(returnToTopTimer)
+      returnToTopTimer = undefined
       setShowReturnToTop(true)
       returnToTopTimer = setTimeout(() => {
         setShowReturnToTop(false)
