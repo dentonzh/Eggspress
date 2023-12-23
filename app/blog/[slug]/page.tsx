@@ -12,7 +12,6 @@ import getFrontmatter from '@/app/_components/getFrontmatter'
 import PostCard from '@/app/_components/PostCard'
 import ContentHero from '@/app/_components/ContentHero'
 import HiddenContentMessage from '@/app/_components/HiddenContentMessage'
-import { PostponedPathnameNormalizer } from 'next/dist/server/future/normalizers/request/postponed'
 
 
 export async function generateStaticParams() {
@@ -147,7 +146,7 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
                   if (postData.length) {
                     const frontmatter = postData[0]
                     return (
-                      <div className="flex flex-wrap mb-3" key={`related-post-sidebar-${index}`}>
+                      <div className="flex flex-wrap mb-12" key={`related-post-sidebar-${index}`}>
                         <div className="w-full font-normal text-gray-600 dark:text-gray-300">
                           <PostCard post={frontmatter} index={0} priority={false}></PostCard>
                         </div>
