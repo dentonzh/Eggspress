@@ -24,7 +24,6 @@ const Navigation = async () => {
           </Link>
         </div>
         <div className="flex items-center dark:text-white">
-            {/* <div className="mr-1">Contact</div> */}
             <DarkModeToggle />
             <DropdownMenu>
               <NavigationMenu>
@@ -33,8 +32,6 @@ const Navigation = async () => {
                 </div>
               </NavigationMenu>
             </DropdownMenu>
-            {/* <div className="mr-1">Website</div>
-            <div className="mr-1">Blah</div> */}
         </div>
       </div>
     </nav>
