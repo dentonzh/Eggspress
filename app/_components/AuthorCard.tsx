@@ -31,17 +31,21 @@ const AuthorCard = async ({slug}: {slug: string | null}) => {
 
   return (
     <div className={`mb-16 ${await getColors('text', 'AuthorCardText', 'gray-200', 'gray-600')}`}>
-      <Link href={`/author/${slug}`} className="mb-1 flex flex-wrap">
-        {imageUrl && imageUrl.length > 0 ? (
+      <Link href={`/author/${slug}`} className={`mb-1 flex ${appearanceSettings.showAuthorCardProfileImageOnRight ? 'flex-row-reverse' : 'flex-row'}`}>
+        {(appearanceSettings.showAuthorCardProfileImage === undefined || appearanceSettings.showAuthorCardProfileImage) && imageUrl && imageUrl.length > 0 ? (
           <div className={`${imageUrl.length ? '' : 'hidden'} lg:-ml-2 mr-3 h-11 w-11 rounded-full object-cover overflow-hidden`}>
             <Image src={imageUrl} width="56" height="56" alt={`Profile image for ${authorData.name}`}></Image>
           </div>
-        ) :
-          <div className="-ml-2 mr-3 h-11 w-11 p-2 rounded-full bg-gray-200 dark:bg-gray-600 duration-150">
-            <Image src="/assets/egg.svg" width={96} height={96} alt={`Profile image for ${authorData.name}`}></Image>
+        ) : (
+          <div>
+            {(appearanceSettings.showAuthorCardProfileImage === undefined || appearanceSettings.showAuthorCardProfileImage) &&
+              <div className="-ml-2 mr-3 h-11 w-11 p-2 rounded-full bg-gray-200 dark:bg-gray-600 duration-150">
+                <Image src="/assets/egg.svg" width={96} height={96} alt={`Profile image for ${authorData.name}`}></Image>
+              </div>
+            }
           </div>
-        }
-        <div className={`font-medium my-auto ${await getColors('text', 'AuthorCardHeading')}`}>
+        )}
+        <div className={`font-medium my-auto ${await getColors('text', 'AuthorCardHeading')} ${appearanceSettings.showAuthorCardProfileImageOnRight ? 'mr-auto' : ''}`}>
           <span className={authorData.role ? '' : 'pl-2 font-semibold'}>
             {authorData.name || slug}
           </span>
