@@ -91,6 +91,20 @@ const setSafelist = async (path) => {
               if (line.startsWith('colorContentCodeTextLight')) {
                 contentClasses.push(`prose-pre:text-${value}`)
               }
+              if (line.startsWith('colorContentBlockquoteBorderDark')) {
+                contentClasses.push(`dark:prose-blockquote:border-${value}`)
+              }
+              if (line.startsWith('colorContentBlockquoteBorderLight')) {
+                contentClasses.push(`prose-blockquote:border-${value}`)
+              }
+              if (line.startsWith('colorContentTableBorderDark')) {
+                contentClasses.push(`dark:prose-tr:border-${value}`)
+                contentClasses.push(`dark:prose-thead:border-${value}`)
+              }
+              if (line.startsWith('colorContentTableBorderLight')) {
+                contentClasses.push(`prose-tr:border-${value}`)
+                contentClasses.push(`prose-thead:border-${value}`)
+              }
             }
             else if (line.startsWith('colorTheme')) {
               if (key.endsWith('Dark')) {
