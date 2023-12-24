@@ -46,9 +46,9 @@ const AuthorCard = async ({slug}: {slug: string | null}) => {
           </div>
         )}
         <div className={`font-medium my-auto ${await getColors('text', 'AuthorCardHeading')} ${appearanceSettings.showAuthorCardProfileImageOnRight ? 'mr-auto' : ''}`}>
-          <span className={authorData.role ? '' : 'pl-2 font-semibold'}>
+          <div className={`mb-0.5 ${authorData.role ? '' : 'pl-2 font-semibold'}`}>
             {authorData.name || slug}
-          </span>
+          </div>
           {authorData.role && (<div className="text-xs">{authorData.role}</div>)}
         </div>
       </Link>
