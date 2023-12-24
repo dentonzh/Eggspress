@@ -40,7 +40,7 @@ const Toc = () => {
 
   const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, elementId: string) => {
     e.preventDefault()
-    document.getElementById(elementId)?.scrollIntoView({behavior: "smooth", block: "center"})
+    document.getElementById(elementId)?.scrollIntoView({behavior: "smooth"})
     if (elementId === 'mobile-toc') {
       clearTimeout(returnToTopTimer)
       setShowReturnToTop(false)
