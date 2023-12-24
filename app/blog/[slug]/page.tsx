@@ -22,7 +22,6 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: { params: {slug: string} }) {
   const { slug } = params
   const { frontmatter, images } = await compileContent('posts', slug)
-  const blogSettings = await getEggspressSettings('metadata')
 
   return {
     title: frontmatter.title,
@@ -89,9 +88,11 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
       }
       <div className="flex justify-between w-full">
         <div className="overflow-x-hidden">
-          <div className="mb-12 lg:hidden">
-            <Toc />
-          </div>
+          {appearanceSettings.showTableOfContentsOnMobile &&
+            <div className="mb-12 lg:hidden">
+              <Toc />
+            </div>
+          }
           <div className={`eggspress-content eggspress-content-extended`}>
             {frontmatter.isVisible === false && (appearanceSettings.hiddenContentIsHidden === true || frontmatter.hideContent === true) ?
               <div>
@@ -206,9 +207,11 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
             }
           </Sidebar>
           <PageSidebar isSticky={false} slug={frontmatter.sidebar}></PageSidebar>
-          <Sidebar>
-            <Toc />
-          </Sidebar>
+          {appearanceSettings.showTableOfContentsInSidebar &&
+            <Sidebar>
+              <Toc />
+            </Sidebar>
+          }
         </div>
     </div>
     </div>
