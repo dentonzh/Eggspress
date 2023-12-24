@@ -25,7 +25,7 @@ const SiteLinks = async () => {
         )}
       </div>
       {categoryData.length > 0 && pageData.length > 0 &&
-        <div className="w-4/5 max-w-[12rem] mb-6 md:mb-3">
+        <div className="w-4/5 max-w-[12rem] mb-6 md:mb-3 opacity-40">
           <div className="underline-dotted"></div>
         </div>
       }
