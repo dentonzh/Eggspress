@@ -12,7 +12,6 @@ import getFrontmatter from '@/app/_components/getFrontmatter'
 import PostCard from '@/app/_components/PostCard'
 import ContentHero from '@/app/_components/ContentHero'
 import HiddenContentMessage from '@/app/_components/HiddenContentMessage'
-import { PostponedPathnameNormalizer } from 'next/dist/server/future/normalizers/request/postponed'
 
 
 export async function generateStaticParams() {
@@ -23,7 +22,6 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: { params: {slug: string} }) {
   const { slug } = params
   const { frontmatter, images } = await compileContent('posts', slug)
-  const blogSettings = await getEggspressSettings('metadata')
 
   return {
     title: frontmatter.title,
@@ -90,9 +88,11 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
       }
       <div className="flex justify-between w-full">
         <div className="overflow-x-hidden">
-          <div className="mb-12 lg:hidden">
-            <Toc />
-          </div>
+          {appearanceSettings.showTableOfContentsOnMobile &&
+            <div className="mb-12 lg:hidden">
+              <Toc />
+            </div>
+          }
           <div className={`eggspress-content eggspress-content-extended`}>
             {frontmatter.isVisible === false && (appearanceSettings.hiddenContentIsHidden === true || frontmatter.hideContent === true) ?
               <div>
@@ -135,7 +135,7 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
 
           {relatedPosts.length > 0
             ?
-            <div className={`${(nextPost || prevPost || authors.length) ? '' : 'mt-12'} flex border-t pt-20`}>
+            <div className={`${(nextPost || prevPost || authors.length) ? '' : 'mt-12'} flex border-t pt-12 mt-12 md:pt-20 md:mt-0`}>
               <div className="mb-8 max-w-prose">
                 <div className="flex flex-wrap mb-6">
                   <Image src="/assets/relation.svg" alt="relation icon" width={32} height={32} className="h-7 w-7 dark:border-gray-600 stroke-gray-200 fill-gray-200 brightness-50 dark:brightness-100"></Image>
@@ -147,7 +147,7 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
                   if (postData.length) {
                     const frontmatter = postData[0]
                     return (
-                      <div className="flex flex-wrap mb-3" key={`related-post-sidebar-${index}`}>
+                      <div className="flex flex-wrap mb-12" key={`related-post-sidebar-${index}`}>
                         <div className="w-full font-normal text-gray-600 dark:text-gray-300">
                           <PostCard post={frontmatter} index={0} priority={false}></PostCard>
                         </div>
@@ -207,9 +207,11 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
             }
           </Sidebar>
           <PageSidebar isSticky={false} slug={frontmatter.sidebar}></PageSidebar>
-          <Sidebar>
-            <Toc />
-          </Sidebar>
+          {appearanceSettings.showTableOfContentsInSidebar &&
+            <Sidebar>
+              <Toc />
+            </Sidebar>
+          }
         </div>
     </div>
     </div>

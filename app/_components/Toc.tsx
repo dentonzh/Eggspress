@@ -1,6 +1,7 @@
 'use client'
-import React, { DOMElement, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
+import FloatingActionButton from './FloatingActionButton'
 
 type Element = {
   top: number,
@@ -9,10 +10,13 @@ type Element = {
   tag: string
 }
 
+let returnToTopTimer: NodeJS.Timeout | undefined
+
 const Toc = () => {
   const [active, setActive] = useState<string>('')
   const [elements, setElements] = useState<Element[]>([])
   const [showToc, setShowToc] = useState<boolean>(false)  // allows fade-in animation
+  const [showReturnToTop, setShowReturnToTop] = useState<boolean>(false)  // allows fade-in animation
   const [hasNoHeadings, setHasNoHeadings] = useState<boolean>(false)  // Prevents infinite loop
   
   const getHeaderData = () => {
@@ -36,7 +40,19 @@ const Toc = () => {
 
   const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, elementId: string) => {
     e.preventDefault()
-    document.getElementById(elementId)?.scrollIntoView({behavior: "smooth"})
+    document.getElementById(elementId)?.scrollIntoView({behavior: "smooth", block: elementId === 'mobile-toc' ? 'center' : 'start'})
+    if (elementId === 'mobile-toc') {
+      clearTimeout(returnToTopTimer)
+      setShowReturnToTop(false)
+      returnToTopTimer = undefined
+    } else {
+      clearTimeout(returnToTopTimer)
+      returnToTopTimer = undefined
+      setShowReturnToTop(true)
+      returnToTopTimer = setTimeout(() => {
+        setShowReturnToTop(false)
+      }, 6000)
+    }
   }
 
   const isHeadingLevelGreaterThan = (tag: string, level: number) => {
@@ -81,7 +97,7 @@ const Toc = () => {
     <div className={`${showToc && elements.filter(el => el.id !== 'hero-subtitle').length ? 'opacity-100' : 'opacity-0 h-0'} tracking-wide leading-5 text-sm duration-200`}>
       {showToc && elements.filter(el => el.id !== 'hero-subtitle').length > 0 &&
         <div>
-          <div className="text-gray-600 dark:text-gray-300 font-bold mb-3 lg:hidden">Jump to...</div>
+          <div id="mobile-toc" className="text-gray-600 dark:text-gray-300 font-bold mb-3 lg:hidden">Jump to...</div>
           <ul className="text-gray-600 dark:text-gray-200">
             {elements.filter(el => el.id !== 'hero-subtitle').map(el =>
               <li key={el.id} id={`toc-${el.id}`}
@@ -106,6 +122,7 @@ const Toc = () => {
           </ul>
         </div>
       }
+      <FloatingActionButton icon="top.svg" text="Back to top" hidden={!showReturnToTop} onClick={(e) => {scrollToSection(e as any, 'mobile-toc')}}></FloatingActionButton>
     </div>
   )
 }

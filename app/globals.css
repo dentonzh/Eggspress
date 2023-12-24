@@ -55,3 +55,12 @@ body {
 .sidebar-body {
   @apply leading-relaxed font-light my-2;
 }
+
+h2::before, h3::before, h4::before, h5::before { 
+  display: block; 
+  content: " "; 
+  margin-top: -58px; 
+  height: 58px; 
+  visibility: hidden; 
+  pointer-events: none;
+}

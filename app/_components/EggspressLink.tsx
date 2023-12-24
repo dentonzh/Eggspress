@@ -4,6 +4,7 @@ import getSlugs from './getSlugs'
 
 interface EggspressLinkProps {
   href: string;
+  id?: string;
   children: React.ReactNode
 }
 
@@ -52,9 +53,9 @@ const processInternalUrl = async (url: string): Promise<string> => {
   return url
 }
 
-const EggspressLink: React.FC<EggspressLinkProps> = async ({href, children}: EggspressLinkProps) => {
+const EggspressLink: React.FC<EggspressLinkProps> = async ({href, id, children}: EggspressLinkProps) => {
   return (
-    isUrlAbsolute(href) ? <Link href={href} target="_blank">{children}</Link> : <Link href={await processInternalUrl(href)}>{children}</Link>
+    isUrlAbsolute(href) ? <Link href={href} id={id} target="_blank">{children}</Link> : <Link id={id} href={await processInternalUrl(href)}>{children}</Link>
   )
 }
 
