@@ -15,7 +15,7 @@ const Navigation = async () => {
       <div className="flex container justify-between">
         <div className="flex">
           <Link className="flex items-center" href='/'>
-            {appearanceSettings.showBrandLogo && 
+            {(appearanceSettings.showBrandLogo === undefined || appearanceSettings.showBrandLogo) && 
               <Image src="/assets/logo.png" height={32} width={32} style={{width: 'auto', height: 'auto'}} alt='Eggspress blog logo' className='dark:hue-rotate-270 dark:brightness-[3] mr-2' />
             }
             {appearanceSettings.showBrandText &&
@@ -24,7 +24,6 @@ const Navigation = async () => {
           </Link>
         </div>
         <div className="flex items-center dark:text-white">
-            {/* <div className="mr-1">Contact</div> */}
             <DarkModeToggle />
             <DropdownMenu>
               <NavigationMenu>
@@ -33,8 +32,6 @@ const Navigation = async () => {
                 </div>
               </NavigationMenu>
             </DropdownMenu>
-            {/* <div className="mr-1">Website</div>
-            <div className="mr-1">Blah</div> */}
         </div>
       </div>
     </nav>

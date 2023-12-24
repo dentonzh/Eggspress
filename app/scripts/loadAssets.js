@@ -23,7 +23,14 @@ const setFontFamily = async (path) => {
         }
       }
     }
-  } catch (e) { console.warn(`Prebuild error encountered while adding custom font: ${e}`) } // skip setting custom font if settings are not available, typically during setup
+  } catch (e) { 
+    console.warn(`Prebuild error encountered while adding custom font. Applying default font "Roboto Flex."`)
+  
+    fs.writeFileSync(
+      'app/_components/UserFont.tsx',
+      `import { Roboto_Flex } from 'next/font/google'\nconst font = Roboto_Flex({ subsets: ['latin'], })\nexport default font`
+    )
+  } // should only run into this error during setup when file is not found, in which case we manually set a font
 
 }
 
@@ -132,7 +139,27 @@ const setSafelist = async (path) => {
           `.eggspress-content-extended {\n@apply ${contentClasses.join(' ')};\n}`)
       }
     }
-  } catch (e) { console.warn(`Prebuild error encountered while adding custom colors: ${e}`) } // skip setting custom font if settings are not available, typically during setup
+  } catch (e) {
+    console.warn(`Prebuild error encountered while adding custom colors. Applying minimal set of colors for Setup mode.`)
+
+    const safelist = [
+      'dark:bg-slate-900',
+      'dark:bg-slate-800',
+      'dark:bleed-slate-800',
+      'dark:bg-slate-800',
+      'dark:text-gray-200',
+      'dark:text-white',
+      'bg-gray-100',
+      'bg-white',
+      'bleed-white',
+      'text-gray-800',
+    ]
+
+    fs.writeFileSync(
+      'app/safelist.ts',
+      `const safelist = [${safelist.map(x => `'${x}'`)}]\nexport default safelist`
+    )
+  } // should only run into this error during setup when file is not found, in which case we set a minimum set of colors in safelist
 
 }
 

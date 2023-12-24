@@ -104,10 +104,10 @@ const PostCard = async ({ post, index, priority=true }: PostProps) => {
           <div className={`text-sm font-medium ${(appearanceSettings.showPostCardAuthor && authorData) && appearanceSettings.showPostCardCategory && post.category ? 'w-full sm:w-auto mt-2 sm:mt-0' : ''}`}>{convertDate(post.date || post.publishDate)}</div>
         }
       </div>
-      {appearanceSettings.showPostCardSnippet &&
+      {(appearanceSettings.showPostCardSnippet === undefined || appearanceSettings.showPostCardSnippet) &&
         <div className='w-full mb-3 leading-7 line-clamp-4'>{post.snippet || post.description}</div>
       }
-      {appearanceSettings.showPostCardReadMoreButton && post.slug &&
+      {(appearanceSettings.showPostCardReadMoreButton === undefined || appearanceSettings.showPostCardReadMoreButton) && post.slug &&
         <div className={`${await getColors('text', 'PostCardReadMoreText', 'white', 'gray-800')}`}>
           <ReadMore slug={post.slug}></ReadMore>
         </div>
