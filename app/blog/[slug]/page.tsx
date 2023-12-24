@@ -135,7 +135,7 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
 
           {relatedPosts.length > 0
             ?
-            <div className={`${(nextPost || prevPost || authors.length) ? '' : 'mt-12'} flex border-t pt-20`}>
+            <div className={`${(nextPost || prevPost || authors.length) ? '' : 'mt-12'} flex border-t pt-12 mt-12 md:pt-20 md:mt-0`}>
               <div className="mb-8 max-w-prose">
                 <div className="flex flex-wrap mb-6">
                   <Image src="/assets/relation.svg" alt="relation icon" width={32} height={32} className="h-7 w-7 dark:border-gray-600 stroke-gray-200 fill-gray-200 brightness-50 dark:brightness-100"></Image>

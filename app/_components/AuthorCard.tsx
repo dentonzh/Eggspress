@@ -55,8 +55,8 @@ const AuthorCard = async ({slug}: {slug: string | null}) => {
       }
       <div className="flex flex-wrap">
         {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(async (index) => {return (authorData['socialLink' + index] &&
-          <div className={`text-sm w-1/2 md:w-full mb-4 md:mb-1 ${await getColors('text', 'AuthorCardLinkLabel', 'gray-400', 'gray-500')}`}>
-            <span>
+          <div className={`text-sm w-1/2 md:w-full mb-4 md:mb-2 ${await getColors('text', 'AuthorCardLinkLabel', 'gray-400', 'gray-500')}`}>
+            <span className="pr-1 block md:inline-block">
               {authorData['socialPlatform' + index] && authorData['socialHandle' + index] ? `${authorData['socialPlatform' + index]}: ` : 'Social: '}
             </span>
             <a 
@@ -71,8 +71,8 @@ const AuthorCard = async ({slug}: {slug: string | null}) => {
           </div>
         )})}
         {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(async (index) => {return (authorData['websiteLink' + index] &&
-          <div className={`text-sm w-1/2 md:w-full mb-4 md:mb-1 ${await getColors('text', 'AuthorCardLinkLabel', 'gray-400', 'gray-500')}`}>
-            <span className="pr-1">
+          <div className={`text-sm w-1/2 md:w-full mb-4 md:mb-2 ${await getColors('text', 'AuthorCardLinkLabel', 'gray-400', 'gray-500')}`}>
+            <span className="pr-1 block md:inline-block">
               {authorData['websiteLabel' + index] || 'Website'}:
             </span>
             <a href={authorData['websiteLink' + index]} target="_blank" rel="" className={`underline-animated underline-dotted ${await getColors('text', 'AuthorCardLinkText', 'gray-400', 'gray-700')} ${await getColors('hover:text', 'AuthorCardLinkTextHover', 'gray-300', 'gray-800')}`}>
