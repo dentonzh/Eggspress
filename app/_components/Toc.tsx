@@ -51,7 +51,7 @@ const Toc = () => {
       setShowReturnToTop(true)
       returnToTopTimer = setTimeout(() => {
         setShowReturnToTop(false)
-      }, 5600)
+      }, 6000)
     }
   }
 
