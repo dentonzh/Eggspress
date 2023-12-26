@@ -1,6 +1,29 @@
 const fs = require('fs-extra')
 const readline = require('readline')
 
+const getValueFromFileWithKey = async (filepath, key) => {
+  try {
+    const fileStream = fs.createReadStream(filepath)
+    if (fileStream) {
+      const rl = readline.createInterface({
+        input: fileStream,
+        crlfDelay: Infinity
+      })
+    
+      for await (const line of rl) {
+        if (line.startsWith(key)) {
+          const value = line.slice(line.indexOf(':') + 1).replaceAll('"', '').replaceAll("'", "").trim().replaceAll(' ', '_')
+          return value
+        }
+      }
+      return null
+    }
+  } catch (e) { 
+    console.log(e)
+    return null
+  }
+}
+
 const setFontFamily = async (path) => {
   try {
     const fileStream = fs.createReadStream(path)
@@ -36,8 +59,17 @@ const setFontFamily = async (path) => {
 
 
 const setSafelist = async (path) => {
+
+  const colorScheme = await getValueFromFileWithKey('my_settings/appearance.md', 'colorScheme')
+  let fileToRead = path
+
+  if (colorScheme) {
+    console.log('Found color scheme: ', colorScheme, `my_settings/colors/${colorScheme}.md`)
+    fileToRead = `my_settings/colors/${colorScheme}.md`
+  }
+  
   try {
-    const fileStream = fs.createReadStream(path)
+    const fileStream = fs.createReadStream(fileToRead)
     if (fileStream) {
       const rl = readline.createInterface({
         input: fileStream,
