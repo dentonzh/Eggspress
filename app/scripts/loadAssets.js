@@ -137,6 +137,12 @@ const setSafelist = async (path) => {
                 contentClasses.push(`prose-tr:border-${value}`)
                 contentClasses.push(`prose-thead:border-${value}`)
               }
+              if (line.startsWith('colorContentListMarkerDark')) {
+                contentClasses.push(`dark:marker:text-${value}`)
+              }
+              if (line.startsWith('colorContentListMarkerLight')) {
+                contentClasses.push(`marker:text-${value}`)
+              }
             }
             else if (line.startsWith('colorTheme')) {
               if (key.endsWith('Dark')) {
