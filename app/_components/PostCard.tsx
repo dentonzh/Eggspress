@@ -85,7 +85,7 @@ const PostCard = async ({ post, index, priority=true }: PostProps) => {
               )
             })}
             {(appearanceSettings.showPostCardCategory || appearanceSettings.showPostCardDate) &&
-              <div className="px-1 text-sm font-medium text-gray-300 dark:text-gray-700">|</div>
+              <div className="px-1 text-sm font-medium text-gray-300 dark:text-gray-400">|</div>
             }
           </div>
         }
@@ -96,7 +96,7 @@ const PostCard = async ({ post, index, priority=true }: PostProps) => {
             </Link>
             {
               appearanceSettings.showPostCardDate && (post.date || post.publishDate) &&
-              <div className={`px-1 text-sm font-medium text-gray-300 dark:text-gray-700 ${(post.date || post.publishDate) && appearanceSettings.showPostCardCategory && post.category && appearanceSettings.showPostCardAuthor && authorData ? 'hidden sm:inline-block' : ''}`}>|</div>
+              <div className={`px-1 text-sm font-medium text-gray-300 dark:text-gray-400 ${(post.date || post.publishDate) && appearanceSettings.showPostCardCategory && post.category && appearanceSettings.showPostCardAuthor && authorData ? 'hidden sm:inline-block' : ''}`}>|</div>
             }
           </div>
         }
