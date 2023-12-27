@@ -108,9 +108,9 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
           </div>
 
           {(nextPost || prevPost) &&
-              <div className="flex flex-wrap border-t dark:border-gray-700 mt-12 py-6 text-gray-800 dark:text-gray-200 justify-between">
+              <div className="flex flex-wrap border-t dark:border-gray-600 mt-12 py-6 text-gray-800 dark:text-gray-200 justify-between">
                 {prevPost &&
-                <Link className="grow my-3" href={`/blog/${prevPost.slug}`}>
+                <Link className="grow my-3 mr-2" href={`/blog/${prevPost.slug}`}>
                     <div className="text-sm font-light mb-2">Previous Post</div>
                     <div className="font-semibold">{prevPost.title}</div>
                 </Link>
@@ -125,7 +125,7 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
           }
 
           {authors.length > 0 &&
-            <div className={`${(nextPost || prevPost) ? '' : 'mt-12' } flex lg:hidden px-1 border-t dark:border-gray-700 -mb-16 pt-12`}>
+            <div className={`${(nextPost || prevPost) ? '' : 'mt-12' } flex lg:hidden px-1 border-t dark:border-gray-600 -mb-16 pt-12`}>
               <div className="md:w-5/6">
                 {authors.map((author: string) => 
                   <AuthorCard key={`author-body-${author}`} slug={author}></AuthorCard>
@@ -136,7 +136,7 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
 
           {relatedPosts.length > 0
             ?
-            <div className={`${(nextPost || prevPost || authors.length) ? '' : 'mt-12'} flex border-t pt-12 mt-12 md:pt-20 md:mt-0`}>
+            <div className={`${(nextPost || prevPost || authors.length) ? '' : 'mt-12'} flex border-t dark:border-gray-600 pt-12 mt-12 md:pt-20 md:mt-0`}>
               <div className="mb-8 max-w-prose">
                 <div className="flex flex-wrap mb-6">
                   <Image src="/assets/relation.svg" alt="relation icon" width={32} height={32} className="h-7 w-7 dark:border-gray-600 stroke-gray-200 fill-gray-200 brightness-50 dark:brightness-100"></Image>
