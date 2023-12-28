@@ -1,4 +1,5 @@
 const fs = require('fs-extra')
+const archiver = require('archiver')
 const readline = require('readline')
 
 const getValueFromFileWithKey = async (filepath, key) => {
@@ -19,7 +20,6 @@ const getValueFromFileWithKey = async (filepath, key) => {
       return null
     }
   } catch (e) { 
-    console.log(e)
     return null
   }
 }
@@ -243,3 +243,16 @@ Object.keys(assetsMap).map((file) => {
   }
 })
 
+// Check if Eggspress is in Setup Mode
+if (!fs.existsSync('my_settings/metadata.md')) {
+  console.log('Eggspress is in Setup Mode.')
+  console.log('To build outside of Setup Mode, ensure that your workspace folders starting with "my_" are in the root of your repository.')
+  console.log('---')
+  const output = fs.createWriteStream('public/assets/eggspress_starter_workspace.zip')
+  const archive = archiver('zip', { zlib: { level: 0 } })
+  archive.directory('app/_workspace/', false)
+  archive.finalize()
+  output.on('close', () => {
+    console.log(`Successfully created eggspress_starter_workspace.zip (${archive.pointer} total bytes)`)
+  })
+}
