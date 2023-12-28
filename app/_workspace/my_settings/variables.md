@@ -1,0 +1,4 @@
+---
+googleAnalyticsPropertyId: ""
+amazonAssociatesTrackingId: ""
+---

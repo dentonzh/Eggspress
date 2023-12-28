@@ -1,5 +1,7 @@
 const fs = require('fs-extra')
+const archiver = require('archiver')
 const readline = require('readline')
+const { stream } = require('glob')
 
 const getValueFromFileWithKey = async (filepath, key) => {
   try {
@@ -19,7 +21,6 @@ const getValueFromFileWithKey = async (filepath, key) => {
       return null
     }
   } catch (e) { 
-    console.log(e)
     return null
   }
 }
@@ -47,7 +48,7 @@ const setFontFamily = async (path) => {
       }
     }
   } catch (e) { 
-    console.warn(`Prebuild error encountered while adding custom font. Applying default font "Roboto Flex."`)
+    console.log(`    Info: Custom font not specified. Applying default font "Roboto Flex."`)
   
     fs.writeFileSync(
       'app/_components/UserFont.tsx',
@@ -198,7 +199,7 @@ const setSafelist = async (path) => {
       }
     }
   } catch (e) {
-    console.warn(`Prebuild error encountered while adding custom colors. Applying minimal set of colors for Setup mode.`)
+    console.log(`    Info: Color scheme not specified or not defined. Applying minimum default color scheme.`)
 
     const safelist = [
       'dark:bg-slate-900',
@@ -240,6 +241,36 @@ Object.keys(assetsMap).map((file) => {
 
   if (fs.existsSync(sourceFile)) {
     fs.copySync(sourceFile, destinationFile)
+  }
+})
+
+// Check if Eggspress is in Setup Mode- if so, create eggspress_starter_workspace.zip
+new Promise((resolve, reject) => {
+  if (!fs.existsSync('my_settings/metadata.md')) {
+    console.log('   > Eggspress is in Setup Mode')
+    console.log('   > To exit Setup Mode:')
+    console.log('     1. Download eggspress_starter_workspace.zip and unzip its contents')
+    console.log('     2. Upload workspace contents (folders starting with "my_") to the root of your repository')
+    console.log('')
+    
+  
+    const output = fs.createWriteStream('public/assets/eggspress_starter_workspace.zip')
+    const archive = archiver('zip', { zlib: { level: 0 } })
+  
+    archive
+      .directory('app/_workspace/', false)
+      .on('warning', (e) => {console.log(e)})
+      .pipe(output)
+    
+    output.on('close', () => {
+      console.log(`    Info: Created eggspress_starter_workspace.zip (${archive.pointer()} bytes)`)
+      resolve()
+    })
+
+    archive.finalize()
+  } else {
+    console.log('    > Configuring Eggspress')
+    resolve()
   }
 })
 
