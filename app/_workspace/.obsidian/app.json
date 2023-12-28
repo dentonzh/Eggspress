@@ -1,0 +1,8 @@
+{
+  "propertiesInDocument": "source",
+  "newLinkFormat": "absolute",
+  "useMarkdownLinks": true,
+  "attachmentFolderPath": "./images",
+  "newFileLocation": "current",
+  "alwaysUpdateLinks": true
+}
