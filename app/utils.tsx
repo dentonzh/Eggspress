@@ -146,20 +146,28 @@ export async function getColors(prefix: string, colorKey: string, fallbackDark='
   // the correct color classes. This automatically checks for Light- and Dark- suffixed keys
 
   const appearanceSettings = await getEggspressSettings('appearance')
+  const colorScheme = appearanceSettings?.colorScheme
+
+  let colorSettings = appearanceSettings
+
+  if (colorScheme) {
+    colorSettings = await getEggspressSettings(`colors/${colorScheme}`)
+  }
+
   const key = `color${colorKey}`
   
   let classNames = []
 
-  if (appearanceSettings[`${key}Dark`]) {
-    const className = `dark:${prefix}-${appearanceSettings[`${key}Dark`]}`
+  if (colorSettings[`${key}Dark`]) {
+    const className = `dark:${prefix}-${colorSettings[`${key}Dark`]}`
     classNames.push(className)
   } else if (fallbackDark) {
     const className = `dark:${prefix}-${fallbackDark}`
     classNames.push(className)
   }
   
-  if (appearanceSettings[`${key}Light`]) {
-    const className = `${prefix}-${appearanceSettings[`${key}Light`]}`
+  if (colorSettings[`${key}Light`]) {
+    const className = `${prefix}-${colorSettings[`${key}Light`]}`
     classNames.push(className)
   } else if (fallbackLight) {
     const className = `${prefix}-${fallbackLight}`
