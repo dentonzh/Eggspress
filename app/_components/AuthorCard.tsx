@@ -1,6 +1,6 @@
 import React from 'react'
 import getFrontmatter from './getFrontmatter'
-import { getColors, copyImageToPublic, getEggspressSettings, getImageFilesRecursively } from '../utils'
+import { getColors, copyImageToPublic, getEggspressSettings, getImageFilesRecursively, buildLink } from '../utils'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -65,7 +65,7 @@ const AuthorCard = async ({slug}: {slug: string | null}) => {
                 {authorData['socialPlatform' + index] && authorData['socialHandle' + index] ? `${authorData['socialPlatform' + index]}: ` : 'Social: '}
               </span>
               <a 
-                href={authorData['socialLink' + index]} 
+                href={await buildLink(authorData['socialLink' + index])} 
                 target="_blank" 
                 rel="nofollow noopener" 
                 className={`underline-animated underline-dotted ${await getColors('text', 'AuthorCardLinkText', 'gray-400', 'gray-700')} ${await getColors('hover:text', 'AuthorCardLinkTextHover', 'gray-300', 'gray-800')}`}
@@ -80,7 +80,7 @@ const AuthorCard = async ({slug}: {slug: string | null}) => {
               <span className="pr-1 block md:inline-block">
                 {authorData['websiteLabel' + index] || 'Website'}:
               </span>
-              <a href={authorData['websiteLink' + index]} target="_blank" rel="" className={`underline-animated underline-dotted ${await getColors('text', 'AuthorCardLinkText', 'gray-400', 'gray-700')} ${await getColors('hover:text', 'AuthorCardLinkTextHover', 'gray-300', 'gray-800')}`}>
+              <a href={await buildLink(authorData['websiteLink' + index])} target="_blank" rel="" className={`underline-animated underline-dotted ${await getColors('text', 'AuthorCardLinkText', 'gray-400', 'gray-700')} ${await getColors('hover:text', 'AuthorCardLinkTextHover', 'gray-300', 'gray-800')}`}>
                 {authorData['websiteName' + index] ? authorData['websiteName' + index] : authorData['websiteLink' + index].slice(authorData['websiteLink' + index].lastIndexOf('://')+3)}
               </a>
             </div>
