@@ -205,6 +205,8 @@ export async function buildLink(url: string) {
             newUrl += linkSettings[`modifyLinkSetPrefix${i}`]
           }
           newUrl += `https://${linkSettings[`modifyLinkSetPrefix${i}`]}`
+        } else {
+          newUrl += 'https://'
         }
 
 
