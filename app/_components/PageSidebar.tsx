@@ -3,7 +3,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import Sidebar from './Sidebar'
 import getFrontmatter from './getFrontmatter'
-import { getImageFilesRecursively, copyImageToPublic, getColors } from '@/app/utils'
+import { getImageFilesRecursively, copyImageToPublic, getColors, buildLink } from '@/app/utils'
 
 const PageSidebar = async ({slug, isSticky=true}: {slug: string | null, isSticky?: boolean}) => {
   if (!slug) {
@@ -82,7 +82,7 @@ const PageSidebar = async ({slug, isSticky=true}: {slug: string | null, isSticky
                   {linkText && link &&
                     <Link className={`font-normal duration-100 underline-animated underline-dotted ${await getColors('text', 'SidebarLinkText')} ${await getColors('hover:text', 'SidebarLinkTextHover')}`} 
                       target="_blank" 
-                      href={link}
+                      href={await buildLink(link)}
                     >
                       {linkText}
                     </Link>
@@ -90,7 +90,7 @@ const PageSidebar = async ({slug, isSticky=true}: {slug: string | null, isSticky
                   {!linkText && link &&
                     <Link className={`font-normal duration-100 underline-animated underline-dotted ${await getColors('text', 'SidebarLinkText')} ${await getColors('hover:text', 'SidebarLinkTextHover')}`} 
                       target="_blank" 
-                      href={link}
+                      href={await buildLink(link)}
                     >
                       {link.replace('https://', '')}
                     </Link>
