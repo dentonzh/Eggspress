@@ -45,7 +45,7 @@ body {
 }
 
 p > code {
-  @apply px-0.5 border-y-2;
+  @apply px-1 border-y-2;
 }
 
 .sidebar-section {
