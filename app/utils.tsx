@@ -197,10 +197,11 @@ export async function buildLink(url: string) {
       }
 
       if ( isMatch ) {
-        let newUrl = 'https://'
+        let newUrl = ''
         if (linkSettings[`modifyLinkSetPrefix${i}`]) {
           newUrl += linkSettings[`modifyLinkSetPrefix${i}`]
-        }
+        } 
+        newUrl += 'https://'
         if (linkSettings[`modifyLinkSetNewBaseUrl${i}`]) {
           newUrl += linkSettings[`modifyLinkSetNewBaseUrl${i}`]
         } else {
