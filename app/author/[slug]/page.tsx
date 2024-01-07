@@ -5,7 +5,7 @@ import getSlugs from '../../_components/getSlugs'
 import Sidebar from '../../_components/Sidebar'
 import PostCard from '../../_components/PostCard'
 import ContentHero from '../../_components/ContentHero'
-import { copyImageToPublic, getImageFilesRecursively, getEggspressSettings, getColors } from '../../utils'
+import { copyImageToPublic, getImageFilesRecursively, getEggspressSettings, getColors, buildLink } from '../../utils'
 import PaginationLink from '@/app/_components/PaginationLink'
 import HiddenContentMessage from '@/app/_components/HiddenContentMessage'
 
@@ -134,7 +134,7 @@ const AuthorPage =  async ( {params}: {params: {slug: string}} ) => {
             <div key={`${frontmatter['socialLink' + index]}-${index}`} className={`sidebar-section ${await getColors('text', 'SidebarText', 'gray-300', 'gray-600')}`}>
               <div>
                 <h4 className={`sidebar-heading ${await getColors('text', 'SidebarHeading')}`}>{frontmatter['socialPlatform' + index] ? `${frontmatter['socialPlatform' + index]}` : 'Social'}</h4>
-                <a href={frontmatter['socialLink' + index]} target="_blank" rel="nofollow noopener" className={`underline-animated underline-dotted ${await getColors('text', 'SidebarLinkText')} ${await getColors('hover:text', 'SidebarLinkTextHover')} `}>
+                <a href={await buildLink(frontmatter['socialLink' + index])} target="_blank" rel="nofollow noopener" className={`underline-animated underline-dotted ${await getColors('text', 'SidebarLinkText')} ${await getColors('hover:text', 'SidebarLinkTextHover')} `}>
                   {frontmatter['socialHandle' + index] ? `@${frontmatter['socialHandle' + index].replace('@', '')}` : ''}
                   {!frontmatter['socialHandle' + index] ? frontmatter['socialLink' + index].slice(frontmatter['socialLink' + index].lastIndexOf('://')+3) : '' }
                 </a>
@@ -151,7 +151,7 @@ const AuthorPage =  async ( {params}: {params: {slug: string}} ) => {
                   {frontmatter['websiteDescription' + index]}
                 </div>
               }
-              <a href={frontmatter['websiteLink' + index]} target="_blank" rel="" className={`underline-animated underline-dotted ${await getColors('text', 'SidebarLinkText')} ${await getColors('hover:text', 'SidebarLinkTextHover')} `}>
+              <a href={await buildLink(frontmatter['websiteLink' + index])} target="_blank" rel="" className={`underline-animated underline-dotted ${await getColors('text', 'SidebarLinkText')} ${await getColors('hover:text', 'SidebarLinkTextHover')} `}>
                 {frontmatter['websiteName' + index] ? frontmatter['websiteName' + index] : frontmatter['websiteLink' + index].slice(frontmatter['websiteLink' + index].lastIndexOf('://')+3)}
               </a>
             </div>

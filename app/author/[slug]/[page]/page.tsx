@@ -6,7 +6,7 @@ import Sidebar from '../../../_components/Sidebar'
 import PostCard from '../../../_components/PostCard'
 import ContentHero from '../../../_components/ContentHero'
 import PaginationCard from '../../../_components/PaginationCard'
-import { copyImageToPublic, getImageFilesRecursively, getEggspressSettings } from '../../../utils'
+import { copyImageToPublic, getImageFilesRecursively, getEggspressSettings, buildLink } from '../../../utils'
 import Image from 'next/image'
 
 
@@ -135,23 +135,23 @@ const AuthorPaginatedPage =  async ( {params}: {params: {slug: string, page: str
             </div>
           )})}
 
-          {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(index => {return (frontmatter['socialLink' + index] &&
+          {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(async (index) => {return (frontmatter['socialLink' + index] &&
             <div key={`${frontmatter['socialLink' + index]}-${index}`} className="sidebar-section">
               <div>
                 <h4 className="sidebar-heading">{frontmatter['socialPlatform' + index] ? `${frontmatter['socialPlatform' + index]}` : 'Social'}</h4>
-                <a href={frontmatter['socialLink' + index]} target="_blank" rel="nofollow noopener" className="text-gray-700 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-300 underline-animated">
+                <a href={await buildLink(frontmatter['socialLink' + index])} target="_blank" rel="nofollow noopener" className="text-gray-700 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-300 underline-animated">
                   {frontmatter['socialHandle' + index] ? `@${frontmatter['socialHandle' + index].replace('@', '')}` : ''}
                   {!frontmatter['socialHandle' + index] ? frontmatter['socialLink' + index].slice(frontmatter['socialLink' + index].lastIndexOf('://')+3) : '' }
                 </a>
               </div>
             </div>
           )})}
-          {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(index => {return (frontmatter['websiteLink' + index] &&
+          {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(async (index) => {return (frontmatter['websiteLink' + index] &&
             <div className="text-sm text-gray-500 w-1/2 md:w-full mb-4 md:mb-1" key={`website-link-${frontmatter.slug}-${index}`}>
               <h4 className="sidebar-heading">
                 {frontmatter['websiteLabel' + index] || 'Website'}
               </h4>
-              <a href={frontmatter['websiteLink' + index]} target="_blank" rel="" className="text-gray-700 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-300 underline-animated">
+              <a href={await buildLink(frontmatter['websiteLink' + index])} target="_blank" rel="" className="text-gray-700 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-300 underline-animated">
                 {frontmatter['websiteDescription' + index] &&
                   <div className="text-gray-700 dark:text-gray-400">
                     {frontmatter['websiteDescription' + index]}
