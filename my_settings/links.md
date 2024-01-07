@@ -30,17 +30,17 @@ modifyLinkSetPrefix1: ""
 modifyLinkSetSuffix1: "?utm_source=eggspress&utm_medium=blog&utm_campaign=new_blog"
 modifyLinkSetNewBaseUrl1: ""
 
-modifyLinkBaseUrl2: ""
+modifyLinkBaseUrl2: "linkedin.com"
 modifyLinkStrictMatch2: true
-modifyLinkSetPrefix2: ""
-modifyLinkSetSuffix2: ""
+modifyLinkSetPrefix2: "https://opencourser.com/?source="
+modifyLinkSetSuffix2: "?testing=true"
 modifyLinkSetNewBaseUrl2: ""
 
-modifyLinkBaseUrl3: ""
+modifyLinkBaseUrl3: "twitter.com"
 modifyLinkStrictMatch3: true
 modifyLinkSetPrefix3: ""
-modifyLinkSetSuffix3: ""
-modifyLinkSetNewBaseUrl3: ""
+modifyLinkSetSuffix3: "?test=verytrue"
+modifyLinkSetNewBaseUrl3: "x.com"
 
 modifyLinkBaseUrl4: ""
 modifyLinkStrictMatch4: true
