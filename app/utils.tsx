@@ -179,10 +179,12 @@ export async function getColors(prefix: string, colorKey: string, fallbackDark='
 
 export async function buildLink(url: string) {
   const linkSettings = await getEggspressSettings('links')
-  const re = /:\/\/([^\/]*)/;
-  const match = url.match(re)
+  const re = /:\/\/([^\/]*)(.*)/;
+  const match = url.match(re);
 
+  
   if ( (match && match[1]) ) {
+    console.log(match)
     const baseUrl = match[1]
     for ( let i = 1; i <= 20; i++ ) {
 
@@ -199,16 +201,29 @@ export async function buildLink(url: string) {
       if ( isMatch ) {
         let newUrl = ''
         if (linkSettings[`modifyLinkSetPrefix${i}`]) {
-          newUrl += linkSettings[`modifyLinkSetPrefix${i}`]
-        } 
-        newUrl += 'https://'
+          if (linkSettings[`modifyLinkSetPrefix${i}`] && linkSettings[`modifyLinkSetPrefix${i}`].includes('://')) {
+            newUrl += linkSettings[`modifyLinkSetPrefix${i}`]
+          }
+          newUrl += `https://${linkSettings[`modifyLinkSetPrefix${i}`]}`
+        } else {
+          newUrl += 'https://'
+        }
+
+
         if (linkSettings[`modifyLinkSetNewBaseUrl${i}`]) {
           newUrl += linkSettings[`modifyLinkSetNewBaseUrl${i}`]
         } else {
           newUrl += baseUrl
         }
+
+        newUrl += match[2] || ''
+
         if (linkSettings[`modifyLinkSetSuffix${i}`]) {
-          newUrl += linkSettings[`modifyLinkSetSuffix${i}`]
+          if (match[2] && match[2].includes('?')) {
+            newUrl += linkSettings[`modifyLinkSetSuffix${i}`].replaceAll('?', '&')
+          } else {
+            newUrl += linkSettings[`modifyLinkSetSuffix${i}`]
+          }
         }
         return newUrl
       }
