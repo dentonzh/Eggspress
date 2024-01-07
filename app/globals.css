@@ -44,6 +44,10 @@ body {
   @apply prose max-w-none lg:max-w-prose dark:prose-invert prose-h1:font-bold prose-blockquote:not-italic prose-blockquote:font-normal -mt-2 mb-20 prose-pre:bg-gray-100 prose-pre:text-gray-700 prose-pre:dark:bg-gray-700 prose-pre:dark:text-gray-200 prose-code:bg-gray-100 prose-code:dark:bg-gray-700 prose-code:rounded-sm;
 }
 
+p > code {
+  @apply px-1 border-y-2;
+}
+
 .sidebar-section {
   @apply text-sm mb-8;
 }
