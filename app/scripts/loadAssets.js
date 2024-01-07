@@ -117,10 +117,12 @@ const setSafelist = async (path) => {
               if (line.startsWith('colorContentCodeBackgroundDark')) {
                 contentClasses.push(`dark:prose-pre:bg-${value}`)
                 contentClasses.push(`dark:prose-code:bg-${value}`)
+                contentClasses.push(`dark:prose-code:border-${value}`)
               }
               if (line.startsWith('colorContentCodeBackgroundLight')) {
                 contentClasses.push(`prose-pre:bg-${value}`)
                 contentClasses.push(`prose-code:bg-${value}`)
+                contentClasses.push(`prose-code:border-${value}`)
               }
               if (line.startsWith('colorContentCodeTextDark')) {
                 contentClasses.push(`dark:prose-pre:text-${value}`)
