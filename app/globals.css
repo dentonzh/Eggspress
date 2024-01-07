@@ -44,12 +44,8 @@ body {
   @apply prose max-w-none lg:max-w-prose dark:prose-invert prose-h1:font-bold prose-blockquote:not-italic prose-blockquote:font-normal -mt-2 mb-20 prose-pre:bg-gray-100 prose-pre:text-gray-700 prose-pre:dark:bg-gray-700 prose-pre:dark:text-gray-200 prose-code:bg-gray-100 prose-code:dark:bg-gray-700 prose-code:rounded-sm;
 }
 
-code {
-  @apply px-0.5;
-}
-
-pre > code {
-  @apply px-0;
+p > code {
+  @apply absolute px-0.5 -top-0.5 -bottom-0.5;
 }
 
 .sidebar-section {
