@@ -34,7 +34,7 @@ modifyLinkBaseUrl2: "twitter.com"
 modifyLinkStrictMatch2: true
 modifyLinkSetPrefix2: ""
 modifyLinkSetSuffix2: "?test=true"
-modifyLinkSetNewBaseUrl2: ""
+modifyLinkSetNewBaseUrl2: "x.com"
 
 modifyLinkBaseUrl3: "github.com"
 modifyLinkStrictMatch3: true
