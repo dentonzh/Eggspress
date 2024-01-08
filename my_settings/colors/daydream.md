@@ -10,7 +10,7 @@ colorThemeFooterLight: "indigo-300"
 
 colorNavBarBrandTextDark: "indigo-200"
 colorNavBarBrandTextLight: "sky-700"
-colorNavMenuBackgroundDark: "indigo-700"
+colorNavMenuBackgroundDark: "[#413450]"
 colorNavMenuBackgroundLight: "indigo-100"
 colorNavMenuBackgroundShadowDark: "fuchsia-200/50"
 colorNavMenuBackgroundShadowLight: "[#a5b4fc]/50"
