@@ -5,7 +5,7 @@ import getSlugs from '../../_components/getSlugs'
 import Sidebar from '../../_components/Sidebar'
 import PostCard from '../../_components/PostCard'
 import ContentHero from '../../_components/ContentHero'
-import { copyImageToPublic, getImageFilesRecursively, getEggspressSettings, getColors } from '../../utils'
+import { copyImageToPublic, getImageFilesRecursively, getEggspressSettings, getColors, buildLink, setAnchorTargetProperty, isUrlAbsolute } from '../../utils'
 import PaginationLink from '@/app/_components/PaginationLink'
 import HiddenContentMessage from '@/app/_components/HiddenContentMessage'
 
@@ -131,18 +131,21 @@ const AuthorPage =  async ( {params}: {params: {slug: string}} ) => {
           )})}
 
           {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(async (index) => {return (frontmatter['socialLink' + index] &&
-            <div key={`${frontmatter['socialLink' + index]}-${index}`} className={`sidebar-section ${await getColors('text', 'SidebarText', 'gray-300', 'gray-600')}`}>
+            <div className={`mb-6 text-sm ${await getColors('text', 'SidebarText', 'gray-300', 'gray-600')}`} key={`${frontmatter['socialLink' + index]}-${index}`}>
               <div>
                 <h4 className={`sidebar-heading ${await getColors('text', 'SidebarHeading')}`}>{frontmatter['socialPlatform' + index] ? `${frontmatter['socialPlatform' + index]}` : 'Social'}</h4>
-                <a href={frontmatter['socialLink' + index]} target="_blank" rel="nofollow noopener" className={`underline-animated underline-dotted ${await getColors('text', 'SidebarLinkText')} ${await getColors('hover:text', 'SidebarLinkTextHover')} `}>
+                <a href={await buildLink(frontmatter['socialLink' + index])} target={setAnchorTargetProperty(frontmatter['socialLink' + index])} rel="nofollow noopener" className={`mb-3 underline-animated underline-dotted ${await getColors('text', 'SidebarLinkText')} ${await getColors('hover:text', 'SidebarLinkTextHover')} `}>
                   {frontmatter['socialHandle' + index] ? `@${frontmatter['socialHandle' + index].replace('@', '')}` : ''}
-                  {!frontmatter['socialHandle' + index] ? frontmatter['socialLink' + index].slice(frontmatter['socialLink' + index].lastIndexOf('://')+3) : '' }
+                  {!frontmatter['socialHandle' + index] ?
+                    frontmatter['socialLink' + index].slice(isUrlAbsolute(frontmatter['socialLink' + index]) ? frontmatter['socialLink' + index].lastIndexOf('://') + 3 : frontmatter['socialLink' + index].lastIndexOf('/') + 1) : 
+                    '' 
+                  }
                 </a>
               </div>
             </div>
           )})}
           {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(async (index) => {return (frontmatter['websiteLink' + index] &&
-            <div className={`text-sm text-gray-500 w-1/2 md:w-full mb-4 md:mb-1 ${await getColors('text', 'SidebarText', 'gray-300', 'gray-600')}`} key={`website-link-${frontmatter.slug}-${index}`}>
+            <div className={`mb-6 text-sm text-gray-500 w-1/2 md:w-full ${await getColors('text', 'SidebarText', 'gray-300', 'gray-600')}`} key={`website-link-${frontmatter.slug}-${index}`}>
               <h4 className={`sidebar-heading ${await getColors('text', 'SidebarHeading')}`}>
                 {frontmatter['websiteLabel' + index] || 'Website'}
               </h4>
@@ -151,8 +154,11 @@ const AuthorPage =  async ( {params}: {params: {slug: string}} ) => {
                   {frontmatter['websiteDescription' + index]}
                 </div>
               }
-              <a href={frontmatter['websiteLink' + index]} target="_blank" rel="" className={`underline-animated underline-dotted ${await getColors('text', 'SidebarLinkText')} ${await getColors('hover:text', 'SidebarLinkTextHover')} `}>
-                {frontmatter['websiteName' + index] ? frontmatter['websiteName' + index] : frontmatter['websiteLink' + index].slice(frontmatter['websiteLink' + index].lastIndexOf('://')+3)}
+              <a href={await buildLink(frontmatter['websiteLink' + index])} target={setAnchorTargetProperty(frontmatter['websiteLink' + index])} rel="" className={`mb-3 underline-animated underline-dotted ${await getColors('text', 'SidebarLinkText')} ${await getColors('hover:text', 'SidebarLinkTextHover')} `}>
+                {frontmatter['websiteName' + index] ?
+                  frontmatter['websiteName' + index] : 
+                  frontmatter['websiteLink' + index].slice(isUrlAbsolute(frontmatter['websiteLink' + index]) ? frontmatter['websiteLink' + index].lastIndexOf('://') + 3 : frontmatter['websiteLink' + index].lastIndexOf('/') + 1)
+                }
               </a>
             </div>
           )})}

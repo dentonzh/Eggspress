@@ -2,7 +2,7 @@
 
 Eggspress is a lightweight blogging platform built on Next.js and React. It's designed to help anyone publish on the web—no command line needed. Best of all, it's lightning fast and completely free.[^1]
 
-If you're new to starting websites, get stuck setting up, or want a live demo of Eggspress, check out the [Getting Started Guide](https://eggspress.vercel.app/getting-started). It's an Eggspress site that makes full use of most of Eggspress' features.
+For more detailed set up instructions and a demo, see the [Getting started guide](https://eggspress.vercel.app/getting-started). It's an Eggspress site that makes use of most of Eggspress' features.
 
 ## Prerequisites
 To use Eggspress, you'll need to have accounts on:
@@ -181,7 +181,7 @@ Of these files, the only file you must edit is `metadata.md`. It contains import
 
 We recommend you update `metaBaseUrl` to the domain of your site. By default, Vercel assigns the domain `https://<project-name>.vercel.app`. If you are using your own custom domain, you must update `metaBaseUrl` or your Open Graph cards will not generate properly.
 
-`links.md` contains a set of fields where you can add links to your footer.
+`links.md` contains a set of fields where you can add links to your footer. You can also set custom rules here to modify your links in bulk.
 
 `appearance.md` allows you to adjust the appearance of your pages and toggle the visibility of certain elements. It also allows you to set the font and color scheme to be applied throughout your Eggspress site. It is possible to update colors manually by creating or modifying files in `my_settings/colors`.
 
@@ -210,7 +210,10 @@ A few reminders as you begin your next post:
 
 If you have any feedback about this README, [the docs](https://eggspress.vercel.app), or Eggspress itself, please get in touch @EggspressBlog on most social media platforms or email using (social media handle) at (gmail).
 
-Thanks for trying Eggspress and happy blogging!
+## More from Eggspress Docs
+- [Reference](https://eggspress.vercel.app/reference)
+- [How-To Guides](https://eggspress.vercel.app/how-to)
+- [Troubleshooting](https://eggspress.vercel.app/troubleshooting)
 
 
 [^1]: If you anticipate high traffic and/or plan on sharing lots of images, please read about limits and pricing at [Vercel](https://vercel.com/docs/limits/overview) and at [Netlify](https://www.netlify.com/pricing/).

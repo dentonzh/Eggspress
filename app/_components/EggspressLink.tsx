@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import React from 'react'
 import getSlugs from './getSlugs'
+import { buildLink, isUrlAbsolute, setAnchorTargetProperty } from '../utils';
 
 interface EggspressLinkProps {
   href: string;
@@ -22,7 +23,6 @@ const internalUrlPrefixMap: prefixMap = {
 }
 
 // isUrlAbsolute comes from https://stackoverflow.com/a/38979205
-const isUrlAbsolute = (url:string): boolean => (url.indexOf('//') === 0 ? true : url.indexOf('://') === -1 ? false : url.indexOf('.') === -1 ? false : url.indexOf('/') === -1 ? false : url.indexOf(':') > url.indexOf('/') ? false : url.indexOf('://') < url.indexOf('.') ? true : false)
 
 // Process internal urls
 const processInternalUrl = async (url: string): Promise<string> => {
@@ -53,9 +53,16 @@ const processInternalUrl = async (url: string): Promise<string> => {
   return url
 }
 
+const processExternalUrl = async (url: string): Promise<string> => {
+  return await buildLink(url)
+}
+
 const EggspressLink: React.FC<EggspressLinkProps> = async ({href, id, children}: EggspressLinkProps) => {
   return (
-    isUrlAbsolute(href) ? <Link href={href} id={id} target="_blank">{children}</Link> : <Link id={id} href={await processInternalUrl(href)}>{children}</Link>
+    isUrlAbsolute(href) ?
+      <Link href={await processExternalUrl(href)} id={id} target={setAnchorTargetProperty(href)}>{children}</Link> 
+      : 
+      <Link id={id} href={await processInternalUrl(href)}>{children}</Link>
   )
 }
 

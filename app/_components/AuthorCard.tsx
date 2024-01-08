@@ -1,6 +1,6 @@
 import React from 'react'
 import getFrontmatter from './getFrontmatter'
-import { getColors, copyImageToPublic, getEggspressSettings, getImageFilesRecursively } from '../utils'
+import { getColors, copyImageToPublic, getEggspressSettings, getImageFilesRecursively, buildLink, setAnchorTargetProperty, isUrlAbsolute } from '../utils'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -65,8 +65,8 @@ const AuthorCard = async ({slug}: {slug: string | null}) => {
                 {authorData['socialPlatform' + index] && authorData['socialHandle' + index] ? `${authorData['socialPlatform' + index]}: ` : 'Social: '}
               </span>
               <a 
-                href={authorData['socialLink' + index]} 
-                target="_blank" 
+                href={await buildLink(authorData['socialLink' + index])} 
+                target={setAnchorTargetProperty(authorData['socialLink' + index])}
                 rel="nofollow noopener" 
                 className={`underline-animated underline-dotted ${await getColors('text', 'AuthorCardLinkText', 'gray-400', 'gray-700')} ${await getColors('hover:text', 'AuthorCardLinkTextHover', 'gray-300', 'gray-800')}`}
               >
@@ -80,8 +80,16 @@ const AuthorCard = async ({slug}: {slug: string | null}) => {
               <span className="pr-1 block md:inline-block">
                 {authorData['websiteLabel' + index] || 'Website'}:
               </span>
-              <a href={authorData['websiteLink' + index]} target="_blank" rel="" className={`underline-animated underline-dotted ${await getColors('text', 'AuthorCardLinkText', 'gray-400', 'gray-700')} ${await getColors('hover:text', 'AuthorCardLinkTextHover', 'gray-300', 'gray-800')}`}>
-                {authorData['websiteName' + index] ? authorData['websiteName' + index] : authorData['websiteLink' + index].slice(authorData['websiteLink' + index].lastIndexOf('://')+3)}
+              <a 
+                href={await buildLink(authorData['websiteLink' + index])} 
+                target={setAnchorTargetProperty(authorData['websiteLink' + index])}
+                rel="" 
+                className={`underline-animated underline-dotted ${await getColors('text', 'AuthorCardLinkText', 'gray-400', 'gray-700')} ${await getColors('hover:text', 'AuthorCardLinkTextHover', 'gray-300', 'gray-800')}`}
+              >
+                {authorData['websiteName' + index] ?
+                  authorData['websiteName' + index] : 
+                  authorData['websiteLink' + index].slice(isUrlAbsolute(authorData['websiteName' + index]) ? authorData['websiteLink' + index].lastIndexOf('://') + 3 : authorData['websiteLink' + index].lastIndexOf('/') + 1)
+                }
               </a>
             </div>
           )})}

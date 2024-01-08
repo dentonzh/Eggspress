@@ -175,8 +175,71 @@ export async function getColors(prefix: string, colorKey: string, fallbackDark='
   }
 
   return classNames.join(' ')
-
 }
+
+export async function buildLink(url: string) {
+  const linkSettings = await getEggspressSettings('links')
+  const re = /:\/\/([^\/]*)(.*)/;
+  const match = url.match(re);
+
+  
+  if ( (match && match[1]) ) {
+    const baseUrl = match[1]
+    for ( let i = 1; i <= 20; i++ ) {
+
+      if (!linkSettings[`modifyLinkBaseUrl${i}`]) {
+        continue
+      }
+
+      let isMatch = baseUrl.toLowerCase().includes(linkSettings[`modifyLinkBaseUrl${i}`].toLowerCase())
+
+      if (linkSettings[`modifyLinkStrictMatch${i}`]) {
+        isMatch = linkSettings[`modifyLinkBaseUrl${i}`] === baseUrl
+      }
+
+      if ( isMatch ) {
+        let newUrl = ''
+        if (linkSettings[`modifyLinkSetPrefix${i}`]) {
+          if (linkSettings[`modifyLinkSetPrefix${i}`] && linkSettings[`modifyLinkSetPrefix${i}`].includes('://')) {
+            newUrl += linkSettings[`modifyLinkSetPrefix${i}`]
+          }
+          newUrl += `https://${linkSettings[`modifyLinkSetPrefix${i}`]}`
+        } else {
+          newUrl += 'https://'
+        }
+
+
+        if (linkSettings[`modifyLinkSetNewBaseUrl${i}`]) {
+          newUrl += linkSettings[`modifyLinkSetNewBaseUrl${i}`]
+        } else {
+          newUrl += baseUrl
+        }
+
+        newUrl += match[2] || ''
+
+        if (linkSettings[`modifyLinkSetSuffix${i}`]) {
+          if (match[2] && match[2].includes('?')) {
+            newUrl += linkSettings[`modifyLinkSetSuffix${i}`].replaceAll('?', '&')
+          } else {
+            newUrl += linkSettings[`modifyLinkSetSuffix${i}`]
+          }
+        }
+        return newUrl
+      }
+    }
+  }
+  
+  return url
+}
+
+export function isUrlAbsolute(url: string) {
+  return url.indexOf('//') === 0 ? true : url.indexOf('://') === -1 ? false : url.indexOf('.') === -1 ? false : url.indexOf('/') === -1 ? false : url.indexOf(':') > url.indexOf('/') ? false : url.indexOf('://') < url.indexOf('.') ? true : false
+} 
+
+export function setAnchorTargetProperty(url: string) {
+  return isUrlAbsolute(url) ? '_blank' : '_self'
+}
+
 
 // Function below requires Node 20, which AWS Lambda does not support-- see above function for glob implementation
 // export async function getFilesRecursively(dir: string): Promise<PostFile[]> {

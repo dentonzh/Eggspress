@@ -1,4 +1,3 @@
 ---
 googleAnalyticsPropertyId: ""
-amazonAssociatesTrackingId: ""
 ---
