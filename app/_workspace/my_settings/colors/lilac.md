@@ -8,6 +8,11 @@ colorThemeBodyLight: "violet-100"
 colorThemeFooterDark: "[#25043a]"
 colorThemeFooterLight: "purple-200"
 
+colorScrollbarThumbDark: "#835fa5"
+colorScrollbarThumbLight: "#bab7e1"
+colorScrollbarTrackDark: "#573762"
+colorScrollbarTrackLight: "#ebddee"
+
 colorNavBarBrandTextDark: "violet-200"
 colorNavBarBrandTextLight: "violet-900"
 colorNavMenuBackgroundDark: "violet-950"
