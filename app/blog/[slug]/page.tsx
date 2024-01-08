@@ -90,7 +90,7 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
       <div className="flex justify-between w-full">
         <div className="overflow-x-hidden">
           {(appearanceSettings.showTableOfContentsOnMobile === undefined || appearanceSettings.showTableOfContentsOnMobile) &&
-            <div className="mb-12 lg:hidden">
+            <div className="mb-20 mt-8 lg:hidden">
               <Toc />
             </div>
           }
@@ -108,7 +108,7 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
           </div>
 
           {(nextPost || prevPost) &&
-              <div className="flex flex-wrap border-t dark:border-gray-600 mt-12 py-6 text-gray-800 dark:text-gray-200 justify-between">
+              <div className="flex flex-wrap border-t border-gray-300 dark:border-gray-600 mt-12 py-6 text-gray-800 dark:text-gray-200 justify-between">
                 {prevPost &&
                 <Link className="grow my-3 mr-2" href={`/blog/${prevPost.slug}`}>
                     <div className="text-sm font-light mb-2">Previous Post</div>
@@ -125,7 +125,7 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
           }
 
           {authors.length > 0 &&
-            <div className={`${(nextPost || prevPost) ? '' : 'mt-12' } flex lg:hidden px-1 border-t dark:border-gray-600 -mb-16 pt-12`}>
+            <div className={`${(nextPost || prevPost) ? '' : 'mt-12' } flex lg:hidden px-1 border-t border-gray-300 dark:border-gray-600 -mb-16 pt-12`}>
               <div className="md:w-5/6">
                 {authors.map((author: string) => 
                   <AuthorCard key={`author-body-${author}`} slug={author}></AuthorCard>
@@ -136,10 +136,10 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
 
           {relatedPosts.length > 0
             ?
-            <div className={`${(nextPost || prevPost || authors.length) ? '' : 'mt-12'} flex border-t dark:border-gray-600 pt-12 mt-12 md:pt-20 md:mt-0`}>
+            <div className={`${(nextPost || prevPost || authors.length) ? '' : 'mt-12'} flex border-t border-gray-300 dark:border-gray-600 pt-12 mt-12 md:pt-20 md:mt-0`}>
               <div className="mb-8 max-w-prose">
                 <div className="flex flex-wrap mb-6">
-                  <Image src="/assets/relation.svg" alt="relation icon" width={32} height={32} className="h-7 w-7 dark:border-gray-600 stroke-gray-200 fill-gray-200 brightness-50 dark:brightness-100"></Image>
+                  <Image src="/assets/relation.svg" alt="relation icon" width={32} height={32} className="h-7 w-7 border-gray-300 dark:border-gray-600 stroke-gray-200 fill-gray-200 brightness-50 dark:brightness-100"></Image>
                   <div className="font-medium text-gray-700 dark:text-gray-300 my-auto pl-2">Related Posts</div>
                 </div>
                 {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(async (index: number) => {
@@ -175,7 +175,7 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
             {relatedPosts.length > 0 && 
               <div className="mb-16">
                 <div className="flex flex-wrap mb-3">
-                  <Image src="/assets/relation.svg" alt="relation icon" width={32} height={32} className="h-5 w-5 -ml-4 opacity-50 dark:opacity-100 dark:border-gray-600 stroke-gray-200 fill-gray-200 brightness-50 dark:brightness-100"></Image>
+                  <Image src="/assets/relation.svg" alt="relation icon" width={32} height={32} className="h-5 w-5 -ml-4 opacity-50 dark:opacity-100 border-gray-300 dark:border-gray-600 stroke-gray-200 fill-gray-200 brightness-50 dark:brightness-100"></Image>
                   <div className="font-medium text-sm text-gray-600 dark:text-gray-300 my-auto pl-1">Related Posts</div>
                 </div>
                 {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(async (index: number) => {
