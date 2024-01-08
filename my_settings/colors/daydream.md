@@ -1,9 +1,9 @@
 ---
 colorThemeNavDark: "sky-950"
 colorThemeNavLight: "[#dbeafe]"
-colorThemeHeroDark: "sky-950"
+colorThemeHeroDark: "[#051e2e]"
 colorThemeHeroLight: "[#dbeafe]"
-colorThemeBodyDark: "[#4f3a6a]"
+colorThemeBodyDark: "[#271e33]"
 colorThemeBodyLight: "[#bae6fd]"
 colorThemeFooterDark: "indigo-950"
 colorThemeFooterLight: "indigo-300"
