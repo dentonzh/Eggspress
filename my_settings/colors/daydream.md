@@ -4,7 +4,7 @@ colorThemeNavLight: "[#d5cae7]"
 colorThemeHeroDark: "[#051e2e]"
 colorThemeHeroLight: "[#d5cae7]"
 colorThemeBodyDark: "[#271e33]"
-colorThemeBodyLight: "[#bae6fd]"
+colorThemeBodyLight: "[#dbe9f1]"
 colorThemeFooterDark: "[#100e29]"
 colorThemeFooterLight: "[#ccccf1]"
 
