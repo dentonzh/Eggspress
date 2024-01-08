@@ -186,11 +186,6 @@ export async function buildLink(url: string) {
   if ( (match && match[1]) ) {
     const baseUrl = match[1]
     for ( let i = 1; i <= 20; i++ ) {
-
-      if (!linkSettings[`modifyLinkBaseUrl${i}`]) {
-        continue
-      }
-
       let isMatch = baseUrl.toLowerCase().includes(linkSettings[`modifyLinkBaseUrl${i}`].toLowerCase())
 
       if (linkSettings[`modifyLinkStrictMatch${i}`]) {
