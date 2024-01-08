@@ -6,7 +6,7 @@ import Sidebar from '../../../_components/Sidebar'
 import PostCard from '../../../_components/PostCard'
 import ContentHero from '../../../_components/ContentHero'
 import PaginationCard from '../../../_components/PaginationCard'
-import { copyImageToPublic, getImageFilesRecursively, getEggspressSettings, buildLink, setAnchorTargetProperty } from '../../../utils'
+import { copyImageToPublic, getImageFilesRecursively, getEggspressSettings, buildLink, setAnchorTargetProperty, isUrlAbsolute } from '../../../utils'
 
 
 export async function generateStaticParams() {
@@ -140,7 +140,10 @@ const AuthorPaginatedPage =  async ( {params}: {params: {slug: string, page: str
                 <h4 className="sidebar-heading">{frontmatter['socialPlatform' + index] ? `${frontmatter['socialPlatform' + index]}` : 'Social'}</h4>
                 <a href={await buildLink(frontmatter['socialLink' + index])} target={setAnchorTargetProperty(frontmatter['socialLink' + index])} rel="nofollow noopener" className="text-gray-700 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-300 underline-animated">
                   {frontmatter['socialHandle' + index] ? `@${frontmatter['socialHandle' + index].replace('@', '')}` : ''}
-                  {!frontmatter['socialHandle' + index] ? frontmatter['socialLink' + index].slice(frontmatter['socialLink' + index].lastIndexOf('://')+3) : '' }
+                  {!frontmatter['socialHandle' + index] ?
+                    frontmatter['socialLink' + index].slice(isUrlAbsolute(frontmatter['socialLink' + index]) ? frontmatter['socialLink' + index].lastIndexOf('://') + 3 : frontmatter['socialLink' + index].lastIndexOf('/') + 1) : 
+                    '' 
+                  }
                 </a>
               </div>
             </div>
@@ -156,7 +159,10 @@ const AuthorPaginatedPage =  async ( {params}: {params: {slug: string, page: str
                     {frontmatter['websiteDescription' + index]}
                   </div>
                 }
-                {frontmatter['websiteName' + index] ? frontmatter['websiteName' + index] : frontmatter['websiteLink' + index].slice(frontmatter['websiteLink' + index].lastIndexOf('://')+3)}
+                {frontmatter['websiteName' + index] ?
+                  frontmatter['websiteName' + index] : 
+                  frontmatter['websiteLink' + index].slice(isUrlAbsolute(frontmatter['websiteLink' + index]) ? frontmatter['websiteLink' + index].lastIndexOf('://') + 3 : frontmatter['websiteLink' + index].lastIndexOf('/') + 1)
+                }
               </a>
             </div>
           )})}
