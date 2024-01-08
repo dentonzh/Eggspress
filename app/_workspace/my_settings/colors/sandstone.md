@@ -8,6 +8,11 @@ colorThemeBodyLight: "stone-100"
 colorThemeFooterDark: "[#0c0a09]"
 colorThemeFooterLight: "stone-500"
 
+colorScrollbarThumbDark: "#8c735f"
+colorScrollbarThumbLight: "#c9b4a6"
+colorScrollbarTrackDark: "#463934"
+colorScrollbarTrackLight: "#eee5dd"
+
 colorNavBarBrandTextDark: "stone-100"
 colorNavBarBrandTextLight: "yellow-900"
 colorNavMenuBackgroundDark: "stone-600"
