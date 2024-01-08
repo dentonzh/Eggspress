@@ -88,7 +88,7 @@ const AuthorCard = async ({slug}: {slug: string | null}) => {
               >
                 {authorData['websiteName' + index] ?
                   authorData['websiteName' + index] : 
-                  authorData['websiteLink' + index].slice(authorData['websiteLink' + index].lastIndexOf('://') + (isUrlAbsolute(authorData['websiteName' + index]) ? 3 : 2))
+                  authorData['websiteLink' + index].slice(isUrlAbsolute(authorData['websiteName' + index]) ? authorData['websiteLink' + index].lastIndexOf('://') + 3 : authorData['websiteLink' + index].lastIndexOf('/') + 1)
                 }
               </a>
             </div>
