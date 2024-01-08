@@ -47,7 +47,7 @@ colorContentTableBorderLight: "indigo-400"
 colorContentCodeTextDark: "indigo-200"
 colorContentCodeTextLight: "indigo-600"
 colorContentCodeBackgroundDark: "[#403248]"
-colorContentCodeBackgroundLight: "violet-100"
+colorContentCodeBackgroundLight: "[#e6f1ff]"
 
 colorReturnToTopButtonBackgroundDark: "violet-300"
 colorReturnToTopButtonBackgroundLight: "[#a5b4fc]"
