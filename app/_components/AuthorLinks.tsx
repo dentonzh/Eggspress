@@ -1,5 +1,5 @@
 import React from 'react'
-import { buildLink, getEggspressSettings } from '../utils'
+import { buildLink, getEggspressSettings, isUrlAbsolute, setAnchorTargetProperty } from '../utils'
 
 const authorLinks = async () => {
   const links: Record<string, string> = await getEggspressSettings('links')
@@ -25,7 +25,7 @@ const authorLinks = async () => {
 
         return (
           <div className="mb-6 md:mb-3" key={key}>
-            <a className="underline-animated" href={modifiedLinks[key]} target="_blank" rel="nofollow noopener">
+            <a className="underline-animated" href={modifiedLinks[key]} target={setAnchorTargetProperty(modifiedLinks[key])} rel="nofollow noopener">
               {name}
             </a>
           </div>

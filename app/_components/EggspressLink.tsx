@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import React from 'react'
 import getSlugs from './getSlugs'
-import { buildLink, isUrlAbsolute } from '../utils';
+import { buildLink, isUrlAbsolute, setAnchorTargetProperty } from '../utils';
 
 interface EggspressLinkProps {
   href: string;
@@ -60,7 +60,7 @@ const processExternalUrl = async (url: string): Promise<string> => {
 const EggspressLink: React.FC<EggspressLinkProps> = async ({href, id, children}: EggspressLinkProps) => {
   return (
     isUrlAbsolute(href) ?
-      <Link href={await processExternalUrl(href)} id={id} target="_blank">{children}</Link> 
+      <Link href={await processExternalUrl(href)} id={id} target={setAnchorTargetProperty(href)}>{children}</Link> 
       : 
       <Link id={id} href={await processInternalUrl(href)}>{children}</Link>
   )

@@ -6,8 +6,7 @@ import Sidebar from '../../../_components/Sidebar'
 import PostCard from '../../../_components/PostCard'
 import ContentHero from '../../../_components/ContentHero'
 import PaginationCard from '../../../_components/PaginationCard'
-import { copyImageToPublic, getImageFilesRecursively, getEggspressSettings, buildLink } from '../../../utils'
-import Image from 'next/image'
+import { copyImageToPublic, getImageFilesRecursively, getEggspressSettings, buildLink, setAnchorTargetProperty } from '../../../utils'
 
 
 export async function generateStaticParams() {
@@ -139,7 +138,7 @@ const AuthorPaginatedPage =  async ( {params}: {params: {slug: string, page: str
             <div key={`${frontmatter['socialLink' + index]}-${index}`} className="sidebar-section">
               <div>
                 <h4 className="sidebar-heading">{frontmatter['socialPlatform' + index] ? `${frontmatter['socialPlatform' + index]}` : 'Social'}</h4>
-                <a href={await buildLink(frontmatter['socialLink' + index])} target="_blank" rel="nofollow noopener" className="text-gray-700 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-300 underline-animated">
+                <a href={await buildLink(frontmatter['socialLink' + index])} target={setAnchorTargetProperty(frontmatter['socialLink' + index])} rel="nofollow noopener" className="text-gray-700 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-300 underline-animated">
                   {frontmatter['socialHandle' + index] ? `@${frontmatter['socialHandle' + index].replace('@', '')}` : ''}
                   {!frontmatter['socialHandle' + index] ? frontmatter['socialLink' + index].slice(frontmatter['socialLink' + index].lastIndexOf('://')+3) : '' }
                 </a>
@@ -151,7 +150,7 @@ const AuthorPaginatedPage =  async ( {params}: {params: {slug: string, page: str
               <h4 className="sidebar-heading">
                 {frontmatter['websiteLabel' + index] || 'Website'}
               </h4>
-              <a href={await buildLink(frontmatter['websiteLink' + index])} target="_blank" rel="" className="text-gray-700 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-300 underline-animated">
+              <a href={await buildLink(frontmatter['websiteLink' + index])} target={setAnchorTargetProperty(frontmatter['websiteLink' + index])} rel="" className="text-gray-700 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-300 underline-animated">
                 {frontmatter['websiteDescription' + index] &&
                   <div className="text-gray-700 dark:text-gray-400">
                     {frontmatter['websiteDescription' + index]}
