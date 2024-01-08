@@ -1,8 +1,13 @@
 import React from 'react'
-import { getEggspressSettings } from '../utils'
+import { buildLink, getEggspressSettings, isUrlAbsolute, setAnchorTargetProperty } from '../utils'
 
 const authorLinks = async () => {
   const links: Record<string, string> = await getEggspressSettings('links')
+
+  // Rebuild object for links and call it modified links to avoid hydration error
+  const filteredLinks = Object.keys(links).filter(key => key.startsWith('link') && links[key].length)
+  const modifiedLinks = Object.fromEntries(await Promise.all(filteredLinks.map(async (key) => [key, await buildLink(links[key])])))
+
   
   if (!Object.values(links).filter(link => link.length > 0)) {
     return
@@ -20,7 +25,7 @@ const authorLinks = async () => {
 
         return (
           <div className="mb-6 md:mb-3" key={key}>
-            <a className="underline-animated" href={links[key]} target="_blank" rel="nofollow noopener">
+            <a className="underline-animated" href={modifiedLinks[key]} target={setAnchorTargetProperty(modifiedLinks[key])} rel="nofollow noopener">
               {name}
             </a>
           </div>

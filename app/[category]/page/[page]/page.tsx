@@ -22,7 +22,9 @@ export async function generateStaticParams() {
     const pageCount = Math.ceil(postCount / (appearanceSettings.numberOfPostsPerPage || 8))
 
     for (let i = 0; i < pageCount; i ++) {
-      params.push({category: categorySlug, page: (+i + 1).toString()})
+      if (categorySlug) {
+        params.push({category: categorySlug, page: (+i + 1).toString()})
+      }
     }
   })
 

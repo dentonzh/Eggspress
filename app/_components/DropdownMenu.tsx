@@ -19,6 +19,7 @@ const DropdownMenu = ({children, closeOnRouteChange = true}: DropdownMenuProps) 
   
   useOuterClick(ref.current, () => {
     setExpanded(false)
+    setTimeout(() => {setMenuVisible(false)}, 150)
   })
   
   useEffect(() => {
@@ -27,6 +28,7 @@ const DropdownMenu = ({children, closeOnRouteChange = true}: DropdownMenuProps) 
 
       if (pathname !== currentPathname) {
         setExpanded(false)
+        setMenuVisible(false)
       }
     }
   }, [closeOnRouteChange, pathname])

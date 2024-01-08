@@ -102,6 +102,25 @@ Fascinating stuff, right Byline? Our ancestors loved eggs just as much as we do 
 > Eggspress is the easiest way I've found to publish my thoughts to the world! 
 - Jane, Eggspress user
 
+## Advanced features
+Need to automatically replace the base URL and/or add a prefix or suffix to URLs that match a specific domain? Update `my_settings/links.md`.
+The following is an example of a modified link:
+
+> [Search 20,000 online courses](https://opencourser.com) with OpenCourser!
+
+In this example, we specify `opencourser.com` as the base URL to match. For all matching external links that have `opencourser.com` as the base URL, we add
+`?utm_source=eggspress&utm_medium=blog&utm_campaign=new_blog` as a suffix. This is applied to all content items. In our settings, this looks like this:
+
+```
+modifyLinkBaseUrl1: "opencourser.com"
+modifyLinkStrictMatch1: true
+modifyLinkSetPrefix1: ""
+modifyLinkSetSuffix1: "?utm_source=eggspress&utm_medium=blog&utm_campaign=new_blog"
+modifyLinkSetNewBaseUrl1: ""
+```
+
+If we also needed to match instances of different subdomains and top-level domains, we can set strict matching to `false`. This can be useful if you need to apply the same changes to sites that may have different subdomains (e.g. `www.opencourser.com`) or TLDs (e.g. `amazon.com`, `amazon.jp`, etc.)
+
 ## Start writing!
 
 Hopefully this little tour cracked open all the egg-cellent things Eggspress can do! We showed you headings, tables, quotes, footnotes - all formatted in simple markdown. Now you can start styling your first post however you like!  
