@@ -8,6 +8,11 @@ colorThemeBodyLight: "red-50"
 colorThemeFooterDark: "[#200303]"
 colorThemeFooterLight: "rose-200"
 
+colorScrollbarThumbDark: "#a55f5f"
+colorScrollbarThumbLight: "#d7c1c1"
+colorScrollbarTrackDark: "#623737"
+colorScrollbarTrackLight: "#f1eaea"
+
 colorNavBarBrandTextDark: "red-200"
 colorNavBarBrandTextLight: "stone-700"
 colorNavMenuBackgroundDark: "rose-900"
