@@ -1,5 +1,5 @@
 ---
-colorThemeNavDark: "[#dbeafe]"
+colorThemeNavDark: "[#051e2e]"
 colorThemeNavLight: "[#dbeafe]"
 colorThemeHeroDark: "[#051e2e]"
 colorThemeHeroLight: "[#dbeafe]"
