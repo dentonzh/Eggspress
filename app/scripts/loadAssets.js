@@ -65,7 +65,6 @@ const setSafelist = async (path) => {
   let fileToRead = path
 
   if (colorScheme) {
-    console.log('Found color scheme: ', colorScheme, `my_settings/colors/${colorScheme}.md`)
     fileToRead = `my_settings/colors/${colorScheme}.md`
   }
   
@@ -79,12 +78,29 @@ const setSafelist = async (path) => {
       
       let safelist = []
       let contentClasses = []
+      let scrollbarVariables = []
+
       for await (const line of rl) {
         if (line.startsWith('color')) {
           const value = line.slice(line.indexOf(':') + 1).replaceAll('"', '').replaceAll("'", "").trim().replaceAll(' ', '-')
           const key = line.slice(0, line.indexOf(':')).trim()
 
           if (value) {
+            if (line.startsWith('colorScrollbar')) {
+              if (line.startsWith('colorScrollbarThumbDark')) {
+                scrollbarVariables.push(`--dark-scroll-bar-color: ${value.replace('[', '').replace(']', '')}`)
+              }
+              if (line.startsWith('colorScrollbarThumbLight')) {
+                scrollbarVariables.push(`--scroll-bar-color: ${value.replace('[', '').replace(']', '')}`)
+              }
+              if (line.startsWith('colorScrollbarTrackDark')) {
+                scrollbarVariables.push(`--dark-scroll-bar-bg-color: ${value.replace('[', '').replace(']', '')}`)
+              }
+              if (line.startsWith('colorScrollbarTrackLight')) {
+                scrollbarVariables.push(`--scroll-bar-bg-color: ${value.replace('[', '').replace(']', '')}`)
+              }
+            }
+
             if (line.startsWith('colorContent')) {
               if (line.startsWith('colorContentBodyHeadingDark')) {
                 contentClasses.push(`dark:prose-headings:text-${value}`)
@@ -197,7 +213,15 @@ const setSafelist = async (path) => {
       if (contentClasses.join(' ').trim()) {
         fs.appendFileSync(
           'app/globals.css', 
-          `.eggspress-content-extended {\n@apply ${contentClasses.join(' ')};\n}`)
+          `.eggspress-content-extended {\n@apply ${contentClasses.join(' ')};\n}`
+        )
+      }
+
+      if (scrollbarVariables.join(' ').trim()) {
+        fs.appendFileSync(
+          'app/globals.css', 
+          `:root {\n  ${scrollVariables.join('; ').trim()};\n}\n\n.dark{\n  --scroll-bar-color: var(--dark-scroll-bar-color);\n  --scroll-bar-bg-color: var(--dark-scroll-bar-bg-color); }`
+        )
       }
     }
   } catch (e) {
