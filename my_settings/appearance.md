@@ -1,7 +1,7 @@
 ---
 fontFamily: "Roboto_Flex"
 
-colorScheme: "carbon"
+colorScheme: "daydream"
 theme: "eggspress"
 
 sidebar: "index"
