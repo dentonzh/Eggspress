@@ -212,7 +212,7 @@ If you have any feedback about this README, [the docs](https://eggspress.vercel.
 
 ## More from Eggspress Docs
 - [Reference](https://eggspress.vercel.app/reference)
-- [How-To Guides](https://eggspress.vercel.app/guides)
+- [How-To Guides](https://eggspress.vercel.app/how-to)
 - [Troubleshooting](https://eggspress.vercel.app/troubleshooting)
 
 
