@@ -184,7 +184,6 @@ export async function buildLink(url: string) {
 
   
   if ( (match && match[1]) ) {
-    console.log(match)
     const baseUrl = match[1]
     for ( let i = 1; i <= 20; i++ ) {
 
