@@ -6,7 +6,7 @@ colorThemeHeroLight: "[#d5cae7]"
 colorThemeBodyDark: "[#271e33]"
 colorThemeBodyLight: "[#bae6fd]"
 colorThemeFooterDark: "[#100e29]"
-colorThemeFooterLight: "indigo-300"
+colorThemeFooterLight: "[#b9d1cf]"
 
 colorNavBarBrandTextDark: "indigo-200"
 colorNavBarBrandTextLight: "sky-700"
