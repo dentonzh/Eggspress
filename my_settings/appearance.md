@@ -1,6 +1,8 @@
 ---
 fontFamily: "Readex Pro"
 
+colorScheme: "daydream"
+
 sidebar: "index"
 brandText: "Eggspress Docs"
 showBrandLogo: true
@@ -52,93 +54,6 @@ showAuthorCardDescription: true
 showAuthorCardLinks: true
 showAuthorCardProfileImage: true
 showAuthorCardProfileImageOnRight: false
-
-colorThemeNavDark: "[#201603]"
-colorThemeNavLight: "amber-300"
-colorThemeHeroDark: "[#201603]"
-colorThemeHeroLight: "amber-300"
-colorThemeBodyDark: "[#2e1f0d]"
-colorThemeBodyLight: "yellow-100"
-colorThemeFooterDark: "[#0f0c00]"
-colorThemeFooterLight: "amber-200"
-
-colorNavBarBrandTextDark: "gray-100"
-colorNavBarBrandTextLight: "gray-800"
-
-colorNavMenuBackgroundDark: "yellow-400"
-colorNavMenuBackgroundLight: "white"
-colorNavMenuBackgroundShadowDark: "yellow-700/50"
-colorNavMenuBackgroundShadowLight: "gray-700/50"
-colorNavMenuTextDark: "yellow-800"
-colorNavMenuTextLight: "gray-800"
-
-colorHeroHeadlineDark: "stone-400"
-colorHeroHeadlineLight: "green-950"
-colorHeroSubtitleDark: "stone-600"
-colorHeroSubtitleLight: "lime-700"
-colorHeroSubheadingDark: "stone-400"
-colorHeroSubheadingLight: "green-900"
-colorHeroSectionStringDark: "stone-400"
-colorHeroSectionStringLight: "green-900"
-colorHeroSectionLinkDark: "stone-400"
-colorHeroSectionLinkLight: "green-900"
-colorHeroDateDark: "stone-400"
-colorHeroDateLight: "green-900"
-colorHeroSectionDateBorderDark: "amber-700"
-colorHeroSectionDateBorderLight: "amber-500"
-
-colorContentBodyHeadingDark: "stone-300"
-colorContentBodyHeadingLight: "stone-800"
-colorContentBodyTextDark: "stone-300"
-colorContentBodyTextLight: "stone-800"
-colorContentLinkTextDark: "yellow-200"
-colorContentLinkTextLight: "yellow-800"
-colorContentCodeTextDark: "yellow-200"
-colorContentCodeTextLight: "yellow-900"
-colorContentCodeBackgroundDark: "yellow-900"
-colorContentCodeBackgroundLight: "yellow-200"
-
-colorPostCardHeadingDark: "stone-300"
-colorPostCardHeadingLight: "stone-800"
-colorPostCardTextDark: "stone-300"
-colorPostCardTextLight: "stone-800"
-colorPostCardReadMoreTextDark: "stone-300"
-colorPostCardReadMoreTextLight: "stone-800"
-
-colorAuthorCardHeadingDark: "stone-300"
-colorAuthorCardHeadingLight: ""
-colorAuthorCardTextDark: "stone-300"
-colorAuthorCardTextLight: ""
-colorAuthorCardLinkLabelDark: ""
-colorAuthorCardLinkLabelLight: ""
-colorAuthorCardLinkTextDark: ""
-colorAuthorCardLinkTextLight: ""
-colorAuthorCardLinkTextHoverDark: ""
-colorAuthorCardLinkTextHoverLight: ""
-
-colorSidebarRelatedPostDark: ""
-colorSidebarRelatedPostLight: ""
-colorSidebarRelatedPostHoverDark: ""
-colorSidebarRelatedPostHoverLight: ""
-
-colorSidebarPinnedPostDark: ""
-colorSidebarPinnedPostLight: ""
-colorSidebarHeadingDark: ""
-colorSidebarHeadingLight: ""
-colorSidebarTextDark: ""
-colorSidebarTextLight: ""
-colorSidebarLinkTextDark: "yellow-100"
-colorSidebarLinkTextLight: "amber-900"
-
-colorTableOfContentsTextDark: ""
-colorTableOfContentsTextLight: ""
-colorTableOfContentsTextHoverDark: ""
-colorTableOfContentsTextHoverLight: ""
-colorTableOfContentsTextActiveDark: ""
-colorTableOfContentsTextActiveLight: ""
-
-colorFooterLinkTextDark: "yellow-100"
-colorFooterLinkTextLight: ""
 
 ---
 
