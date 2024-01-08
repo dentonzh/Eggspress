@@ -232,6 +232,11 @@ export async function buildLink(url: string) {
   return url
 }
 
+export function isUrlAbsolute(url:string) {
+  return url.indexOf('//') === 0 ? true : url.indexOf('://') === -1 ? false : url.indexOf('.') === -1 ? false : url.indexOf('/') === -1 ? false : url.indexOf(':') > url.indexOf('/') ? false : url.indexOf('://') < url.indexOf('.') ? true : false
+} 
+
+
 // Function below requires Node 20, which AWS Lambda does not support-- see above function for glob implementation
 // export async function getFilesRecursively(dir: string): Promise<PostFile[]> {
 //   let arrayOfFilenames: PostFile[] = []

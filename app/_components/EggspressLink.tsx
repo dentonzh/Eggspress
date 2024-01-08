@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import React from 'react'
 import getSlugs from './getSlugs'
-import { buildLink } from '../utils';
+import { buildLink, isUrlAbsolute } from '../utils';
 
 interface EggspressLinkProps {
   href: string;
@@ -23,7 +23,6 @@ const internalUrlPrefixMap: prefixMap = {
 }
 
 // isUrlAbsolute comes from https://stackoverflow.com/a/38979205
-const isUrlAbsolute = (url:string): boolean => (url.indexOf('//') === 0 ? true : url.indexOf('://') === -1 ? false : url.indexOf('.') === -1 ? false : url.indexOf('/') === -1 ? false : url.indexOf(':') > url.indexOf('/') ? false : url.indexOf('://') < url.indexOf('.') ? true : false)
 
 // Process internal urls
 const processInternalUrl = async (url: string): Promise<string> => {
