@@ -6,6 +6,7 @@ import rehypeSlug from 'rehype-slug'
 import remarkGfm from 'remark-gfm'
 import eggspressMedia from '@/plugins/eggspress-img-processor'
 import { ImageFile, OGImage } from '@/types/Blog'
+import EggspressTable from './EggspressTable'
 
 const fs = require('fs-extra')
 const sizeOf = require('image-size')
@@ -26,7 +27,8 @@ const compileContent = async (type: string, slug:string,): Promise<{content: Rea
     },
     components: {
       img: EggspressImage as any,
-      a: EggspressLink as any
+      a: EggspressLink as any,
+      table: EggspressTable as any
     }
   })
 
