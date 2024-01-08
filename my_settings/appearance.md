@@ -9,7 +9,7 @@ brandText: "Eggspress"
 showBrandLogo: true
 showBrandText: false
 
-numberOfPostsPerPage: 8
+numberOfPostsPerPage: 1
 
 hiddenContentMessage: "This page is archived and may contain out of date information"
 hiddenContentIsHidden: false
