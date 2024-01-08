@@ -6,7 +6,7 @@ import Sidebar from '../../../_components/Sidebar'
 import PostCard from '../../../_components/PostCard'
 import ContentHero from '../../../_components/ContentHero'
 import PaginationCard from '../../../_components/PaginationCard'
-import { copyImageToPublic, getImageFilesRecursively, getEggspressSettings, buildLink, setAnchorTargetProperty } from '../../../utils'
+import { copyImageToPublic, getImageFilesRecursively, getEggspressSettings, buildLink, setAnchorTargetProperty, isUrlAbsolute, getColors } from '../../../utils'
 
 
 export async function generateStaticParams() {
@@ -123,40 +123,44 @@ const AuthorPaginatedPage =  async ( {params}: {params: {slug: string, page: str
         </div>
 
         <Sidebar>
-          {sections.map((section, index) => {return (frontmatter[section] &&
-            <div>
-              <div key={`${section}-${index}`} className="sidebar-section">
-                <h4 className="sidebar-heading">{section ? section.charAt(0).toUpperCase() + section.slice(1) : ''}</h4>
-                <div className="text-gray-700 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-300">
-                  {frontmatter[section]}
-                </div>
+          {sections.map(async (section, index) => {return (frontmatter[section] &&
+            <div key={`${section}-${index}`} className={`sidebar-section ${await getColors('text', 'SidebarText', 'gray-300', 'gray-600')}`}>
+              <h4 className={`sidebar-heading ${await getColors('text', 'SidebarHeading')}`}>{section ? section.charAt(0).toUpperCase() + section.slice(1) : ''}</h4>
+              <div>
+                {frontmatter[section]}
               </div>
             </div>
           )})}
 
           {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(async (index) => {return (frontmatter['socialLink' + index] &&
-            <div key={`${frontmatter['socialLink' + index]}-${index}`} className="sidebar-section">
+            <div className={`mb-6 text-sm ${await getColors('text', 'SidebarText', 'gray-300', 'gray-600')}`} key={`${frontmatter['socialLink' + index]}-${index}`}>
               <div>
-                <h4 className="sidebar-heading">{frontmatter['socialPlatform' + index] ? `${frontmatter['socialPlatform' + index]}` : 'Social'}</h4>
-                <a href={await buildLink(frontmatter['socialLink' + index])} target={setAnchorTargetProperty(frontmatter['socialLink' + index])} rel="nofollow noopener" className="text-gray-700 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-300 underline-animated">
+                <h4 className={`sidebar-heading ${await getColors('text', 'SidebarHeading')}`}>{frontmatter['socialPlatform' + index] ? `${frontmatter['socialPlatform' + index]}` : 'Social'}</h4>
+                <a href={await buildLink(frontmatter['socialLink' + index])} target={setAnchorTargetProperty(frontmatter['socialLink' + index])} rel="nofollow noopener" className={`mb-3 underline-animated underline-dotted ${await getColors('text', 'SidebarLinkText')} ${await getColors('hover:text', 'SidebarLinkTextHover')} `}>
                   {frontmatter['socialHandle' + index] ? `@${frontmatter['socialHandle' + index].replace('@', '')}` : ''}
-                  {!frontmatter['socialHandle' + index] ? frontmatter['socialLink' + index].slice(frontmatter['socialLink' + index].lastIndexOf('://')+3) : '' }
+                  {!frontmatter['socialHandle' + index] ?
+                    frontmatter['socialLink' + index].slice(isUrlAbsolute(frontmatter['socialLink' + index]) ? frontmatter['socialLink' + index].lastIndexOf('://') + 3 : frontmatter['socialLink' + index].lastIndexOf('/') + 1) : 
+                    '' 
+                  }
                 </a>
               </div>
             </div>
           )})}
           {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(async (index) => {return (frontmatter['websiteLink' + index] &&
-            <div className="text-sm text-gray-500 w-1/2 md:w-full mb-4 md:mb-1" key={`website-link-${frontmatter.slug}-${index}`}>
-              <h4 className="sidebar-heading">
+            <div className={`mb-6 text-sm text-gray-500 w-1/2 md:w-full ${await getColors('text', 'SidebarText', 'gray-300', 'gray-600')}`} key={`website-link-${frontmatter.slug}-${index}`}>
+              <h4 className={`sidebar-heading ${await getColors('text', 'SidebarHeading')}`}>
                 {frontmatter['websiteLabel' + index] || 'Website'}
               </h4>
-              <a href={await buildLink(frontmatter['websiteLink' + index])} target={setAnchorTargetProperty(frontmatter['websiteLink' + index])} rel="" className="text-gray-700 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-300 underline-animated">
-                {frontmatter['websiteDescription' + index] &&
-                  <div className="text-gray-700 dark:text-gray-400">
-                    {frontmatter['websiteDescription' + index]}
-                  </div>
+              {frontmatter['websiteDescription' + index] &&
+                <div className='mb-1'>
+                  {frontmatter['websiteDescription' + index]}
+                </div>
+              }
+              <a href={await buildLink(frontmatter['websiteLink' + index])} target={setAnchorTargetProperty(frontmatter['websiteLink' + index])} rel="" className={`mb-3 underline-animated underline-dotted ${await getColors('text', 'SidebarLinkText')} ${await getColors('hover:text', 'SidebarLinkTextHover')} `}>
+                {frontmatter['websiteName' + index] ?
+                  frontmatter['websiteName' + index] : 
+                  frontmatter['websiteLink' + index].slice(isUrlAbsolute(frontmatter['websiteLink' + index]) ? frontmatter['websiteLink' + index].lastIndexOf('://') + 3 : frontmatter['websiteLink' + index].lastIndexOf('/') + 1)
                 }
-                {frontmatter['websiteName' + index] ? frontmatter['websiteName' + index] : frontmatter['websiteLink' + index].slice(frontmatter['websiteLink' + index].lastIndexOf('://')+3)}
               </a>
             </div>
           )})}

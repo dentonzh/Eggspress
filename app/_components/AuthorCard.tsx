@@ -1,6 +1,6 @@
 import React from 'react'
 import getFrontmatter from './getFrontmatter'
-import { getColors, copyImageToPublic, getEggspressSettings, getImageFilesRecursively, buildLink, setAnchorTargetProperty } from '../utils'
+import { getColors, copyImageToPublic, getEggspressSettings, getImageFilesRecursively, buildLink, setAnchorTargetProperty, isUrlAbsolute } from '../utils'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -86,7 +86,10 @@ const AuthorCard = async ({slug}: {slug: string | null}) => {
                 rel="" 
                 className={`underline-animated underline-dotted ${await getColors('text', 'AuthorCardLinkText', 'gray-400', 'gray-700')} ${await getColors('hover:text', 'AuthorCardLinkTextHover', 'gray-300', 'gray-800')}`}
               >
-                {authorData['websiteName' + index] ? authorData['websiteName' + index] : authorData['websiteLink' + index].slice(authorData['websiteLink' + index].lastIndexOf('://')+2)}
+                {authorData['websiteName' + index] ?
+                  authorData['websiteName' + index] : 
+                  authorData['websiteLink' + index].slice(isUrlAbsolute(authorData['websiteName' + index]) ? authorData['websiteLink' + index].lastIndexOf('://') + 3 : authorData['websiteLink' + index].lastIndexOf('/') + 1)
+                }
               </a>
             </div>
           )})}
