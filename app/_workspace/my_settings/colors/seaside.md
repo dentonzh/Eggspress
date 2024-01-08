@@ -8,6 +8,11 @@ colorThemeBodyLight: "blue-50"
 colorThemeFooterDark: "[#020617]"
 colorThemeFooterLight: "blue-200"
 
+colorScrollbarThumbDark: "#5f76a5"
+colorScrollbarThumbLight: "#b7cae1"
+colorScrollbarTrackDark: "#374362"
+colorScrollbarTrackLight: "#dde6ee"
+
 colorNavBarBrandTextDark: "blue-200"
 colorNavBarBrandTextLight: "slate-700"
 colorNavMenuBackgroundDark: "[#475569]"
