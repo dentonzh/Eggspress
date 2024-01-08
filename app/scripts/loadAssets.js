@@ -220,12 +220,13 @@ const setSafelist = async (path) => {
       if (scrollbarVariables.join(' ').trim()) {
         fs.appendFileSync(
           'app/globals.css', 
-          `:root {\n  ${scrollVariables.join('; ').trim()};\n}\n\n.dark{\n  --scroll-bar-color: var(--dark-scroll-bar-color);\n  --scroll-bar-bg-color: var(--dark-scroll-bar-bg-color); }`
+          `:root {\n  ${scrollbarVariables.join('; ').trim()};\n}\n\n.dark{\n  --scroll-bar-color: var(--dark-scroll-bar-color);\n  --scroll-bar-bg-color: var(--dark-scroll-bar-bg-color); }`
         )
       }
     }
   } catch (e) {
-    console.log(`    Info: Color scheme not specified or not defined. Applying minimum default color scheme.`)
+    console.log(`    Info: Color scheme not specified or there was an error. Applying minimum default color scheme.`)
+    console.warn(e)
 
     const safelist = [
       'dark:bg-slate-900',
