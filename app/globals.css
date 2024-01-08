@@ -60,7 +60,7 @@ p > code {
   @apply leading-relaxed font-light my-2;
 }
 
- h2:not(#hero-subtitle)::before, h3::before, h4::before, h5::before { 
+ h2:not(#hero-subtitle)::before, h3::before, h4:not(.sidebar-heading)::before, h5::before { 
   display: block; 
   content: " "; 
   margin-top: -58px; 
