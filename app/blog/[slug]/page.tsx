@@ -90,7 +90,7 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
       <div className="flex justify-between w-full">
         <div className="overflow-x-hidden">
           {(appearanceSettings.showTableOfContentsOnMobile === undefined || appearanceSettings.showTableOfContentsOnMobile) &&
-            <div className="mb-12 lg:hidden">
+            <div className="mb-20 mt-8 lg:hidden">
               <Toc />
             </div>
           }
