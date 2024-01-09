@@ -4,6 +4,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import DropdownMenu from './DropdownMenu'
 import NavigationMenu from './NavigationMenu'
+import CopyButton from './CopyButton'
 
 interface ContentHeroProps {
   headline?: string,
@@ -17,7 +18,6 @@ interface ContentHeroProps {
   imageSrc?: string | null,
   imageAlt?: string,
   children?: React.ReactNode,
-  currentPath?: string
 }
 
 const ContentHero = async ({sectionString, sectionLink, headline, subtitle, headlineSeparator, subheading, subtitlePrefix, date, imageSrc, imageAlt, currentPath}: ContentHeroProps) => {
@@ -86,8 +86,10 @@ const ContentHero = async ({sectionString, sectionLink, headline, subtitle, head
                     <NavigationMenu>
                       <div className="w-48 pl-6 py-6">
                         <div className="mb-5">
-                          <Image className="text-gray-500 inline-block dark:brightness-150" src="/assets/copy.svg" width={16} height={16} alt="copy link icon"></Image>
-                          <span className="pl-1">Copy link</span>
+                          <CopyButton>
+                            <Image className="text-gray-500 inline-block dark:brightness-150" src="/assets/copy.svg" width={16} height={16} alt="copy link icon"></Image>
+                            <span id="copy-button" className="pl-1">Copy link</span>
+                          </CopyButton>
                         </div>
                         <div>
                           <Image className="text-gray-500 inline-block dark:brightness-150" src="/assets/qr.svg" width={16} height={16} alt="copy link icon"></Image>
