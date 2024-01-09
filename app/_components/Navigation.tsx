@@ -24,14 +24,16 @@ const Navigation = async () => {
           </Link>
         </div>
         <div className="flex items-center dark:text-white">
-            <DarkModeToggle />
-            <DropdownMenu>
+          <DarkModeToggle />
+          <div className="ml-2">
+            <DropdownMenu icon="navigation.svg" altText="navigation menu toggle button">
               <NavigationMenu>
                 <div className="w-48 pl-6 pt-6">
                   <SiteLinks></SiteLinks>
                 </div>
               </NavigationMenu>
             </DropdownMenu>
+          </div>
         </div>
       </div>
     </nav>

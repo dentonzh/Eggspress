@@ -2,6 +2,8 @@ import React from 'react'
 import { getColors } from '../utils'
 import Link from 'next/link'
 import Image from 'next/image'
+import DropdownMenu from './DropdownMenu'
+import NavigationMenu from './NavigationMenu'
 
 interface ContentHeroProps {
   headline?: string,
@@ -14,10 +16,11 @@ interface ContentHeroProps {
   date?: string,
   imageSrc?: string | null,
   imageAlt?: string,
-  children?: React.ReactNode
+  children?: React.ReactNode,
+  currentPath?: string
 }
 
-const ContentHero = async ({sectionString, sectionLink, headline, subtitle, headlineSeparator, subheading, subtitlePrefix, date, imageSrc, imageAlt}: ContentHeroProps) => {
+const ContentHero = async ({sectionString, sectionLink, headline, subtitle, headlineSeparator, subheading, subtitlePrefix, date, imageSrc, imageAlt, currentPath}: ContentHeroProps) => {
   const headlineMarginLeft = headline && ['E', 'B', 'D', 'F', 'H', 'L', 'P', 'R'].includes(headline.charAt(0)) ? '-ml-0.5' : ''
   const headlineMarginBottom = subheading && (sectionString || date) ? 'mb-12 md:mb-8' : subheading ? 'mb-6' : (sectionString || date) ? 'mb-3 md:mb-6' : 'mb-6'
 
@@ -59,9 +62,9 @@ const ContentHero = async ({sectionString, sectionLink, headline, subtitle, head
             </div>
           }
           <div className={imageSrc ? 'flex' : ''}></div>
-          {(sectionString || date) &&
+          {(sectionString || date || currentPath) &&
             <div className="flex text-[13px] font-medium">
-              <div className={`${sectionString && date ? `border-r ${await getColors('border', 'HeroSectionDateBorder', 'gray-500', 'gray-300')} pr-2 mr-2` : ''}`}>
+              <div className={`${sectionString && (date || currentPath) ? `border-r ${await getColors('border', 'HeroSectionDateBorder', 'gray-500', 'gray-300')} pr-2 mr-2` : ''}`}>
                 {sectionString &&
                   <div>
                     {sectionLink ?
@@ -73,7 +76,28 @@ const ContentHero = async ({sectionString, sectionLink, headline, subtitle, head
                 }
               </div>
               {date &&
-                <div className={await getColors('text', 'HeroDate')}>{date}</div>
+                <div className={`${await getColors('text', 'HeroDate')} ${date && currentPath ? `border-r ${await getColors('border', 'HeroSectionDateBorder', 'gray-500', 'gray-300')} pr-2 mr-2` : ''}`}>
+                  {date}
+                </div>
+              }
+              {currentPath &&
+                <div className={await getColors('text', 'HeroDate')}>
+                  <DropdownMenu text="Share">
+                    <NavigationMenu>
+                      <div className="w-48 pl-6 py-6">
+                        <div className="mb-5">
+                          <Image className="text-gray-500 inline-block dark:brightness-150" src="/assets/copy.svg" width={16} height={16} alt="copy link icon"></Image>
+                          <span className="pl-1">Copy link</span>
+                        </div>
+                        <div>
+                          <Image className="text-gray-500 inline-block dark:brightness-150" src="/assets/qr.svg" width={16} height={16} alt="copy link icon"></Image>
+                          <span className="pl-1">Show QR code</span>
+                        </div>
+                      </div>
+
+                    </NavigationMenu>
+                  </DropdownMenu>
+                </div>
               }
             </div>
           }

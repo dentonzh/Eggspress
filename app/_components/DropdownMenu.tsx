@@ -8,10 +8,13 @@ import { usePathname } from 'next/navigation'
 
 type DropdownMenuProps = {
   children: ReactNode,
-  closeOnRouteChange?: boolean
+  icon?: string,
+  text?: string,
+  altText?: string,
+  closeOnRouteChange?: boolean,
 }
 
-const DropdownMenu = ({children, closeOnRouteChange = true}: DropdownMenuProps) => {
+const DropdownMenu = ({children, icon, text, altText, closeOnRouteChange = true}: DropdownMenuProps) => {
   const [expanded, setExpanded] = useState(false)
   const [menuVisible, setMenuVisible] = useState(false)
   const ref: any = useRef()
@@ -44,9 +47,14 @@ const DropdownMenu = ({children, closeOnRouteChange = true}: DropdownMenuProps) 
   }
 
   return (
-    <div className="ml-3 relative">
+    <div className="relative">
       <div onClick={toggleDropdownMenu}>
-          <Image className="text-gray-500" src="/assets/navigation.svg" width={24} height={24} alt="navigation button"></Image>
+        {icon &&
+          <Image className="text-gray-500" src={`/assets/${icon}`} width={24} height={24} alt={altText ? altText : 'dropdown menu button'}></Image>
+        }
+        {text &&
+          <span>{text}</span>
+        }
       </div>
       <div ref={ref} className={`rounded-lg duration-100 absolute right-2 ${expanded ? 'top-12 opacity-100' : 'top-9 opacity-0'}`}>
         {menuVisible && children}
