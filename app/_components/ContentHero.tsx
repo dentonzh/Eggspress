@@ -4,7 +4,9 @@ import Link from 'next/link'
 import Image from 'next/image'
 import DropdownMenu from './DropdownMenu'
 import NavigationMenu from './NavigationMenu'
-import CopyButton from './CopyButton'
+import ShareCopyButton from './ShareCopyButton'
+import ShareTwitterButton from './ShareTwitterButton'
+import ShareSocialButton from './ShareSocialButton'
 
 interface ContentHeroProps {
   headline?: string,
@@ -17,10 +19,11 @@ interface ContentHeroProps {
   date?: string,
   imageSrc?: string | null,
   imageAlt?: string,
+  showShareButton?: boolean,
   children?: React.ReactNode,
 }
 
-const ContentHero = async ({sectionString, sectionLink, headline, subtitle, headlineSeparator, subheading, subtitlePrefix, date, imageSrc, imageAlt, currentPath}: ContentHeroProps) => {
+const ContentHero = async ({sectionString, sectionLink, headline, subtitle, headlineSeparator, subheading, subtitlePrefix, date, imageSrc, imageAlt, showShareButton}: ContentHeroProps) => {
   const headlineMarginLeft = headline && ['E', 'B', 'D', 'F', 'H', 'L', 'P', 'R'].includes(headline.charAt(0)) ? '-ml-0.5' : ''
   const headlineMarginBottom = subheading && (sectionString || date) ? 'mb-12 md:mb-8' : subheading ? 'mb-6' : (sectionString || date) ? 'mb-3 md:mb-6' : 'mb-6'
 
@@ -62,9 +65,9 @@ const ContentHero = async ({sectionString, sectionLink, headline, subtitle, head
             </div>
           }
           <div className={imageSrc ? 'flex' : ''}></div>
-          {(sectionString || date || currentPath) &&
+          {(sectionString || date || showShareButton) &&
             <div className="flex text-[13px] font-medium">
-              <div className={`${sectionString && (date || currentPath) ? `border-r ${await getColors('border', 'HeroSectionDateBorder', 'gray-500', 'gray-300')} pr-2 mr-2` : ''}`}>
+              <div className={`${sectionString && (date || showShareButton) ? `border-r ${await getColors('border', 'HeroSectionDateBorder', 'gray-500', 'gray-300')} pr-2 mr-2` : ''}`}>
                 {sectionString &&
                   <div>
                     {sectionLink ?
@@ -76,24 +79,44 @@ const ContentHero = async ({sectionString, sectionLink, headline, subtitle, head
                 }
               </div>
               {date &&
-                <div className={`${await getColors('text', 'HeroDate')} ${date && currentPath ? `border-r ${await getColors('border', 'HeroSectionDateBorder', 'gray-500', 'gray-300')} pr-2 mr-2` : ''}`}>
+                <div className={`${await getColors('text', 'HeroDate')} ${date && showShareButton ? `border-r ${await getColors('border', 'HeroSectionDateBorder', 'gray-500', 'gray-300')} pr-2 mr-2` : ''}`}>
                   {date}
                 </div>
               }
-              {currentPath &&
+              {showShareButton &&
                 <div className={await getColors('text', 'HeroDate')}>
                   <DropdownMenu text="Share">
                     <NavigationMenu>
                       <div className="w-48 pl-6 py-6">
-                        <div className="mb-5">
-                          <CopyButton>
+                        <div className="select-none cursor-pointer mb-5">
+                          <ShareCopyButton>
                             <Image className="text-gray-500 inline-block dark:brightness-150" src="/assets/copy.svg" width={16} height={16} alt="copy link icon"></Image>
-                            <span id="copy-button" className="pl-1">Copy link</span>
-                          </CopyButton>
+                            <span id="copy-button" className="pl-2">Copy link</span>
+                          </ShareCopyButton>
                         </div>
-                        <div>
-                          <Image className="text-gray-500 inline-block dark:brightness-150" src="/assets/qr.svg" width={16} height={16} alt="copy link icon"></Image>
-                          <span className="pl-1">Show QR code</span>
+                        <div className="select-none cursor-pointer mb-5">
+                          <ShareTwitterButton headline={headline} subtitle={subtitle}>
+                            <Image className="text-gray-500 inline-block dark:brightness-150" src="/assets/x.svg" width={16} height={16} alt="copy link icon"></Image>
+                            <span className="pl-2">Share on X</span>
+                          </ShareTwitterButton>
+                        </div>
+                        <div className="select-none cursor-pointer mb-5">
+                          <ShareSocialButton baseUrl={"https://www.facebook.com/sharer.php?u="}>
+                            <Image className="text-gray-500 inline-block dark:brightness-150" src="/assets/facebook.svg" width={16} height={16} alt="copy link icon"></Image>
+                            <span className="pl-2">Share on Facebook</span>
+                          </ShareSocialButton>
+                        </div>
+                        <div className="select-none cursor-pointer mb-5">
+                          <ShareSocialButton skipEncode={true} baseUrl={"https://www.linkedin.com/sharing/share-offsite/?url="}>
+                            <Image className="text-gray-500 inline-block dark:brightness-150" src="/assets/linkedin.svg" width={16} height={16} alt="copy link icon"></Image>
+                            <span className="pl-2">Share on LinkedIn</span>
+                          </ShareSocialButton>
+                        </div>
+                        <div className="select-none cursor-pointer mb-5">
+                          <ShareSocialButton skipEncode={true} baseUrl={"https://www.reddit.com/submit?url="} urlSuffix={`&title=${headline || ''} ${subtitle || ''}`}>
+                            <Image className="text-gray-500 inline-block dark:brightness-150" src="/assets/reddit.svg" width={16} height={16} alt="copy link icon"></Image>
+                            <span className="pl-2">Share on Reddit</span>
+                          </ShareSocialButton>
                         </div>
                       </div>
 

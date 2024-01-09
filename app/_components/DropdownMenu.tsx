@@ -53,10 +53,10 @@ const DropdownMenu = ({children, icon, text, altText, closeOnRouteChange = true}
           <Image className="text-gray-500" src={`/assets/${icon}`} width={24} height={24} alt={altText ? altText : 'dropdown menu button'}></Image>
         }
         {text &&
-          <span>{text}</span>
+          <span className="select-none cursor-pointer">{text}</span>
         }
       </div>
-      <div ref={ref} className={`rounded-lg duration-100 absolute right-2 ${expanded ? 'top-12 opacity-100' : 'top-9 opacity-0'}`}>
+      <div ref={ref} className={`rounded-lg duration-100 absolute ${icon ? 'right-2' : '-right-12'} ${expanded ? 'top-12 opacity-100' : 'top-9 opacity-0'}`}>
         {menuVisible && children}
       </div>
     </div>

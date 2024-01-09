@@ -82,6 +82,7 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
         subheading={frontmatter.subheading}
         date={frontmatter.date || frontmatter.publishDate ? convertDate(frontmatter.date || frontmatter.publishDate) : ''}
         imageSrc={frontmatter.image && frontmatter.showImageInHeader ? `/images/${slug}/${frontmatter.image}` : ''}
+        showShareButton={true}
       >
       </ContentHero>
       {frontmatter.isVisible === false && 

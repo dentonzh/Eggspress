@@ -2,7 +2,7 @@
 import { usePathname } from "next/navigation"
 import { ReactNode } from "react"
 
-type CopyButtonProps = {
+type ShareCopyButtonProps = {
   children: ReactNode
 }
 
@@ -12,7 +12,7 @@ const copyToClipboard = (text: string) => {
   navigator.clipboard.write([item])
 }
 
-const CopyButton = ({children}: CopyButtonProps) => {
+const ShareCopyButton = ({children}: ShareCopyButtonProps) => {
   const pathname = usePathname()
   const url = window.location.origin + pathname
 
@@ -24,4 +24,4 @@ const CopyButton = ({children}: CopyButtonProps) => {
 
 }
 
-export default CopyButton
+export default ShareCopyButton
