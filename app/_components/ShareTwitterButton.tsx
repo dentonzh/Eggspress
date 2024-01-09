@@ -15,7 +15,7 @@ const ShareTwitterButton = ({headline, subtitle, children}: ShareTwitterButtonPr
   const url = window.location.origin + pathname
 
   return (
-    <a target="_blank" href={`https://twitter.com/intent/tweet?text=Read%20"${encodeURIComponent(`${headline || ""}${subtitle ? ' ' + subtitle : ''}`)}"&url=${encodeURIComponent(url)}`}>
+    <a target="_top" href={`https://twitter.com/intent/tweet?text=Read%20"${encodeURIComponent(`${headline || ""}${subtitle ? ' ' + subtitle : ''}`)}"&url=${encodeURIComponent(url)}`}>
       {children}
     </a>
   )

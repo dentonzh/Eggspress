@@ -13,6 +13,7 @@ type ShareSocialButtonProps = {
 
 const ShareSocialButton = ({baseUrl, skipEncode, urlSuffix, children}: ShareSocialButtonProps) => {
   const pathname = usePathname()
+  const queryParams = '?utm_source="share"&utm_medium="'
   const url = window.location.origin + pathname
 
   return (

@@ -87,32 +87,32 @@ const ContentHero = async ({sectionString, sectionLink, headline, subtitle, head
                 <div className={await getColors('text', 'HeroDate')}>
                   <DropdownMenu text="Share">
                     <NavigationMenu>
-                      <div className="w-48 pl-6 py-6">
-                        <div className="select-none cursor-pointer mb-5">
+                      <div className="w-48 px-3 py-6">
+                        <div className="dropdown-item mb-3">
                           <ShareCopyButton>
                             <Image className="text-gray-500 inline-block dark:brightness-150" src="/assets/copy.svg" width={16} height={16} alt="copy link icon"></Image>
-                            <span id="copy-button" className="pl-2">Copy link</span>
+                            <span className="pl-2">Copy link</span>
                           </ShareCopyButton>
                         </div>
-                        <div className="select-none cursor-pointer mb-5">
+                        <div className="dropdown-item mb-3">
                           <ShareTwitterButton headline={headline} subtitle={subtitle}>
                             <Image className="text-gray-500 inline-block dark:brightness-150" src="/assets/x.svg" width={16} height={16} alt="copy link icon"></Image>
                             <span className="pl-2">Share on X</span>
                           </ShareTwitterButton>
                         </div>
-                        <div className="select-none cursor-pointer mb-5">
+                        <div className="dropdown-item mb-3">
                           <ShareSocialButton baseUrl={"https://www.facebook.com/sharer.php?u="}>
                             <Image className="text-gray-500 inline-block dark:brightness-150" src="/assets/facebook.svg" width={16} height={16} alt="copy link icon"></Image>
                             <span className="pl-2">Share on Facebook</span>
                           </ShareSocialButton>
                         </div>
-                        <div className="select-none cursor-pointer mb-5">
+                        <div className="dropdown-item mb-3">
                           <ShareSocialButton skipEncode={true} baseUrl={"https://www.linkedin.com/sharing/share-offsite/?url="}>
                             <Image className="text-gray-500 inline-block dark:brightness-150" src="/assets/linkedin.svg" width={16} height={16} alt="copy link icon"></Image>
                             <span className="pl-2">Share on LinkedIn</span>
                           </ShareSocialButton>
                         </div>
-                        <div className="select-none cursor-pointer mb-5">
+                        <div className="dropdown-item">
                           <ShareSocialButton skipEncode={true} baseUrl={"https://www.reddit.com/submit?url="} urlSuffix={`&title=${headline || ''} ${subtitle || ''}`}>
                             <Image className="text-gray-500 inline-block dark:brightness-150" src="/assets/reddit.svg" width={16} height={16} alt="copy link icon"></Image>
                             <span className="pl-2">Share on Reddit</span>
