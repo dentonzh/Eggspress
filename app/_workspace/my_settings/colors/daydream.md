@@ -8,6 +8,11 @@ colorThemeBodyLight: "[#dbe9f1]"
 colorThemeFooterDark: "[#100e29]"
 colorThemeFooterLight: "[#ccccf1]"
 
+colorScrollbarThumbDark: "#665fa5"
+colorScrollbarThumbLight: "#b7b8e1"
+colorScrollbarTrackDark: "#3f3762"
+colorScrollbarTrackLight: "#e2ddee"
+
 colorNavBarBrandTextDark: "indigo-200"
 colorNavBarBrandTextLight: "sky-700"
 colorNavMenuBackgroundDark: "[#413450]"

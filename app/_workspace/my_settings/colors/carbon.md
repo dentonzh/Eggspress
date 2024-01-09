@@ -8,6 +8,11 @@ colorThemeBodyLight: "white"
 colorThemeFooterDark: "slate-900"
 colorThemeFooterLight: "gray-100"
 
+colorScrollbarThumbDark: "#6073a6"
+colorScrollbarThumbLight: "#cccccc"
+colorScrollbarTrackDark: "#364161"
+colorScrollbarTrackLight: "#eeeeee"
+
 colorNavBarBrandTextDark: "gray-100"
 colorNavBarBrandTextLight: "gray-800"
 

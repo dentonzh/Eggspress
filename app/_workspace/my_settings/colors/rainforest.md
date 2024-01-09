@@ -8,6 +8,11 @@ colorThemeBodyLight: "green-100"
 colorThemeFooterDark: "[#011318]"
 colorThemeFooterLight: "emerald-300"
 
+colorScrollbarThumbDark: "#4f8c62"
+colorScrollbarThumbLight: "#8db99d"
+colorScrollbarTrackDark: "#213b2d"
+colorScrollbarTrackLight: "#d0e7d6"
+
 colorNavBarBrandTextDark: "green-400"
 colorNavBarBrandTextLight: "zinc-700"
 
