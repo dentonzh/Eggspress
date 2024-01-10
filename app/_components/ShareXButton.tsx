@@ -2,7 +2,7 @@
 import { usePathname } from "next/navigation"
 import { ReactNode } from "react"
 
-type ShareTwitterButtonProps = {
+type ShareXButtonProps = {
   className?: string,
   headline?: string,
   subtitle?: string,
@@ -11,7 +11,7 @@ type ShareTwitterButtonProps = {
 }
 
 
-const ShareTwitterButton = ({className, headline, subtitle, siteName, children}: ShareTwitterButtonProps) => {
+const ShareXButton = ({className, headline, subtitle, siteName, children}: ShareXButtonProps) => {
   const pathname = usePathname()
   const url = window.location.origin + pathname
 
@@ -23,4 +23,4 @@ const ShareTwitterButton = ({className, headline, subtitle, siteName, children}:
 
 }
 
-export default ShareTwitterButton
+export default ShareXButton
