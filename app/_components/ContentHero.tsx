@@ -88,7 +88,7 @@ const ContentHero = async ({sectionString, sectionLink, headline, subtitle, head
                 <div className={`${await getColors('text', 'HeroDate')}`}>
                   <DropdownMenu text="Share" align={!date && !sectionString ? 'left-0' : '-left-16'}>
                     <NavigationMenu>
-                      <div className="w-36 sm:w-48 px-3 py-6">
+                      <div className="w-40 sm:w-52 px-3 py-6">
                         <div className="dropdown-item mb-3">
                           <ShareCopyButton>
                             <Image className="text-gray-500 inline-block dark:brightness-150" src="/assets/copy.svg" width={16} height={16} alt="copy link icon"></Image>
