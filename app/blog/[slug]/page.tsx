@@ -110,7 +110,7 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
             }
           </div>
           
-          {(appearanceSettings.showShareButtonInContent === undefined || appearanceSettings.showShareButtonInContent) &&
+          {(appearanceSettings.showShareButtonInPostContent === undefined || appearanceSettings.showShareButtonInPostContent) &&
             <div className="w-full px-2">
               <div className={`font-light text-sm mb-5 ${await getColors('text', 'SidebarHeading')}`}>
                 {appearanceSettings.shareThisPostText ? appearanceSettings.shareThisPostText : 'Share this post'}
@@ -185,10 +185,10 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
             </div>
           </Sidebar>
           
-          {(appearanceSettings.showShareButtonInSidebar === undefined || appearanceSettings.showShareButtonInSidebar) &&
+          {(appearanceSettings.showShareButtonInPostSidebar === undefined || appearanceSettings.showShareButtonInPostSidebar) &&
             <Sidebar isSticky={false}>
               <div className="mb-20 text-sm">
-                <div className={`mb-6 font-medium ${await getColors('text', 'SidebarHeading')}`}>
+                <div className={`sidebar-section ${await getColors('text', 'SidebarHeading')}`}>
                   {appearanceSettings.shareThisPostText ? appearanceSettings.shareThisPostText : 'Share this post'}
                 </div>
                 <ShareBar className="-ml-3" headline={frontmatter.title || 'Untitled Post'} subtitle={frontmatter.subtitle} siteName={metadataSettings.title}></ShareBar>
