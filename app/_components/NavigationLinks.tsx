@@ -17,22 +17,22 @@ const NavigationLinks = async () => {
     <div className="flex flex-col w-full">
       <div className="flex flex-col w-full">
         {categoryData.map(category => 
-          <Link className="dropdown-item mb-3" key={category.slug} href={`/${category.slug}`}>
+          <Link className="dropdown-item px-3 py-1 mb-3" key={category.slug} href={`/${category.slug}`}>
             {category.title}
           </Link>
         )}
       </div>
       {categoryData.length > 0 && pageData.length > 0 &&
-        <div className="mb-3 mx-3 opacity-20 border-b">
+        <div className="mb-3 mx-3 opacity-20 border-b border-gray-400">
         </div>
       }
       <div className={`flex flex-col w-full  mb-3`}>
         {pageData.map(page => 
-          <Link className="dropdown-item mb-3" key={page.slug} href={`/page/${page.slug}`}>
+          <Link className="dropdown-item px-3 py-1 mb-3" key={page.slug} href={`/page/${page.slug}`}>
             {page.name}
           </Link>
         )}
-        <Link className="dropdown-item mb-3" href="/">
+        <Link className="dropdown-item px-3 py-1 mb-3" href="/">
           <span>
             Home
           </span>

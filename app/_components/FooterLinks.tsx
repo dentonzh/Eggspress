@@ -25,7 +25,7 @@ const FooterLinks = async () => {
         )}
       </div>
       {categoryData.length > 0 && pageData.length > 0 &&
-        <div className="w-4/5 max-w-[12rem] mb-6 md:mb-3 opacity-20 border-b">
+        <div className="w-4/5 max-w-[12rem] mb-6 md:mb-3 opacity-20 border-b border-gray-400 dark:border-gray-200">
         </div>
       }
       <div className={`flex flex-col w-full  mb-3`}>

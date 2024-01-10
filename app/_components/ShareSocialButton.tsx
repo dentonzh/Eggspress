@@ -3,6 +3,7 @@ import { usePathname } from "next/navigation"
 import { ReactNode } from "react"
 
 type ShareSocialButtonProps = {
+  className?: string,
   baseUrl: string,
   skipEncode?: boolean,
   urlSuffix?: string,
@@ -11,13 +12,12 @@ type ShareSocialButtonProps = {
 
 
 
-const ShareSocialButton = ({baseUrl, skipEncode, urlSuffix, children}: ShareSocialButtonProps) => {
+const ShareSocialButton = ({className, baseUrl, skipEncode, urlSuffix, children}: ShareSocialButtonProps) => {
   const pathname = usePathname()
-  const queryParams = '?utm_source="share"&utm_medium="'
   const url = window.location.origin + pathname
 
   return (
-    <a target="_blank" href={`${baseUrl}${skipEncode ? url : encodeURIComponent(url)}${urlSuffix}`}>
+    <a className={className} target="_blank" href={`${baseUrl}${skipEncode ? url : encodeURIComponent(url)}${urlSuffix}`}>
       {children}
     </a>
   )

@@ -12,6 +12,7 @@ import getFrontmatter from '@/app/_components/getFrontmatter'
 import PostCard from '@/app/_components/PostCard'
 import ContentHero from '@/app/_components/ContentHero'
 import HiddenContentMessage from '@/app/_components/HiddenContentMessage'
+import ShareBar from '@/app/_components/ShareBar'
 
 
 export async function generateStaticParams() {
@@ -52,6 +53,7 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
   const { content, frontmatter } = await compileContent('posts', slug)
   const authors = frontmatter && frontmatter.author ? frontmatter.author.split(',').map((author: string) => author.trim().replaceAll('_', '-').replaceAll(' ', '-')) : []
   const appearanceSettings = await getEggspressSettings('appearance')
+  const metadataSettings = await getEggspressSettings('metadata')
 
   const postFrontmatter = await getFrontmatter('posts')
   const prevPost = postFrontmatter.filter(post => frontmatter.prevPost && post.slug === frontmatter.prevPost.replaceAll('_', '-').replaceAll(' ', '-'))[0]
@@ -108,6 +110,17 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
             }
           </div>
 
+          {appearanceSettings.showShareButtonInContent === undefined || appearanceSettings.showShareButtonInContent &&
+            <div className="w-full px-2">
+              <div className={`font-light text-sm mb-5 ${await getColors('text', 'SidebarHeading')}`}>
+                {appearanceSettings.shareThisPostText ? appearanceSettings.shareThisPostText : 'Share this post'}
+              </div>
+              <div className="w-full text-center border rounded-lg py-4 border-gray-200/40 dark:border-gray-600/40 bg-gray-200/20 dark:bg-gray-900/20">
+                <ShareBar className="inline-block" headline={frontmatter.title || 'Untitled Post'} subtitle={frontmatter.subtitle} siteName={metadataSettings.title}></ShareBar>
+              </div>
+            </div>
+          }
+
           {(nextPost || prevPost) &&
               <div className="flex flex-wrap border-t border-gray-300 dark:border-gray-600 mt-12 py-6 text-gray-800 dark:text-gray-200 justify-between">
                 {prevPost &&
@@ -163,8 +176,7 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
             <div className="mb-16"></div>
           }
         </div>
-
-        <div className="mb-20 mt-3">
+        <div className="mb-20 mt-3 h-full">
           <Sidebar isSticky={false}>
             <div>
               {authors.map((author: string) => 
@@ -172,12 +184,24 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
               )}
             </div>
           </Sidebar>
+          
+          {(appearanceSettings.showShareButtonInSidebar === undefined || appearanceSettings.showShareButtonInSidebar) &&
+            <Sidebar isSticky={false}>
+              <div className="mb-20 text-sm">
+                <div className={`mb-6 font-medium ${await getColors('text', 'SidebarHeading')}`}>
+                  {appearanceSettings.shareThisPostText ? appearanceSettings.shareThisPostText : 'Share this post'}
+                </div>
+                <ShareBar className="-ml-3" headline={frontmatter.title || 'Untitled Post'} subtitle={frontmatter.subtitle} siteName={metadataSettings.title}></ShareBar>
+              </div>
+            </Sidebar>
+          }
+
           <Sidebar isSticky={false}>
             {relatedPosts.length > 0 && 
               <div className="mb-16">
                 <div className="flex flex-wrap mb-3">
                   <Image src="/assets/relation.svg" alt="relation icon" width={32} height={32} className="h-5 w-5 -ml-4 opacity-50 dark:opacity-100 border-gray-300 dark:border-gray-600 stroke-gray-200 fill-gray-200 brightness-50 dark:brightness-100"></Image>
-                  <div className="font-medium text-sm text-gray-600 dark:text-gray-300 my-auto pl-1">Related Posts</div>
+                  <div className={`sidebar-heading text-sm pl-1 ${await getColors('text', 'SidebarHeading')}`}>Related Posts</div>
                 </div>
                 {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(async (index: number) => {
                   const postData = postFrontmatter.filter(fm => frontmatter['relatedPost' + index] && fm.slug === frontmatter['relatedPost' + index].replaceAll('_', '-').replaceAll(' ', '-'))
@@ -215,7 +239,7 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
             </Sidebar>
           }
         </div>
-    </div>
+      </div>
     </div>
   )
 }

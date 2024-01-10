@@ -91,7 +91,11 @@ p > code {
 }
 
 .dropdown-item {
-  @apply duration-200 select-none cursor-pointer rounded hover:bg-gray-300/10 dark:hover:bg-gray-200/10 px-3 py-1;
+  @apply duration-200 select-none cursor-pointer rounded hover:bg-gray-400/10 dark:hover:bg-gray-200/10;
+}
+
+.share-menu-item {
+  @apply text-gray-500 inline-block dark:brightness-150;
 }
 
 h2:not(#hero-subtitle)::before, h3::before, h4:not(.sidebar-heading)::before, h5::before { 

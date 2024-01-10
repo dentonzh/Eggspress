@@ -11,12 +11,16 @@ type ShareTwitterButtonProps = {
 }
 
 
+
 const ShareTwitterButton = ({className, headline, subtitle, siteName, children}: ShareTwitterButtonProps) => {
   const pathname = usePathname()
   const url = window.location.origin + pathname
+  const subject = encodeURIComponent(`Read "${headline || ""}${subtitle ? ' ' + subtitle : ''}"`)
+  const body = encodeURIComponent(`Read <a href="${url}">${headline || ""}${subtitle ? ' ' + subtitle : ''}</a>${siteName ? ` on ${siteName}. ` : '.'}\n\n\n\nSent from <a href="https://eggspress.vercel.app">Eggspress</a>, the fast and free blogging platform.`)
 
   return (
-    <a className={className} target="_blank" href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`Read "${headline || ""}${subtitle ? ' ' + subtitle : ''}"${siteName ? ` on ${siteName}: ` : ': '}`)}&url=${encodeURIComponent(url)}&hashtags=${siteName ? `${siteName},Eggspress` : 'Eggspress'}&via=EggspressBlog&related=EggspressBlog,dentonzh`}>
+
+    <a className={className} target="_top" href={`mailto:?subject=${subject}&body=${body}`}>
       {children}
     </a>
   )
