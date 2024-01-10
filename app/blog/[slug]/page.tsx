@@ -109,8 +109,8 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
               </div>
             }
           </div>
-
-          {appearanceSettings.showShareButtonInContent === undefined || appearanceSettings.showShareButtonInContent &&
+          
+          {(appearanceSettings.showShareButtonInContent === undefined || appearanceSettings.showShareButtonInContent) &&
             <div className="w-full px-2">
               <div className={`font-light text-sm mb-5 ${await getColors('text', 'SidebarHeading')}`}>
                 {appearanceSettings.shareThisPostText ? appearanceSettings.shareThisPostText : 'Share this post'}
