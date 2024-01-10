@@ -11,6 +11,19 @@ showBrandText: false
 
 numberOfPostsPerPage: 8
 
+showShareButtonInHeader: true
+showShareButtonInPostContent: true
+showShareButtonInPostSidebar: true
+showShareButtonInPageContent: true
+showShareButtonInPageSidebar: true
+
+shareThisPostText: "Share this post"
+shareThisPageText: "Share this page"
+shareText: "Share"
+shareOnText: "Share on"
+copyLinkText: "Copy link"
+sendEmailText: "Send email"
+
 hiddenContentMessage: "This page is archived and may contain out of date information"
 hiddenContentIsHidden: false
 hiddenContentIsHiddenMessageHeading: "This content is unavailable"
