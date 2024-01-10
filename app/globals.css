@@ -94,7 +94,7 @@ p > code {
   @apply duration-200 select-none cursor-pointer rounded hover:bg-gray-300/10 dark:hover:bg-gray-200/10 px-3 py-1;
 }
 
- h2:not(#hero-subtitle)::before, h3::before, h4:not(.sidebar-heading)::before, h5::before { 
+h2:not(#hero-subtitle)::before, h3::before, h4:not(.sidebar-heading)::before, h5::before { 
   display: block; 
   content: " "; 
   margin-top: -58px; 

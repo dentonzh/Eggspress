@@ -58,13 +58,14 @@ const ContentHero = async ({sectionString, sectionLink, headline, subtitle, head
         </div>
       </div>
       <div className={`flex flex-wrap ${imageSrc ? 'md:mt-12 lg:mt-0' : ''}`}>
-        <div>
-          {subheading &&
-            <div className={`font-medium mb-5 md:mb-3 ${imageSrc ? '-mt-4' : 'mt-8 lg:mt-0'} ${await getColors('text', 'HeroSubheading')}`}>
-              {subheading}
-            </div>
-          }
-          <div className={imageSrc ? 'flex' : ''}></div>
+        {subheading &&
+          <div className={`font-medium mb-5 md:mb-3 ${imageSrc ? '-mt-4' : 'mt-8 lg:mt-0'} ${await getColors('text', 'HeroSubheading')}`}>
+            {subheading}
+          </div>
+        }
+        <div className={imageSrc ? 'flex' : ''}></div>
+        <div className="w-full">
+
           {(sectionString || date || showShareButton) &&
             <div className="flex text-[13px] font-medium">
               <div className={`${sectionString && (date || showShareButton) ? `border-r ${await getColors('border', 'HeroSectionDateBorder', 'gray-500', 'gray-300')} pr-2 mr-2` : ''}`}>
@@ -84,10 +85,10 @@ const ContentHero = async ({sectionString, sectionLink, headline, subtitle, head
                 </div>
               }
               {showShareButton &&
-                <div className={await getColors('text', 'HeroDate')}>
-                  <DropdownMenu text="Share">
+                <div className={`${await getColors('text', 'HeroDate')}`}>
+                  <DropdownMenu text="Share" align={!date && !sectionString ? 'left-0' : '-left-16'}>
                     <NavigationMenu>
-                      <div className="w-48 px-3 py-6">
+                      <div className="w-36 sm:w-48 px-3 py-6">
                         <div className="dropdown-item mb-3">
                           <ShareCopyButton>
                             <Image className="text-gray-500 inline-block dark:brightness-150" src="/assets/copy.svg" width={16} height={16} alt="copy link icon"></Image>
@@ -97,25 +98,25 @@ const ContentHero = async ({sectionString, sectionLink, headline, subtitle, head
                         <div className="dropdown-item mb-3">
                           <ShareTwitterButton headline={headline} subtitle={subtitle}>
                             <Image className="text-gray-500 inline-block dark:brightness-150" src="/assets/x.svg" width={16} height={16} alt="copy link icon"></Image>
-                            <span className="pl-2">Share on X</span>
+                            <span className="pl-2"><span className="hidden sm:inline">Share on </span>X</span>
                           </ShareTwitterButton>
                         </div>
                         <div className="dropdown-item mb-3">
                           <ShareSocialButton baseUrl={"https://www.facebook.com/sharer.php?u="}>
                             <Image className="text-gray-500 inline-block dark:brightness-150" src="/assets/facebook.svg" width={16} height={16} alt="copy link icon"></Image>
-                            <span className="pl-2">Share on Facebook</span>
+                            <span className="pl-2"><span className="hidden sm:inline">Share on </span>Facebook</span>
                           </ShareSocialButton>
                         </div>
                         <div className="dropdown-item mb-3">
                           <ShareSocialButton skipEncode={true} baseUrl={"https://www.linkedin.com/sharing/share-offsite/?url="}>
                             <Image className="text-gray-500 inline-block dark:brightness-150" src="/assets/linkedin.svg" width={16} height={16} alt="copy link icon"></Image>
-                            <span className="pl-2">Share on LinkedIn</span>
+                            <span className="pl-2"><span className="hidden sm:inline">Share on </span>LinkedIn</span>
                           </ShareSocialButton>
                         </div>
                         <div className="dropdown-item">
                           <ShareSocialButton skipEncode={true} baseUrl={"https://www.reddit.com/submit?url="} urlSuffix={`&title=${headline || ''} ${subtitle || ''}`}>
                             <Image className="text-gray-500 inline-block dark:brightness-150" src="/assets/reddit.svg" width={16} height={16} alt="copy link icon"></Image>
-                            <span className="pl-2">Share on Reddit</span>
+                            <span className="pl-2"><span className="hidden sm:inline">Share on </span>Reddit</span>
                           </ShareSocialButton>
                         </div>
                       </div>

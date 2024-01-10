@@ -56,6 +56,7 @@ const PagePage =  async ( {params}: {params: {slug: string}} ) => {
         sectionString={frontmatter.category}
         sectionLink={frontmatter.category ? `/${createSlug(frontmatter.category)}` : ''}
         date={frontmatter.date || frontmatter.publishDate ? convertDate(frontmatter.date || frontmatter.publishDate) : ''}
+        showShareButton={true}
       >
       </ContentHero>
       {frontmatter.isVisible === false && 
