@@ -2,7 +2,7 @@
 import { usePathname } from "next/navigation"
 import { ReactNode } from "react"
 
-type ShareTwitterButtonProps = {
+type ShareEmailButtonProps = {
   className?: string,
   headline?: string,
   subtitle?: string,
@@ -12,7 +12,7 @@ type ShareTwitterButtonProps = {
 
 
 
-const ShareTwitterButton = ({className, headline, subtitle, siteName, children}: ShareTwitterButtonProps) => {
+const ShareEmailButton = ({className, headline, subtitle, siteName, children}: ShareEmailButtonProps) => {
   const pathname = usePathname()
   const url = window.location.origin + pathname
   const subject = encodeURIComponent(`Read "${headline || ""}${subtitle ? ' ' + subtitle : ''}"`)
@@ -27,4 +27,4 @@ const ShareTwitterButton = ({className, headline, subtitle, siteName, children}:
 
 }
 
-export default ShareTwitterButton
+export default ShareEmailButton
