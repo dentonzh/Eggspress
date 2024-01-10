@@ -116,7 +116,7 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
                 {appearanceSettings.shareThisPostText ? appearanceSettings.shareThisPostText : 'Share this post'}
               </div>
               <div className="w-full text-center border rounded-lg py-2 border-gray-200/40 dark:border-gray-600/40 bg-gray-200/20 dark:bg-gray-900/20">
-                <ShareBar className="inline-block" headline={frontmatter.title || 'Untitled Post'} subtitle={frontmatter.subtitle} siteName={metadataSettings.title}></ShareBar>
+                <ShareBar appearanceSettings={appearanceSettings} className="inline-block" headline={frontmatter.title || 'Untitled Post'} subtitle={frontmatter.subtitle} siteName={metadataSettings.title}></ShareBar>
               </div>
             </div>
           }
@@ -191,7 +191,7 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
                 <div className={`sidebar-section ${await getColors('text', 'SidebarHeading')}`}>
                   {appearanceSettings.shareThisPostText ? appearanceSettings.shareThisPostText : 'Share this post'}
                 </div>
-                <ShareBar className="-ml-6" headline={frontmatter.title || 'Untitled Post'} subtitle={frontmatter.subtitle} siteName={metadataSettings.title}></ShareBar>
+                <ShareBar appearanceSettings={appearanceSettings} className="-ml-6" headline={frontmatter.title || 'Untitled Post'} subtitle={frontmatter.subtitle} siteName={metadataSettings.title}></ShareBar>
               </div>
             </Sidebar>
           }
