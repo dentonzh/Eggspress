@@ -23,7 +23,7 @@ const ShareMenu = async ({className, align, headline, subtitle, siteName}: Share
     <div className={className}>
       <DropdownMenu text={appearanceSettings.shareText ? appearanceSettings.shareText : 'Share'} align={align || 'left-0'}>
         <NavigationMenu>
-          <div className="min-w-[10rem] sm:min-w-[12rem] pl-3 pr-6 py-6">
+          <div className="min-w-[10rem] sm:min-w-[12rem] px-3 pt-6 pb-3">
             <div className="mb-3">
               {(appearanceSettings.showShareByLinkButton === undefined || appearanceSettings.showShareByLinkButton) && 
                 <ShareCopyButton className="dropdown-item pl-2 sm:px-3 py-2 block">
@@ -56,7 +56,7 @@ const ShareMenu = async ({className, align, headline, subtitle, siteName}: Share
             </div>
             <div className="mb-3">
               {(appearanceSettings.showShareByFacebookButton === undefined || appearanceSettings.showShareByFacebookButton) && 
-                <ShareSocialButton className="dropdown-item pl-2 sm:px-3 py-2 block" baseUrl={"https://www.facebook.com/sharer.php?u="}>
+                <ShareSocialButton className="dropdown-item pl-2 sm:pl-3 sm:pr-6 py-2 block" baseUrl={"https://www.facebook.com/sharer.php?u="}>
                   <Image className="text-gray-500 inline-block dark:brightness-150" src="/assets/facebook.svg" width={16} height={16} alt="share on facebook icon"></Image>
                   <span className="pl-2 sm:pl-4"><span className="hidden sm:inline">
                     {`${appearanceSettings.shareOnText ? appearanceSettings.shareOnText : 'Share on'} `}
@@ -85,8 +85,8 @@ const ShareMenu = async ({className, align, headline, subtitle, siteName}: Share
               }
             </div>
             <div className="mb-3">
-              {(appearanceSettings.showShareByRedditButton) && 
-                <ShareSocialButton className="dropdown-item pl-2 sm:px-3 py-2 block" windowHeight={224} baseUrl={"https://news.ycombinator.com/submitlink?u="} urlSuffix={`&t=${headline || ''} ${subtitle || ''}`}>
+              {(appearanceSettings.showShareByHackernewsButton) && 
+                <ShareSocialButton className="dropdown-item pl-2 sm:pl-3 sm:pr-8 py-2 block" windowHeight={224} baseUrl={"https://news.ycombinator.com/submitlink?u="} urlSuffix={`&t=${headline || ''} ${subtitle || ''}`}>
                   <Image className="text-gray-500 inline-block dark:brightness-150 -ml-0.5 -mt-0.5" src="/assets/hackernews.svg" width={20} height={20} alt="share on hackernews icon"></Image>
                   <span className="pl-2 -ml-1 sm:pl-4"><span className="hidden sm:inline">
                     {`${appearanceSettings.shareOnText ? appearanceSettings.shareOnText : 'Share on'} `}
