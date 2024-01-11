@@ -21,10 +21,10 @@ const ShareCopyButton = ({className, showCopyStatus=true, children}: ShareCopyBu
   const url = window.location.origin + pathname
 
   return (
-    <div className={`cursor-pointer ${className}`} onClick={() => {copyToClipboard(url || ''); setCopied(true); setTimeout(() => {setCopied(false)}, 750)}}>
+    <div className={`cursor-pointer ${className}`} onClick={() => {copyToClipboard(url || ''); setCopied(true); setTimeout(() => {setCopied(false)}, 1000)}}>
       {children}
       {showCopyStatus &&
-        <span className={`pl-1 duration-100 text-xs font-light ${copied ? 'opacity-100' : 'opacity-0'}`}>
+        <span className={`px-2 -ml-14 bg-gray-50/90 dark:bg-gray-900/80 rounded duration-100 ${copied ? 'opacity-100' : 'opacity-0'}`}>
           Copied!
         </span>
       }
