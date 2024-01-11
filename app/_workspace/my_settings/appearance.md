@@ -16,12 +16,17 @@ showShareButtonInPostContent: true
 showShareButtonInPostSidebar: true
 showShareButtonInPageContent: true
 showShareButtonInPageSidebar: true
+
 showShareByLinkButton: true
 showShareByEmailButton: true
 showShareByXButton: true
 showShareByFacebookButton: true
 showShareByLinkedinButton: true
 showShareByRedditButton: true
+showShareByHackernewsButton: false
+showShareByFlipboardButton: false
+showShareByWhatsappButton: false
+showShareByTelegramButton: false
 
 shareThisPostText: "Share this post"
 shareThisPageText: "Share this page"

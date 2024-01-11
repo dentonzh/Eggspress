@@ -7,10 +7,11 @@ type ShareSocialButtonProps = {
   baseUrl: string,
   skipEncode?: boolean,
   urlSuffix?: string,
+  windowHeight?: number,
   children: ReactNode
 }
 
-const ShareSocialButton = ({className, baseUrl, skipEncode, urlSuffix, children}: ShareSocialButtonProps) => {
+const ShareSocialButton = ({className, baseUrl, skipEncode, urlSuffix, windowHeight, children}: ShareSocialButtonProps) => {
   const [clicked, setClicked] = useState(false)
 
   const pathname = usePathname()
@@ -19,9 +20,9 @@ const ShareSocialButton = ({className, baseUrl, skipEncode, urlSuffix, children}
 
   return (
     <a 
-      className={className} 
+      className={`whitespace-nowrap ${className}`} 
       target="_blank" 
-      onClick={() => {if (!clicked) {window.open(href,'targetWindow','toolbar=no,location=0,status=no,menubar=no,scrollbars=yes,resizable=yes,width=600,height=500'); setClicked(true); setTimeout(() => {setClicked(false)}, 500)};}}
+      onClick={() => {if (!clicked) {window.open(href,'targetWindow',`toolbar=no,location=0,status=no,menubar=no,scrollbars=yes,resizable=yes,width=600,height=${windowHeight ? windowHeight : 500}`); setClicked(true); setTimeout(() => {setClicked(false)}, 500)};}}
       href={href}
     >
       {children}

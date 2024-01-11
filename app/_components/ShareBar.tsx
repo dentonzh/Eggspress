@@ -30,7 +30,7 @@ const ShareBar = ({className, headline, subtitle, siteName, appearanceSettings}:
       }
       {(appearanceSettings.showShareByEmailButton === undefined || appearanceSettings.showShareByEmailButton) &&
         <ShareEmailButton className="inline text-center dropdown-item grow mx-0.5 py-3" headline={headline} subtitle={subtitle} siteName={siteName}>
-          <Image className="text-gray-500 inline-block dark:brightness-150" src="/assets/mail.svg" width={16} height={16} alt="copy link icon"></Image>
+          <Image className="share-menu-item" src="/assets/mail.svg" width={16} height={16} alt="copy link icon"></Image>
         </ShareEmailButton>
       }
       {(appearanceSettings.showShareByXButton === undefined || appearanceSettings.showShareByXButton) &&
@@ -51,6 +51,26 @@ const ShareBar = ({className, headline, subtitle, siteName, appearanceSettings}:
       {(appearanceSettings.showShareByRedditButton === undefined || appearanceSettings.showShareByRedditButton) &&
         <ShareSocialButton className="inline text-center dropdown-item grow mx-0.5 py-3" skipEncode={true} baseUrl={"https://www.reddit.com/submit?url="} urlSuffix={`&title=${headline || ''} ${subtitle || ''}`}>
           <Image className="share-menu-item" src="/assets/reddit.svg" width={16} height={16} alt="copy link icon"></Image>
+        </ShareSocialButton>
+      }
+      {(appearanceSettings.showShareByRedditButton) && 
+        <ShareSocialButton className="inline text-center dropdown-item grow mx-0.5 py-3" windowHeight={224} baseUrl={"https://news.ycombinator.com/submitlink?u="} urlSuffix={`&t=${headline || ''} ${subtitle || ''}`}>
+          <Image className="share-menu-item -ml-0.5 -mt-0.5" src="/assets/hackernews.svg" width={20} height={20} alt="copy link icon"></Image>
+        </ShareSocialButton>
+      }
+      {(appearanceSettings.showShareByFlipboardButton) && 
+        <ShareSocialButton className="inline text-center dropdown-item grow mx-0.5 py-3" baseUrl={"https://share.flipboard.com/bookmarklet/popout?url="}>
+          <Image className="share-menu-item" src="/assets/flipboard.svg" width={16} height={16} alt="copy link icon"></Image>
+        </ShareSocialButton>
+      }
+      {(appearanceSettings.showShareByWhatsappButton) && 
+        <ShareSocialButton className="inline text-center dropdown-item grow mx-0.5 py-3" baseUrl={"https://api.whatsapp.com/send?text="}>
+          <Image className="share-menu-item" src="/assets/whatsapp.svg" width={16} height={16} alt="copy link icon"></Image>
+        </ShareSocialButton>
+      }
+      {(appearanceSettings.showShareByTelegramButton) && 
+        <ShareSocialButton className="inline text-center dropdown-item grow mx-0.5 py-3" baseUrl={"https://telegram.me/share/url?url="}>
+          <Image className="share-menu-item" src="/assets/telegram.svg" width={16} height={16} alt="copy link icon"></Image>
         </ShareSocialButton>
       }
     </div>

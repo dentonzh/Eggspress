@@ -23,7 +23,7 @@ const ShareMenu = async ({className, align, headline, subtitle, siteName}: Share
     <div className={className}>
       <DropdownMenu text={appearanceSettings.shareText ? appearanceSettings.shareText : 'Share'} align={align || 'left-0'}>
         <NavigationMenu>
-          <div className="w-48 sm:w-56 px-3 py-6">
+          <div className="min-w-[10rem] sm:min-w-[12rem] pl-3 pr-6 py-6">
             <div className="mb-3">
               {(appearanceSettings.showShareByLinkButton === undefined || appearanceSettings.showShareByLinkButton) && 
                 <ShareCopyButton className="dropdown-item pl-2 sm:px-3 py-2 block">
@@ -74,7 +74,7 @@ const ShareMenu = async ({className, align, headline, subtitle, siteName}: Share
                 </ShareSocialButton>
               }
             </div>
-            <div className="">
+            <div className="mb-3">
               {(appearanceSettings.showShareByRedditButton === undefined || appearanceSettings.showShareByRedditButton) && 
                 <ShareSocialButton className="dropdown-item pl-2 sm:px-3 py-2 block" skipEncode={true} baseUrl={"https://www.reddit.com/submit?url="} urlSuffix={`&title=${headline || ''} ${subtitle || ''}`}>
                   <Image className="text-gray-500 inline-block dark:brightness-150" src="/assets/reddit.svg" width={16} height={16} alt="copy link icon"></Image>
@@ -84,6 +84,46 @@ const ShareMenu = async ({className, align, headline, subtitle, siteName}: Share
                 </ShareSocialButton>
               }
             </div>
+            <div className="mb-3">
+              {(appearanceSettings.showShareByRedditButton) && 
+                <ShareSocialButton className="dropdown-item pl-2 sm:px-3 py-2 block" windowHeight={224} baseUrl={"https://news.ycombinator.com/submitlink?u="} urlSuffix={`&t=${headline || ''} ${subtitle || ''}`}>
+                  <Image className="text-gray-500 inline-block dark:brightness-150 -ml-0.5 -mt-0.5" src="/assets/hackernews.svg" width={20} height={20} alt="copy link icon"></Image>
+                  <span className="pl-2 -ml-1 sm:pl-4"><span className="hidden sm:inline">
+                    {`${appearanceSettings.shareOnText ? appearanceSettings.shareOnText : 'Share on'} `}
+                  </span>Hacker News</span>
+                </ShareSocialButton>
+              }
+            </div>
+            <div className="mb-3">
+              {(appearanceSettings.showShareByFlipboardButton) && 
+                <ShareSocialButton className="dropdown-item pl-2 sm:px-3 py-2 block" baseUrl={"https://share.flipboard.com/bookmarklet/popout?url="}>
+                  <Image className="text-gray-500 inline-block dark:brightness-150" src="/assets/flipboard.svg" width={16} height={16} alt="copy link icon"></Image>
+                  <span className="pl-2 sm:pl-4"><span className="hidden sm:inline">
+                    {`${appearanceSettings.shareOnText ? appearanceSettings.shareOnText : 'Share on'} `}
+                  </span>Flipboard</span>
+                </ShareSocialButton>
+              }
+            </div>  
+            <div className="mb-3">
+              {(appearanceSettings.showShareByWhatsappButton) && 
+                <ShareSocialButton className="dropdown-item pl-2 sm:px-3 py-2 block" baseUrl={"https://api.whatsapp.com/send?text="}>
+                  <Image className="text-gray-500 inline-block dark:brightness-150" src="/assets/whatsapp.svg" width={16} height={16} alt="copy link icon"></Image>
+                  <span className="pl-2 sm:pl-4"><span className="hidden sm:inline">
+                    {`${appearanceSettings.shareOnText ? appearanceSettings.shareOnText : 'Share on'} `}
+                  </span>WhatsApp</span>
+                </ShareSocialButton>
+              }
+            </div>  
+            <div className="mb-3">
+              {(appearanceSettings.showShareByTelegramButton) && 
+                <ShareSocialButton className="dropdown-item pl-2 sm:px-3 py-2 block" baseUrl={"https://telegram.me/share/url?url="}>
+                  <Image className="text-gray-500 inline-block dark:brightness-150" src="/assets/telegram.svg" width={16} height={16} alt="copy link icon"></Image>
+                  <span className="pl-2 sm:pl-4"><span className="hidden sm:inline">
+                    {`${appearanceSettings.shareOnText ? appearanceSettings.shareOnText : 'Share on'} `}
+                  </span>Telegram</span>
+                </ShareSocialButton>
+              }
+            </div>  
           </div>
 
         </NavigationMenu>
