@@ -44,7 +44,7 @@ const ShareBar = ({className, headline, subtitle, siteName, appearanceSettings}:
         </ShareSocialButton>
       }
       {(appearanceSettings.showShareByLinkedinButton === undefined || appearanceSettings.showShareByLinkedinButton) &&
-        <ShareSocialButton className="inline text-center dropdown-item grow mx-0.5 py-3" skipEncode={true} baseUrl={"https://www.linkedin.com/sharing/share-offsite/?url="}>
+        <ShareSocialButton className="inline text-center dropdown-item grow mx-0.5 py-3" baseUrl={"https://www.linkedin.com/sharing/share-offsite/?url="}>
           <Image className="share-menu-item" src="/assets/linkedin.svg" width={16} height={16} alt="share on linkedin icon"></Image>
         </ShareSocialButton>
       }

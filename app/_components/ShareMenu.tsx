@@ -66,7 +66,7 @@ const ShareMenu = async ({className, align, headline, subtitle, siteName}: Share
             </div>
             <div className="mb-3">
               {(appearanceSettings.showShareByLinkedinButton === undefined || appearanceSettings.showShareByLinkedinButton) && 
-                <ShareSocialButton className="dropdown-item pl-2 sm:px-3 py-2 block" skipEncode={true} baseUrl={"https://www.linkedin.com/sharing/share-offsite/?url="}>
+                <ShareSocialButton className="dropdown-item pl-2 sm:px-3 py-2 block" baseUrl={"https://www.linkedin.com/sharing/share-offsite/?url="}>
                   <Image className="text-gray-500 inline-block dark:brightness-150" src="/assets/linkedin.svg" width={16} height={16} alt="share on linkedin icon"></Image>
                   <span className="pl-2 sm:pl-4"><span className="hidden sm:inline">
                     {`${appearanceSettings.shareOnText ? appearanceSettings.shareOnText : 'Share on'} `}
