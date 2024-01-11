@@ -53,7 +53,7 @@ const ShareBar = ({className, headline, subtitle, siteName, appearanceSettings}:
           <Image className="share-menu-item" src="/assets/reddit.svg" width={16} height={16} alt="share on reddit icon"></Image>
         </ShareSocialButton>
       }
-      {(appearanceSettings.showShareByRedditButton) && 
+      {(appearanceSettings.showShareByHackernewsButton) && 
         <ShareSocialButton className="inline text-center dropdown-item grow mx-0.5 py-3" windowHeight={224} baseUrl={"https://news.ycombinator.com/submitlink?u="} urlSuffix={`&t=${headline || ''} ${subtitle || ''}`}>
           <Image className="share-menu-item -ml-0.5 -mt-0.5" src="/assets/hackernews.svg" width={20} height={20} alt="share on hackernews icon"></Image>
         </ShareSocialButton>
