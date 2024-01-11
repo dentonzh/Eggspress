@@ -24,7 +24,7 @@ To use Eggspress, you'll need to have accounts on:
 
 We also recommend a Markdown editor for your content. [Obsidian](https://obsidian.md/) is our editor of choice. When properly configured, it automates a lot of mundane tasks (like placing inserted images into the right directories) and makes publishing to Eggspress even easier.
 
-> These instructions provide a no-code setup experience. If you're comfortable around Git, you can replace some of the steps below with `git` commands run from the terminal.
+> **Experienced Git users:** Some of the instructions below provide for a no-code setup experience. You can replace these steps with `git` commands run from the terminal.
 
 ## Forking Eggspress
 Log into Github and [fork Eggspress](https://github.com/dentonzh/Eggspress/fork). Provide a name and description of your choosing and click "Create fork."
