@@ -4,6 +4,19 @@ Eggspress is a lightweight blogging platform built on Next.js and React. It's de
 
 For more detailed set up instructions and a demo, see the [Getting started guide](https://eggspress.vercel.app/getting-started). It's an Eggspress site that makes use of most of Eggspress' features.
 
+## Features
+- No-code setup and publishing
+- Markdown based
+- Color schemes and dark mode
+- Marketing-friendly
+    - SEO-ready
+    - Google Analytics support
+    - Bulk link editor
+    - Share buttons
+- Multiple authors
+- Performance optimized
+
+
 ## Prerequisites
 To use Eggspress, you'll need to have accounts on:
 - Github ([sign up](https://github.com/join))
