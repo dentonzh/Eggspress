@@ -14,9 +14,10 @@ type ShareEmailButtonProps = {
 
 const ShareEmailButton = ({className, headline, subtitle, siteName, children}: ShareEmailButtonProps) => {
   const pathname = usePathname()
-  const url = window.location.origin + pathname
-  const subject = encodeURIComponent(`Read "${headline || ""}${subtitle ? ' ' + subtitle : ''}"`)
-  const body = encodeURIComponent(`Read <a href="${url}">${headline || ""}${subtitle ? ' ' + subtitle : ''}</a>${siteName ? ` on ${siteName}. ` : '.'}\n\n\n\nSent from <a href="https://eggspress.vercel.app">Eggspress</a>, the fast and free blogging platform.`)
+  const queryParameters = 'utm_source=email&utm_medium=share&utm_campaign=article-share-button'
+  const url = window.location.origin + pathname + queryParameters
+  const subject = encodeURIComponent(`${headline || ""}${subtitle ? ' ' + subtitle : ''}`)
+  const body = encodeURIComponent(`${url}\n\n\n\nTry Eggspress (@EggspressBlog), the fast and free blogging platform`)
 
   return (
 
