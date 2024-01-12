@@ -4,8 +4,8 @@ import Image from 'next/image'
 import DarkModeToggle from './DarkModeToggle'
 import { getColors, getEggspressSettings } from '../utils'
 import DropdownMenu from './DropdownMenu'
-import SiteLinks from './SiteLinks'
 import NavigationMenu from './NavigationMenu'
+import NavigationLinks from './NavigationLinks'
 
 const Navigation = async () => {
   const appearanceSettings = await getEggspressSettings('appearance')
@@ -24,14 +24,16 @@ const Navigation = async () => {
           </Link>
         </div>
         <div className="flex items-center dark:text-white">
-            <DarkModeToggle />
-            <DropdownMenu>
+          <DarkModeToggle />
+          <div className="ml-2">
+            <DropdownMenu icon="navigation.svg" altText="navigation menu toggle button" align="right-2">
               <NavigationMenu>
-                <div className="w-48 pl-6 pt-6">
-                  <SiteLinks></SiteLinks>
+                <div className="w-48 px-3 pt-6">
+                  <NavigationLinks />
                 </div>
               </NavigationMenu>
             </DropdownMenu>
+          </div>
         </div>
       </div>
     </nav>

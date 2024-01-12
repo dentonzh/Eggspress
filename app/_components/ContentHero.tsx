@@ -1,7 +1,8 @@
 import React from 'react'
-import { getColors } from '../utils'
+import { getColors, getEggspressSettings } from '../utils'
 import Link from 'next/link'
 import Image from 'next/image'
+import ShareMenu from './ShareMenu'
 
 interface ContentHeroProps {
   headline?: string,
@@ -14,13 +15,16 @@ interface ContentHeroProps {
   date?: string,
   imageSrc?: string | null,
   imageAlt?: string,
-  children?: React.ReactNode
+  showShareButton?: boolean,
+  children?: React.ReactNode,
 }
 
-const ContentHero = async ({sectionString, sectionLink, headline, subtitle, headlineSeparator, subheading, subtitlePrefix, date, imageSrc, imageAlt}: ContentHeroProps) => {
+const ContentHero = async ({sectionString, sectionLink, headline, subtitle, headlineSeparator, subheading, subtitlePrefix, date, imageSrc, imageAlt, showShareButton}: ContentHeroProps) => {
   const headlineMarginLeft = headline && ['E', 'B', 'D', 'F', 'H', 'L', 'P', 'R'].includes(headline.charAt(0)) ? '-ml-0.5' : ''
   const headlineMarginBottom = subheading && (sectionString || date) ? 'mb-12 md:mb-8' : subheading ? 'mb-6' : (sectionString || date) ? 'mb-3 md:mb-6' : 'mb-6'
-
+  const appearanceSettings = await getEggspressSettings('appearance')
+  const metadataSettings = await getEggspressSettings('metadata')
+  const isShareVisible = showShareButton && (appearanceSettings.showShareButtonInHeader === undefined || appearanceSettings.showShareButtonInHeader)
 
   return (
     <div className={`hero ${await getColors('bleed', 'ThemeHero', 'slate-900', 'gray-100')}`}>
@@ -52,16 +56,17 @@ const ContentHero = async ({sectionString, sectionLink, headline, subtitle, head
         </div>
       </div>
       <div className={`flex flex-wrap ${imageSrc ? 'md:mt-12 lg:mt-0' : ''}`}>
-        <div>
-          {subheading &&
-            <div className={`font-medium mb-5 md:mb-3 ${imageSrc ? '-mt-4' : 'mt-8 lg:mt-0'} ${await getColors('text', 'HeroSubheading')}`}>
-              {subheading}
-            </div>
-          }
-          <div className={imageSrc ? 'flex' : ''}></div>
-          {(sectionString || date) &&
+        {subheading &&
+          <div className={`font-medium mb-5 md:mb-3 ${imageSrc ? '-mt-4' : 'mt-8 lg:mt-0'} ${await getColors('text', 'HeroSubheading')}`}>
+            {subheading}
+          </div>
+        }
+        <div className={imageSrc ? 'flex' : ''}></div>
+        <div className="w-full">
+
+          {(sectionString || date || isShareVisible) &&
             <div className="flex text-[13px] font-medium">
-              <div className={`${sectionString && date ? `border-r ${await getColors('border', 'HeroSectionDateBorder', 'gray-500', 'gray-300')} pr-2 mr-2` : ''}`}>
+              <div className={`${sectionString && (date || isShareVisible) ? `border-r ${await getColors('border', 'HeroSectionDateBorder', 'gray-500', 'gray-300')} pr-2 mr-2` : ''}`}>
                 {sectionString &&
                   <div>
                     {sectionLink ?
@@ -73,7 +78,12 @@ const ContentHero = async ({sectionString, sectionLink, headline, subtitle, head
                 }
               </div>
               {date &&
-                <div className={await getColors('text', 'HeroDate')}>{date}</div>
+                <div className={`${await getColors('text', 'HeroDate')} ${date && isShareVisible ? `border-r ${await getColors('border', 'HeroSectionDateBorder', 'gray-500', 'gray-300')} pr-2 mr-2` : ''}`}>
+                  {date}
+                </div>
+              }
+              {isShareVisible &&
+                <ShareMenu className={`${await getColors('text', 'HeroDate')}`} align={date || sectionString ? '-left-16' : ''} siteName={metadataSettings.title} headline={headline} subtitle={subtitle}></ShareMenu>
               }
             </div>
           }

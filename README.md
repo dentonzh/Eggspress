@@ -4,12 +4,27 @@ Eggspress is a lightweight blogging platform built on Next.js and React. It's de
 
 For more detailed set up instructions and a demo, see the [Getting started guide](https://eggspress.vercel.app/getting-started). It's an Eggspress site that makes use of most of Eggspress' features.
 
+## Features
+- No-code setup and publishing
+- Markdown based
+- Color schemes and dark mode
+- Marketing-friendly
+    - SEO-ready
+    - Google Analytics support
+    - Bulk link editor
+    - Share buttons
+- Multiple authors
+- Performance optimized
+
+
 ## Prerequisites
 To use Eggspress, you'll need to have accounts on:
 - Github ([sign up](https://github.com/join))
 - Vercel ([sign up](https://vercel.com/signup) using "Continue with Github")
 
-We also recommend a Markdown editor for your content. [Obsidian](https://obsidian.md/) is our editor of choice. When properly configured, it automates a lot of mundane tasks and makes publishing to Eggspress even easier.
+We also recommend a Markdown editor for your content. [Obsidian](https://obsidian.md/) is our editor of choice. When properly configured, it automates a lot of mundane tasks (like placing inserted images into the right directories) and makes publishing to Eggspress even easier.
+
+> **Experienced Git users:** Some of the instructions below provide for a no-code setup experience. You can replace these steps with `git` commands run from the terminal.
 
 ## Forking Eggspress
 Log into Github and [fork Eggspress](https://github.com/dentonzh/Eggspress/fork). Provide a name and description of your choosing and click "Create fork."
