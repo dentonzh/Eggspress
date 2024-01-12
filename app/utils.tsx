@@ -95,9 +95,13 @@ export async function getImageFilesRecursively(dir: string, dirToSearchFirst?: s
 }
 
 export async function getImagePlaceholderAsBase64(imagePath: string): Promise<string> {
+  try {
     const file = await fs.readFileSync(imagePath)
     const { base64 } = await getPlaiceholder(file)
     return base64
+  } catch {
+    return ''
+  }
 }
 
 export function sortFilesByProximity(toPath: string, files: PostFile[]): PostFile[] {
