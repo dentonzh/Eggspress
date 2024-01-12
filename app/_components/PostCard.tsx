@@ -2,7 +2,7 @@ import React from 'react'
 import ReadMore from './ReadMore'
 import Link from 'next/link';
 import { PostItem } from '@/types/Blog'
-import { copyImageToPublic, createSlug, getColors, getEggspressSettings, getImageFilesRecursively, sortFilesByProximity } from '../utils';
+import { copyImageToPublic, createSlug, getColors, getEggspressSettings, getImageFilesRecursively, getImagePlaceholderAsBase64 } from '../utils';
 import Image from 'next/image';
 import getFrontmatter from './getFrontmatter';
 
@@ -26,6 +26,7 @@ const convertDate = (inputDate: string|null) => {
 const PostCard = async ({ post, index, priority=true }: PostProps) => { 
   const appearanceSettings = await getEggspressSettings('appearance')
   let imagePath = null
+  let base64 = null
 
   const authors = post && post.author ? post.author.split(',').map((author: string) => author.trim().replaceAll('_', '-').replaceAll(' ', '-')) : []
   const authorFrontmatter = await getFrontmatter('authors')
@@ -41,6 +42,7 @@ const PostCard = async ({ post, index, priority=true }: PostProps) => {
 
     if (imageFile) {
       const source = `${imageFile.path}/${imageFile.name}`
+      base64 = await getImagePlaceholderAsBase64(source)
       imagePath = copyImageToPublic(source, `images/${post.slug}`)
     }
   }
@@ -61,6 +63,7 @@ const PostCard = async ({ post, index, priority=true }: PostProps) => {
             style={{objectPosition: `${post.imagePositionX || 50}% ${post.imagePositionY || 50}%`}}
             priority={index === 0 && priority ? true : false}
             placeholder="blur"
+            blurDataURL={base64 || ''}
           ></Image>
         </Link>
       }
