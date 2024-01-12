@@ -96,7 +96,7 @@ const ShareMenu = async ({className, align, headline, subtitle, siteName}: Share
             </div>
             <div className="mb-3">
               {(appearanceSettings.showShareByFlipboardButton) && 
-                <ShareSocialButton className="dropdown-item pl-2 sm:px-3 py-2 block" baseUrl={"https://share.flipboard.com/bookmarklet/popout?url="}>
+                <ShareSocialButton className="dropdown-item pl-2 sm:px-3 py-2 block" windowWidth={1024} baseUrl={"https://share.flipboard.com/bookmarklet/popout?url="}>
                   <Image className="text-gray-500 inline-block dark:brightness-150" src="/assets/flipboard.svg" width={16} height={16} alt="share on flipboard icon"></Image>
                   <span className="pl-2 sm:pl-4"><span className="hidden sm:inline">
                     {`${appearanceSettings.shareOnText ? appearanceSettings.shareOnText : 'Share on'} `}
@@ -106,7 +106,7 @@ const ShareMenu = async ({className, align, headline, subtitle, siteName}: Share
             </div>  
             <div className="mb-3">
               {(appearanceSettings.showShareByWhatsappButton) && 
-                <ShareSocialButton className="dropdown-item pl-2 sm:px-3 py-2 block" baseUrl={"https://api.whatsapp.com/send?text="}>
+                <ShareSocialButton className="dropdown-item pl-2 sm:pl-3 sm:pr-7 py-2 block" windowWidth={1024} baseUrl={"https://api.whatsapp.com/send?text="}>
                   <Image className="text-gray-500 inline-block dark:brightness-150" src="/assets/whatsapp.svg" width={16} height={16} alt="share on whatsapp icon"></Image>
                   <span className="pl-2 sm:pl-4"><span className="hidden sm:inline">
                     {`${appearanceSettings.shareOnText ? appearanceSettings.shareOnText : 'Share on'} `}
@@ -116,7 +116,7 @@ const ShareMenu = async ({className, align, headline, subtitle, siteName}: Share
             </div>  
             <div className="mb-3">
               {(appearanceSettings.showShareByTelegramButton) && 
-                <ShareSocialButton className="dropdown-item pl-2 sm:px-3 py-2 block" baseUrl={"https://telegram.me/share/url?url="}>
+                <ShareSocialButton className="dropdown-item pl-2 sm:px-3 py-2 block" windowWidth={1024} baseUrl={"https://telegram.me/share/url?url="}>
                   <Image className="text-gray-500 inline-block dark:brightness-150" src="/assets/telegram.svg" width={16} height={16} alt="share on telegram icon"></Image>
                   <span className="pl-2 sm:pl-4"><span className="hidden sm:inline">
                     {`${appearanceSettings.shareOnText ? appearanceSettings.shareOnText : 'Share on'} `}

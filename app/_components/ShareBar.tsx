@@ -64,12 +64,12 @@ const ShareBar = ({className, headline, subtitle, siteName, appearanceSettings}:
         </ShareSocialButton>
       }
       {(appearanceSettings.showShareByWhatsappButton) && 
-        <ShareSocialButton className="inline text-center dropdown-item grow mx-0.5 py-3" baseUrl={"https://api.whatsapp.com/send?text="}>
+        <ShareSocialButton className="inline text-center dropdown-item grow mx-0.5 py-3" windowWidth={1024} baseUrl={"https://api.whatsapp.com/send?text="}>
           <Image className="share-menu-item" src="/assets/whatsapp.svg" width={16} height={16} alt="share on whatsapp icon"></Image>
         </ShareSocialButton>
       }
       {(appearanceSettings.showShareByTelegramButton) && 
-        <ShareSocialButton className="inline text-center dropdown-item grow mx-0.5 py-3" baseUrl={"https://telegram.me/share/url?url="}>
+        <ShareSocialButton className="inline text-center dropdown-item grow mx-0.5 py-3" windowWidth={1024} baseUrl={"https://telegram.me/share/url?url="}>
           <Image className="share-menu-item" src="/assets/telegram.svg" width={16} height={16} alt="share on telegram icon"></Image>
         </ShareSocialButton>
       }
