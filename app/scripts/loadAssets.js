@@ -226,7 +226,6 @@ const setSafelist = async (path) => {
     }
   } catch (e) {
     console.log(`    Info: Color scheme not specified or there was an error. Applying minimum default color scheme.`)
-    console.warn(e)
 
     const safelist = [
       'dark:bg-slate-900',
