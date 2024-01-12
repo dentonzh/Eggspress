@@ -1,6 +1,7 @@
 import { glob } from 'glob'
 import { serialize } from 'next-mdx-remote/serialize'
-import { ImageFile, PostFile } from '@/types/Blog';
+import { ImageFile, PostFile } from '@/types/Blog'
+import { getPlaiceholder } from 'plaiceholder'
 
 const fs = require('fs-extra')
 
@@ -91,6 +92,12 @@ export async function getImageFilesRecursively(dir: string, dirToSearchFirst?: s
   const extensions = ['.jpg', '.jpeg', '.png', '.svg', '.webp', '.gif', '.avif', '.bmp', '.tif', '.ico', '.webm', '.mp4', '.m4v', '.mov', '.wmv', '.asf', '.avi', '.mpg', '.mpeg']
   const files = await getFilesRecursivelyWithExtensions(dir, extensions)
   return files
+}
+
+export async function getImagePlaceholderAsBase64(imagePath: string): Promise<string> {
+    const file = await fs.readFileSync(imagePath)
+    const { base64 } = await getPlaiceholder(file)
+    return base64
 }
 
 export function sortFilesByProximity(toPath: string, files: PostFile[]): PostFile[] {
