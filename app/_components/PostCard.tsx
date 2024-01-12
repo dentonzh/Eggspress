@@ -60,6 +60,7 @@ const PostCard = async ({ post, index, priority=true }: PostProps) => {
             src={`/images/${post.slug}/${post.image}`}
             style={{objectPosition: `${post.imagePositionX || 50}% ${post.imagePositionY || 50}%`}}
             priority={index === 0 && priority ? true : false}
+            placeholder="blur"
           ></Image>
         </Link>
       }

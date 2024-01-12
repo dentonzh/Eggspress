@@ -30,13 +30,14 @@ const EggspressImage: React.FC<EggspressImageProps> = ({src, alt, width, height,
     return <img src={src} alt={alt}></img>
   }
   return (
-    <Image 
+    <Image
       alt={alt} 
       src={src} 
       width={width} 
       height={height} 
       className={className} 
-      priority={priority} 
+      priority={priority}
+      placeholder="blur"
       sizes="(max-width: 1024px) 100vw, 60vw"
     ></Image>
   )
