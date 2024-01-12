@@ -3,7 +3,7 @@ import Link from 'next/link'
 import getFrontmatter from './getFrontmatter'
 import { createSlug, getEggspressSettings } from '../utils'
 
-const SiteLinks = async () => {
+const FooterLinks = async () => {
   const appearanceSettings = await getEggspressSettings('appearance')
 
   const categoryFrontmatter = await getFrontmatter('categories', appearanceSettings.orderCategoriesBy, appearanceSettings.orderCategoriesByReversed)
@@ -25,8 +25,7 @@ const SiteLinks = async () => {
         )}
       </div>
       {categoryData.length > 0 && pageData.length > 0 &&
-        <div className="w-4/5 max-w-[12rem] mb-6 md:mb-3 opacity-40">
-          <div className="underline-dotted"></div>
+        <div className="w-4/5 max-w-[12rem] mb-6 md:mb-3 opacity-20 border-b border-gray-400 dark:border-gray-200">
         </div>
       }
       <div className={`flex flex-col w-full  mb-3`}>
@@ -47,4 +46,4 @@ const SiteLinks = async () => {
   )
 }
 
-export default SiteLinks
+export default FooterLinks

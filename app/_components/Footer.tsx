@@ -3,7 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { getColors, getEggspressSettings } from '../utils'
 import AuthorLinks from '../_components/AuthorLinks'
-import SiteLinks from './SiteLinks'
+import FooterLinks from './FooterLinks'
 
 const Footer = async () => {
   return (
@@ -11,7 +11,7 @@ const Footer = async () => {
       <div className={`container flex justify-between ${await getColors('text', 'FooterLinkText', 'gray-200', 'gray-800')}`}>
         <div className="flex flex-wrap w-full md:w-2/3 font-light md:text-sm leading-6">
           <div className="w-1/2">
-            <SiteLinks />
+            <FooterLinks />
           </div>
           <div className="w-1/2">
             <AuthorLinks />
