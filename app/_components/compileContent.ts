@@ -3,6 +3,7 @@ import getContent from '../_components/getContent'
 import EggspressImage from '../_components/EggspressImage'
 import EggspressLink from '../_components/EggspressLink'
 import rehypeSlug from 'rehype-slug'
+import rehypeHighlight from 'rehype-highlight'
 import remarkGfm from 'remark-gfm'
 import eggspressMedia from '@/plugins/eggspress-img-processor'
 import { ImageFile, OGImage } from '@/types/Blog'
@@ -22,7 +23,8 @@ const compileContent = async (type: string, slug:string,): Promise<{content: Rea
       parseFrontmatter: true,
       mdxOptions: {
         remarkPlugins: [remarkGfm, [eggspressMedia, { slug, imageFiles, filePath }]],
-        rehypePlugins: [rehypeSlug]
+        // @ts-ignore
+        rehypePlugins: [rehypeSlug, rehypeHighlight]
       }
     },
     components: {
