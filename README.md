@@ -8,6 +8,7 @@ For more detailed set up instructions and a demo, see the [Getting started guide
 - No-code setup and publishing
 - Markdown based
 - Color schemes and dark mode
+- Syntax highlighting in code blocks
 - Marketing-friendly
     - SEO-ready
     - Google Analytics support
