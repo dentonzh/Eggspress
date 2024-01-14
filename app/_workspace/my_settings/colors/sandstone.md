@@ -54,7 +54,7 @@ colorContentCodeTextLight: "yellow-900"
 colorContentCodeBackgroundDark: "stone-700"
 colorContentCodeBackgroundLight: "stone-200"
 colorContentCodeBlockBackgroundDark: "#28211a"
-colorContentCodeBlockBackgroundLight: "#171e29"
+colorContentCodeBlockBackgroundLight: ""
 
 colorReturnToTopButtonBackgroundDark: "yellow-900"
 colorReturnToTopButtonBackgroundLight: "stone-300"

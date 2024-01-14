@@ -55,7 +55,7 @@ colorContentCodeTextLight: "violet-900"
 colorContentCodeBackgroundDark: "[#0a0744]"
 colorContentCodeBackgroundLight: "violet-200"
 colorContentCodeBlockBackgroundDark: "#110d3d"
-colorContentCodeBlockBackgroundLight: "#faf8ff"
+colorContentCodeBlockBackgroundLight: "#f9f6ff"
 
 colorReturnToTopButtonBackgroundDark: "violet-900"
 colorReturnToTopButtonBackgroundLight: "violet-300"

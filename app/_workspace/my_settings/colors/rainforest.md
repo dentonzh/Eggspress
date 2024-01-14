@@ -54,7 +54,7 @@ colorContentCodeTextDark: "green-500"
 colorContentCodeTextLight: "zinc-700"
 colorContentCodeBackgroundDark: "[#011318]"
 colorContentCodeBackgroundLight: "green-200"
-colorContentCodeBlockBackgroundDark: "#100a25"
+colorContentCodeBlockBackgroundDark: "#0a1e1e"
 colorContentCodeBlockBackgroundLight: "#eefff2"
 
 colorReturnToTopButtonBackgroundDark: "[#004115]"
