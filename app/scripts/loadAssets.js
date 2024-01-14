@@ -78,6 +78,7 @@ const setSafelist = async (path) => {
       
       let safelist = []
       let contentClasses = []
+      let contentCodeClasses = []
       let scrollbarVariables = []
 
       for await (const line of rl) {
@@ -130,24 +131,6 @@ const setSafelist = async (path) => {
               if (line.startsWith('colorContentLinkTextLight')) {
                 contentClasses.push(`prose-a:text-${value}`)
               }
-              if (line.startsWith('colorContentCodeBackgroundDark')) {
-                contentClasses.push(`dark:prose-pre:bg-${value}`)
-                contentClasses.push(`dark:prose-code:bg-${value}`)
-                contentClasses.push(`dark:prose-code:border-${value}`)
-              }
-              if (line.startsWith('colorContentCodeBackgroundLight')) {
-                contentClasses.push(`prose-pre:bg-${value}`)
-                contentClasses.push(`prose-code:bg-${value}`)
-                contentClasses.push(`prose-code:border-${value}`)
-              }
-              if (line.startsWith('colorContentCodeTextDark')) {
-                contentClasses.push(`dark:prose-pre:text-${value}`)
-                contentClasses.push(`dark:prose-code:text-${value}`)
-              }
-              if (line.startsWith('colorContentCodeTextLight')) {
-                contentClasses.push(`prose-pre:text-${value}`)
-                contentClasses.push(`prose-code:text-${value}`)
-              }
               if (line.startsWith('colorContentBlockquoteBorderDark')) {
                 contentClasses.push(`dark:prose-blockquote:border-${value}`)
               }
@@ -167,6 +150,24 @@ const setSafelist = async (path) => {
               }
               if (line.startsWith('colorContentListMarkerLight')) {
                 contentClasses.push(`marker:text-${value}`)
+              }
+              if (line.startsWith('colorContentCodeBackgroundDark')) {
+                contentCodeClasses.push(`dark:bg-${value}`)
+                contentCodeClasses.push(`dark:bg-${value}`)
+                contentCodeClasses.push(`dark:border-${value}`)
+              }
+              if (line.startsWith('colorContentCodeBackgroundLight')) {
+                contentCodeClasses.push(`bg-${value}`)
+                contentCodeClasses.push(`bg-${value}`)
+                contentCodeClasses.push(`border-${value}`)
+              }
+              if (line.startsWith('colorContentCodeTextDark')) {
+                contentCodeClasses.push(`dark:text-${value}`)
+                contentCodeClasses.push(`dark:text-${value}`)
+              }
+              if (line.startsWith('colorContentCodeTextLight')) {
+                contentCodeClasses.push(`text-${value}`)
+                contentCodeClasses.push(`text-${value}`)
               }
             }
             else if (line.startsWith('colorTheme')) {
@@ -214,6 +215,14 @@ const setSafelist = async (path) => {
         fs.appendFileSync(
           'app/globals.css', 
           `.eggspress-content-extended {\n@apply ${contentClasses.join(' ')};\n}`
+        )
+      }
+
+
+      if (contentCodeClasses.join(' ').trim()) {
+        fs.appendFileSync(
+          'app/globals.css', 
+          `p > code {\n@apply ${contentCodeClasses.join(' ')};\n}`
         )
       }
 
