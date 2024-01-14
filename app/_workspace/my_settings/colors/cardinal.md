@@ -54,6 +54,8 @@ colorContentCodeTextDark: "rose-200"
 colorContentCodeTextLight: "rose-900"
 colorContentCodeBackgroundDark: "pink-950"
 colorContentCodeBackgroundLight: "red-100"
+colorContentCodeBlockBackgroundDark: "#321717"
+colorContentCodeBlockBackgroundLight: "#ffe9e9"
 
 colorReturnToTopButtonBackgroundDark: "[#475569]"
 colorReturnToTopButtonBackgroundLight: "red-300"

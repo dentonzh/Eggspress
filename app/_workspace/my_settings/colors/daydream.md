@@ -53,6 +53,8 @@ colorContentCodeTextDark: "indigo-200"
 colorContentCodeTextLight: "indigo-600"
 colorContentCodeBackgroundDark: "[#403248]"
 colorContentCodeBackgroundLight: "[#e6f1ff]"
+colorContentCodeBlockBackgroundDark: "#171e29"
+colorContentCodeBlockBackgroundLight: "#dbe8e9"
 
 colorReturnToTopButtonBackgroundDark: "violet-300"
 colorReturnToTopButtonBackgroundLight: "[#a5b4fc]"

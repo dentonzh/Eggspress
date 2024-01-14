@@ -54,6 +54,8 @@ colorContentCodeTextDark: "yellow-500"
 colorContentCodeTextLight: "amber-900"  
 colorContentCodeBackgroundDark: "[#422006]"
 colorContentCodeBackgroundLight: "yellow-300"
+colorContentCodeBlockBackgroundDark: "#311b04"
+colorContentCodeBlockBackgroundLight: "#fff8eb"
 
 colorReturnToTopButtonBackgroundDark: "amber-900"    
 colorReturnToTopButtonBackgroundLight: "orange-300"

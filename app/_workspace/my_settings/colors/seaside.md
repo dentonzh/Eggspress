@@ -53,6 +53,8 @@ colorContentCodeTextDark: "sky-300"
 colorContentCodeTextLight: "sky-700"
 colorContentCodeBackgroundDark: "[#334155]"
 colorContentCodeBackgroundLight: "blue-100"
+colorContentCodeBlockBackgroundDark: "#e5eff6"
+colorContentCodeBlockBackgroundLight: "#171e29"
 
 colorReturnToTopButtonBackgroundDark: "[#475569]"
 colorReturnToTopButtonBackgroundLight: "blue-300"
