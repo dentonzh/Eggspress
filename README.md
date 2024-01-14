@@ -8,6 +8,7 @@ For more detailed set up instructions and a demo, see the [Getting started guide
 - No-code setup and publishing
 - Markdown based
 - Color schemes and dark mode
+- Syntax highlighting in code blocks
 - Marketing-friendly
     - SEO-ready
     - Google Analytics support
@@ -211,11 +212,11 @@ For example, you may wish to delete `welcome-to-eggspress.md`, a file you commit
 
 To "hide" a file and prevent it from appearing on your site, you can set its `isVisible` frontmatter field to `false`. Note that Eggspress will still build files that are set with `isVisible: false`. Anyone with the direct link to the content will still be able to view it on the web.
 
-To prevent a file from rendering at all, you must do one of the following:
+To prevent a file from rendering at all, you may either:
 - Remove it from your repository
 - Prefix its filename with "#"
 
-We follow the convention to prefix filenames with "#" for files in `my_templates`. This prevents templates from rendering into pages on your site, but allows them to remain in your repository for your reference.
+You can see an example of this convention used in files in `my_templates`. Prefixing a filename with "#" prevents it from rendering on your site, but allows them to remain in your workspace for your reference.
 
 ## You're all set!
 A few reminders as you begin your next post:

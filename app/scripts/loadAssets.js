@@ -59,7 +59,7 @@ const setFontFamily = async (path) => {
 }
 
 
-const setSafelist = async (path) => {
+const setColors = async (path) => {
 
   const colorScheme = await getValueFromFileWithKey('my_settings/appearance.md', 'colorScheme')
   let fileToRead = path
@@ -78,6 +78,7 @@ const setSafelist = async (path) => {
       
       let safelist = []
       let contentClasses = []
+      let contentCodeClasses = []
       let scrollbarVariables = []
 
       for await (const line of rl) {
@@ -130,24 +131,6 @@ const setSafelist = async (path) => {
               if (line.startsWith('colorContentLinkTextLight')) {
                 contentClasses.push(`prose-a:text-${value}`)
               }
-              if (line.startsWith('colorContentCodeBackgroundDark')) {
-                contentClasses.push(`dark:prose-pre:bg-${value}`)
-                contentClasses.push(`dark:prose-code:bg-${value}`)
-                contentClasses.push(`dark:prose-code:border-${value}`)
-              }
-              if (line.startsWith('colorContentCodeBackgroundLight')) {
-                contentClasses.push(`prose-pre:bg-${value}`)
-                contentClasses.push(`prose-code:bg-${value}`)
-                contentClasses.push(`prose-code:border-${value}`)
-              }
-              if (line.startsWith('colorContentCodeTextDark')) {
-                contentClasses.push(`dark:prose-pre:text-${value}`)
-                contentClasses.push(`dark:prose-code:text-${value}`)
-              }
-              if (line.startsWith('colorContentCodeTextLight')) {
-                contentClasses.push(`prose-pre:text-${value}`)
-                contentClasses.push(`prose-code:text-${value}`)
-              }
               if (line.startsWith('colorContentBlockquoteBorderDark')) {
                 contentClasses.push(`dark:prose-blockquote:border-${value}`)
               }
@@ -167,6 +150,40 @@ const setSafelist = async (path) => {
               }
               if (line.startsWith('colorContentListMarkerLight')) {
                 contentClasses.push(`marker:text-${value}`)
+              }
+              if (line.startsWith('colorContentCodeBackgroundDark')) {
+                contentCodeClasses.push(`dark:bg-${value}`)
+                contentCodeClasses.push(`dark:bg-${value}`)
+                contentCodeClasses.push(`dark:border-${value}`)
+              }
+              if (line.startsWith('colorContentCodeBackgroundLight')) {
+                contentCodeClasses.push(`bg-${value}`)
+                contentCodeClasses.push(`bg-${value}`)
+                contentCodeClasses.push(`border-${value}`)
+              }
+              if (line.startsWith('colorContentCodeTextDark')) {
+                contentCodeClasses.push(`dark:text-${value}`)
+                contentCodeClasses.push(`dark:text-${value}`)
+              }
+              if (line.startsWith('colorContentCodeTextLight')) {
+                contentCodeClasses.push(`text-${value}`)
+                contentCodeClasses.push(`text-${value}`)
+              }
+              if (line.startsWith('colorContentCodeBlockBackgroundDark')) {
+                if ( value ) {
+                  fs.appendFileSync(
+                    'app/github-dark.css', 
+                    `.dark pre:has(.hljs), .dark .hljs { background: ${value.replace('[', '').replace(']', '')} }`
+                  )
+                }
+              }
+              if (line.startsWith('colorContentCodeBlockBackgroundLight')) {
+                if ( value ) {
+                  fs.appendFileSync(
+                    'app/stackoverflow-light.css', 
+                    `pre:has(.hljs), .hljs { background: ${value.replace('[', '').replace(']', '')} }`
+                  )
+                }
               }
             }
             else if (line.startsWith('colorTheme')) {
@@ -217,6 +234,14 @@ const setSafelist = async (path) => {
         )
       }
 
+
+      if (contentCodeClasses.join(' ').trim()) {
+        fs.appendFileSync(
+          'app/globals.css', 
+          `p > code {\n@apply ${contentCodeClasses.join(' ')};\n}`
+        )
+      }
+
       if (scrollbarVariables.join(' ').trim()) {
         fs.appendFileSync(
           'app/globals.css', 
@@ -250,7 +275,7 @@ const setSafelist = async (path) => {
 
 
 setFontFamily('my_settings/appearance.md')
-setSafelist('my_settings/appearance.md')
+setColors('my_settings/appearance.md')
 
 
 assetsMap = {

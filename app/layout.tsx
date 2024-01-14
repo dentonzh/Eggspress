@@ -1,4 +1,6 @@
 import './globals.css'
+import './github-dark.css'
+import './stackoverflow-light.css'
 import Navigation from './_components/Navigation'
 import Footer from './_components/Footer'
 import { getEggspressSettings, getColors } from './utils'

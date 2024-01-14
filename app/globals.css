@@ -71,11 +71,11 @@ body {
 }
 
 .eggspress-content {
-  @apply prose max-w-none lg:max-w-prose dark:prose-invert prose-h1:font-bold prose-blockquote:not-italic prose-blockquote:font-normal -mt-2 mb-20 prose-pre:bg-gray-100 prose-pre:text-gray-700 prose-pre:dark:bg-gray-700 prose-pre:dark:text-gray-200 prose-code:bg-gray-100 prose-code:dark:bg-gray-700 prose-code:rounded-sm;
+  @apply prose max-w-none lg:max-w-prose dark:prose-invert prose-h1:font-bold prose-blockquote:not-italic prose-blockquote:font-normal -mt-2 mb-20 prose-code:rounded-lg prose-pre:border-b-[3px] prose-pre:border-r-[3px] prose-pre:sm:border-b-4 prose-pre:sm:border-r-4 prose-pre:py-8 prose-pre:px-6 prose-pre:border-zinc-300/30 dark:prose-pre:border-zinc-500/60;
 }
 
 p > code {
-  @apply px-1 border-y-2;
+  @apply px-1 border-y-2 bg-gray-100 dark:bg-gray-700;
 }
 
 .sidebar-section {

@@ -15,6 +15,7 @@ colorScrollbarTrackLight: "#ebddee"
 
 colorNavBarBrandTextDark: "violet-200"
 colorNavBarBrandTextLight: "violet-900"
+
 colorNavMenuBackgroundDark: "violet-950"
 colorNavMenuBackgroundLight: "[#fbf9ff]"
 colorNavMenuBackgroundShadowDark: "violet-300/50"
@@ -53,6 +54,8 @@ colorContentCodeTextDark: "violet-400"
 colorContentCodeTextLight: "violet-900"
 colorContentCodeBackgroundDark: "[#0a0744]"
 colorContentCodeBackgroundLight: "violet-200"
+colorContentCodeBlockBackgroundDark: "#110d3d"
+colorContentCodeBlockBackgroundLight: "#f9f6ff"
 
 colorReturnToTopButtonBackgroundDark: "violet-900"
 colorReturnToTopButtonBackgroundLight: "violet-300"

@@ -15,7 +15,8 @@ colorScrollbarTrackLight: "#f1eaea"
 
 colorNavBarBrandTextDark: "red-200"
 colorNavBarBrandTextLight: "stone-700"
-colorNavMenuBackgroundDark: "rose-900"
+
+colorNavMenuBackgroundDark: "[#6a4853]"
 colorNavMenuBackgroundLight: "rose-200"
 colorNavMenuBackgroundShadowDark: "[#475569]/50"
 colorNavMenuBackgroundShadowLight: "red-300/50"
@@ -53,6 +54,8 @@ colorContentCodeTextDark: "rose-200"
 colorContentCodeTextLight: "rose-900"
 colorContentCodeBackgroundDark: "pink-950"
 colorContentCodeBackgroundLight: "red-100"
+colorContentCodeBlockBackgroundDark: "#321717"
+colorContentCodeBlockBackgroundLight: "#ffe9e9"
 
 colorReturnToTopButtonBackgroundDark: "[#475569]"
 colorReturnToTopButtonBackgroundLight: "red-300"

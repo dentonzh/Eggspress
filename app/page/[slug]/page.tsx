@@ -64,7 +64,7 @@ const PagePage =  async ( {params}: {params: {slug: string}} ) => {
         <HiddenContentMessage />
       }
       <div className="flex justify-between w-full">
-        <div className="overflow-x-hidden">
+        <div className="overflow-x-auto">
           <div className="mb-12 lg:hidden">
             <Toc />
           </div>

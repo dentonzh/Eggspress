@@ -91,7 +91,7 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
         <HiddenContentMessage />
       }
       <div className="flex justify-between w-full">
-        <div className="overflow-x-hidden">
+        <div className="overflow-x-auto">
           {(appearanceSettings.showTableOfContentsOnMobile === undefined || appearanceSettings.showTableOfContentsOnMobile) &&
             <div className="mb-20 mt-8 lg:hidden">
               <Toc />
