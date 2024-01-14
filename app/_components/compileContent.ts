@@ -8,6 +8,7 @@ import remarkGfm from 'remark-gfm'
 import eggspressMedia from '@/plugins/eggspress-img-processor'
 import { ImageFile, OGImage } from '@/types/Blog'
 import EggspressTable from './EggspressTable'
+import { all } from 'lowlight'
 
 const fs = require('fs-extra')
 const sizeOf = require('image-size')
@@ -24,7 +25,7 @@ const compileContent = async (type: string, slug:string,): Promise<{content: Rea
       mdxOptions: {
         remarkPlugins: [remarkGfm, [eggspressMedia, { slug, imageFiles, filePath }]],
         // @ts-ignore
-        rehypePlugins: [rehypeSlug, rehypeHighlight]
+        rehypePlugins: [rehypeSlug, [rehypeHighlight, {languages: all}]]
       }
     },
     components: {
