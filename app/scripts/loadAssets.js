@@ -170,16 +170,20 @@ const setColors = async (path) => {
                 contentCodeClasses.push(`text-${value}`)
               }
               if (line.startsWith('colorContentCodeBlockBackgroundDark')) {
-                fs.appendFileSync(
-                  'app/github-dark.css', 
-                  `.dark pre:has(.hljs), .dark .hljs { background: ${value} }`
-                )
+                if ( value ) {
+                  fs.appendFileSync(
+                    'app/github-dark.css', 
+                    `.dark pre:has(.hljs), .dark .hljs { background: ${value.replace('[', '').replace(']', '')} }`
+                  )
+                }
               }
               if (line.startsWith('colorContentCodeBlockBackgroundLight')) {
-                fs.appendFileSync(
-                  'app/stackoverflow-light.css', 
-                  `pre:has(.hljs), .hljs { background: ${value} }`
-                )
+                if ( value ) {
+                  fs.appendFileSync(
+                    'app/stackoverflow-light.css', 
+                    `pre:has(.hljs), .hljs { background: ${value.replace('[', '').replace(']', '')} }`
+                  )
+                }
               }
             }
             else if (line.startsWith('colorTheme')) {
