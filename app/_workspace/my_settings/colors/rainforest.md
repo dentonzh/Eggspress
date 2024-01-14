@@ -17,7 +17,7 @@ colorNavBarBrandTextDark: "green-400"
 colorNavBarBrandTextLight: "zinc-700"
 
 colorNavMenuBackgroundDark: "[#004115]"
-colorNavMenuBackgroundLight: "green-400"
+colorNavMenuBackgroundLight: "[#cdf3db]"
 colorNavMenuBackgroundShadowDark: "[#004115]/50"
 colorNavMenuBackgroundShadowLight: "green-400/50"
 colorNavMenuTextDark: "emerald-400"
