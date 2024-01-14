@@ -59,7 +59,7 @@ const setFontFamily = async (path) => {
 }
 
 
-const setSafelist = async (path) => {
+const setColors = async (path) => {
 
   const colorScheme = await getValueFromFileWithKey('my_settings/appearance.md', 'colorScheme')
   let fileToRead = path
@@ -169,6 +169,18 @@ const setSafelist = async (path) => {
                 contentCodeClasses.push(`text-${value}`)
                 contentCodeClasses.push(`text-${value}`)
               }
+              if (line.startsWith('colorContentCodeBlockBackgroundDark')) {
+                fs.appendFileSync(
+                  'app/github-dark.css', 
+                  `.dark pre:has(.hljs), .dark .hljs { background: ${value} }`
+                )
+              }
+              if (line.startsWith('colorContentCodeBlockBackgroundLight')) {
+                fs.appendFileSync(
+                  'app/stackoverflow-light.css', 
+                  `pre:has(.hljs), .hljs { background: ${value} }`
+                )
+              }
             }
             else if (line.startsWith('colorTheme')) {
               if (key.endsWith('Dark')) {
@@ -259,7 +271,7 @@ const setSafelist = async (path) => {
 
 
 setFontFamily('my_settings/appearance.md')
-setSafelist('my_settings/appearance.md')
+setColors('my_settings/appearance.md')
 
 
 assetsMap = {
