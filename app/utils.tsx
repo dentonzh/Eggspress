@@ -189,6 +189,15 @@ export async function getColors(prefix: string, colorKey: string, fallbackDark='
   return classNames.join(' ')
 }
 
+export async function getString(stringName: string, fallback?: string) {
+  const strings = await getEggspressSettings('strings')
+  if (strings[stringName]) {
+    return strings[stringName]
+  } else {
+    return fallback || ''
+  }
+}
+
 export async function buildLink(url: string) {
   const linkSettings = await getEggspressSettings('links')
   const re = /:\/\/([^\/]*)(.*)/;
