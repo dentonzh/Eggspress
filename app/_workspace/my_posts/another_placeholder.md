@@ -4,7 +4,9 @@ subtitle: "Part 2"
 subheading: "My name is Eggie and this is my brand new site!"
 
 isVisible: true
+isArchived: false
 isContentHidden: false
+contentMessage: ""
 
 image: "plane.jpeg"
 imagePositionY: 30

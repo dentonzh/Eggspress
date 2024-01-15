@@ -73,6 +73,13 @@ export default function eggspressMedia({
         })
       }
     })
+
+    if (tree.children && tree.children[0] && tree.children[0].type === 'heading') {
+      const ledeHeading = tree.children[0]
+      ledeHeading.data = {hProperties: {}}
+      ledeHeading.data.hProperties.style = ['margin-top: 0px;']
+    }
+
     
     if (tree.children && tree.children[0] && tree.children[0].children && tree.children[0].children[0].type === 'image') {
       const ledeImage = tree.children[0].children[0]
