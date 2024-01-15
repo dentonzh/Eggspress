@@ -12,4 +12,12 @@ isContentHiddenMessage: "This page and its contents are no longer available"
 isContentArchivedAndHiddenMessage: "This page is archived and its contents are no longer available"
 isContentHiddenBodyHeading: "No longer available"
 isContentHiddenBodyText: "Sorry, the page you're visiting is no longer available."
+
+paginatedPostHeadlineSeparator: ""
+paginatedCategoryHeadlineSeparator: ""
+paginatedAuthorHeadlineSeparator: ""
+
+paginationTotalPagesPrefix: " // Page "
+paginationStartIndexPrefix: "Displaying posts "
+paginationTotalCountPrefix: " of "
 ---

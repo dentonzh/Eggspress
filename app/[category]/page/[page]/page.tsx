@@ -1,5 +1,5 @@
 import getFrontmatter from '../../../_components/getFrontmatter'
-import { createSlug, getEggspressSettings } from '../../../utils'
+import { createSlug, getEggspressSettings, getString } from '../../../utils'
 import PostCard from '../../../_components/PostCard'
 import PageSidebar from '../../../_components/PageSidebar'
 import PaginationCard from '../../../_components/PaginationCard'
@@ -84,8 +84,8 @@ export default async function CategoryPaginatedPage({ params }: { params: { cate
       <ContentHero
         headline={categoryName}
         subtitle={page}
-        subtitlePrefix={appearanceSettings.paginatedCategorySubtitlePrefix}
-        subheading={`${appearanceSettings.paginatedSubheadingIndexPrefix}${startIndex + 1} - ${endIndex}${appearanceSettings.paginatedSubheadingTotalPrefix}${filteredPosts.length}`}
+        subtitlePrefix={await getString('paginationTotalPagesPrefix', ' // Page')}
+        subheading={`${categoryData.subheading} ${categoryData.subheading ? '•' : ''} ${await getString('paginationStartIndexPrefix', 'Displaying posts ')}${startIndex + 1} - ${endIndex}${await getString('paginationTotalCountPrefix', ' of ')}${postFrontmatter.length}`}
       >
       </ContentHero>
 

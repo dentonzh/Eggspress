@@ -6,7 +6,7 @@ import Sidebar from '../../../_components/Sidebar'
 import PostCard from '../../../_components/PostCard'
 import ContentHero from '../../../_components/ContentHero'
 import PaginationCard from '../../../_components/PaginationCard'
-import { copyImageToPublic, getImageFilesRecursively, getEggspressSettings, buildLink, setAnchorTargetProperty, isUrlAbsolute, getColors } from '../../../utils'
+import { copyImageToPublic, getImageFilesRecursively, getEggspressSettings, buildLink, setAnchorTargetProperty, isUrlAbsolute, getColors, getString } from '../../../utils'
 import ContentMessage from '@/app/_components/ContentMessage'
 
 
@@ -94,8 +94,8 @@ const AuthorPaginatedPage =  async ( {params}: {params: {slug: string, page: str
     <div className="flex flex-wrap">
       <ContentHero
         headline={`${frontmatter.name}${frontmatter.postnomials ? ' ' + frontmatter.postnomials : ''}` || slug}
-        subtitle={`${appearanceSettings.paginatedAuthorSubtitlePrefix}${pageNumber}`}
-        subheading={`${frontmatter.role} ${frontmatter.role ? '•' : ''} ${appearanceSettings.paginatedSubheadingIndexPrefix}${startIndex + 1} - ${endIndex}${appearanceSettings.paginatedSubheadingTotalPrefix}${filteredPosts.length}`}
+        subtitle={`${await getString('paginationTotalPagesPrefix', ' // Page ')}${pageNumber}`}
+        subheading={`${frontmatter.role} ${frontmatter.role ? '•' : ''} ${await getString('paginationStartIndexPrefix', 'Displaying posts ')}${startIndex + 1} - ${endIndex}${await getString('paginationTotalCountPrefix', ' of ')}${filteredPosts.length}`}
         sectionString={frontmatter.description}
         imageSrc={imageSrc}
         imageAlt={`Profile image for ${frontmatter.name}`}

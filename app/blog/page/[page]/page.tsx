@@ -1,5 +1,5 @@
 import getFrontmatter from '../../../_components/getFrontmatter'
-import { getEggspressSettings } from '../../../utils'
+import { getEggspressSettings, getString } from '../../../utils'
 import PostCard from '../../../_components/PostCard'
 import PageSidebar from '../../../_components/PageSidebar'
 import PaginationCard from '../../../_components/PaginationCard'
@@ -43,8 +43,8 @@ export default async function BlogPaginatedPage({ params }: { params: { page: st
       <ContentHero
         headline={'Posts'}
         subtitle={page}
-        subtitlePrefix={appearanceSettings.paginatedPostSubtitlePrefix}
-        subheading={`${appearanceSettings.paginatedSubheadingIndexPrefix}${startIndex + 1} - ${endIndex}${appearanceSettings.paginatedSubheadingTotalPrefix}${postFrontmatter.length}`}
+        subtitlePrefix={await getString('paginationTotalPagesPrefix', ' // Page')}
+        subheading={`${await getString('paginationStartIndexPrefix', 'Displaying posts ')}${startIndex + 1} - ${endIndex}${await getString('paginationTotalCountPrefix', ' of ')}${postFrontmatter.length}`}
       ></ContentHero>
       <div className="flex justify-between w-full">
         <div className='lg:max-w-prose'>

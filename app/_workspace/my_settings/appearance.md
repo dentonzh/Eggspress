@@ -28,16 +28,6 @@ showShareByFlipboardButton: false
 showShareByWhatsappButton: false
 showShareByTelegramButton: false
 
-paginatedPostHeadlineSeparator: ""
-paginatedCategoryHeadlineSeparator: ""
-paginatedAuthorHeadlineSeparator: ""
-paginatedPostSubtitlePrefix: " // Page "
-paginatedCategorySubtitlePrefix: " // Page "
-paginatedAuthorSubtitlePrefix: " // Page "
-
-paginatedSubheadingIndexPrefix: "Displaying posts "
-paginatedSubheadingTotalPrefix: " of "
-
 orderPostsBy: "date"
 orderPostsByReversed: false
 orderPostsInCategoriesBy: "date"
