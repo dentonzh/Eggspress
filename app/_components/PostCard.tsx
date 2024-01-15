@@ -2,7 +2,7 @@ import React from 'react'
 import ReadMore from './ReadMore'
 import Link from 'next/link';
 import { PostItem } from '@/types/Blog'
-import { copyImageToPublic, createSlug, getColors, getEggspressSettings, getImageFilesRecursively, getImagePlaceholderAsBase64 } from '../utils';
+import { copyImageToPublic, createSlug, getColors, getEggspressSettings, getImageFilesRecursively, getImagePlaceholderAsBase64, getString } from '../utils';
 import Image from 'next/image';
 import getFrontmatter from './getFrontmatter';
 
@@ -113,7 +113,7 @@ const PostCard = async ({ post, index, priority=true }: PostProps) => {
       }
       {(appearanceSettings.showPostCardReadMoreButton === undefined || appearanceSettings.showPostCardReadMoreButton) && post.slug &&
         <div className={`${await getColors('text', 'PostCardReadMoreText', 'white', 'gray-800')}`}>
-          <ReadMore slug={post.slug}></ReadMore>
+          <ReadMore slug={post.slug} label={await getString('postCardReadMoreButtonLabel', 'Read more')}></ReadMore>
         </div>
       }
     </div>

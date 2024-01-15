@@ -2,6 +2,8 @@
 navigationMenuHomeButtonLabel: "Home"
 footerLinksHomeLinkLabel: "Home"
 
+postCardReadMoreButtonLabel: "Read more"
+
 shareThisPostText: "Share this post"
 shareThisPageText: "Share this page"
 shareButtonPrefixLabel: "Share on "

@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation'
 import React from 'react'
 
-const ReadMore = ({slug}: {slug: string}) => {
+const ReadMore = ({slug, label}: {slug: string, label: string}) => {
   const router = useRouter()
 
   const handleReadMore = () => {
@@ -12,7 +12,7 @@ const ReadMore = ({slug}: {slug: string}) => {
 
   return (
     <div onClick={handleReadMore} className="underline-animated select-none cursor-pointer font-medium hover:text-blue-800 hover:dark:text-blue-200">
-      Read more
+      {label || 'Read more'}
     </div>
   )
 }
