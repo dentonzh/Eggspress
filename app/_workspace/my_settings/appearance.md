@@ -28,11 +28,6 @@ showShareByFlipboardButton: false
 showShareByWhatsappButton: false
 showShareByTelegramButton: false
 
-hiddenContentMessage: "This page is archived and may contain out of date information"
-hiddenContentIsHidden: false
-hiddenContentIsHiddenMessageHeading: "This content is unavailable"
-hiddenContentIsHiddenMessageBodyText: "Sorry, the page you're visiting is no longer available."
-
 paginatedPostHeadlineSeparator: ""
 paginatedCategoryHeadlineSeparator: ""
 paginatedAuthorHeadlineSeparator: ""

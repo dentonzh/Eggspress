@@ -6,7 +6,7 @@ import { createSlug, getColors, getEggspressSettings, getString } from '../../ut
 import Toc from '../../_components/Toc'
 import PageSidebar from '@/app/_components/PageSidebar'
 import ContentHero from '@/app/_components/ContentHero'
-import HiddenContentMessage from '@/app/_components/HiddenContentMessage'
+import ContentMessage from '@/app/_components/ContentMessage'
 import ShareBar from '@/app/_components/ShareBar'
 
 const env = process.env.NODE_ENV
@@ -60,22 +60,23 @@ const PagePage =  async ( {params}: {params: {slug: string}} ) => {
         date={frontmatter.date || frontmatter.publishDate ? convertDate(frontmatter.date || frontmatter.publishDate) : ''}
       >
       </ContentHero>
-      {frontmatter.isVisible === false && 
-        <HiddenContentMessage />
-      }
+
+
+      <ContentMessage frontmatter={frontmatter} />
+
       <div className="flex justify-between w-full">
         <div className="overflow-x-auto">
           <div className="mb-12 lg:hidden">
             <Toc />
           </div>
           <div className={`eggspress-content eggspress-content-extended -mt-2`}>
-            {frontmatter.isVisible === false && (appearanceSettings.hiddenContentIsHidden === true || frontmatter.hideContent === true) ?
+            {frontmatter.isContentHidden ?
               <div>
-                <h2 id="hero-subtitle">{appearanceSettings.hiddenContentIsHiddenMessageHeading}</h2>
-                <p>{appearanceSettings.hiddenContentIsHiddenMessageBodyText}</p>
+                <h2 id="hero-subtitle">{await getString('isContentHiddenBodyHeading')}</h2>
+                <p>{await getString('isContentHiddenBodyText')}</p>
               </div>
               :
-              <div>
+              <div id="content-body">
                 {content}
               </div>
             }

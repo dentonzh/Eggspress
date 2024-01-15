@@ -7,6 +7,7 @@ import PostCard from '../../../_components/PostCard'
 import ContentHero from '../../../_components/ContentHero'
 import PaginationCard from '../../../_components/PaginationCard'
 import { copyImageToPublic, getImageFilesRecursively, getEggspressSettings, buildLink, setAnchorTargetProperty, isUrlAbsolute, getColors } from '../../../utils'
+import ContentMessage from '@/app/_components/ContentMessage'
 
 
 export async function generateStaticParams() {
@@ -99,6 +100,8 @@ const AuthorPaginatedPage =  async ( {params}: {params: {slug: string, page: str
         imageSrc={imageSrc}
         imageAlt={`Profile image for ${frontmatter.name}`}
       ></ContentHero>
+
+      <ContentMessage frontmatter={frontmatter} />
       
       <div className="flex flex-wrap">
         <div className="max-w-prose">

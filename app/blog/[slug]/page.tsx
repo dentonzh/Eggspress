@@ -11,7 +11,7 @@ import Image from 'next/image'
 import getFrontmatter from '@/app/_components/getFrontmatter'
 import PostCard from '@/app/_components/PostCard'
 import ContentHero from '@/app/_components/ContentHero'
-import HiddenContentMessage from '@/app/_components/HiddenContentMessage'
+import ContentMessage from '@/app/_components/ContentMessage'
 import ShareBar from '@/app/_components/ShareBar'
 
 
@@ -87,9 +87,9 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
         showShareButton={true}
       >
       </ContentHero>
-      {frontmatter.isVisible === false && 
-        <HiddenContentMessage />
-      }
+
+      <ContentMessage frontmatter={frontmatter} />
+
       <div className="flex justify-between w-full">
         <div className="overflow-x-auto">
           {(appearanceSettings.showTableOfContentsOnMobile === undefined || appearanceSettings.showTableOfContentsOnMobile) &&
@@ -98,13 +98,13 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
             </div>
           }
           <div className={`eggspress-content eggspress-content-extended`}>
-            {frontmatter.isVisible === false && (appearanceSettings.hiddenContentIsHidden === true || frontmatter.hideContent === true) ?
+            {frontmatter.isContentHidden ?
               <div>
-                <h2 id="hero-subtitle">{appearanceSettings.hiddenContentIsHiddenMessageHeading}</h2>
-                <p>{appearanceSettings.hiddenContentIsHiddenMessageBodyText}</p>
+                <h2 id="hero-subtitle">{await getString('isContentHiddenBodyHeading')}</h2>
+                <p>{await getString('isContentHiddenBodyText')}</p>
               </div>
               :
-              <div className="">
+              <div id="content-body">
                 {content}
               </div>
             }

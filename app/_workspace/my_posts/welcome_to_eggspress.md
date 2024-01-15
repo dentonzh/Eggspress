@@ -4,7 +4,7 @@ subtitle: ""
 subheading: "This is a placeholder post packed with all of the bells and whistles Eggspress offers"
 
 isVisible: true
-hideContent: false
+isContentHidden: false
 
 image: "fields.jpeg"
 imagePositionY: 25
