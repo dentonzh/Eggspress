@@ -1,5 +1,6 @@
 ---
 navigationMenuHomeButtonLabel: "Home"
+footerLinksHomeLinkLabel: "Home"
 
 shareThisPostText: "Share this post"
 shareThisPageText: "Share this page"

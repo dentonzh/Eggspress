@@ -1,7 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 import getFrontmatter from './getFrontmatter'
-import { createSlug, getEggspressSettings } from '../utils'
+import { createSlug, getEggspressSettings, getString } from '../utils'
 
 const FooterLinks = async () => {
   const appearanceSettings = await getEggspressSettings('appearance')
@@ -38,7 +38,7 @@ const FooterLinks = async () => {
         )}
         <Link className="mb-6 md:mb-3" href="/">
           <span className="underline-animated">
-            Home
+            {await getString('footerLinksHomeLinkLabel', 'Home')}
           </span>
         </Link>
       </div>
