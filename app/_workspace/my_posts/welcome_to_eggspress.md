@@ -41,7 +41,7 @@ We're so egg-cited to have you here! I'm [Eggie](my_authors/eggie.md) and this i
 
 ## How do I add content to my posts?
 
-In addition to the content you're reading here, you could add sidebar data, author information, and much more. Most of that is set through the "[frontmatter](https://eggspress.vercel.app/blog/frontmatter)." If you need help getting started with editing this content, we recommend starting with [Editing Eggspress Content](https://eggspress.vercel.app/blog/editing-content) from the official [Getting Started Guide](https://eggspress.vercel.app/getting-started).
+In addition to the content you're reading here, you could add sidebar data, author information, and much more. Most of that is set through the "[frontmatter](https://eggspress.org/blog/frontmatter)." If you need help getting started with editing this content, we recommend starting with [Editing Eggspress Content](https://eggspress.org/blog/editing-content) from the official [Getting Started Guide](https://eggspress.org/getting-started).
 
 ![Eggie and Byline frolicking through the fields](fields.jpeg)
 

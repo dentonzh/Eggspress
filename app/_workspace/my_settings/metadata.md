@@ -9,7 +9,7 @@ indexSubtitlePrefix: " is "
 indexTitle: ""
 metaTitle: "Eggspress - Your ideas. Your voice. Your blog."
 metaDescription: "Eggspress is a fast, free, and lightweight blogging platform that you control. Designed for easy deployment, Eggspress lets anyone with a little technical know-how launch their very own site. Publish as you please."
-metaBaseUrl: "https://eggspress.vercel.app"
+metaBaseUrl: ""
 
 ogDescription: "A brand new Eggspress site is coming soon!"
 ogImageFilename: "og_logo.png"
