@@ -1,4 +1,6 @@
 ---
+navigationMenuHomeButtonLabel: "Home"
+
 shareThisPostText: "Share this post"
 shareThisPageText: "Share this page"
 shareButtonPrefixLabel: "Share on "

@@ -1,7 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 import getFrontmatter from './getFrontmatter'
-import { createSlug, getEggspressSettings } from '../utils'
+import { createSlug, getEggspressSettings, getString } from '../utils'
 
 const NavigationLinks = async () => {
   const appearanceSettings = await getEggspressSettings('appearance')
@@ -34,7 +34,7 @@ const NavigationLinks = async () => {
         )}
         <Link className="dropdown-item px-3 py-1 mb-3" href="/">
           <span>
-            Home
+            {await getString('navigationMenuHomeButtonLabel', 'Home')}
           </span>
         </Link>
       </div>
