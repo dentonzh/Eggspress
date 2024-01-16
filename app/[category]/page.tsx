@@ -94,7 +94,7 @@ const CategoryPage = async ({ params }: { params: { category: string }}) => {
               {appearanceSettings.paginatedSubheadingIndexPrefix}1 - {appearanceSettings.numberOfPostsPerPage || 8}{appearanceSettings.paginatedSubheadingTotalPrefix}{filteredPosts.length}
               in {categoryName}
             </div>
-            <PaginationLink text="Show more posts" page={2} type="category" slug={category}></PaginationLink>
+            <PaginationLink text={await getString('showMorePostsButtonLabel', 'Show more posts')} page={2} type="category" slug={category}></PaginationLink>
           </div>
           }
         </div>

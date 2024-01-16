@@ -94,8 +94,8 @@ const AuthorPaginatedPage =  async ( {params}: {params: {slug: string, page: str
     <div className="flex flex-wrap">
       <ContentHero
         headline={`${frontmatter.name}${frontmatter.postnomials ? ' ' + frontmatter.postnomials : ''}` || slug}
-        subtitle={`${await getString('paginationTotalPagesPrefix', ' // Page ')}${pageNumber}`}
-        subheading={`${frontmatter.role} ${frontmatter.role ? '•' : ''} ${await getString('paginationStartIndexPrefix', 'Displaying posts ')}${startIndex + 1} - ${endIndex}${await getString('paginationTotalCountPrefix', ' of ')}${filteredPosts.length}`}
+        subtitle={`${await getString('paginationTotalPagesPrefix', ' // Page ')}${pageNumber}${await getString('paginationTotalPagesSuffix', '')}`}
+        subheading={`${frontmatter.role} ${frontmatter.role ? '•' : ''} ${await getString('paginationRangePrefix', 'Displaying posts ')}${startIndex + 1} - ${endIndex}${await getString('paginationRangeSuffix', '')}${await getString('paginationTotalCountPrefix', ' of ')}${postFrontmatter.length}${await getString('paginationTotalCountSuffix', '')}`}
         sectionString={frontmatter.description}
         imageSrc={imageSrc}
         imageAlt={`Profile image for ${frontmatter.name}`}

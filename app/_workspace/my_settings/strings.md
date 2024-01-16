@@ -18,7 +18,9 @@ isContentArchivedAndHiddenMessage: "This page is archived and its contents are n
 isContentHiddenBodyHeading: "No longer available"
 isContentHiddenBodyText: "Sorry, the page you're visiting is no longer available."
 
+
+showMorePostsButtonLabel: "Show more posts"
 paginationTotalPagesPrefix: " // Page "
-paginationStartIndexPrefix: "Displaying posts "
+paginationRangePrefix: "Displaying posts "
 paginationTotalCountPrefix: " of "
 ---

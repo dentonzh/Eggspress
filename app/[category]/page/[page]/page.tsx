@@ -83,9 +83,9 @@ export default async function CategoryPaginatedPage({ params }: { params: { cate
     <main className="flex flex-wrap">
       <ContentHero
         headline={categoryName}
-        subtitle={page}
+        subtitle={`${page}${await getString('paginationTotalPagesSuffix', '')}`}
         subtitlePrefix={await getString('paginationTotalPagesPrefix', ' // Page')}
-        subheading={`${categoryData.subheading} ${categoryData.subheading ? '•' : ''} ${await getString('paginationStartIndexPrefix', 'Displaying posts ')}${startIndex + 1} - ${endIndex}${await getString('paginationTotalCountPrefix', ' of ')}${postFrontmatter.length}`}
+        subheading={`${categoryData.subheading} ${categoryData.subheading ? '•' : ''} ${await getString('paginationRangePrefix', 'Displaying posts ')}${startIndex + 1} - ${endIndex}${await getString('paginationRangeSuffix', '')}${await getString('paginationTotalCountPrefix', ' of ')}${postFrontmatter.length}${await getString('paginationTotalCountSuffix', '')}`}
       >
       </ContentHero>
 

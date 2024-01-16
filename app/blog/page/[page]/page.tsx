@@ -42,9 +42,9 @@ export default async function BlogPaginatedPage({ params }: { params: { page: st
     <main className="flex flex-wrap">
       <ContentHero
         headline={'Posts'}
-        subtitle={page}
+        subtitle={`${page}${await getString('paginationTotalPagesSuffix', '')}`}
         subtitlePrefix={await getString('paginationTotalPagesPrefix', ' // Page')}
-        subheading={`${await getString('paginationStartIndexPrefix', 'Displaying posts ')}${startIndex + 1} - ${endIndex}${await getString('paginationTotalCountPrefix', ' of ')}${postFrontmatter.length}`}
+        subheading={`${await getString('paginationRangePrefix', 'Displaying posts ')}${startIndex + 1} - ${endIndex}${await getString('paginationRangeSuffix', '')}${await getString('paginationTotalCountPrefix', ' of ')}${postFrontmatter.length}${await getString('paginationTotalCountSuffix', '')}`}
       ></ContentHero>
       <div className="flex justify-between w-full">
         <div className='lg:max-w-prose'>
