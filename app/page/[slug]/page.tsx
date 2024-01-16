@@ -98,7 +98,7 @@ const PagePage =  async ( {params}: {params: {slug: string}} ) => {
             <Sidebar isSticky={false}>
               <div className="mb-20 text-sm">
                 <div className={`sidebar-section ${await getColors('text', 'SidebarHeading')}`}>
-                  {appearanceSettings.shareThisPageText ? appearanceSettings.shareThisPageText : 'Share this page'}
+                  {await getString('shareThisPageText', 'Share this post')}
                 </div>
                 <ShareBar appearanceSettings={appearanceSettings} className="-ml-6" headline={frontmatter.title || 'Untitled Page'} subtitle={frontmatter.subtitle} siteName={metadataSettings.title}></ShareBar>
               </div>
