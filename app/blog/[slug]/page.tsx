@@ -157,7 +157,7 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
                   <div className="font-medium text-gray-700 dark:text-gray-300 my-auto pl-2">Related Posts</div>
                 </div>
                 {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(async (index: number) => {
-                  const postData = postFrontmatter.filter(fm => frontmatter['relatedPost' + index] && fm.slug === frontmatter['relatedPost' + index].replaceAll('_', '-').replaceAll(' ', '-'))
+                  const postData = postFrontmatter.filter(fm => fm.isVisible && frontmatter['relatedPost' + index] && fm.slug === frontmatter['relatedPost' + index].replaceAll('_', '-').replaceAll(' ', '-'))
 
                   if (postData.length) {
                     const frontmatter = postData[0]
@@ -204,14 +204,14 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
                   <div className={`sidebar-heading text-sm pl-1 ${await getColors('text', 'SidebarHeading')}`}>Related Posts</div>
                 </div>
                 {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(async (index: number) => {
-                  const postData = postFrontmatter.filter(fm => frontmatter['relatedPost' + index] && fm.slug === frontmatter['relatedPost' + index].replaceAll('_', '-').replaceAll(' ', '-'))
+                  const postData = postFrontmatter.filter(fm => fm.isVisible && frontmatter['relatedPost' + index] && fm.slug === frontmatter['relatedPost' + index].replaceAll('_', '-').replaceAll(' ', '-'))
         
                   if (postData.length) {
                     const frontmatter = postData[0]
                     return (
                       <div className="mb-0.5 text-sm" key={`related-post-footer-${index}`}>
                         <div className={`font-normal ${await getColors('text', 'SidebarRelatedPost', 'gray-300', 'gray-600')}`}>
-                          <Link 
+                          <Link
                             className={`flex ${await getColors('hover:text', 'SidebarRelatedPostHover', 'blue-300', 'blue-700')}`} 
                             href={`/blog/${frontmatter.slug}`}
                           >
