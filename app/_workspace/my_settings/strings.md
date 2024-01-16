@@ -22,6 +22,9 @@ tableOfContentsHeadingText: "Table of Contents"
 jumpToHeadingText: "Jump to..."
 backToTopButtonLabel: "Back to top"
 
+relatedPostHeadingText: "Related Posts"
+pinnedPostHeadingText: "Pinned Posts"
+
 previousPostButtonLabel: "Previous Post"
 nextPostButtonLabel: "Next Post"
 
