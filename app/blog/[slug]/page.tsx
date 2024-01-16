@@ -154,10 +154,12 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
               <div className="mb-8 max-w-prose">
                 <div className="flex flex-wrap mb-6">
                   <Image src="/assets/relation.svg" alt="relation icon" width={32} height={32} className="h-7 w-7 border-gray-300 dark:border-gray-600 stroke-gray-200 fill-gray-200 brightness-50 dark:brightness-100"></Image>
-                  <div className="font-medium text-gray-700 dark:text-gray-300 my-auto pl-2">Related Posts</div>
+                  <div className="font-medium text-gray-700 dark:text-gray-300 my-auto pl-2">
+                    {await getString('relatedPostHeadingText', 'Related Posts')}
+                  </div>
                 </div>
                 {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(async (index: number) => {
-                  const postData = postFrontmatter.filter(fm => fm.isVisible && frontmatter['relatedPost' + index] && fm.slug === frontmatter['relatedPost' + index].replaceAll('_', '-').replaceAll(' ', '-'))
+                  const postData = postFrontmatter.filter(fm => (fm.isVisible || fm.isVisible === undefined) && frontmatter['relatedPost' + index] && fm.slug === frontmatter['relatedPost' + index].replaceAll('_', '-').replaceAll(' ', '-'))
 
                   if (postData.length) {
                     const frontmatter = postData[0]
@@ -201,10 +203,12 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
               <div className="mb-16">
                 <div className="flex flex-wrap mb-3">
                   <Image src="/assets/relation.svg" alt="relation icon" width={32} height={32} className="h-5 w-5 -ml-4 opacity-50 dark:opacity-100 border-gray-300 dark:border-gray-600 stroke-gray-200 fill-gray-200 brightness-50 dark:brightness-100"></Image>
-                  <div className={`sidebar-heading text-sm pl-1 ${await getColors('text', 'SidebarHeading')}`}>Related Posts</div>
+                  <div className={`sidebar-heading text-sm pl-1 ${await getColors('text', 'SidebarHeading')}`}>
+                    {await getString('relatedPostHeadingText', 'Related Posts')}
+                  </div>
                 </div>
                 {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(async (index: number) => {
-                  const postData = postFrontmatter.filter(fm => fm.isVisible && frontmatter['relatedPost' + index] && fm.slug === frontmatter['relatedPost' + index].replaceAll('_', '-').replaceAll(' ', '-'))
+                  const postData = postFrontmatter.filter(fm => (fm.isVisible || fm.isVisible === undefined) && frontmatter['relatedPost' + index] && fm.slug === frontmatter['relatedPost' + index].replaceAll('_', '-').replaceAll(' ', '-'))
         
                   if (postData.length) {
                     const frontmatter = postData[0]
