@@ -1,6 +1,6 @@
 import React from 'react'
 import getFrontmatter from '../_components/getFrontmatter'
-import { createSlug, getEggspressSettings } from '../utils'
+import { createSlug, getEggspressSettings, getString } from '../utils'
 import PostCard from '../_components/PostCard'
 import PageSidebar from '../_components/PageSidebar'
 import PaginationLink from '../_components/PaginationLink'
