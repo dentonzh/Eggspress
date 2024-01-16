@@ -84,7 +84,7 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
         subheading={frontmatter.subheading}
         date={frontmatter.date || frontmatter.publishDate ? convertDate(frontmatter.date || frontmatter.publishDate) : ''}
         imageSrc={frontmatter.image && frontmatter.showImageInHeader ? `/images/${slug}/${frontmatter.image}` : ''}
-        showShareButton={true}
+        showShareButton={(appearanceSettings.showShareButtonInHeader || appearanceSettings.showShareButtonInHeader === undefined) && !frontmatter.isContentHidden ? true : false}
       >
       </ContentHero>
 
@@ -110,7 +110,7 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
             }
           </div>
           
-          {(appearanceSettings.showShareButtonInPostContent === undefined || appearanceSettings.showShareButtonInPostContent) &&
+          {(appearanceSettings.showShareButtonInPostContent === undefined || appearanceSettings.showShareButtonInPostContent) && !frontmatter.isContentHidden &&
             <div className="w-full">
               <div className={`font-light text-sm mb-5 ${await getColors('text', 'SidebarHeading')}`}>
                 {await getString('shareThisPostText', 'Share this post')}
@@ -187,7 +187,7 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
             </div>
           </Sidebar>
           
-          {(appearanceSettings.showShareButtonInPostSidebar === undefined || appearanceSettings.showShareButtonInPostSidebar) &&
+          {(appearanceSettings.showShareButtonInPostSidebar === undefined || appearanceSettings.showShareButtonInPostSidebar) && !frontmatter.isContentHidden &&
             <Sidebar isSticky={false}>
               <div className="mb-20 text-sm">
                 <div className={`sidebar-section ${await getColors('text', 'SidebarHeading')}`}>

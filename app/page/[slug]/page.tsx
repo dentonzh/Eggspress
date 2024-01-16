@@ -82,10 +82,10 @@ const PagePage =  async ( {params}: {params: {slug: string}} ) => {
             }
 
           </div>
-          {(appearanceSettings.showShareButtonInPageContent === undefined || appearanceSettings.showShareButtonInPageContent) &&
+          {(appearanceSettings.showShareButtonInPageContent === undefined || appearanceSettings.showShareButtonInPageContent) && !frontmatter.isContentHidden &&
             <div className="w-full">
               <div className={`font-light text-sm mb-5 ${await getColors('text', 'SidebarHeading')}`}>
-                {await getString('shareThisPageText', 'Share this post')}
+                {await getString('shareThisPageText', 'Share this page')}
               </div>
               <div className="w-full text-center border rounded-lg py-2 border-gray-200/40 dark:border-gray-600/40 bg-gray-200/20 dark:bg-gray-900/20">
                 <ShareBar appearanceSettings={appearanceSettings} className="inline-block" headline={frontmatter.title || 'Untitled Post'} subtitle={frontmatter.subtitle} siteName={metadataSettings.title}></ShareBar>
@@ -94,11 +94,11 @@ const PagePage =  async ( {params}: {params: {slug: string}} ) => {
           }
         </div>
         <div className="mt-4">
-          {(appearanceSettings.showShareButtonInPageSidebar === undefined || appearanceSettings.showShareButtonInPageSidebar) &&
+          {(appearanceSettings.showShareButtonInPageSidebar === undefined || appearanceSettings.showShareButtonInPageSidebar) && !frontmatter.isContentHidden &&
             <Sidebar isSticky={false}>
               <div className="mb-20 text-sm">
                 <div className={`sidebar-section ${await getColors('text', 'SidebarHeading')}`}>
-                  {await getString('shareThisPageText', 'Share this post')}
+                  {await getString('shareThisPageText', 'Share this page')}
                 </div>
                 <ShareBar appearanceSettings={appearanceSettings} className="-ml-6" headline={frontmatter.title || 'Untitled Page'} subtitle={frontmatter.subtitle} siteName={metadataSettings.title}></ShareBar>
               </div>
