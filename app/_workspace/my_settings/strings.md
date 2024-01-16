@@ -22,8 +22,11 @@ tableOfContentsHeadingText: "Table of Contents"
 jumpToHeadingText: "Jump to..."
 backToTopButtonLabel: "Back to top"
 
-previousPostButtonLabel: "< Previous Post"
-nextPostButtonLabel: "Next Post >"
+previousPostButtonLabel: "Previous Post"
+nextPostButtonLabel: "Next Post"
+
+previousPageButtonLabel: "< Previous Page"
+nextPageButtonLabel: "Next Page >"
 
 showMorePostsButtonLabel: "Show more posts"
 paginationTotalPagesPrefix: " // Page "
