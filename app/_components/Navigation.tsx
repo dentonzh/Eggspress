@@ -25,7 +25,7 @@ const Navigation = async () => {
         </div>
         <div className="flex items-center dark:text-white">
           <DarkModeToggle />
-          <div className="ml-2">
+          <div className="ml-4 sm:ml-3">
             <DropdownMenu icon="navigation.svg" altText="navigation menu toggle button" align="right-2">
               <NavigationMenu>
                 <div className="w-48 px-3 pt-6">
