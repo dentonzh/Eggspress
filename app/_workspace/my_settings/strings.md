@@ -21,6 +21,9 @@ isContentHiddenBodyText: "Sorry, the page you're visiting is no longer available
 previousPostButtonLabel: "Previous Post"
 nextPostButtonLabel: "Next Post"
 
+previousPageButtonLabel: "Previous Page"
+nextPageButtonLabel: "Next Page"
+
 showMorePostsButtonLabel: "Show more posts"
 paginationTotalPagesPrefix: " // Page "
 paginationTotalPagesSuffix: ""

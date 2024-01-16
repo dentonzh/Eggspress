@@ -13,11 +13,11 @@ const PaginationCard = async ({currentPage, startIndex, endIndex, postCount, typ
       <div className="flex">
         {page > 1 &&
           <div className={postCount > endIndex ? 'mr-6' : ''}>
-            <PaginationLink text="< Previous Page" page={+page - 1} type={type} slug={slug}></PaginationLink>
+            <PaginationLink text={await getString('previousPageButtonLabel', '< Previous Page')} page={+page - 1} type={type} slug={slug}></PaginationLink>
           </div>
         }
         {postCount > endIndex &&
-          <PaginationLink text="Next Page >" page={+page + 1} type={type} slug={slug}></PaginationLink>
+          <PaginationLink text={await getString('nextPageButtonLabel', 'Next Page >')} page={+page + 1} type={type} slug={slug}></PaginationLink>
         }
       </div>
     </div>
