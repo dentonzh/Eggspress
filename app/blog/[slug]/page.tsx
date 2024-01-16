@@ -94,7 +94,7 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
         <div className="overflow-x-auto">
           {(appearanceSettings.showTableOfContentsOnMobile === undefined || appearanceSettings.showTableOfContentsOnMobile) &&
             <div className="mb-20 mt-8 lg:hidden">
-              <Toc />
+              <Toc jumpToText={await getString('jumpToHeadingText', 'Jump to...')} tableOfContentsText={await getString('tableOfContentsHeadingText', 'Table of Contents')} backToTopText={await getString('backToTopButtonLabel', 'Back to top')} />
             </div>
           }
           <div className={`eggspress-content eggspress-content-extended`}>
@@ -235,7 +235,7 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
           <PageSidebar isSticky={false} slug={frontmatter.sidebar}></PageSidebar>
           {(appearanceSettings.showTableOfContentsInSidebar === undefined || appearanceSettings.showTableOfContentsInSidebar) &&
             <Sidebar>
-              <Toc />
+              <Toc jumpToText={await getString('jumpToHeadingText', 'Jump to...')} tableOfContentsText={await getString('tableOfContentsHeadingText', 'Table of Contents')} backToTopText={await getString('backToTopButtonLabel', 'Back to top')} />
             </Sidebar>
           }
         </div>

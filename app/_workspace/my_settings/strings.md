@@ -18,11 +18,12 @@ isContentArchivedAndHiddenMessage: "This page is archived and its contents are n
 isContentHiddenBodyHeading: "No longer available"
 isContentHiddenBodyText: "Sorry, the page you're visiting is no longer available."
 
-previousPostButtonLabel: "Previous Post"
-nextPostButtonLabel: "Next Post"
+tableOfContentsHeadingText: "Table of Contents"
+jumpToHeadingText: "Jump to..."
+backToTopButtonLabel: "Back to top"
 
-previousPageButtonLabel: "Previous Page"
-nextPageButtonLabel: "Next Page"
+previousPostButtonLabel: "< Previous Post"
+nextPostButtonLabel: "Next Post >"
 
 showMorePostsButtonLabel: "Show more posts"
 paginationTotalPagesPrefix: " // Page "

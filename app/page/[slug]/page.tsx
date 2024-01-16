@@ -67,7 +67,7 @@ const PagePage =  async ( {params}: {params: {slug: string}} ) => {
       <div className="flex justify-between w-full">
         <div className="overflow-x-auto">
           <div className="mb-12 lg:hidden">
-            <Toc />
+            <Toc jumpToText={await getString('jumpToHeadingText', 'Jump to...')} tableOfContentsText={await getString('tableOfContentsHeadingText', 'Table of Contents')} backToTopText={await getString('backToTopButtonLabel', 'Back to top')} />
           </div>
           <div className={`eggspress-content eggspress-content-extended -mt-2`}>
             {frontmatter.isContentHidden ?
@@ -108,7 +108,7 @@ const PagePage =  async ( {params}: {params: {slug: string}} ) => {
           <PageSidebar isSticky={false} slug={frontmatter.sidebar}></PageSidebar>
 
           <Sidebar>
-            <Toc />
+            <Toc jumpToText={await getString('jumpToHeadingText', 'Jump to...')} tableOfContentsText={await getString('tableOfContentsHeadingText', 'Table of Contents')} backToTopText={await getString('backToTopButtonLabel', 'Back to top')} />
           </Sidebar>
         </div>
       </div>
