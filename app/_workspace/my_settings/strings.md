@@ -21,6 +21,9 @@ isContentHiddenBodyText: "Sorry, the page you're visiting is no longer available
 
 showMorePostsButtonLabel: "Show more posts"
 paginationTotalPagesPrefix: " // Page "
+paginationTotalPagesSuffix: ""
 paginationRangePrefix: "Displaying posts "
+paginationRangeSuffix: ""
 paginationTotalCountPrefix: " of "
+paginationTotalCountSuffix: ""
 ---
