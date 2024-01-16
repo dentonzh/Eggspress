@@ -125,13 +125,13 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
               <div className="flex flex-wrap border-t border-gray-300 dark:border-gray-600 mt-12 py-6 text-gray-800 dark:text-gray-200 justify-between">
                 {prevPost &&
                 <Link className="grow my-3 mr-2" href={`/blog/${prevPost.slug}`}>
-                    <div className="text-sm font-light mb-2">Previous Post</div>
+                    <div className="text-sm font-light mb-2">{await getString('previousPostButtonLabel', 'Previous Post')}</div>
                     <div className="font-semibold">{prevPost.title}</div>
                 </Link>
                 }
                 {nextPost &&
                 <Link className="grow my-3" href={`/blog/${nextPost.slug}`}>
-                    <div className="text-sm font-light mb-2">Next Post</div>
+                    <div className="text-sm font-light mb-2">{await getString('nextPostButtonLabel', 'Next Post')}</div>
                     <div className="font-semibold">{nextPost.title}</div>
                 </Link>
                 }
