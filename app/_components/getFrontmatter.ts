@@ -36,7 +36,7 @@ const getFrontmatter = async <T extends string>(type: T, sortBy?: string, sortRe
   const frontmatterData = await extractFrontmatter(data)
   const filteredFrontmatterData = showAll ? frontmatterData : frontmatterData.filter(fm => !(fm.isVisible === false))
   const sortedData = filteredFrontmatterData.sort((a, b) => {
-    let x = (a.date || a.publishDate || 0) < (b.date || b.publishDate || 0) ? -1 : 1
+    let x = (a.date || a.publishDate || 0) < (b.date || b.publishDate || 0) ? 1 : -1
     if (sortBy === 'weight') {
       x = a.weight < b.weight ? -1 : 1
     } else if (sortBy?.startsWith('alpha')) {
