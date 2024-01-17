@@ -188,8 +188,8 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
           
           {(appearanceSettings.showShareButtonInPostSidebar === undefined || appearanceSettings.showShareButtonInPostSidebar) && !frontmatter.isContentHidden &&
             <Sidebar isSticky={false}>
-              <div className="mb-20 text-sm">
-                <div className={`sidebar-section ${await getColors('text', 'SidebarHeading')}`}>
+              <div className="mb-20 text-sm flex flex-wrap">
+                <div className={`w-full sidebar-section ${await getColors('text', 'SidebarHeading')}`}>
                   {await getString('sharePostHeadingText', 'Share this post')}
                 </div>
                 <ShareBar appearanceSettings={appearanceSettings} className="-ml-6" headline={frontmatter.title || 'Untitled Post'} subtitle={frontmatter.subtitle} siteName={metadataSettings.title}></ShareBar>

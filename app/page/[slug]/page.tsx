@@ -96,8 +96,8 @@ const PagePage =  async ( {params}: {params: {slug: string}} ) => {
         <div className="mt-4">
           {(appearanceSettings.showShareButtonInPageSidebar === undefined || appearanceSettings.showShareButtonInPageSidebar) && !frontmatter.isContentHidden &&
             <Sidebar isSticky={false}>
-              <div className="mb-20 text-sm">
-                <div className={`sidebar-section ${await getColors('text', 'SidebarHeading')}`}>
+              <div className="mb-20 text-sm flex flex-wrap">
+                <div className={`w-full sidebar-section ${await getColors('text', 'SidebarHeading')}`}>
                   {await getString('sharePageHeadingText', 'Share this page')}
                 </div>
                 <ShareBar appearanceSettings={appearanceSettings} className="-ml-6" headline={frontmatter.title || 'Untitled Page'} subtitle={frontmatter.subtitle} siteName={metadataSettings.title}></ShareBar>
