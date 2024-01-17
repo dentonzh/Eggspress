@@ -73,7 +73,6 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
   const categoryData = categoryFrontmatter.filter(fm => fm.slug === frontmatter.category)[0]
   const categoryName = categoryData && categoryData.title ? categoryData.title : frontmatter.category 
 
-
   return (
     <div className="flex flex-wrap">
       <ContentHero 
