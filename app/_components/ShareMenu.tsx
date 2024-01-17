@@ -26,10 +26,10 @@ const ShareMenu = async ({className, align, headline, subtitle, siteName}: Share
           <div className="min-w-[10rem] sm:min-w-[12rem] px-3 sm:px-2 pt-6 pb-3">
             <div className="mb-3">
               {(appearanceSettings.showShareByLinkButton === undefined || appearanceSettings.showShareByLinkButton) && 
-                <ShareCopyButton className="dropdown-item pl-2 sm:px-3 py-2 block" copyStatus={await getString('copyLinkStatusText', 'Copied!')}>
+                <ShareCopyButton className="dropdown-item pl-2 sm:px-3 py-2 block" copyStatus={await getString('shareByLinkStatusText', 'Copied!')}>
                   <Image className="text-gray-500 inline-block dark:brightness-150" src="/assets/copy.svg" width={16} height={16} alt="copy link icon"></Image>
                   <span className="pl-2 sm:pl-4">
-                    {await getString('copyLinkButtonLabel', 'Copy link')}
+                    {await getString('shareByLinkButtonLabel', 'Copy link')}
                   </span>
                 </ShareCopyButton>
               }
@@ -39,7 +39,7 @@ const ShareMenu = async ({className, align, headline, subtitle, siteName}: Share
                 <ShareEmailButton className="dropdown-item pl-2 sm:px-3 py-2 block" headline={headline} subtitle={subtitle} siteName={siteName}>
                   <Image className="text-gray-500 inline-block dark:brightness-150" src="/assets/mail.svg" width={16} height={16} alt="share by email icon"></Image>
                   <span className="pl-2 sm:pl-4">
-                    {await getString('sendEmailButtonLabel', 'Send email')}
+                    {await getString('shareByEmailButtonLabel', 'Send email')}
                   </span>
                 </ShareEmailButton>
               }

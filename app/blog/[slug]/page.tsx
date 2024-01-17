@@ -100,8 +100,8 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
           <div className={`eggspress-content eggspress-content-extended`}>
             {frontmatter.isContentHidden ?
               <div>
-                <h2 id="hero-subtitle">{await getString('isContentHiddenBodyHeading')}</h2>
-                <p>{await getString('isContentHiddenBodyText')}</p>
+                <h2 id="hero-subtitle">{await getString('isContentHiddenBodyHeadingText')}</h2>
+                <p>{await getString('isContentHiddenBodyContentText')}</p>
               </div>
               :
               <div id="content-body">
@@ -113,7 +113,7 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
           {(appearanceSettings.showShareButtonInPostContent === undefined || appearanceSettings.showShareButtonInPostContent) && !frontmatter.isContentHidden &&
             <div className="w-full">
               <div className={`font-light text-sm mb-5 ${await getColors('text', 'SidebarHeading')}`}>
-                {await getString('shareThisPostText', 'Share this post')}
+                {await getString('sharePostHeadingText', 'Share this post')}
               </div>
               <div className="w-full text-center border rounded-lg py-2 border-gray-200/40 dark:border-gray-600/40 bg-gray-200/20 dark:bg-gray-900/20">
                 <ShareBar appearanceSettings={appearanceSettings} className="inline-block" headline={frontmatter.title || 'Untitled Post'} subtitle={frontmatter.subtitle} siteName={metadataSettings.title}></ShareBar>
@@ -191,7 +191,7 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
             <Sidebar isSticky={false}>
               <div className="mb-20 text-sm">
                 <div className={`sidebar-section ${await getColors('text', 'SidebarHeading')}`}>
-                  {await getString('shareThisPostText', 'Share this post')}
+                  {await getString('sharePostHeadingText', 'Share this post')}
                 </div>
                 <ShareBar appearanceSettings={appearanceSettings} className="-ml-6" headline={frontmatter.title || 'Untitled Post'} subtitle={frontmatter.subtitle} siteName={metadataSettings.title}></ShareBar>
               </div>
