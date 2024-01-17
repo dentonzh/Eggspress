@@ -7,12 +7,18 @@ type Element = {
   top: number,
   text: string,
   id: string,
-  tag: string
+  tag: string,
+}
+
+type TocProps = {
+  jumpToText?: string,
+  tableOfContentsText?: string,
+  backToTopText?: string
 }
 
 let returnToTopTimer: NodeJS.Timeout | undefined
 
-const Toc = () => {
+const Toc = ({ jumpToText, tableOfContentsText, backToTopText }: TocProps) => {
   const [active, setActive] = useState<string>('')
   const [elements, setElements] = useState<Element[]>([])
   const [showToc, setShowToc] = useState<boolean>(false)  // allows fade-in animation
@@ -95,9 +101,10 @@ const Toc = () => {
   
   return (
     <div className={`${showToc && elements.filter(el => el.id !== 'hero-subtitle').length ? 'opacity-100' : 'opacity-0 h-0'} tracking-wide leading-5 text-sm duration-200`}>
-      {showToc && elements.filter(el => el.id !== 'hero-subtitle').length > 0 &&
+      {showToc && elements.filter(el => el.id !== 'hero-subtitle').length > 1 &&
         <div>
-          <div id="mobile-toc" className="text-gray-600 dark:text-gray-300 font-bold mb-3 lg:hidden">Jump to...</div>
+          <div id="mobile-toc" className="text-gray-600 dark:text-gray-300 font-bold mb-3 lg:hidden">{jumpToText || 'Jump to...'}</div>
+          <div id="mobile-toc" className="text-gray-600 dark:text-gray-300 font-extralight mb-3 hidden lg:block">{tableOfContentsText || 'Table of Contents'}</div>
           <ul className="text-gray-600 dark:text-gray-200">
             {elements.filter(el => el.id !== 'hero-subtitle').map(el =>
               <li key={el.id} id={`toc-${el.id}`}
@@ -122,7 +129,7 @@ const Toc = () => {
           </ul>
         </div>
       }
-      <FloatingActionButton icon="top.svg" text="Back to top" hidden={!showReturnToTop} onClick={(e) => {scrollToSection(e as any, 'mobile-toc')}}></FloatingActionButton>
+      <FloatingActionButton icon="top.svg" text={backToTopText || 'Back to top'} hidden={!showReturnToTop} onClick={(e) => {scrollToSection(e as any, 'mobile-toc')}}></FloatingActionButton>
     </div>
   )
 }

@@ -2,7 +2,11 @@
 name: "Byline Beakster"
 postnomials: ""
 description: "With feathers dipped in ink and a quill held firmly in the beak, Byline is the wordsmith extraordinaire who brings stories to life"
+
 isVisible: true
+isArchived: false
+isContentHidden: false
+contentMessage: ""
 
 image: "beakster_profile.png"
 role: "Copy Editor"

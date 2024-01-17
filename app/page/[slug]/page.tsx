@@ -2,11 +2,11 @@ import React from 'react'
 import getSlugs from '../../_components/getSlugs'
 import compileContent from '@/app/_components/compileContent'
 import Sidebar from '../../_components/Sidebar'
-import { createSlug, getColors, getEggspressSettings } from '../../utils'
+import { createSlug, getColors, getEggspressSettings, getString } from '../../utils'
 import Toc from '../../_components/Toc'
 import PageSidebar from '@/app/_components/PageSidebar'
 import ContentHero from '@/app/_components/ContentHero'
-import HiddenContentMessage from '@/app/_components/HiddenContentMessage'
+import ContentMessage from '@/app/_components/ContentMessage'
 import ShareBar from '@/app/_components/ShareBar'
 
 const env = process.env.NODE_ENV
@@ -60,31 +60,32 @@ const PagePage =  async ( {params}: {params: {slug: string}} ) => {
         date={frontmatter.date || frontmatter.publishDate ? convertDate(frontmatter.date || frontmatter.publishDate) : ''}
       >
       </ContentHero>
-      {frontmatter.isVisible === false && 
-        <HiddenContentMessage />
-      }
+
+
+      <ContentMessage frontmatter={frontmatter} />
+
       <div className="flex justify-between w-full">
         <div className="overflow-x-auto">
           <div className="mb-12 lg:hidden">
-            <Toc />
+            <Toc jumpToText={await getString('jumpToHeadingText', 'Jump to...')} tableOfContentsText={await getString('tableOfContentsHeadingText', 'Table of Contents')} backToTopText={await getString('backToTopButtonLabel', 'Back to top')} />
           </div>
           <div className={`eggspress-content eggspress-content-extended -mt-2`}>
-            {frontmatter.isVisible === false && (appearanceSettings.hiddenContentIsHidden === true || frontmatter.hideContent === true) ?
+            {frontmatter.isContentHidden ?
               <div>
-                <h2 id="hero-subtitle">{appearanceSettings.hiddenContentIsHiddenMessageHeading}</h2>
-                <p>{appearanceSettings.hiddenContentIsHiddenMessageBodyText}</p>
+                <h2 id="hero-subtitle">{await getString('isContentHiddenBodyHeadingText')}</h2>
+                <p>{await getString('isContentHiddenBodyContentText')}</p>
               </div>
               :
-              <div>
+              <div id="content-body">
                 {content}
               </div>
             }
 
           </div>
-          {(appearanceSettings.showShareButtonInPageContent === undefined || appearanceSettings.showShareButtonInPageContent) &&
+          {(appearanceSettings.showShareButtonInPageContent === undefined || appearanceSettings.showShareButtonInPageContent) && !frontmatter.isContentHidden &&
             <div className="w-full">
               <div className={`font-light text-sm mb-5 ${await getColors('text', 'SidebarHeading')}`}>
-                {appearanceSettings.shareThisPageText ? appearanceSettings.shareThisPageText : 'Share this post'}
+                {await getString('sharePageHeadingText', 'Share this page')}
               </div>
               <div className="w-full text-center border rounded-lg py-2 border-gray-200/40 dark:border-gray-600/40 bg-gray-200/20 dark:bg-gray-900/20">
                 <ShareBar appearanceSettings={appearanceSettings} className="inline-block" headline={frontmatter.title || 'Untitled Post'} subtitle={frontmatter.subtitle} siteName={metadataSettings.title}></ShareBar>
@@ -93,11 +94,11 @@ const PagePage =  async ( {params}: {params: {slug: string}} ) => {
           }
         </div>
         <div className="mt-4">
-          {(appearanceSettings.showShareButtonInPageSidebar === undefined || appearanceSettings.showShareButtonInPageSidebar) &&
+          {(appearanceSettings.showShareButtonInPageSidebar === undefined || appearanceSettings.showShareButtonInPageSidebar) && !frontmatter.isContentHidden &&
             <Sidebar isSticky={false}>
-              <div className="mb-20 text-sm">
-                <div className={`sidebar-section ${await getColors('text', 'SidebarHeading')}`}>
-                  {appearanceSettings.shareThisPageText ? appearanceSettings.shareThisPageText : 'Share this page'}
+              <div className="mb-20 text-sm flex flex-wrap">
+                <div className={`w-full sidebar-section ${await getColors('text', 'SidebarHeading')}`}>
+                  {await getString('sharePageHeadingText', 'Share this page')}
                 </div>
                 <ShareBar appearanceSettings={appearanceSettings} className="-ml-6" headline={frontmatter.title || 'Untitled Page'} subtitle={frontmatter.subtitle} siteName={metadataSettings.title}></ShareBar>
               </div>
@@ -107,7 +108,7 @@ const PagePage =  async ( {params}: {params: {slug: string}} ) => {
           <PageSidebar isSticky={false} slug={frontmatter.sidebar}></PageSidebar>
 
           <Sidebar>
-            <Toc />
+            <Toc jumpToText={await getString('jumpToHeadingText', 'Jump to...')} tableOfContentsText={await getString('tableOfContentsHeadingText', 'Table of Contents')} backToTopText={await getString('backToTopButtonLabel', 'Back to top')} />
           </Sidebar>
         </div>
       </div>

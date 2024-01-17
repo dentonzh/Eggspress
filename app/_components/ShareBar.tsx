@@ -22,9 +22,9 @@ const ShareBar = ({className, headline, subtitle, siteName, appearanceSettings}:
   }, [])
 
   return (mounted &&
-    <div className={`flex px-3 ${className}`}>
+    <div className={`flex w-full px-3 ${className}`}>
       {(appearanceSettings.showShareByLinkButton === undefined || appearanceSettings.showShareByLinkButton) &&
-        <ShareCopyButton className="inline text-center dropdown-item grow mx-0.5 py-3" showCopyStatus={false}>
+        <ShareCopyButton className="inline text-center dropdown-item grow mx-0.5 py-3">
           <Image className="share-menu-item" src="/assets/copy.svg" width={16} height={16} alt="copy link icon"></Image>
         </ShareCopyButton>
       }

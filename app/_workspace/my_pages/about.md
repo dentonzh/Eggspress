@@ -4,7 +4,10 @@ subtitle: "What is Eggspress?"
 subheading: "This is a custom page"
 
 isVisible: true
-hideContent: false
+isArchived: false
+isContentHidden: false
+contentMessage: ""
+
 sidebar: "eggspress-links"
 weight: 50
 ---

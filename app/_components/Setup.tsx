@@ -22,7 +22,7 @@ const Setup = () => {
               <li>Upload the contents of your <span className="font-medium text-indigo-800 dark:text-green-200">your new workspace</span> to Github</li>
             </ol>
             <p> 
-              <span className="font-bold">Need more help?</span> Get in-depth instructions on how to <a className="text-blue-700 hover:text-blue-800 dark:text-blue-300 dark:hover:text-blue-200" target="_blank" href="https://eggspress.vercel.app/blog/create-your-workspace">create your workspace</a>
+              <span className="font-bold">Need more help?</span> Get in-depth instructions on how to <a className="text-blue-700 hover:text-blue-800 dark:text-blue-300 dark:hover:text-blue-200" target="_blank" href="https://eggspress.org/blog/create-your-workspace">create your workspace</a>
             </p>
             <video className="border rounded-lg" playsInline muted autoPlay loop>
               <source  src="/assets/workspace_setup.webm" type="video/webm" />

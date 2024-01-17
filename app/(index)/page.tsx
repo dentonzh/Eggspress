@@ -1,5 +1,5 @@
 import getFrontmatter from '../_components/getFrontmatter'
-import { getEggspressSettings } from '../utils'
+import { getEggspressSettings, getString } from '../utils'
 import PostCard from '../_components/PostCard'
 import PageSidebar from '../_components/PageSidebar'
 import PaginationLink from '../_components/PaginationLink'
@@ -50,10 +50,10 @@ export default async function Home() {
           }
           {postFrontmatter.length > (appearanceSettings.numberOfPostsPerPage || 8) &&
             <div className="my-12">
-              <div className="font-light text-sm mb-2 text-gray-800 dark:text-gray-100">
-                {appearanceSettings.paginatedSubheadingIndexPrefix}1 - {appearanceSettings.numberOfPostsPerPage || 8}{appearanceSettings.paginatedSubheadingTotalPrefix}{postFrontmatter.length}
+              <div className="text-sm mb-2 text-gray-800 dark:text-gray-100">
+                {await getString('paginationRangePrefix', 'Displaying posts ')}1 - {appearanceSettings.numberOfPostsPerPage || 8}{await getString('paginationRangeSuffix', '')}{await getString('paginationTotalCountPrefix', ' of ')}{postFrontmatter.length}{await getString('paginationTotalCountSuffix', '')}
               </div>
-              <PaginationLink text="Show more posts" page={2}></PaginationLink>
+              <PaginationLink text={await getString('showMorePostsButtonLabel', 'Show more posts')} page={2}></PaginationLink>
             </div>
           }
         </div>

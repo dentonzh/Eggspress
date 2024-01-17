@@ -1,11 +1,11 @@
 import React from 'react'
 import getFrontmatter from '../_components/getFrontmatter'
-import { createSlug, getEggspressSettings } from '../utils'
+import { createSlug, getEggspressSettings, getString } from '../utils'
 import PostCard from '../_components/PostCard'
 import PageSidebar from '../_components/PageSidebar'
 import PaginationLink from '../_components/PaginationLink'
 import ContentHero from '../_components/ContentHero'
-import HiddenContentMessage from '../_components/HiddenContentMessage'
+import ContentMessage from '../_components/ContentMessage'
 
 export async function generateStaticParams() {
   const postFrontmatter = await getFrontmatter('posts')
@@ -75,9 +75,9 @@ const CategoryPage = async ({ params }: { params: { category: string }}) => {
         subheading={categoryData && categoryData.subheading ? categoryData.subheading: ''}
       >
       </ContentHero>
-      {categoryData && categoryData.isVisible === false && 
-        <HiddenContentMessage />
-      }
+      
+      <ContentMessage frontmatter={categoryData} />
+
       <div className="flex justify-between w-full">
         <div className='max-w-prose'>
           {filteredPosts.slice(0, appearanceSettings.numberOfPostsPerPage || 8).map((post, index) => 
@@ -94,7 +94,7 @@ const CategoryPage = async ({ params }: { params: { category: string }}) => {
               {appearanceSettings.paginatedSubheadingIndexPrefix}1 - {appearanceSettings.numberOfPostsPerPage || 8}{appearanceSettings.paginatedSubheadingTotalPrefix}{filteredPosts.length}
               in {categoryName}
             </div>
-            <PaginationLink text="Show more posts" page={2} type="category" slug={category}></PaginationLink>
+            <PaginationLink text={await getString('showMorePostsButtonLabel', 'Show more posts')} page={2} type="category" slug={category}></PaginationLink>
           </div>
           }
         </div>

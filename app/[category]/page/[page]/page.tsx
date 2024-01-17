@@ -1,9 +1,10 @@
 import getFrontmatter from '../../../_components/getFrontmatter'
-import { createSlug, getEggspressSettings } from '../../../utils'
+import { createSlug, getEggspressSettings, getString } from '../../../utils'
 import PostCard from '../../../_components/PostCard'
 import PageSidebar from '../../../_components/PageSidebar'
 import PaginationCard from '../../../_components/PaginationCard'
 import ContentHero from '@/app/_components/ContentHero'
+import ContentMessage from '@/app/_components/ContentMessage'
 
 
 export async function generateStaticParams() {
@@ -82,11 +83,14 @@ export default async function CategoryPaginatedPage({ params }: { params: { cate
     <main className="flex flex-wrap">
       <ContentHero
         headline={categoryName}
-        subtitle={page}
-        subtitlePrefix={appearanceSettings.paginatedCategorySubtitlePrefix}
-        subheading={`${appearanceSettings.paginatedSubheadingIndexPrefix}${startIndex + 1} - ${endIndex}${appearanceSettings.paginatedSubheadingTotalPrefix}${filteredPosts.length}`}
+        subtitle={`${page}${await getString('paginationTotalPagesSuffix', '')}`}
+        subtitlePrefix={await getString('paginationTotalPagesPrefix', ' // Page')}
+        subheading={`${categoryData.subheading} ${categoryData.subheading ? '•' : ''} ${await getString('paginationRangePrefix', 'Displaying posts ')}${startIndex + 1} - ${endIndex}${await getString('paginationRangeSuffix', '')}${await getString('paginationTotalCountPrefix', ' of ')}${postFrontmatter.length}${await getString('paginationTotalCountSuffix', '')}`}
       >
       </ContentHero>
+
+      <ContentMessage frontmatter={categoryData} />
+
       <div className="flex justify-between w-full">
         <div className='lg:max-w-prose'>
           {filteredPosts.slice(startIndex, endIndex).map((frontmatter, index) => 

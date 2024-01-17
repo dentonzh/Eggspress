@@ -5,9 +5,9 @@ import getSlugs from '../../_components/getSlugs'
 import Sidebar from '../../_components/Sidebar'
 import PostCard from '../../_components/PostCard'
 import ContentHero from '../../_components/ContentHero'
-import { copyImageToPublic, getImageFilesRecursively, getEggspressSettings, getColors, buildLink, setAnchorTargetProperty, isUrlAbsolute } from '../../utils'
+import { copyImageToPublic, getImageFilesRecursively, getEggspressSettings, getColors, buildLink, setAnchorTargetProperty, isUrlAbsolute, getString } from '../../utils'
 import PaginationLink from '@/app/_components/PaginationLink'
-import HiddenContentMessage from '@/app/_components/HiddenContentMessage'
+import ContentMessage from '@/app/_components/ContentMessage'
 
 
 export async function generateStaticParams() {
@@ -82,9 +82,7 @@ const AuthorPage =  async ( {params}: {params: {slug: string}} ) => {
       >
       </ContentHero>
       
-      {frontmatter.isVisible === false && 
-        <HiddenContentMessage />
-      }
+      <ContentMessage frontmatter={frontmatter} />
       
       <div className="flex flex-wrap">
         <div className="max-w-prose">
@@ -104,7 +102,7 @@ const AuthorPage =  async ( {params}: {params: {slug: string}} ) => {
                   <div className="font-light text-sm mb-2 text-gray-800 dark:text-gray-100">
                     {appearanceSettings.paginatedSubheadingIndexPrefix}1 - {appearanceSettings.numberOfPostsPerPage || 8}{appearanceSettings.paginatedSubheadingTotalPrefix}{filteredPosts.length}
                   </div>
-                  <PaginationLink text="Show more posts" page={2} type="author" slug={slug}></PaginationLink>
+                  <PaginationLink text={await getString('showMorePostsButtonLabel', 'Show more posts')} page={2} type="author" slug={slug}></PaginationLink>
                 </div>
               }
             </div>

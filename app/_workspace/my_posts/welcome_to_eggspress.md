@@ -1,26 +1,27 @@
 ---
-title: "Welcome to Eggspress"
+title: "Welcome to Eggspress!"
+date: "2023-10-25T00:00:00-0400"
+weight: 20
 subtitle: ""
-subheading: "This is a placeholder post packed with all of the bells and whistles Eggspress offers"
+subheading: "Here are a few things you should know about publishing to your new site"
 
-isVisible: true
-hideContent: false
+author: "eggie, beakster"
+snippet: "Welcome to the world of Eggspress! In this post, Eggie and Beakster will show you all of the things you can do in your Eggspress content."
+sidebar: "eggspress_links"
+category: "miscellaneous"
+
+prevPost: ""
+nextPost: "another-placeholder"
 
 image: "fields.jpeg"
 imagePositionY: 25
 imagePositionX: 50
 showImageInHeader: true
 
-weight: 20
-date: "2023-10-25T00:00:00-0400"
-author: "eggie, beakster"
-snippet: "This introductory post demonstrates various markdown formats you can use in your posts, such as headings, tables, quotes, and footnotes. When you're ready, rename this file and replace its contents with your own!"
-description: "This introductory post walks through some key features of the Eggspress platform."
-sidebar: "eggspress_links"
-category: "miscellaneous"
-
-prevPost: ""
-nextPost: "another-placeholder"
+isVisible: true
+isArchived: false
+isContentHidden: false
+contentMessage: ""
 
 relatedPost1: "another-placeholder"
 relatedPost2: ""
@@ -34,32 +35,40 @@ relatedPost9: ""
 ---
 
 
-We're so egg-cited to have you here! I'm [Eggie](my_authors/eggie.md) and this is my friend [Byline](my_authors/beakster.md). In this post, we'll show off all of the elements you'll be able to include in your posts! We'll look at headings, tables, blockquotes, and even a few footnotes. Let's dive in!
+We're so egg-cited to have you here! I'm [Eggie](my_authors/eggie.md) and this is my friend [Byline](my_authors/beakster.md). In this post, we'll show off all of the elements you'll be able to include in your posts! We'll look at headings, tables, blockquotes, code blocks, and even a few footnotes. Let's dive in!
 
 
 ## How do I add content to my posts?
 
-In addition to the content you're reading here, you could add sidebar data, author information, and much more. Most of that is set through the "[frontmatter](https://eggspress.vercel.app/blog/frontmatter)." If you need help getting started with editing this content, we recommend starting with [Editing Eggspress Content](https://eggspress.vercel.app/blog/editing-content) from the official [Getting Started Guide](https://eggspress.vercel.app/getting-started).
+In addition to the content you're reading here, you can customize and add your own sidebars, create new author profiles, and much more. 
+
+This is done by setting the "[frontmatter](https://eggspress.org/blog/frontmatter)." If you need help getting started with editing this content, we recommend starting with [this article](https://eggspress.org/blog/editing-content) from the [Getting started guide](https://eggspress.org/getting-started).
 
 ![Eggie and Byline frolicking through the fields](fields.jpeg)
 
 ### Referencing other content
 
-To create a reference, you take the filename of the thing you're trying to reference and set it as a value for the correct frontmatter key. That's a mouthful, so it's probably easier just to show you an example!
+To create a reference, take the filename of the content item you're trying to reference. Then, drop its extension and set it as the value of the relevant frontmatter key.
+
+Phew, that was a mouthful. Maybe it's easier just to show you by example.
 
 The sidebar on this page is stored in a file called `eggspress_links.md` (found in the `my_sidebars` folder). To use it, drop the `.md` extension part of the name so that it's now `eggspress_links`. This turns into `sidebar: eggspress_links` in your frontmatter.
 
+You'll follow this same process to attribute posts to authors, set previous / next posts, and specify which posts are related to one you're editing.
+
 ### Author Profile
 
-On this post, you'll find author cards for us. They include our profile images, short blurbs about us, and a few links we wanted to share with our readers.
+Author profiles are stored in files in a folder called `my_authors`. Eggspress pulls data from these files to create the author cards you see for us on this page!
 
-If you click on them, they'll take you to our author pages. Here, you can see all of the posts we've published to this site and even more information about us!
+Author profiles also help generate the author pages you see when you click on our names in the author cards.
 
-To create your very own author profile, go to the `my_authors` folder of your workspace and add a new file. To reference this file, follow the steps above under "Referencing other content". To reference multiple authors, separate each author reference with a comma.
+> **Quick side note:** You can attribute a post to multiple authors by separating authors by commas.
 
-### Related Posts
+### Related, Previous, and Next Posts
 
-Point your readers to relevant content on your site by linking them to related posts. Related posts will always appear below your post contents and in the sidebar on larger screens.
+Eggspress can point your readers to other posts on your site, guiding them to relevant information.
+
+These links can appear at the end of a post and/or in the sidebar. You can set which posts are related and one post each for your previous and next posts.
 
 
 ## Styling your content
@@ -102,7 +111,32 @@ Fascinating stuff, right Byline? Our ancestors loved eggs just as much as we do 
 > Eggspress is the easiest way I've found to publish my thoughts to the world! 
 - Jane, Eggspress user
 
-## Advanced features
+
+### Code Blocks with Syntax Highlighting
+
+You can share your code snippets by sandwiching one or more lines of code between two lines of three backticks. To enable syntax highlighting, simply add the name of the programming language you're presenting at the end of the first set of backticks like so:
+
+````markdown
+```python
+def greet(name):
+    print(f"Hello, {name}!")
+
+person = "World"
+greet(person)
+```
+````
+
+The above will render into this code block:
+
+```python
+def greet(name):
+    print(f"Hello, {name}!")
+
+person = "World"
+greet(person)
+```
+
+## Bulk Editing Links
 Need to automatically replace the base URL and/or add a prefix or suffix to URLs that match a specific domain? Update `my_settings/links.md`.
 The following is an example of a modified link:
 

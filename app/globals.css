@@ -95,7 +95,7 @@ p > code {
 }
 
 .share-menu-item {
-  @apply text-gray-500 inline-block dark:brightness-150;
+  @apply text-gray-500 inline-block dark:brightness-200;
 }
 
 h2:not(#hero-subtitle)::before, h3::before, h4:not(.sidebar-heading)::before, h5::before { 

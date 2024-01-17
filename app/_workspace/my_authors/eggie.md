@@ -2,7 +2,11 @@
 name: "Eggie Shellvetica"
 postnomials: ""
 description: "Nestled in a cozy shell adorned with typewriter keys, Eggie brings joy to the world of blogging with each click of a key! 🐣📝✨"
+
 isVisible: true
+isArchived: false
+isContentHidden: false
+contentMessage: ""
 
 image: "eggie_profile.png"
 role: "Editor-in-Chief"

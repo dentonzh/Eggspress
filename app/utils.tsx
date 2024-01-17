@@ -57,7 +57,7 @@ export async function getFilesRecursively(dir: string): Promise<PostFile[]> {
   const files = await glob(`${dir}/**/*`)
 
   arrayOfFilenames = files.filter(
-    file => file.slice(file.lastIndexOf('/') + 1).charAt(0) !== '#'
+    file => file.slice(file.lastIndexOf('/') + 1).charAt(0) !== '#'  // Ignore files whose filenames start with "#"
   ).filter(
     file => file.indexOf('.') >= 0
   ).map(
@@ -187,6 +187,15 @@ export async function getColors(prefix: string, colorKey: string, fallbackDark='
   }
 
   return classNames.join(' ')
+}
+
+export async function getString(stringName: string, fallback?: string) {
+  const strings = await getEggspressSettings('strings')
+  if (strings[stringName]) {
+    return strings[stringName]
+  } else {
+    return fallback || ''
+  }
 }
 
 export async function buildLink(url: string) {

@@ -1,10 +1,11 @@
 'use client'
 import { usePathname } from "next/navigation"
 import { ReactNode, useState } from "react"
+import { getString } from "../utils"
 
 type ShareCopyButtonProps = {
   className: string,
-  showCopyStatus?: boolean,
+  copyStatus?: string,
   children: ReactNode
 }
 
@@ -15,7 +16,7 @@ const copyToClipboard = (text: string) => {
   navigator.clipboard.write([item])
 }
 
-const ShareCopyButton = ({className, showCopyStatus=true, children}: ShareCopyButtonProps) => {
+const ShareCopyButton = ({className, copyStatus='', children}: ShareCopyButtonProps) => {
   const [copied, setCopied] = useState(false)
   const pathname = usePathname()
   const url = window.location.origin + pathname
@@ -23,9 +24,9 @@ const ShareCopyButton = ({className, showCopyStatus=true, children}: ShareCopyBu
   return (
     <div className={`cursor-pointer ${className}`} onClick={() => {copyToClipboard(url || ''); setCopied(true); setTimeout(() => {setCopied(false)}, 1000)}}>
       {children}
-      {showCopyStatus &&
-        <span className={`px-2 -ml-14 bg-gray-50/90 dark:bg-gray-900/80 rounded duration-100 ${copied ? 'opacity-100' : 'opacity-0'}`}>
-          Copied!
+      {copyStatus &&
+        <span className={`px-3 -ml-16 bg-gray-50/90 dark:bg-gray-900/80 rounded duration-100 ${copied ? 'opacity-100' : 'opacity-0'}`}>
+          {copyStatus}
         </span>
       }
     </div>

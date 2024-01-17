@@ -2,7 +2,7 @@ import React from 'react'
 import compileContent from '../../_components/compileContent'
 import getSlugs from '../../_components/getSlugs'
 import Sidebar from '../../_components/Sidebar'
-import { createSlug, getColors, getEggspressSettings } from '@/app/utils'
+import { createSlug, getColors, getEggspressSettings, getString } from '@/app/utils'
 import Toc from '../../_components/Toc'
 import Link from 'next/link'
 import AuthorCard from '@/app/_components/AuthorCard'
@@ -11,7 +11,7 @@ import Image from 'next/image'
 import getFrontmatter from '@/app/_components/getFrontmatter'
 import PostCard from '@/app/_components/PostCard'
 import ContentHero from '@/app/_components/ContentHero'
-import HiddenContentMessage from '@/app/_components/HiddenContentMessage'
+import ContentMessage from '@/app/_components/ContentMessage'
 import ShareBar from '@/app/_components/ShareBar'
 
 
@@ -73,7 +73,6 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
   const categoryData = categoryFrontmatter.filter(fm => fm.slug === frontmatter.category)[0]
   const categoryName = categoryData && categoryData.title ? categoryData.title : frontmatter.category 
 
-
   return (
     <div className="flex flex-wrap">
       <ContentHero 
@@ -84,36 +83,36 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
         subheading={frontmatter.subheading}
         date={frontmatter.date || frontmatter.publishDate ? convertDate(frontmatter.date || frontmatter.publishDate) : ''}
         imageSrc={frontmatter.image && frontmatter.showImageInHeader ? `/images/${slug}/${frontmatter.image}` : ''}
-        showShareButton={true}
+        showShareButton={(appearanceSettings.showShareButtonInHeader || appearanceSettings.showShareButtonInHeader === undefined) && !frontmatter.isContentHidden ? true : false}
       >
       </ContentHero>
-      {frontmatter.isVisible === false && 
-        <HiddenContentMessage />
-      }
+
+      <ContentMessage frontmatter={frontmatter} />
+
       <div className="flex justify-between w-full">
         <div className="overflow-x-auto">
           {(appearanceSettings.showTableOfContentsOnMobile === undefined || appearanceSettings.showTableOfContentsOnMobile) &&
             <div className="mb-20 mt-8 lg:hidden">
-              <Toc />
+              <Toc jumpToText={await getString('jumpToHeadingText', 'Jump to...')} tableOfContentsText={await getString('tableOfContentsHeadingText', 'Table of Contents')} backToTopText={await getString('backToTopButtonLabel', 'Back to top')} />
             </div>
           }
           <div className={`eggspress-content eggspress-content-extended`}>
-            {frontmatter.isVisible === false && (appearanceSettings.hiddenContentIsHidden === true || frontmatter.hideContent === true) ?
+            {frontmatter.isContentHidden ?
               <div>
-                <h2 id="hero-subtitle">{appearanceSettings.hiddenContentIsHiddenMessageHeading}</h2>
-                <p>{appearanceSettings.hiddenContentIsHiddenMessageBodyText}</p>
+                <h2 id="hero-subtitle">{await getString('isContentHiddenBodyHeadingText')}</h2>
+                <p>{await getString('isContentHiddenBodyContentText')}</p>
               </div>
               :
-              <div className="">
+              <div id="content-body">
                 {content}
               </div>
             }
           </div>
           
-          {(appearanceSettings.showShareButtonInPostContent === undefined || appearanceSettings.showShareButtonInPostContent) &&
+          {(appearanceSettings.showShareButtonInPostContent === undefined || appearanceSettings.showShareButtonInPostContent) && !frontmatter.isContentHidden &&
             <div className="w-full">
               <div className={`font-light text-sm mb-5 ${await getColors('text', 'SidebarHeading')}`}>
-                {appearanceSettings.shareThisPostText ? appearanceSettings.shareThisPostText : 'Share this post'}
+                {await getString('sharePostHeadingText', 'Share this post')}
               </div>
               <div className="w-full text-center border rounded-lg py-2 border-gray-200/40 dark:border-gray-600/40 bg-gray-200/20 dark:bg-gray-900/20">
                 <ShareBar appearanceSettings={appearanceSettings} className="inline-block" headline={frontmatter.title || 'Untitled Post'} subtitle={frontmatter.subtitle} siteName={metadataSettings.title}></ShareBar>
@@ -125,13 +124,13 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
               <div className="flex flex-wrap border-t border-gray-300 dark:border-gray-600 mt-12 py-6 text-gray-800 dark:text-gray-200 justify-between">
                 {prevPost &&
                 <Link className="grow my-3 mr-2" href={`/blog/${prevPost.slug}`}>
-                    <div className="text-sm font-light mb-2">Previous Post</div>
+                    <div className="text-sm font-light mb-2">{await getString('previousPostButtonLabel', 'Previous Post')}</div>
                     <div className="font-semibold">{prevPost.title}</div>
                 </Link>
                 }
                 {nextPost &&
                 <Link className="grow my-3" href={`/blog/${nextPost.slug}`}>
-                    <div className="text-sm font-light mb-2">Next Post</div>
+                    <div className="text-sm font-light mb-2">{await getString('nextPostButtonLabel', 'Next Post')}</div>
                     <div className="font-semibold">{nextPost.title}</div>
                 </Link>
                 }
@@ -154,10 +153,12 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
               <div className="mb-8 max-w-prose">
                 <div className="flex flex-wrap mb-6">
                   <Image src="/assets/relation.svg" alt="relation icon" width={32} height={32} className="h-7 w-7 border-gray-300 dark:border-gray-600 stroke-gray-200 fill-gray-200 brightness-50 dark:brightness-100"></Image>
-                  <div className="font-medium text-gray-700 dark:text-gray-300 my-auto pl-2">Related Posts</div>
+                  <div className="font-medium text-gray-700 dark:text-gray-300 my-auto pl-2">
+                    {await getString('relatedPostHeadingText', 'Related Posts')}
+                  </div>
                 </div>
                 {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(async (index: number) => {
-                  const postData = postFrontmatter.filter(fm => frontmatter['relatedPost' + index] && fm.slug === frontmatter['relatedPost' + index].replaceAll('_', '-').replaceAll(' ', '-'))
+                  const postData = postFrontmatter.filter(fm => (fm.isVisible || fm.isVisible === undefined) && frontmatter['relatedPost' + index] && fm.slug === frontmatter['relatedPost' + index].replaceAll('_', '-').replaceAll(' ', '-'))
 
                   if (postData.length) {
                     const frontmatter = postData[0]
@@ -185,11 +186,11 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
             </div>
           </Sidebar>
           
-          {(appearanceSettings.showShareButtonInPostSidebar === undefined || appearanceSettings.showShareButtonInPostSidebar) &&
+          {(appearanceSettings.showShareButtonInPostSidebar === undefined || appearanceSettings.showShareButtonInPostSidebar) && !frontmatter.isContentHidden &&
             <Sidebar isSticky={false}>
-              <div className="mb-20 text-sm">
-                <div className={`sidebar-section ${await getColors('text', 'SidebarHeading')}`}>
-                  {appearanceSettings.shareThisPostText ? appearanceSettings.shareThisPostText : 'Share this post'}
+              <div className="mb-20 text-sm flex flex-wrap">
+                <div className={`w-full sidebar-section ${await getColors('text', 'SidebarHeading')}`}>
+                  {await getString('sharePostHeadingText', 'Share this post')}
                 </div>
                 <ShareBar appearanceSettings={appearanceSettings} className="-ml-6" headline={frontmatter.title || 'Untitled Post'} subtitle={frontmatter.subtitle} siteName={metadataSettings.title}></ShareBar>
               </div>
@@ -201,17 +202,19 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
               <div className="mb-16">
                 <div className="flex flex-wrap mb-3">
                   <Image src="/assets/relation.svg" alt="relation icon" width={32} height={32} className="h-5 w-5 -ml-4 opacity-50 dark:opacity-100 border-gray-300 dark:border-gray-600 stroke-gray-200 fill-gray-200 brightness-50 dark:brightness-100"></Image>
-                  <div className={`sidebar-heading text-sm pl-1 ${await getColors('text', 'SidebarHeading')}`}>Related Posts</div>
+                  <div className={`sidebar-heading text-sm pl-1 ${await getColors('text', 'SidebarHeading')}`}>
+                    {await getString('relatedPostHeadingText', 'Related Posts')}
+                  </div>
                 </div>
                 {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(async (index: number) => {
-                  const postData = postFrontmatter.filter(fm => frontmatter['relatedPost' + index] && fm.slug === frontmatter['relatedPost' + index].replaceAll('_', '-').replaceAll(' ', '-'))
+                  const postData = postFrontmatter.filter(fm => (fm.isVisible || fm.isVisible === undefined) && frontmatter['relatedPost' + index] && fm.slug === frontmatter['relatedPost' + index].replaceAll('_', '-').replaceAll(' ', '-'))
         
                   if (postData.length) {
                     const frontmatter = postData[0]
                     return (
                       <div className="mb-0.5 text-sm" key={`related-post-footer-${index}`}>
                         <div className={`font-normal ${await getColors('text', 'SidebarRelatedPost', 'gray-300', 'gray-600')}`}>
-                          <Link 
+                          <Link
                             className={`flex ${await getColors('hover:text', 'SidebarRelatedPostHover', 'blue-300', 'blue-700')}`} 
                             href={`/blog/${frontmatter.slug}`}
                           >
@@ -235,7 +238,7 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
           <PageSidebar isSticky={false} slug={frontmatter.sidebar}></PageSidebar>
           {(appearanceSettings.showTableOfContentsInSidebar === undefined || appearanceSettings.showTableOfContentsInSidebar) &&
             <Sidebar>
-              <Toc />
+              <Toc jumpToText={await getString('jumpToHeadingText', 'Jump to...')} tableOfContentsText={await getString('tableOfContentsHeadingText', 'Table of Contents')} backToTopText={await getString('backToTopButtonLabel', 'Back to top')} />
             </Sidebar>
           }
         </div>

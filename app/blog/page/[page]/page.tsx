@@ -1,5 +1,5 @@
 import getFrontmatter from '../../../_components/getFrontmatter'
-import { getEggspressSettings } from '../../../utils'
+import { getEggspressSettings, getString } from '../../../utils'
 import PostCard from '../../../_components/PostCard'
 import PageSidebar from '../../../_components/PageSidebar'
 import PaginationCard from '../../../_components/PaginationCard'
@@ -42,9 +42,9 @@ export default async function BlogPaginatedPage({ params }: { params: { page: st
     <main className="flex flex-wrap">
       <ContentHero
         headline={'Posts'}
-        subtitle={page}
-        subtitlePrefix={appearanceSettings.paginatedPostSubtitlePrefix}
-        subheading={`${appearanceSettings.paginatedSubheadingIndexPrefix}${startIndex + 1} - ${endIndex}${appearanceSettings.paginatedSubheadingTotalPrefix}${postFrontmatter.length}`}
+        subtitle={`${page}${await getString('paginationTotalPagesSuffix', '')}`}
+        subtitlePrefix={await getString('paginationTotalPagesPrefix', ' // Page')}
+        subheading={`${await getString('paginationRangePrefix', 'Displaying posts ')}${startIndex + 1} - ${endIndex}${await getString('paginationRangeSuffix', '')}${await getString('paginationTotalCountPrefix', ' of ')}${postFrontmatter.length}${await getString('paginationTotalCountSuffix', '')}`}
       ></ContentHero>
       <div className="flex justify-between w-full">
         <div className='lg:max-w-prose'>

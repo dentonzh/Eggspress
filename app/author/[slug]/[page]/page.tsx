@@ -6,7 +6,8 @@ import Sidebar from '../../../_components/Sidebar'
 import PostCard from '../../../_components/PostCard'
 import ContentHero from '../../../_components/ContentHero'
 import PaginationCard from '../../../_components/PaginationCard'
-import { copyImageToPublic, getImageFilesRecursively, getEggspressSettings, buildLink, setAnchorTargetProperty, isUrlAbsolute, getColors } from '../../../utils'
+import { copyImageToPublic, getImageFilesRecursively, getEggspressSettings, buildLink, setAnchorTargetProperty, isUrlAbsolute, getColors, getString } from '../../../utils'
+import ContentMessage from '@/app/_components/ContentMessage'
 
 
 export async function generateStaticParams() {
@@ -93,12 +94,14 @@ const AuthorPaginatedPage =  async ( {params}: {params: {slug: string, page: str
     <div className="flex flex-wrap">
       <ContentHero
         headline={`${frontmatter.name}${frontmatter.postnomials ? ' ' + frontmatter.postnomials : ''}` || slug}
-        subtitle={`${appearanceSettings.paginatedAuthorSubtitlePrefix}${pageNumber}`}
-        subheading={`${frontmatter.role} ${frontmatter.role ? '•' : ''} ${appearanceSettings.paginatedSubheadingIndexPrefix}${startIndex + 1} - ${endIndex}${appearanceSettings.paginatedSubheadingTotalPrefix}${filteredPosts.length}`}
+        subtitle={`${await getString('paginationTotalPagesPrefix', ' // Page ')}${pageNumber}${await getString('paginationTotalPagesSuffix', '')}`}
+        subheading={`${frontmatter.role} ${frontmatter.role ? '•' : ''} ${await getString('paginationRangePrefix', 'Displaying posts ')}${startIndex + 1} - ${endIndex}${await getString('paginationRangeSuffix', '')}${await getString('paginationTotalCountPrefix', ' of ')}${postFrontmatter.length}${await getString('paginationTotalCountSuffix', '')}`}
         sectionString={frontmatter.description}
         imageSrc={imageSrc}
         imageAlt={`Profile image for ${frontmatter.name}`}
       ></ContentHero>
+
+      <ContentMessage frontmatter={frontmatter} />
       
       <div className="flex flex-wrap">
         <div className="max-w-prose">
