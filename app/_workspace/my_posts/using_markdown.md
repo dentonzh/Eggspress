@@ -3,7 +3,7 @@ title: "Using Markdown"
 date: "2023-10-12T00:00:00-0400"
 weight: 20
 subtitle: "with Brief Examples"
-subheading: "Here's how you can style your content in Eggspress using Markdown"
+subheading: "Here's how you can style your content using Markdown"
 
 author: "eggie"
 snippet: "In this article, we'll discuss what Markdown is and show you examples of how you can use it in your Eggspress content."

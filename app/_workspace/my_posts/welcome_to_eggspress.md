@@ -3,7 +3,7 @@ title: "Welcome to Eggspress!"
 date: "2023-10-25T00:00:00-0400"
 weight: 20
 subtitle: ""
-subheading: "We're glad to have you here"
+subheading: "Here are a few things you should know about publishing to your new site"
 
 author: "eggie, beakster"
 snippet: "Welcome to the world of Eggspress! In this post, Eggie and Beakster will show you all of the things you can do in your Eggspress content."
