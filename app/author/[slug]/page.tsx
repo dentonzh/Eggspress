@@ -84,7 +84,7 @@ const AuthorPage =  async ( {params}: {params: {slug: string}} ) => {
       
       <ContentMessage frontmatter={frontmatter} />
       
-      <div className="flex flex-wrap">
+      <div className="flex justify-between w-full">
         <div className="max-w-prose">
           {filteredPosts &&
             <div className="max-w-prose">
