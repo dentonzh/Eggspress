@@ -29,7 +29,7 @@ const ContentHero = async ({sectionString, sectionLink, headline, subtitle, head
   return (
     <div className={`hero ${await getColors('bleed', 'ThemeHero', 'slate-900', 'gray-100')}`}>
       <div className="flex items-center overflow-x-hidden">
-        <div className={`grow text-5xl lg:text-6xl font-bold ${headlineMarginLeft} ${headlineMarginBottom} ${await getColors('text', 'HeroHeadline')}`}>
+        <div className={`max-w-[74ch] text-5xl lg:text-6xl font-bold ${headlineMarginLeft} ${headlineMarginBottom} ${await getColors('text', 'HeroHeadline')}`}>
           <h1 className="inline leading-[1.21] md:leading-[1.42]">{headline}</h1>
           <span>
             {headlineSeparator && subtitle ? headlineSeparator : ''}
@@ -42,7 +42,7 @@ const ContentHero = async ({sectionString, sectionLink, headline, subtitle, head
           }
           <h2 id="hero-subtitle" className={`inline leading-[1.21] md:leading-[1.42] ${await getColors('text', 'HeroSubtitle', 'gray-500', 'gray-400')}`}>{subtitle}</h2>
         </div>
-        <div className="flex-none lg:h-36 lg:w-36 rounded-full object-cover overflow-hidden hidden md:flex">
+        <div className="flex-none ml-auto lg:h-36 lg:w-36 rounded-full object-cover overflow-hidden hidden md:flex">
           {imageSrc &&
             <Image 
               priority={true} 

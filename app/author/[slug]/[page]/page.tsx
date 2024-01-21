@@ -103,7 +103,7 @@ const AuthorPaginatedPage =  async ( {params}: {params: {slug: string, page: str
 
       <ContentMessage frontmatter={frontmatter} />
       
-      <div className="flex flex-wrap">
+      <div className="flex justify-between w-full">
         <div className="max-w-prose">
           {filteredPosts &&
             <div className="max-w-prose">
@@ -170,8 +170,8 @@ const AuthorPaginatedPage =  async ( {params}: {params: {slug: string, page: str
         </Sidebar>
 
         {filteredPosts.length > (appearanceSettings.numberOfPostsPerPage || 8) &&
-            <PaginationCard currentPage={pageNumber} startIndex={startIndex} endIndex={endIndex} postCount={filteredPosts.length} type="author" slug={slug}></PaginationCard>
-          }
+          <PaginationCard currentPage={pageNumber} startIndex={startIndex} endIndex={endIndex} postCount={filteredPosts.length} type="author" slug={slug}></PaginationCard>
+        }
       </div>
     </div>
   )
