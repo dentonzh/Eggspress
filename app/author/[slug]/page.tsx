@@ -61,9 +61,7 @@ const AuthorPage =  async ( {params}: {params: {slug: string}} ) => {
 
   const postFrontmatter = await getFrontmatter('posts', (frontmatter && frontmatter.orderPostsBy) || appearanceSettings.orderPostsInAuthorsBy, (frontmatter && frontmatter.orderPostsByReversed) || appearanceSettings.orderPostsInAuthorsByReversed)
   const filteredPosts = postFrontmatter.filter(fm => fm.author === slug || fm.author?.split(',').map(x => x.trim()).includes(slug))
-
   const imageSrc = frontmatter && frontmatter.image ? await getProfileImage(frontmatter.image) : ''
-
   const sections = ['pronouns', 'location', 'education', 'degree', 'work', 'company', 'title', 'specialty', 'team']
 
   if (!frontmatter) {
