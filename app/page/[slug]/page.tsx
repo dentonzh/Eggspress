@@ -82,7 +82,7 @@ const PagePage =  async ( {params}: {params: {slug: string}} ) => {
             }
 
           </div>
-          {(appearanceSettings.showShareButtonInPageContent === undefined || appearanceSettings.showShareButtonInPageContent) && !frontmatter.isContentHidden &&
+          {(appearanceSettings.showShareButtonInPageContent === undefined || appearanceSettings.showShareButtonInPageContent) && !frontmatter.isContentHidden && frontmatter.isVisible &&
             <div className="w-full">
               <div className={`font-light text-sm mb-5 ${await getColors('text', 'SidebarHeading')}`}>
                 {await getString('sharePageHeadingText', 'Share this page')}
@@ -94,7 +94,7 @@ const PagePage =  async ( {params}: {params: {slug: string}} ) => {
           }
         </div>
         <div className="mt-4">
-          {(appearanceSettings.showShareButtonInPageSidebar === undefined || appearanceSettings.showShareButtonInPageSidebar) && !frontmatter.isContentHidden &&
+          {(appearanceSettings.showShareButtonInPageSidebar === undefined || appearanceSettings.showShareButtonInPageSidebar) && !frontmatter.isContentHidden && frontmatter.isVisible &&
             <Sidebar isSticky={false}>
               <div className="mb-20 text-sm flex flex-wrap">
                 <div className={`w-full sidebar-section ${await getColors('text', 'SidebarHeading')}`}>
