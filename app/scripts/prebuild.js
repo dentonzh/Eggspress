@@ -1,5 +1,5 @@
 const fs = require('fs-extra')
-import { glob } from 'glob'
+const glob = require('glob')
 const archiver = require('archiver')
 const readline = require('readline')
 
