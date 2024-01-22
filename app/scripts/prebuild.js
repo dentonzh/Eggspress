@@ -327,6 +327,8 @@ new Promise((resolve, reject) => {
 
 // Load custom components from my_components user folder
 try {
+  fs.writeFileSync('app/_components/UserComponents.tsx', '')
+
   const filesInComponentFolder = await glob('my_components')
   const destinationPath = `app/_components/UserComponents`
 
@@ -349,7 +351,7 @@ try {
 
   componentFiles.forEach((file) => {
     componentNames.push(file.name)
-    fs.writeFileSync(
+    fs.appendFileSync(
       'app/_components/UserComponents.tsx',
       `import { default as ${file.name} } from './${file.name}'}`
     )
@@ -357,7 +359,7 @@ try {
   })
 
   if (componentNames) {
-    fs.writeFileSync(
+    fs.appendFileSync(
       'app/_components/UserComponents.tsx',
       `\n\nexport { ${componentNames.join(', ')} }`
     )

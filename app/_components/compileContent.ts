@@ -34,7 +34,7 @@ const compileContent = async (type: string, slug:string,): Promise<{content: Rea
       img: EggspressImage as any,
       a: EggspressLink as any,
       table: EggspressTable as any,
-      ...UserComponents
+      ...(typeof UserComponents !== 'undefined' ? UserComponents : {})
     }
   })
 
