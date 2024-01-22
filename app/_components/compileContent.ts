@@ -9,7 +9,9 @@ import eggspressMedia from '@/plugins/eggspress-img-processor'
 import { ImageFile, OGImage } from '@/types/Blog'
 import EggspressTable from './EggspressTable'
 import { all } from 'lowlight'
+import * as UserComponents from './UserComponents'
 
+// console.log(Object.keys({...UserComponent}))
 const fs = require('fs-extra')
 const sizeOf = require('image-size')
 
@@ -31,7 +33,8 @@ const compileContent = async (type: string, slug:string,): Promise<{content: Rea
     components: {
       img: EggspressImage as any,
       a: EggspressLink as any,
-      table: EggspressTable as any
+      table: EggspressTable as any,
+      ...UserComponents
     }
   })
 

@@ -1,7 +1,7 @@
 const fs = require('fs-extra')
+import { glob } from 'glob'
 const archiver = require('archiver')
 const readline = require('readline')
-const { stream } = require('glob')
 
 const getValueFromFileWithKey = async (filepath, key) => {
   try {
@@ -325,3 +325,47 @@ new Promise((resolve, reject) => {
   }
 })
 
+// Load custom components from my_components user folder
+try {
+  const filesInComponentFolder = await glob('my_components')
+  const destinationPath = `app/_components/UserComponents`
+
+  const componentFiles = filesInComponentFolder.filter(
+    x => x[0].toUpperCase() === x[0]
+  ).filter(
+    x => x.indexOf('.') > 0
+  ).map(
+    (file) => {
+      return {
+        filename: file.slice(file.lastIndexOf('/') + 1),
+        name: file.slice(file.lastIndexOf('/') + 1, file.lastIndexOf('.')),
+        source: file,
+        destination: `${destinationPath}/${file}`
+      }
+    }
+  )
+
+  let componentNames = []
+
+  componentFiles.forEach((file) => {
+    componentNames.push(file.name)
+    fs.writeFileSync(
+      'app/_components/UserComponents.tsx',
+      `import { default as ${file.name} } from './${file.name}'}`
+    )
+    fs.copySync(file, `${destinationPath}/${file}`)
+  })
+
+  if (componentNames) {
+    fs.writeFileSync(
+      'app/_components/UserComponents.tsx',
+      `\n\nexport { ${componentNames.join(', ')} }`
+    )
+  }
+
+
+} catch (e) {
+  console.log(`Error encountered while importing custom components: ${e}`)
+  console.log('    > You must resolve this error in order for custom components to function properly')
+  console.log('    > Some or all custom components may not work properly until error(s) are resolved')
+}
