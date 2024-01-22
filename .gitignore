@@ -5,6 +5,7 @@
 /public/profile_images
 /public/sidebar_images
 /app/_plugins/*
+/app/_components/UserComponents/*
 /my_posts
 /my_pages
 /my_authors
