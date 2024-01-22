@@ -1,5 +1,5 @@
 const fs = require('fs-extra')
-const glob = require('glob')
+const { glob } = require('glob')
 const archiver = require('archiver')
 const readline = require('readline')
 
@@ -330,11 +330,11 @@ const importUserComponents = async () => {
   try {
     fs.writeFileSync('app/_components/UserComponents.tsx', '')
   
-    const filesInComponentFolder = await glob('my_components')
+    const filesInComponentFolder = await glob('my_components/**/*')
     const destinationPath = `app/_components/UserComponents`
   
     const componentFiles = filesInComponentFolder.filter(
-      x => x[0].toUpperCase() === x[0]
+      x => x[x.lastIndexOf('/') + 1] === x[x.lastIndexOf('/') + 1].toUpperCase()
     ).filter(
       x => x.indexOf('.') > 0
     ).map(
@@ -343,20 +343,25 @@ const importUserComponents = async () => {
           filename: file.slice(file.lastIndexOf('/') + 1),
           name: file.slice(file.lastIndexOf('/') + 1, file.lastIndexOf('.')),
           source: file,
-          destination: `${destinationPath}/${file}`
+          destination: `${destinationPath}/${file.slice(file.lastIndexOf('/') + 1)}`
         }
       }
     )
   
     let componentNames = []
+
+    if ( componentFiles ) {
+      console.log('    Found custom components in workspace folder my_components:')
+    }
   
     componentFiles.forEach((file) => {
       componentNames.push(file.name)
+      console.log(`    Info: Copied ${file.source} to ${file.destination}`)
       fs.appendFileSync(
         'app/_components/UserComponents.tsx',
-        `import { default as ${file.name} } from './${file.name}'}`
+        `\nimport { default as ${file.name} } from './UserComponents/${file.name}'`
       )
-      fs.copySync(file, `${destinationPath}/${file}`)
+      fs.copySync(file.source, file.destination)
     })
   
     if (componentNames) {
