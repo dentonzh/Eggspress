@@ -11,14 +11,27 @@ import EggspressTable from './EggspressTable'
 import { all } from 'lowlight'
 import * as UserComponents from './UserComponents'
 
-// console.log(Object.keys({...UserComponent}))
 const fs = require('fs-extra')
 const sizeOf = require('image-size')
 
 const videoExtensions = ['.webm', '.mp4', '.m4v', '.mov', '.wmv', '.asf', '.avi', '.mpg', '.mpeg']
 
-const compileContent = async (type: string, slug:string,): Promise<{content: React.ReactNode, frontmatter: Record<any, any>, contentLength: number, images: OGImage[]}> => {
+type compiledResponse = {
+  content: React.ReactNode,
+  frontmatter: Record<any, any>,
+  contentLength: number,
+  images: OGImage[]
+}
+
+const compileContent = async (type: string, slug:string,): Promise<compiledResponse> => {
   const { markdownData, imageFiles, filePath } = await getContent(type, slug)
+  
+  // let scopedFrontmatter = {}
+
+  // if ( UserComponents ) {
+  //   const scopedSource = await compileMDX({source: markdownData, options: {parseFrontmatter: true}})
+  //   scopedFrontmatter = scopedSource.frontmatter
+  // }
   
   const source = await compileMDX({
     source: markdownData,
