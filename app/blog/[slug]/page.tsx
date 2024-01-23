@@ -177,7 +177,7 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
             <div className="mb-16"></div>
           }
         </div>
-        <div className="mb-20 mt-3 h-full">
+        <div className="mb-20 mt-5 h-full">
           <Sidebar isSticky={false}>
             <div>
               {authors.map((author: string) => 

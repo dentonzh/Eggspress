@@ -71,7 +71,7 @@ body {
 }
 
 .eggspress-content {
-  @apply prose max-w-none lg:max-w-prose dark:prose-invert prose-h1:font-bold prose-blockquote:not-italic prose-blockquote:font-normal -mt-2 mb-20 prose-code:rounded-lg prose-pre:border-b-[3px] prose-pre:border-r-[3px] prose-pre:sm:border-b-4 prose-pre:sm:border-r-4 prose-pre:py-8 prose-pre:px-6 prose-pre:border-zinc-300/30 dark:prose-pre:border-zinc-500/60;
+  @apply prose max-w-none lg:max-w-prose dark:prose-invert prose-h1:font-bold prose-blockquote:not-italic prose-blockquote:font-normal mb-20 prose-code:rounded-lg prose-pre:border-b-[3px] prose-pre:border-r-[3px] prose-pre:sm:border-b-4 prose-pre:sm:border-r-4 prose-pre:py-8 prose-pre:px-6 prose-pre:border-zinc-300/30 dark:prose-pre:border-zinc-500/60;
 }
 
 p > code {
