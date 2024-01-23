@@ -14,7 +14,6 @@ const getContent = async (type: string, slug:string ): Promise<{markdownData: st
   if ( file ) {
     const markdownData = fs.readFileSync(`${file.path}/${file.name}`, 'utf-8')
     const filePath = file.path
-    console.log(markdownData)
     return { markdownData, imageFiles, filePath }
   }
   
