@@ -2,6 +2,27 @@ const fs = require('fs-extra')
 const { glob } = require('glob')
 const archiver = require('archiver')
 const readline = require('readline')
+const { execSync } = require('child_process')
+
+
+const consoleLogFile = async (filepath) => {
+  
+  try {
+    const fileStream = fs.createReadStream(filepath)
+    if (fileStream) {
+      const rl = readline.createInterface({
+        input: fileStream,
+        crlfDelay: Infinity
+      })
+
+      for await (const line of rl) {
+        console.log(line)
+      }
+    }
+  } catch (e) {
+    console.log(`Could not read file ${filepath}: ${e}`)
+  }
+}
 
 const getValueFromFileWithKey = async (filepath, key) => {
   try {
@@ -326,6 +347,13 @@ new Promise((resolve, reject) => {
 })
 
 // Load custom components from my_components user folder
+
+async function getFirstLine(filePath) {
+  const fileContent = await fs.readFile(filePath, 'utf-8');
+  return (fileContent.match(/(^.*)/) || [])[1] || '';
+} 
+
+
 const importUserComponents = async () => {
   try {
     fs.writeFileSync('app/_components/UserComponents.tsx', '')
@@ -337,6 +365,8 @@ const importUserComponents = async () => {
       x => x[x.lastIndexOf('/') + 1] === x[x.lastIndexOf('/') + 1].toUpperCase()
     ).filter(
       x => x.indexOf('.') > 0
+    ).filter(
+      x => (x.endsWith('ts') || x.endsWith('tsx'))
     ).map(
       (file) => {
         return {
@@ -354,21 +384,38 @@ const importUserComponents = async () => {
       console.log('    Found custom components in workspace folder my_components:')
     }
   
-    componentFiles.forEach((file) => {
+    componentFiles.forEach(async (file) => {
       componentNames.push(file.name)
       console.log(`    Info: Copied ${file.source} to ${file.destination}`)
-      fs.appendFileSync(
-        'app/_components/UserComponents.tsx',
-        `\nimport { default as ${file.name} } from './UserComponents/${file.name}'`
-      )
+      const firstLine = await getFirstLine(file.source)
+      if ( firstLine.startsWith('//') ) {
+        const packages = firstLine.slice(2).split(',').map(x => x.trim()).filter(x => x.length)
+        if ( packages ) {
+          packages.forEach((packageToInstall) => {
+            try {
+              console.log(`    Running "npm install ${packageToInstall} --package-lock-only"`)
+              execSync(`npm install ${packageToInstall} --package-lock-only`)
+              console.log(`    Running "npx add-dependencies ${packageToInstall}"`)
+              execSync(`npx add-dependencies ${packageToInstall}`)
+            } catch (e) {`    Ran into an error installing ${packageToInstall}: ${e}`}
+          })
+        }
+      }
       fs.copySync(file.source, file.destination)
     })
   
     if (componentNames) {
+      componentFiles.forEach((file) => {
+        fs.appendFileSync(
+          'app/_components/UserComponents.tsx',
+          `\nimport { default as ${file.name} } from './UserComponents/${file.name}'`
+        )
+      })
       fs.appendFileSync(
         'app/_components/UserComponents.tsx',
         `\n\nexport { ${componentNames.join(', ')} }`
       )
+
     }
   
   } catch (e) {
@@ -378,4 +425,9 @@ const importUserComponents = async () => {
   }
 }
 
-importUserComponents()
+const loadUserComponents = async () => {
+  await importUserComponents()
+}
+
+
+loadUserComponents()
