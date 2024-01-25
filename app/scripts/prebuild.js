@@ -1,7 +1,26 @@
 const fs = require('fs-extra')
+const { glob } = require('glob')
 const archiver = require('archiver')
 const readline = require('readline')
-const { stream } = require('glob')
+const { execSync } = require('child_process')
+
+const consoleLogFile = async (filepath) => {
+  try {
+    const fileStream = fs.createReadStream(filepath)
+    if (fileStream) {
+      const rl = readline.createInterface({
+        input: fileStream,
+        crlfDelay: Infinity
+      })
+
+      for await (const line of rl) {
+        console.log(line)
+      }
+    }
+  } catch (e) {
+    console.log(`Could not read file ${filepath}: ${e}`)
+  }
+}
 
 const getValueFromFileWithKey = async (filepath, key) => {
   try {
@@ -55,7 +74,6 @@ const setFontFamily = async (path) => {
       `import { Roboto_Flex } from 'next/font/google'\nconst font = Roboto_Flex({ subsets: ['latin'], })\nexport default font`
     )
   } // should only run into this error during setup when file is not found, in which case we manually set a font
-
 }
 
 
@@ -325,3 +343,91 @@ new Promise((resolve, reject) => {
   }
 })
 
+// Load custom components from my_components user folder
+
+async function getFirstLine(filePath) {
+  const fileContent = await fs.readFile(filePath, 'utf-8');
+  return (fileContent.match(/(^.*)/) || [])[1] || '';
+} 
+
+
+const importUserComponents = async () => {
+  try {
+    fs.writeFileSync('app/_components/UserComponents.tsx', '')
+  
+    const filesInComponentFolder = await glob('my_components/**/*')
+    const destinationPath = `app/_components/UserComponents`
+  
+    const componentFiles = filesInComponentFolder.filter(
+      x => x[x.lastIndexOf('/') + 1] === x[x.lastIndexOf('/') + 1].toUpperCase()
+    ).filter(
+      x => x.indexOf('.') > 0
+    ).filter(
+      x => (x.endsWith('ts') || x.endsWith('tsx'))
+    ).map(
+      (file) => {
+        return {
+          filename: file.slice(file.lastIndexOf('/') + 1),
+          name: file.slice(file.lastIndexOf('/') + 1, file.lastIndexOf('.')),
+          source: file,
+          destination: `${destinationPath}/${file.slice(file.lastIndexOf('/') + 1)}`
+        }
+      }
+    )
+  
+    let componentNames = []
+
+    if ( componentFiles ) {
+      console.log('    Found custom components in workspace folder my_components:')
+    }
+
+    const packagesToInstall = new Set([])
+
+    Promise.all(componentFiles.map(async (file) => {
+      componentNames.push(file.name)
+      console.log(`    Info: Copied ${file.source} to ${file.destination}`)
+      const firstLine = await getFirstLine(file.source)
+      if ( firstLine.startsWith('//') ) {
+        const packages = firstLine.slice(2).split(',').map(x => x.trim()).filter(x => x.length)
+        if ( packages ) {
+          packages.forEach((packageToInstall) => {
+            packagesToInstall.add(packageToInstall)
+          })
+        }
+      }
+      fs.copySync(file.source, file.destination)
+    })).then(() => {
+      Array.from(packagesToInstall).forEach((packageToInstall) => {
+        try {
+          console.log(`    Running "npx add-dependencies ${packageToInstall}"`)
+          execSync(`npx add-dependencies ${packageToInstall}`)
+        } catch (e) {`    Ran into an error installing ${packageToInstall}: ${e}`}
+      })
+        
+      if (componentNames) {
+        componentFiles.forEach((file) => {
+          fs.appendFileSync(
+            'app/_components/UserComponents.tsx',
+            `\nimport { default as ${file.name} } from './UserComponents/${file.name}'`
+          )
+        })
+        fs.appendFileSync(
+          'app/_components/UserComponents.tsx',
+          `\n\nexport { ${componentNames.join(', ')} }`
+        )
+      }
+    })
+  
+  } catch (e) {
+    console.log(`Error encountered while importing custom components: ${e}`)
+    console.log('    > You must resolve this error in order for custom components to function properly')
+    console.log('    > Some or all custom components may not work properly until error(s) are resolved')
+  }
+}
+
+const loadUserComponents = async () => {
+  await importUserComponents()
+}
+
+
+loadUserComponents()

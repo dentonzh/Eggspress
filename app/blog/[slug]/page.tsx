@@ -83,7 +83,7 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
         subheading={frontmatter.subheading}
         date={frontmatter.date || frontmatter.publishDate ? convertDate(frontmatter.date || frontmatter.publishDate) : ''}
         imageSrc={frontmatter.image && frontmatter.showImageInHeader ? `/images/${slug}/${frontmatter.image}` : ''}
-        showShareButton={(appearanceSettings.showShareButtonInHeader || appearanceSettings.showShareButtonInHeader === undefined) && !frontmatter.isContentHidden ? true : false}
+        showShareButton={(appearanceSettings.showShareButtonInHeader || appearanceSettings.showShareButtonInHeader === undefined) && !frontmatter.isContentHidden && frontmatter.isVisible ? true : false}
       >
       </ContentHero>
 
@@ -109,7 +109,7 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
             }
           </div>
           
-          {(appearanceSettings.showShareButtonInPostContent === undefined || appearanceSettings.showShareButtonInPostContent) && !frontmatter.isContentHidden &&
+          {(appearanceSettings.showShareButtonInPostContent === undefined || appearanceSettings.showShareButtonInPostContent) && !frontmatter.isContentHidden && frontmatter.isVisible &&
             <div className="w-full">
               <div className={`font-light text-sm mb-5 ${await getColors('text', 'SidebarHeading')}`}>
                 {await getString('sharePostHeadingText', 'Share this post')}
@@ -177,7 +177,7 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
             <div className="mb-16"></div>
           }
         </div>
-        <div className="mb-20 mt-3 h-full">
+        <div className="mb-20 mt-5 h-full">
           <Sidebar isSticky={false}>
             <div>
               {authors.map((author: string) => 
@@ -186,7 +186,7 @@ const PostPage =  async ( {params}: {params: {slug: string}} ) => {
             </div>
           </Sidebar>
           
-          {(appearanceSettings.showShareButtonInPostSidebar === undefined || appearanceSettings.showShareButtonInPostSidebar) && !frontmatter.isContentHidden &&
+          {(appearanceSettings.showShareButtonInPostSidebar === undefined || appearanceSettings.showShareButtonInPostSidebar) && !frontmatter.isContentHidden && frontmatter.isVisible &&
             <Sidebar isSticky={false}>
               <div className="mb-20 text-sm flex flex-wrap">
                 <div className={`w-full sidebar-section ${await getColors('text', 'SidebarHeading')}`}>

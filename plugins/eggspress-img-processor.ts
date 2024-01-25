@@ -65,7 +65,7 @@ export default function eggspressMedia({
   }
   return (tree: any) => {
     visit(tree, 'paragraph', node => {
-      const images = node.children.filter((child: any) => child.type === 'image');
+      const images = node.children.filter((child?: any) => child?.type === 'image');
 
       if (images) {
         images.forEach((image: ImageNode) => {
@@ -74,14 +74,14 @@ export default function eggspressMedia({
       }
     })
 
-    if (tree.children && tree.children[0] && tree.children[0].type === 'heading') {
+    if (tree.children && tree.children[0] && tree.children[0]?.type === 'heading') {
       const ledeHeading = tree.children[0]
       ledeHeading.data = {hProperties: {}}
       ledeHeading.data.hProperties.style = ['margin-top: 0px;']
     }
 
     
-    if (tree.children && tree.children[0] && tree.children[0].children && tree.children[0].children[0].type === 'image') {
+    if (tree.children && tree.children[0] && tree.children[0].children && tree.children[0].children[0]?.type === 'image') {
       const ledeImage = tree.children[0].children[0]
       ledeImage.data.hProperties.className = ['mt-0']
       ledeImage.data.hProperties.fetchpriority = "high"

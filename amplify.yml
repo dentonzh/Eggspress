@@ -1,0 +1,10 @@
+version: 1
+frontend:
+ phases:
+    preBuild:
+      commands:
+        - node ./app/scripts/prebuild.js
+    build:
+      commands:
+        - npm install
+        - npm run build

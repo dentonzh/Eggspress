@@ -11,9 +11,17 @@ const getContent = async (type: string, slug:string ): Promise<{markdownData: st
       {...prev, [cur.slug]: cur}
     ), {})
   const file = slugsToMarkdownFilesMap[slug]
-  const markdownData = fs.readFileSync(`${file.path}/${file.name}`, 'utf-8')
-  const filePath = file.path
-  return { markdownData, imageFiles, filePath }
+  if ( file ) {
+    const markdownData = fs.readFileSync(`${file.path}/${file.name}`, 'utf-8')
+    const filePath = file.path
+    return { markdownData, imageFiles, filePath }
+  }
+  
+  return {
+    markdownData: '---\n\ntitle: "Error 404"\nsubheading: Not found\nisVisible: false\n---\n\n\n \nSorry, the requested resource does not exist or has been removed. Please check that your address is correct and try again.\n\n Please use the back button or [return to the home page](/).',
+    imageFiles: [],
+    filePath: ''
+  }
 }
 
 export default getContent
