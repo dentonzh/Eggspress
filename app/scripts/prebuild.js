@@ -4,9 +4,7 @@ const archiver = require('archiver')
 const readline = require('readline')
 const { execSync } = require('child_process')
 
-
 const consoleLogFile = async (filepath) => {
-  
   try {
     const fileStream = fs.createReadStream(filepath)
     if (fileStream) {
@@ -383,8 +381,10 @@ const importUserComponents = async () => {
     if ( componentFiles ) {
       console.log('    Found custom components in workspace folder my_components:')
     }
-  
-    componentFiles.forEach(async (file) => {
+
+    const packagesToInstall = new Set([])
+
+    Promise.all(componentFiles.map(async (file) => {
       componentNames.push(file.name)
       console.log(`    Info: Copied ${file.source} to ${file.destination}`)
       const firstLine = await getFirstLine(file.source)
@@ -392,31 +392,32 @@ const importUserComponents = async () => {
         const packages = firstLine.slice(2).split(',').map(x => x.trim()).filter(x => x.length)
         if ( packages ) {
           packages.forEach((packageToInstall) => {
-            try {
-              console.log(`    Running "npm install ${packageToInstall} --package-lock-only"`)
-              execSync(`npm install ${packageToInstall} --package-lock-only`)
-              console.log(`    Running "npx add-dependencies ${packageToInstall}"`)
-              execSync(`npx add-dependencies ${packageToInstall}`)
-            } catch (e) {`    Ran into an error installing ${packageToInstall}: ${e}`}
+            packagesToInstall.add(packageToInstall)
           })
         }
       }
       fs.copySync(file.source, file.destination)
-    })
-  
-    if (componentNames) {
-      componentFiles.forEach((file) => {
+    })).then(() => {
+      Array.from(packagesToInstall).forEach((packageToInstall) => {
+        try {
+          console.log(`    Running "npx add-dependencies ${packageToInstall}"`)
+          execSync(`npx add-dependencies ${packageToInstall}`)
+        } catch (e) {`    Ran into an error installing ${packageToInstall}: ${e}`}
+      })
+        
+      if (componentNames) {
+        componentFiles.forEach((file) => {
+          fs.appendFileSync(
+            'app/_components/UserComponents.tsx',
+            `\nimport { default as ${file.name} } from './UserComponents/${file.name}'`
+          )
+        })
         fs.appendFileSync(
           'app/_components/UserComponents.tsx',
-          `\nimport { default as ${file.name} } from './UserComponents/${file.name}'`
+          `\n\nexport { ${componentNames.join(', ')} }`
         )
-      })
-      fs.appendFileSync(
-        'app/_components/UserComponents.tsx',
-        `\n\nexport { ${componentNames.join(', ')} }`
-      )
-
-    }
+      }
+    })
   
   } catch (e) {
     console.log(`Error encountered while importing custom components: ${e}`)
