@@ -74,7 +74,6 @@ const setFontFamily = async (path) => {
       `import { Roboto_Flex } from 'next/font/google'\nconst font = Roboto_Flex({ subsets: ['latin'], })\nexport default font`
     )
   } // should only run into this error during setup when file is not found, in which case we manually set a font
-
 }
 
 
