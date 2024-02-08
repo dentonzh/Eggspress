@@ -355,7 +355,7 @@ const importUserComponents = async () => {
   try {
     fs.writeFileSync('app/_components/UserComponents.tsx', '')
   
-    const filesInComponentFolder = await glob('my_components/**/*')
+    const filesInComponentFolder = await glob('my_components/*')
     const destinationPath = `app/_components/UserComponents`
   
     const componentFiles = filesInComponentFolder.filter(
@@ -363,7 +363,7 @@ const importUserComponents = async () => {
     ).filter(
       x => x.indexOf('.') > 0
     ).filter(
-      x => (x.endsWith('ts') || x.endsWith('tsx'))
+      x => (x.endsWith('ts') || x.endsWith('tsx')) || x.endsWith('js') || x.endsWith('jsx')
     ).map(
       (file) => {
         return {
@@ -396,6 +396,11 @@ const importUserComponents = async () => {
         }
       }
       fs.copySync(file.source, file.destination)
+      if (fs.existsSync(`my_components/${file.name}`)) {
+        try {
+          fs.copySync(`my_components/${file.name}`, `${destinationPath}/${file.name}`)
+        } catch {}
+      }
     })).then(() => {
       Array.from(packagesToInstall).forEach((packageToInstall) => {
         try {
