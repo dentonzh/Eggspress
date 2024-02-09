@@ -65,7 +65,7 @@ const PagePage =  async ( {params}: {params: {slug: string}} ) => {
       <ContentMessage frontmatter={frontmatter} />
 
       <div className="flex justify-between w-full">
-        <div className="overflow-x-auto">
+        <div className="overflow-x-hidden">
           <div className="mb-12 lg:hidden">
             <Toc jumpToText={await getString('jumpToHeadingText', 'Jump to...')} tableOfContentsText={await getString('tableOfContentsHeadingText', 'Table of Contents')} backToTopText={await getString('backToTopButtonLabel', 'Back to top')} />
           </div>
