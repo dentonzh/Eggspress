@@ -256,7 +256,7 @@ const setColors = async (path) => {
       if (contentCodeClasses.join(' ').trim()) {
         fs.appendFileSync(
           'app/globals.css', 
-          `p > code {\n@apply ${contentCodeClasses.join(' ')};\n}`
+          `p > code {\n@apply ${contentCodeClasses.join(' ')};\n}\n\nli > code {\n@apply ${contentCodeClasses.join(' ')};\n}`
         )
       }
 
