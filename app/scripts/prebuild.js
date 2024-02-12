@@ -357,6 +357,8 @@ const importUserComponents = async () => {
   
     const filesInComponentFolder = await glob('my_components/*')
     const destinationPath = `app/_components/UserComponents`
+
+    fs.mkdirSync(destinationPath, {recursive: true})
   
     const componentFiles = filesInComponentFolder.filter(
       x => (x[x.lastIndexOf('/') + 1] === x[x.lastIndexOf('/') + 1].toUpperCase() || x[x.lastIndexOf('/') + 1] === '#')
@@ -366,11 +368,13 @@ const importUserComponents = async () => {
       x => (x.endsWith('ts') || x.endsWith('tsx')) || x.endsWith('js') || x.endsWith('jsx')
     ).map(
       (file) => {
+        const isEnabled = file.slice(file.lastIndexOf('/') + 1)[0] === '#' ? false : true
         return {
-          filename: file.slice(file.lastIndexOf('/') + 1),
-          name: file.slice(file.lastIndexOf('/') + 1, file.lastIndexOf('.')),
+          filename: file.slice(file.lastIndexOf('/') + (isEnabled ? 1 : 2)),
+          name: file.slice(file.lastIndexOf('/') + (isEnabled ? 1 : 2), file.lastIndexOf('.')),
           source: file,
-          destination: `${destinationPath}/${file.slice(file.lastIndexOf('/') + 1)}`
+          destination: `${destinationPath}/${file.slice(file.lastIndexOf('/') + (isEnabled ? 1 : 2))}`,
+          isEnabled: isEnabled
         }
       }
     )
@@ -378,28 +382,44 @@ const importUserComponents = async () => {
     let componentNames = []
 
     if ( componentFiles ) {
-      console.log('    Found custom components in workspace folder my_components:')
+      console.log('    Found custom components in workspace folder my_components')
+      componentFiles.forEach(file => {
+        if (file.isEnabled) {
+          console.warn(`      Copy ${file.source} to ${file.destination}`)
+        } else {
+          console.warn(`      Skip ${file.source} (not enabled)`)
+        }
+      })
     }
 
     const packagesToInstall = new Set([])
 
     Promise.all(componentFiles.map(async (file) => {
       componentNames.push(file.name)
-      console.log(`    Info: Copied ${file.source} to ${file.destination}`)
-      const firstLine = await getFirstLine(file.source)
-      if ( firstLine.startsWith('//') ) {
-        const packages = firstLine.slice(2).split(',').map(x => x.trim()).filter(x => x.length)
-        if ( packages ) {
-          packages.forEach((packageToInstall) => {
-            packagesToInstall.add(packageToInstall)
-          })
+
+      if (file.isEnabled) {
+        const firstLine = await getFirstLine(file.source)
+        if ( firstLine.startsWith('//') ) {
+          const packages = firstLine.slice(2).split(',').map(x => x.trim()).filter(x => x.length)
+          if ( packages ) {
+            packages.forEach((packageToInstall) => {
+              packagesToInstall.add(packageToInstall)
+            })
+          }
         }
-      }
-      fs.copySync(file.source, file.destination)
-      if (fs.existsSync(`my_components/${file.name}`)) {
-        try {
-          fs.copySync(`my_components/${file.name}`, `${destinationPath}/${file.name}`)
-        } catch {}
+
+        fs.copySync(file.source, file.destination)
+
+        if (fs.existsSync(`my_components/${file.name}`)) {
+          try {
+            fs.copySync(`my_components/${file.name}`, `${destinationPath}/${file.name}`)
+          } catch {}
+        }
+      } else {
+        fs.writeFileSync(
+          `${destinationPath}/${file.filename}`,
+          `const ${file.name} = () => {return <></>}\n\nexport default ${file.name}`
+        )
       }
     })).then(() => {
       Array.from(packagesToInstall).forEach((packageToInstall) => {
@@ -421,6 +441,7 @@ const importUserComponents = async () => {
           `\n\nexport { ${componentNames.join(', ')} }`
         )
       }
+      fs.rmSync('my_components', {recursive: true, force: true})
     })
   
   } catch (e) {
