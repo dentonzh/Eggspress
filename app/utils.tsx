@@ -39,7 +39,7 @@ export async function getEggspressSettings(kind: string|null): Promise<any> {
   }
 }
 
-export function createSlug(text: string|null) {
+export function createSlug(text?: string) {
   if (!text) {
     return ''
   }
@@ -158,7 +158,7 @@ export function copyImageToPublic(source: string, toPath: string) {
   const destinationFile = `${destinationPath}/${fileName}`
 
   if (!fs.existsSync(source)) {
-    return null
+    return
   }
 
   if (!fs.existsSync(destinationFile)) {

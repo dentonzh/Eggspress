@@ -5,7 +5,7 @@ import Sidebar from './Sidebar'
 import getFrontmatter from './getFrontmatter'
 import { getImageFilesRecursively, copyImageToPublic, getColors, buildLink, isUrlAbsolute, setAnchorTargetProperty } from '@/app/utils'
 
-const PageSidebar = async ({slug, isSticky=true}: {slug: string | null, isSticky?: boolean}) => {
+const PageSidebar = async ({slug, isSticky=true}: {slug?: string, isSticky?: boolean}) => {
   if (!slug) {
     return
   }
