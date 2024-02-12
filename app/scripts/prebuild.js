@@ -359,7 +359,7 @@ const importUserComponents = async () => {
     const destinationPath = `app/_components/UserComponents`
   
     const componentFiles = filesInComponentFolder.filter(
-      x => x[x.lastIndexOf('/') + 1] === x[x.lastIndexOf('/') + 1].toUpperCase()
+      x => (x[x.lastIndexOf('/') + 1] === x[x.lastIndexOf('/') + 1].toUpperCase() || x[x.lastIndexOf('/') + 1] === '#')
     ).filter(
       x => x.indexOf('.') > 0
     ).filter(
