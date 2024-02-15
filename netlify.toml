@@ -1,2 +1,2 @@
 [build]
-  command = "node ./app/scripts/prebuild.js && npm install && npm run build"
+  command = "npm install && node ./app/scripts/prebuild.js && npm run build"
