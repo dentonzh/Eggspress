@@ -11,6 +11,8 @@ const https = require('node:https')
 const csv = require('csvtojson')
 const palettes = require('./Chart/palettes.json')
 
+
+
 /*
 
 How to use this custom component:
@@ -143,10 +145,15 @@ const Chart = async ({type, title, filename, source, columns, rowStart, rowEnd, 
   
   let data
 
-  if ( source === 'google' ) {
-    data = await fetchDataFromSheets(filename)
-  } else {
-    data = await csv().fromFile(await getUserDataRecursively(filename))
+  try {
+    if ( source === 'google' ) {
+      data = await fetchDataFromSheets(filename)
+    } else {
+      data = await csv().fromFile(await getUserDataRecursively(filename))
+    }
+  } catch (e) {
+    console.log(`      > Error while loading Chart data: ${e}`)
+    return <></>
   }
 
   
