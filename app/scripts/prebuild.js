@@ -566,7 +566,7 @@ const importUserComponents = async () => {
       })
         
       if (componentNames) {
-        [...componentFiles, ...dummyComponentNames].forEach((file) => {
+        [...componentFiles, ...dummyComponentNames.map(dummy => {name: dummy}))].forEach((file) => {
           fs.appendFileSync(
             'app/_components/UserComponents.tsx',
             `\nimport { default as ${file.name} } from './UserComponents/${file.name}'`
