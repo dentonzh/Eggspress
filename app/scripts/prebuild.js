@@ -389,12 +389,21 @@ const getFirstLine = async (filepath) => {
 const importUserComponents = async () => {
   try {
     fs.writeFileSync('app/_components/UserComponents.tsx', '')
+
+    let filesInComponentFolder = []
     
     try {
-      const filesInComponentFolder = getFiles('my_components')
+      filesInComponentFolder = getFiles('my_components')
     } catch (e) {
+
+      fs.writeFileSync(
+        'app/_components/UserComponents.tsx',
+        `\n\nconst Dummy = () => {return <></>}\n\nexport { Dummy }`
+      )
+
       throw new Error('The directory my_components does not exist. No components were imported.')
     }
+
     const destinationPath = `app/_components/UserComponents`
 
     fs.mkdirSync(destinationPath, {recursive: true})
@@ -502,6 +511,8 @@ const importUserComponents = async () => {
     console.log(`Error encountered while importing custom components: ${e}`)
     console.log('    > You must resolve this error in order for custom components to function properly')
     console.log('    > Some or all custom components may not work properly until error(s) are resolved')
+
+    consoleLogFile('app/_components/UserComponents.tsx')
   }
 }
 
