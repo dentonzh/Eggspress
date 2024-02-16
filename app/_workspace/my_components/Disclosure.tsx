@@ -37,7 +37,7 @@ type DisclosureProps = {
 
 const Disclosure = ({text, page, linkText, children} : DisclosureProps) => {
   return (
-    <div className="text-sm bg-gray-600/10 dark:bg-gray-100/10 rounded border border-gray-700/20 dark:border-gray-100/20 text-center py-1 px-3">
+    <div className="text-sm bg-gray-600/10 dark:bg-gray-100/10 rounded border border-gray-700/20 dark:border-gray-100/20 text-center py-1 px-3 my-2">
       <span className="">
         {text ? text : 'When you buy through links on this site, we may earn a commission'}
       </span>
