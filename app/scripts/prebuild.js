@@ -41,6 +41,32 @@ const consoleLogFile = async (filepath) => {
   }
 }
 
+const dumpMarkdownAsString = async (filepath) => {
+  if ( !(filepath.endsWith('md') || filepath.endsWith('mdx'))) {
+    return ''
+  }
+
+  let fileData = []
+
+  try {
+    const fileStream = fs.createReadStream(filepath)
+    if (fileStream) {
+      const rl = readline.createInterface({
+        input: fileStream,
+        crlfDelay: Infinity
+      })
+
+      for await (const line of rl) {
+        fileData.push(line)
+      }
+      
+      return fileData.join(' \n')
+    }
+  } catch (e) {
+    console.log(`Could not read file ${filepath}: ${e}`)
+  }
+}
+
 const getValueFromFileWithKey = async (filepath, key) => {
   try {
     const fileStream = fs.createReadStream(filepath)
@@ -385,6 +411,46 @@ const getFirstLine = async (filepath) => {
   }
 }
 
+let dummyComponentNames = []
+
+const createDummyComponents = async () => {
+  const destinationPath = `app/_components/UserComponents`
+  fs.mkdirSync(destinationPath, {recursive: true}) 
+
+  let filesInPostFolder = []
+  const tagsSet = new Set()
+  
+  try {
+    filesInPostFolder = [...getFiles('my_posts', true), ...getFiles('my_pages', true)]
+  } catch { return }
+
+  let markdownData = []
+  try {
+    await Promise.all(filesInPostFolder.map(async (file) => {
+      markdownData.push(await dumpMarkdownAsString(file))
+    }))
+  } catch { return }
+
+  const tagRegex = /<\/?([a-z][a-z0-9]*)\b[^>]*>?/gi;
+  
+  const markdownDataAsString = markdownData.join('\n\n')
+
+  for (const match of markdownDataAsString.matchAll(tagRegex)) {
+    const tagName = match[1];
+    tagsSet.add(tagName)
+  }
+
+  tagsSet.forEach(tagName => {
+    if (tagName[0] === tagName[0].toUpperCase()) {
+      dummyComponentNames.push(tagName)
+      fs.writeFileSync(
+        `app/_components/UserComponents/${tagName}.tsx`,
+        `\nconst ${tagName} = () => {return <></>}\n\nexport { ${tagName }}`
+      )
+    }
+  })
+}
+
 
 const importUserComponents = async () => {
   try {
@@ -396,9 +462,16 @@ const importUserComponents = async () => {
       filesInComponentFolder = getFiles('my_components')
     } catch (e) {
 
-      fs.writeFileSync(
+      const dummyComponents = [...dummyComponentNames, 'Dummy']
+      dummyComponents.forEach((dummyName) => {
+        fs.appendFileSync(
+          'app/_components/UserComponents.tsx',
+          `const ${dummyName} = () => {return <></>}\n`
+        )
+      })
+      fs.appendFileSync(
         'app/_components/UserComponents.tsx',
-        `\n\nconst Dummy = () => {return <></>}\n\nexport { Dummy }`
+        `\n\nexport { ${dummyComponents.join(', ')} }`
       )
 
       throw new Error('The directory my_components does not exist. No components were imported.')
@@ -493,7 +566,7 @@ const importUserComponents = async () => {
       })
         
       if (componentNames) {
-        componentFiles.forEach((file) => {
+        [...componentFiles, ...dummyComponentNames].forEach((file) => {
           fs.appendFileSync(
             'app/_components/UserComponents.tsx',
             `\nimport { default as ${file.name} } from './UserComponents/${file.name}'`
@@ -511,12 +584,11 @@ const importUserComponents = async () => {
     console.log(`Error encountered while importing custom components: ${e}`)
     console.log('    > You must resolve this error in order for custom components to function properly')
     console.log('    > Some or all custom components may not work properly until error(s) are resolved')
-
-    consoleLogFile('app/_components/UserComponents.tsx')
   }
 }
 
 const loadUserComponents = async () => {
+  await createDummyComponents()
   await importUserComponents()
 }
 
