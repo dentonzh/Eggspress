@@ -352,12 +352,14 @@ new Promise((resolve, reject) => {
     
     output.on('close', () => {
       console.log(`    Info: Created eggspress_starter_workspace.zip (${archive.pointer()} bytes)`)
+      fs.rmSync('app/_workspace', {recursive: true, force: true})
       resolve()
     })
 
     archive.finalize()
   } else {
     console.log('    > Configuring Eggspress')
+    fs.rmSync('app/_workspace', {recursive: true, force: true})
     resolve()
   }
 })
@@ -387,8 +389,12 @@ const getFirstLine = async (filepath) => {
 const importUserComponents = async () => {
   try {
     fs.writeFileSync('app/_components/UserComponents.tsx', '')
-  
-    const filesInComponentFolder = getFiles('my_components')
+    
+    try {
+      const filesInComponentFolder = getFiles('my_components')
+    } catch (e) {
+      throw new Error('The directory my_components does not exist. No components were imported.')
+    }
     const destinationPath = `app/_components/UserComponents`
 
     fs.mkdirSync(destinationPath, {recursive: true})
