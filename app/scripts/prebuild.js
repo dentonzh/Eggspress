@@ -1,8 +1,27 @@
-const fs = require('fs-extra')
-const { glob } = require('glob')
+const fs = require('fs')
+const path = require('path')
 const archiver = require('archiver')
 const readline = require('readline')
 const { execSync } = require('child_process')
+
+function getFiles(dir, recursive=false) {
+  let results = [];
+  const entries = fs.readdirSync(dir, { withFileTypes: true });
+
+  for (let entry of entries) {
+    const fullPath = path.join(dir, entry.name);
+
+    if (entry.isDirectory()) {
+      if (recursive) {
+        results = results.concat(getFiles(fullPath));
+      }
+    } else {
+      results.push(fullPath);
+    }
+  }
+
+  return results;
+}
 
 const consoleLogFile = async (filepath) => {
   try {
@@ -309,7 +328,7 @@ Object.keys(assetsMap).map((file) => {
   const destinationFile = `./${assetsMap[file]}${file}`
 
   if (fs.existsSync(sourceFile)) {
-    fs.copySync(sourceFile, destinationFile)
+    fs.copyFileSync(sourceFile, destinationFile)
   }
 })
 
@@ -345,17 +364,31 @@ new Promise((resolve, reject) => {
 
 // Load custom components from my_components user folder
 
-async function getFirstLine(filePath) {
-  const fileContent = await fs.readFile(filePath, 'utf-8');
-  return (fileContent.match(/(^.*)/) || [])[1] || '';
-} 
+
+const getFirstLine = async (filepath) => {
+  try {
+    const fileStream = fs.createReadStream(filepath)
+    if (fileStream) {
+      const rl = readline.createInterface({
+        input: fileStream,
+        crlfDelay: Infinity
+      })
+
+      for await (const line of rl) {
+        return line
+      }
+    }
+  } catch (e) {
+    console.log(`Could not read file ${filepath}: ${e}`)
+  }
+}
 
 
 const importUserComponents = async () => {
   try {
     fs.writeFileSync('app/_components/UserComponents.tsx', '')
   
-    const filesInComponentFolder = await glob('my_components/*')
+    const filesInComponentFolder = getFiles('my_components')
     const destinationPath = `app/_components/UserComponents`
 
     fs.mkdirSync(destinationPath, {recursive: true})
@@ -408,12 +441,27 @@ const importUserComponents = async () => {
           }
         }
 
-        fs.copySync(file.source, file.destination)
+        fs.copyFileSync(file.source, file.destination)
 
         if (fs.existsSync(`my_components/${file.name}`)) {
+          fs.mkdirSync(`app/_components/UserComponents/${file.name}`)
           try {
-            fs.copySync(`my_components/${file.name}`, `${destinationPath}/${file.name}`)
-          } catch {}
+            const filesInComponentSubfolder = getFiles(`my_components/${file.name}`, true)
+            componentModules = filesInComponentSubfolder.map(module => {
+              return {
+                filename: module.slice(module.lastIndexOf('/') + 1),
+                name: module.slice(module.lastIndexOf('/') + 1, module.lastIndexOf('.')),
+                source: module,
+                destination: `${destinationPath}/${file.name}/${module.slice(module.lastIndexOf('/') + 1)}`,
+              }
+            })
+            
+            componentModules.forEach(module => {
+              try {
+                fs.copyFileSync(module.source, module.destination)
+              } catch (e) { console.log(`Error encountered while copying ${module.source} to ${module.destination}: ${e}`)}
+            })
+          } catch (e) { console.log(`Error encountered while preparing to copy modules for file ${file.source}: ${e}`)}
         }
       } else {
         fs.writeFileSync(
