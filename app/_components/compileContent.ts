@@ -23,17 +23,17 @@ type compiledResponse = {
   images: OGImage[]
 }
 
-const cleanMDX = (mdxContent: string) => {
-  const tagRegex = /<\/?([a-z][a-z0-9]*)\b[^>]*>?/gi
-  const isRecognizedTag = (tagName: string) => Object.keys(UserComponents).includes(tagName)
+// const cleanMDX = (mdxContent: string) => {
+//   const tagRegex = /<\/?([a-z][a-z0-9]*)\b[^>]*>?/gi
+//   const isRecognizedTag = (tagName: string) => Object.keys(UserComponents).includes(tagName)
 
-  return mdxContent.replace(tagRegex, (match, tagName) => {
-    if (!isRecognizedTag(tagName)) {
-      console.log(`      > Info: Component with name "${tagName}" not rendered. Ensure that ${tagName} is available in my_components and is properly installed.`)
-    }
-    return isRecognizedTag(tagName) ? match : '';
-  });
-}
+//   return mdxContent.replace(tagRegex, (match, tagName) => {
+//     if (!isRecognizedTag(tagName)) {
+//       console.log(`      > Info: Component with name "${tagName}" not rendered. Ensure that ${tagName} is available in my_components and is properly installed.`)
+//     }
+//     return isRecognizedTag(tagName) ? match : '';
+//   });
+// }
 
 const compileContent = async (type: string, slug:string,): Promise<compiledResponse> => {
   const { markdownData, imageFiles, filePath } = await getContent(type, slug)
@@ -48,7 +48,7 @@ const compileContent = async (type: string, slug:string,): Promise<compiledRespo
   try {
   
     const source = await compileMDX({
-      source: cleanMDX(markdownData),
+      source: markdownData,
       options: {
         parseFrontmatter: true,
         mdxOptions: {
