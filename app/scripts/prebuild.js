@@ -1,6 +1,5 @@
 const fs = require('fs')
 const path = require('path')
-const archiver = require('archiver')
 const readline = require('readline')
 const { execSync } = require('child_process')
 
@@ -366,8 +365,9 @@ new Promise((resolve, reject) => {
     console.log('     1. Download eggspress_starter_workspace.zip and unzip its contents')
     console.log('     2. Upload workspace contents (folders starting with "my_") to the root of your repository')
     console.log('')
-    
-  
+    execSync(`npm install archiver`)
+
+    const archiver = require('archiver')
     const output = fs.createWriteStream('public/assets/eggspress_starter_workspace.zip')
     const archive = archiver('zip', { zlib: { level: 0 } })
   
