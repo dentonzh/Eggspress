@@ -22,7 +22,9 @@
   --scroll-bar-bg-color: var(--dark-scroll-bar-bg-color);
 }
 
-::-webkit-scrollbar-corner { background: rgba(0,0,0,0.5); }
+::-webkit-scrollbar-corner {
+  background: rgba(0, 0, 0, 0.5);
+}
 
 * {
   scrollbar-width: thin;
@@ -63,7 +65,7 @@ body {
   @apply relative before:content-[''] before:absolute before:block before:w-full before:h-[1px] 
           before:bottom-0 before:left-0 before:bg-blue-700 before:dark:bg-blue-200
           before:hover:scale-x-100 before:scale-x-0 before:origin-top-left
-          before:transition before:ease-in-out before:duration-200
+          before:transition before:ease-in-out before:duration-200;
 }
 
 .hero {
@@ -102,11 +104,14 @@ li > code {
   @apply text-gray-500 inline-block dark:brightness-200;
 }
 
-h2:not(#hero-subtitle)::before, h3::before, h4:not(.sidebar-heading)::before, h5::before { 
-  display: block; 
-  content: " "; 
-  margin-top: -58px; 
-  height: 58px; 
-  visibility: hidden; 
+h2:not(#hero-subtitle)::before,
+h3::before,
+h4:not(.sidebar-heading)::before,
+h5::before {
+  display: block;
+  content: ' ';
+  margin-top: -58px;
+  height: 58px;
+  visibility: hidden;
   pointer-events: none;
 }

@@ -1,6 +1,6 @@
 version: 1
 frontend:
- phases:
+  phases:
     preBuild:
       commands:
         - node ./app/scripts/prebuild.js

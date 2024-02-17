@@ -3,32 +3,32 @@ const path = require('path')
 const readline = require('readline')
 const { execSync } = require('child_process')
 
-function getFiles(dir, recursive=false) {
-  let results = [];
-  const entries = fs.readdirSync(dir, { withFileTypes: true });
+function getFiles(dir, recursive = false) {
+  let results = []
+  const entries = fs.readdirSync(dir, { withFileTypes: true })
 
   for (let entry of entries) {
-    const fullPath = path.join(dir, entry.name);
+    const fullPath = path.join(dir, entry.name)
 
     if (entry.isDirectory()) {
       if (recursive) {
-        results = results.concat(getFiles(fullPath));
+        results = results.concat(getFiles(fullPath))
       }
     } else {
-      results.push(fullPath);
+      results.push(fullPath)
     }
   }
 
-  return results;
+  return results
 }
 
-const consoleLogFile = async (filepath) => {
+const consoleLogFile = async filepath => {
   try {
     const fileStream = fs.createReadStream(filepath)
     if (fileStream) {
       const rl = readline.createInterface({
         input: fileStream,
-        crlfDelay: Infinity
+        crlfDelay: Infinity,
       })
 
       for await (const line of rl) {
@@ -40,8 +40,8 @@ const consoleLogFile = async (filepath) => {
   }
 }
 
-const dumpMarkdownAsString = async (filepath) => {
-  if ( !(filepath.endsWith('md') || filepath.endsWith('mdx'))) {
+const dumpMarkdownAsString = async filepath => {
+  if (!(filepath.endsWith('md') || filepath.endsWith('mdx'))) {
     return ''
   }
 
@@ -52,13 +52,13 @@ const dumpMarkdownAsString = async (filepath) => {
     if (fileStream) {
       const rl = readline.createInterface({
         input: fileStream,
-        crlfDelay: Infinity
+        crlfDelay: Infinity,
       })
 
       for await (const line of rl) {
         fileData.push(line)
       }
-      
+
       return fileData.join(' \n')
     }
   } catch (e) {
@@ -72,35 +72,45 @@ const getValueFromFileWithKey = async (filepath, key) => {
     if (fileStream) {
       const rl = readline.createInterface({
         input: fileStream,
-        crlfDelay: Infinity
+        crlfDelay: Infinity,
       })
-    
+
       for await (const line of rl) {
         if (line.startsWith(key)) {
-          const value = line.slice(line.indexOf(':') + 1).replaceAll('"', '').replaceAll("'", "").trim().replaceAll(' ', '_')
+          const value = line
+            .slice(line.indexOf(':') + 1)
+            .replaceAll('"', '')
+            .replaceAll("'", '')
+            .trim()
+            .replaceAll(' ', '_')
           return value
         }
       }
       return null
     }
-  } catch (e) { 
+  } catch (e) {
     return null
   }
 }
 
-const setFontFamily = async (path) => {
+const setFontFamily = async path => {
   try {
     const fileStream = fs.createReadStream(path)
     if (fileStream) {
       const rl = readline.createInterface({
         input: fileStream,
-        crlfDelay: Infinity
+        crlfDelay: Infinity,
       })
-    
+
       for await (const line of rl) {
         if (line.startsWith('fontFamily:')) {
-          const fontFamily = line.slice(line.indexOf(':') + 1).replaceAll('"', '').replaceAll("'", "").trim().replaceAll(' ', '_')
-          if ( fontFamily ) {
+          const fontFamily = line
+            .slice(line.indexOf(':') + 1)
+            .replaceAll('"', '')
+            .replaceAll("'", '')
+            .trim()
+            .replaceAll(' ', '_')
+          if (fontFamily) {
             fs.writeFileSync(
               'app/_components/UserFont.tsx',
               `import {${fontFamily}} from 'next/font/google'\nconst font = ${fontFamily}({ subsets: ['latin'], })\nexport default font`
@@ -110,9 +120,9 @@ const setFontFamily = async (path) => {
         }
       }
     }
-  } catch (e) { 
+  } catch (e) {
     console.log(`    Info: Custom font not specified. Applying default font "Roboto Flex."`)
-  
+
     fs.writeFileSync(
       'app/_components/UserFont.tsx',
       `import { Roboto_Flex } from 'next/font/google'\nconst font = Roboto_Flex({ subsets: ['latin'], })\nexport default font`
@@ -120,24 +130,22 @@ const setFontFamily = async (path) => {
   } // should only run into this error during setup when file is not found, in which case we manually set a font
 }
 
-
-const setColors = async (path) => {
-
+const setColors = async path => {
   const colorScheme = await getValueFromFileWithKey('my_settings/appearance.md', 'colorScheme')
   let fileToRead = path
 
   if (colorScheme) {
     fileToRead = `my_settings/colors/${colorScheme}.md`
   }
-  
+
   try {
     const fileStream = fs.createReadStream(fileToRead)
     if (fileStream) {
       const rl = readline.createInterface({
         input: fileStream,
-        crlfDelay: Infinity
+        crlfDelay: Infinity,
       })
-      
+
       let safelist = []
       let contentClasses = []
       let contentCodeClasses = []
@@ -145,7 +153,12 @@ const setColors = async (path) => {
 
       for await (const line of rl) {
         if (line.startsWith('color')) {
-          const value = line.slice(line.indexOf(':') + 1).replaceAll('"', '').replaceAll("'", "").trim().replaceAll(' ', '-')
+          const value = line
+            .slice(line.indexOf(':') + 1)
+            .replaceAll('"', '')
+            .replaceAll("'", '')
+            .trim()
+            .replaceAll(' ', '-')
           const key = line.slice(0, line.indexOf(':')).trim()
 
           if (value) {
@@ -232,23 +245,22 @@ const setColors = async (path) => {
                 contentCodeClasses.push(`text-${value}`)
               }
               if (line.startsWith('colorContentCodeBlockBackgroundDark')) {
-                if ( value ) {
+                if (value) {
                   fs.appendFileSync(
-                    'app/github-dark.css', 
+                    'app/github-dark.css',
                     `.dark pre:has(.hljs), .dark .hljs { background: ${value.replace('[', '').replace(']', '')} }`
                   )
                 }
               }
               if (line.startsWith('colorContentCodeBlockBackgroundLight')) {
-                if ( value ) {
+                if (value) {
                   fs.appendFileSync(
-                    'app/stackoverflow-light.css', 
+                    'app/stackoverflow-light.css',
                     `pre:has(.hljs), .hljs { background: ${value.replace('[', '').replace(']', '')} }`
                   )
                 }
               }
-            }
-            else if (line.startsWith('colorTheme')) {
+            } else if (line.startsWith('colorTheme')) {
               if (key.endsWith('Dark')) {
                 safelist.push(`dark:bleed-${value}`)
                 safelist.push(`dark:bg-${value}`)
@@ -283,30 +295,22 @@ const setColors = async (path) => {
         }
       }
 
-      fs.writeFileSync(
-        'app/safelist.ts',
-        `const safelist = [${safelist.map(x => `'${x}'`)}]\nexport default safelist`
-      )
-
+      fs.writeFileSync('app/safelist.ts', `const safelist = [${safelist.map(x => `'${x}'`)}]\nexport default safelist`)
 
       if (contentClasses.join(' ').trim()) {
-        fs.appendFileSync(
-          'app/globals.css', 
-          `.eggspress-content-extended {\n@apply ${contentClasses.join(' ')};\n}`
-        )
+        fs.appendFileSync('app/globals.css', `.eggspress-content-extended {\n@apply ${contentClasses.join(' ')};\n}`)
       }
-
 
       if (contentCodeClasses.join(' ').trim()) {
         fs.appendFileSync(
-          'app/globals.css', 
+          'app/globals.css',
           `p > code {\n@apply ${contentCodeClasses.join(' ')};\n}\n\nli > code {\n@apply ${contentCodeClasses.join(' ')};\n}`
         )
       }
 
       if (scrollbarVariables.join(' ').trim()) {
         fs.appendFileSync(
-          'app/globals.css', 
+          'app/globals.css',
           `:root {\n  ${scrollbarVariables.join('; ').trim()};\n}\n\n.dark{\n  --scroll-bar-color: var(--dark-scroll-bar-color);\n  --scroll-bar-bg-color: var(--dark-scroll-bar-bg-color); }`
         )
       }
@@ -327,18 +331,12 @@ const setColors = async (path) => {
       'text-gray-800',
     ]
 
-    fs.writeFileSync(
-      'app/safelist.ts',
-      `const safelist = [${safelist.map(x => `'${x}'`)}]\nexport default safelist`
-    )
+    fs.writeFileSync('app/safelist.ts', `const safelist = [${safelist.map(x => `'${x}'`)}]\nexport default safelist`)
   } // should only run into this error during setup when file is not found, in which case we set a minimum set of colors in safelist
-
 }
-
 
 setFontFamily('my_settings/appearance.md')
 setColors('my_settings/appearance.md')
-
 
 assetsMap = {
   'icon.png': 'app/',
@@ -348,7 +346,7 @@ assetsMap = {
 
 sourceDir = 'my_settings/brand/'
 
-Object.keys(assetsMap).map((file) => {
+Object.keys(assetsMap).map(file => {
   const sourceFile = `./${sourceDir}${file}`
   const destinationFile = `./${assetsMap[file]}${file}`
 
@@ -370,36 +368,37 @@ new Promise((resolve, reject) => {
     const archiver = require('archiver')
     const output = fs.createWriteStream('public/assets/eggspress_starter_workspace.zip')
     const archive = archiver('zip', { zlib: { level: 0 } })
-  
+
     archive
       .directory('app/_workspace/', false)
-      .on('warning', (e) => {console.log(e)})
+      .on('warning', e => {
+        console.log(e)
+      })
       .pipe(output)
-    
+
     output.on('close', () => {
       console.log(`    Info: Created eggspress_starter_workspace.zip (${archive.pointer()} bytes)`)
-      fs.rmSync('app/_workspace', {recursive: true, force: true})
+      fs.rmSync('app/_workspace', { recursive: true, force: true })
       resolve()
     })
 
     archive.finalize()
   } else {
     console.log('    > Configuring Eggspress')
-    fs.rmSync('app/_workspace', {recursive: true, force: true})
+    fs.rmSync('app/_workspace', { recursive: true, force: true })
     resolve()
   }
 })
 
 // Load custom components from my_components user folder
 
-
-const getFirstLine = async (filepath) => {
+const getFirstLine = async filepath => {
   try {
     const fileStream = fs.createReadStream(filepath)
     if (fileStream) {
       const rl = readline.createInterface({
         input: fileStream,
-        crlfDelay: Infinity
+        crlfDelay: Infinity,
       })
 
       for await (const line of rl) {
@@ -415,28 +414,34 @@ let dummyComponentNames = []
 
 const createDummyComponents = async () => {
   const destinationPath = `app/_components/UserComponents`
-  fs.mkdirSync(destinationPath, {recursive: true}) 
+  fs.mkdirSync(destinationPath, { recursive: true })
 
   let filesInPostFolder = []
   const tagsSet = new Set()
-  
+
   try {
     filesInPostFolder = [...getFiles('my_posts', true), ...getFiles('my_pages', true)]
-  } catch { return }
+  } catch {
+    return
+  }
 
   let markdownData = []
   try {
-    await Promise.all(filesInPostFolder.map(async (file) => {
-      markdownData.push(await dumpMarkdownAsString(file))
-    }))
-  } catch { return }
+    await Promise.all(
+      filesInPostFolder.map(async file => {
+        markdownData.push(await dumpMarkdownAsString(file))
+      })
+    )
+  } catch {
+    return
+  }
 
-  const tagRegex = /<\/?([a-z][a-z0-9]*)\b[^>]*>?/gi;
-  
+  const tagRegex = /<\/?([a-z][a-z0-9]*)\b[^>]*>?/gi
+
   const markdownDataAsString = markdownData.join('\n\n')
 
   for (const match of markdownDataAsString.matchAll(tagRegex)) {
-    const tagName = match[1];
+    const tagName = match[1]
     tagsSet.add(tagName)
   }
 
@@ -445,65 +450,58 @@ const createDummyComponents = async () => {
       dummyComponentNames.push(tagName)
       fs.writeFileSync(
         `app/_components/UserComponents/${tagName}.tsx`,
-        `import React from 'react'\n\nconst ${tagName} = ({children}: {children: React.ReactNode}) => {return <div>{children}</div>}\n\nexport default ${tagName }`
+        `import React from 'react'\n\nconst ${tagName} = ({children}: {children: React.ReactNode}) => {return <div>{children}</div>}\n\nexport default ${tagName}`
       )
     }
   })
 }
-
 
 const importUserComponents = async () => {
   try {
     fs.writeFileSync('app/_components/UserComponents.tsx', '')
 
     let filesInComponentFolder = []
-    
+
     try {
       filesInComponentFolder = getFiles('my_components')
     } catch (e) {
-
       const dummyComponents = ['Dummy', ...dummyComponentNames]
 
-      dummyComponents.forEach((dummyName) => {
+      dummyComponents.forEach(dummyName => {
         fs.appendFileSync(
           'app/_components/UserComponents.tsx',
           `const ${dummyName} = ({children}: {children: React.ReactNode}) => {return <div>{children}</div>}\n`
         )
       })
-      fs.appendFileSync(
-        'app/_components/UserComponents.tsx',
-        `\n\nexport { ${dummyComponents.join(', ')} }`
-      )
+      fs.appendFileSync('app/_components/UserComponents.tsx', `\n\nexport { ${dummyComponents.join(', ')} }`)
 
       throw new Error('The directory my_components does not exist. No components were imported.')
     }
 
     const destinationPath = `app/_components/UserComponents`
 
-    fs.mkdirSync(destinationPath, {recursive: true})
-  
-    const componentFiles = filesInComponentFolder.filter(
-      x => (x[x.lastIndexOf('/') + 1] === x[x.lastIndexOf('/') + 1].toUpperCase() || x[x.lastIndexOf('/') + 1] === '#')
-    ).filter(
-      x => x.indexOf('.') > 0
-    ).filter(
-      x => (x.endsWith('ts') || x.endsWith('tsx')) || x.endsWith('js') || x.endsWith('jsx')
-    ).map(
-      (file) => {
+    fs.mkdirSync(destinationPath, { recursive: true })
+
+    const componentFiles = filesInComponentFolder
+      .filter(
+        x => x[x.lastIndexOf('/') + 1] === x[x.lastIndexOf('/') + 1].toUpperCase() || x[x.lastIndexOf('/') + 1] === '#'
+      )
+      .filter(x => x.indexOf('.') > 0)
+      .filter(x => x.endsWith('ts') || x.endsWith('tsx') || x.endsWith('js') || x.endsWith('jsx'))
+      .map(file => {
         const isEnabled = file.slice(file.lastIndexOf('/') + 1)[0] === '#' ? false : true
         return {
           filename: file.slice(file.lastIndexOf('/') + (isEnabled ? 1 : 2)),
           name: file.slice(file.lastIndexOf('/') + (isEnabled ? 1 : 2), file.lastIndexOf('.')),
           source: file,
           destination: `${destinationPath}/${file.slice(file.lastIndexOf('/') + (isEnabled ? 1 : 2))}`,
-          isEnabled: isEnabled
+          isEnabled: isEnabled,
         }
-      }
-    )
-  
+      })
+
     let componentNames = []
 
-    if ( componentFiles ) {
+    if (componentFiles) {
       console.log('    Found custom components in workspace folder my_components')
       componentFiles.forEach(file => {
         if (file.isEnabled) {
@@ -516,56 +514,68 @@ const importUserComponents = async () => {
 
     const packagesToInstall = new Set([])
 
-    Promise.all(componentFiles.map(async (file) => {
-      componentNames.push(file.name)
+    Promise.all(
+      componentFiles.map(async file => {
+        componentNames.push(file.name)
 
-      if (file.isEnabled) {
-        const firstLine = await getFirstLine(file.source)
-        if ( firstLine.startsWith('//') ) {
-          const packages = firstLine.slice(2).split(',').map(x => x.trim()).filter(x => x.length)
-          if ( packages ) {
-            packages.forEach((packageToInstall) => {
-              packagesToInstall.add(packageToInstall)
-            })
+        if (file.isEnabled) {
+          const firstLine = await getFirstLine(file.source)
+          if (firstLine.startsWith('//')) {
+            const packages = firstLine
+              .slice(2)
+              .split(',')
+              .map(x => x.trim())
+              .filter(x => x.length)
+            if (packages) {
+              packages.forEach(packageToInstall => {
+                packagesToInstall.add(packageToInstall)
+              })
+            }
           }
-        }
 
-        fs.copyFileSync(file.source, file.destination)
+          fs.copyFileSync(file.source, file.destination)
 
-        if (fs.existsSync(`my_components/${file.name}`)) {
-          fs.mkdirSync(`app/_components/UserComponents/${file.name}`)
-          try {
-            const filesInComponentSubfolder = getFiles(`my_components/${file.name}`, true)
-            componentModules = filesInComponentSubfolder.map(module => {
-              return {
-                filename: module.slice(module.lastIndexOf('/') + 1),
-                name: module.slice(module.lastIndexOf('/') + 1, module.lastIndexOf('.')),
-                source: module,
-                destination: `${destinationPath}/${file.name}/${module.slice(module.lastIndexOf('/') + 1)}`,
-              }
-            })
-            
-            componentModules.forEach(module => {
-              try {
-                fs.copyFileSync(module.source, module.destination)
-              } catch (e) { console.log(`Error encountered while copying ${module.source} to ${module.destination}: ${e}`)}
-            })
-          } catch (e) { console.log(`Error encountered while preparing to copy modules for file ${file.source}: ${e}`)}
+          if (fs.existsSync(`my_components/${file.name}`)) {
+            fs.mkdirSync(`app/_components/UserComponents/${file.name}`)
+            try {
+              const filesInComponentSubfolder = getFiles(`my_components/${file.name}`, true)
+              componentModules = filesInComponentSubfolder.map(module => {
+                return {
+                  filename: module.slice(module.lastIndexOf('/') + 1),
+                  name: module.slice(module.lastIndexOf('/') + 1, module.lastIndexOf('.')),
+                  source: module,
+                  destination: `${destinationPath}/${file.name}/${module.slice(module.lastIndexOf('/') + 1)}`,
+                }
+              })
+
+              componentModules.forEach(module => {
+                try {
+                  fs.copyFileSync(module.source, module.destination)
+                } catch (e) {
+                  console.log(`Error encountered while copying ${module.source} to ${module.destination}: ${e}`)
+                }
+              })
+            } catch (e) {
+              console.log(`Error encountered while preparing to copy modules for file ${file.source}: ${e}`)
+            }
+          }
+        } else {
+          fs.writeFileSync(
+            `${destinationPath}/${file.filename}`,
+            `const ${file.name} = () => {return <></>}\n\nexport default ${file.name}`
+          )
         }
-      } else {
-        fs.writeFileSync(
-          `${destinationPath}/${file.filename}`,
-          `const ${file.name} = () => {return <></>}\n\nexport default ${file.name}`
-        )
-      }
-    })).then(() => {
-      Array.from(packagesToInstall).forEach((packageToInstall) => {
+      })
+    ).then(() => {
+      Array.from(packagesToInstall).forEach(packageToInstall => {
         try {
           console.log(`    Running "npx add-dependencies ${packageToInstall}"`)
           execSync(`npx add-dependencies ${packageToInstall}`)
-        } catch (e) {`    Ran into an error installing ${packageToInstall}: ${e}`}
+        } catch (e) {
+          ;`    Ran into an error installing ${packageToInstall}: ${e}`
+        }
       })
-        
+
       if (componentNames || dummyComponentNames) {
         const allComponents = new Set([])
         componentFiles.map(file => allComponents.add(file.name))
@@ -583,9 +593,8 @@ const importUserComponents = async () => {
           `\n\nexport { ${Array.from(allComponents).join(', ')} }`
         )
       }
-      fs.rmSync('my_components', {recursive: true, force: true})
+      fs.rmSync('my_components', { recursive: true, force: true })
     })
-  
   } catch (e) {
     console.log(`Error encountered while importing custom components: ${e}`)
     console.log('    > You must resolve this error in order for custom components to function properly')
@@ -597,6 +606,5 @@ const loadUserComponents = async () => {
   await createDummyComponents()
   await importUserComponents()
 }
-
 
 loadUserComponents()

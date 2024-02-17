@@ -29,24 +29,22 @@ You may also customize this component using React, Next.js, and Tailwind. It is 
 */
 
 type DisclosureProps = {
-  text?: string,
-  page?: string,
-  linkText?: string,
+  text?: string
+  page?: string
+  linkText?: string
   children?: React.ReactNode
 }
 
-const Disclosure = ({text, page, linkText, children} : DisclosureProps) => {
+const Disclosure = ({ text, page, linkText, children }: DisclosureProps) => {
   return (
     <div className="text-sm bg-gray-600/10 dark:bg-gray-100/10 rounded border border-gray-700/20 dark:border-gray-100/20 text-center py-1 px-3 my-2">
-      <span className="">
-        {text ? text : 'When you buy through links on this site, we may earn a commission'}
-      </span>
-      <span className="pl-2">
-        {children}
-      </span>
-      {page && 
-        <Link className="inline-block opacity-80 hover:opacity-100 pl-2" href={`/page/${page}`}>{linkText ? linkText : 'Read more'}</Link>
-      }
+      <span className="">{text ? text : 'When you buy through links on this site, we may earn a commission'}</span>
+      <span className="pl-2">{children}</span>
+      {page && (
+        <Link className="inline-block opacity-80 hover:opacity-100 pl-2" href={`/page/${page}`}>
+          {linkText ? linkText : 'Read more'}
+        </Link>
+      )}
     </div>
   )
 }

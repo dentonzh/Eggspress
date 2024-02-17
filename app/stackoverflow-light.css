@@ -12,7 +12,8 @@
   Colors: /blob/v0.64.0/lib/css/exports/_stacks-constants-colors.less
 */
 
-pre:has(.hljs), .hljs {
+pre:has(.hljs),
+.hljs {
   /* var(--highlight-color) */
   color: #2f3337;
   /* var(--highlight-bg) */

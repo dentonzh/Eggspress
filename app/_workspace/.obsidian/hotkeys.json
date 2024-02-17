@@ -1,64 +1,44 @@
 {
-    "insert-template": [
-      {
-        "modifiers": [
-          "Mod",
-          "Shift"
-        ],
-        "key": "D"
-      }
-    ],
-    "editor:toggle-source": [
-      {
-        "modifiers": [
-          "Mod",
-          "Shift"
-        ],
-        "key": "S"
-      }
-    ],
-    "app:open-vault": [
-      {
-        "modifiers": [
-          "Mod",
-          "Shift"
-        ],
-        "key": "O"
-      }
-    ],
-    "editor:swap-line-down": [
-      {
-        "modifiers": [
-          "Mod",
-          "Shift"
-        ],
-        "key": "ArrowUp"
-      }
-    ],
-    "editor:swap-line-up": [
-      {
-        "modifiers": [
-          "Mod",
-          "Shift"
-        ],
-        "key": "ArrowDown"
-      }
-    ],
-    "window:reset-zoom": [
-      {
-        "modifiers": [
-          "Mod"
-        ],
-        "key": "0"
-      }
-    ],
-    "open-with-default-app:show": [
-      {
-        "modifiers": [
-          "Mod",
-          "Shift"
-        ],
-        "key": "E"
-      }
-    ]
-  }
+  "insert-template": [
+    {
+      "modifiers": ["Mod", "Shift"],
+      "key": "D"
+    }
+  ],
+  "editor:toggle-source": [
+    {
+      "modifiers": ["Mod", "Shift"],
+      "key": "S"
+    }
+  ],
+  "app:open-vault": [
+    {
+      "modifiers": ["Mod", "Shift"],
+      "key": "O"
+    }
+  ],
+  "editor:swap-line-down": [
+    {
+      "modifiers": ["Mod", "Shift"],
+      "key": "ArrowUp"
+    }
+  ],
+  "editor:swap-line-up": [
+    {
+      "modifiers": ["Mod", "Shift"],
+      "key": "ArrowDown"
+    }
+  ],
+  "window:reset-zoom": [
+    {
+      "modifiers": ["Mod"],
+      "key": "0"
+    }
+  ],
+  "open-with-default-app:show": [
+    {
+      "modifiers": ["Mod", "Shift"],
+      "key": "E"
+    }
+  ]
+}
