@@ -441,11 +441,11 @@ const createDummyComponents = async () => {
   }
 
   tagsSet.forEach(tagName => {
-    if (tagName[0] === tagName[0].toUpperCase()) {
+    if (tagName && tagName[0] === tagName[0].toUpperCase()) {
       dummyComponentNames.push(tagName)
       fs.writeFileSync(
         `app/_components/UserComponents/${tagName}.tsx`,
-        `\nconst ${tagName} = () => {return <></>}\n\nexport { ${tagName }}`
+        `import React from 'react'\n\nconst ${tagName} = ({children}: {children: React.ReactNode}) => {return <div>{children}</div>}\n\nexport default ${tagName }`
       )
     }
   })
@@ -462,11 +462,12 @@ const importUserComponents = async () => {
       filesInComponentFolder = getFiles('my_components')
     } catch (e) {
 
-      const dummyComponents = [...dummyComponentNames, 'Dummy']
+      const dummyComponents = ['Dummy', ...dummyComponentNames]
+
       dummyComponents.forEach((dummyName) => {
         fs.appendFileSync(
           'app/_components/UserComponents.tsx',
-          `const ${dummyName} = () => {return <></>}\n`
+          `const ${dummyName} = ({children}: {children: React.ReactNode}) => {return <div>{children}</div>}\n`
         )
       })
       fs.appendFileSync(
@@ -565,16 +566,21 @@ const importUserComponents = async () => {
         } catch (e) {`    Ran into an error installing ${packageToInstall}: ${e}`}
       })
         
-      if (componentNames) {
-        [...componentFiles, ...dummyComponentNames.map(dummy => {name: dummy}))].forEach((file) => {
+      if (componentNames || dummyComponentNames) {
+        const allComponents = new Set([])
+        componentFiles.map(file => allComponents.add(file.name))
+        dummyComponentNames.map(component => allComponents.add(component))
+
+        allComponents.forEach(component => {
           fs.appendFileSync(
             'app/_components/UserComponents.tsx',
-            `\nimport { default as ${file.name} } from './UserComponents/${file.name}'`
+            `\nimport { default as ${component} } from './UserComponents/${component}'`
           )
         })
+
         fs.appendFileSync(
           'app/_components/UserComponents.tsx',
-          `\n\nexport { ${componentNames.join(', ')} }`
+          `\n\nexport { ${Array.from(allComponents).join(', ')} }`
         )
       }
       fs.rmSync('my_components', {recursive: true, force: true})
