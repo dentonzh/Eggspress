@@ -6,17 +6,7 @@
 /public/sidebar_images
 /app/_plugins/*
 /app/_components/UserComponents/*
-/my_posts
-/my_pages
-/my_authors
-/my_plugins
-/my_components
-/my_categories
-/my_sidebars
-/my_settings
-/my_plugins
-/my_templates
-/my_components
+/my_*
 /app/_plugins/*
 colors.md
 

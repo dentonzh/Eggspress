@@ -9,7 +9,7 @@ const publicImgDir = 'images'
 
 interface ImageNode {
   type: string
-  title: string | null
+  title?: string
   url: string
   alt: string
   position: Record<any, any>

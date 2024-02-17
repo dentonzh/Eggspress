@@ -5,6 +5,24 @@ import { getPlaiceholder } from 'plaiceholder'
 
 const fs = require('fs-extra')
 
+// Utility functions for User Components
+
+export async function getUserDataRecursively(filename: string, subfolder?: string) {
+  const files = await getFilesRecursively(`my_data${subfolder ? `/${subfolder}` : ''}`)
+  const filesMatched = files.filter(file => file.name === filename)
+
+  if ( filesMatched.length ) {
+    const file = filesMatched[0]
+    return `${file.path}/${file.name}`
+  }
+
+  return null
+}
+
+
+
+// Utility functions for Eggspress app
+
 export async function getEggspressSettings(kind: string|null): Promise<any> {
   if (!kind) {
     kind = 'blog'
@@ -21,7 +39,7 @@ export async function getEggspressSettings(kind: string|null): Promise<any> {
   }
 }
 
-export function createSlug(text: string|null) {
+export function createSlug(text?: string) {
   if (!text) {
     return ''
   }
@@ -140,7 +158,7 @@ export function copyImageToPublic(source: string, toPath: string) {
   const destinationFile = `${destinationPath}/${fileName}`
 
   if (!fs.existsSync(source)) {
-    return null
+    return
   }
 
   if (!fs.existsSync(destinationFile)) {
@@ -260,22 +278,3 @@ export function isUrlAbsolute(url: string) {
 export function setAnchorTargetProperty(url: string) {
   return isUrlAbsolute(url) ? '_blank' : '_self'
 }
-
-
-// Function below requires Node 20, which AWS Lambda does not support-- see above function for glob implementation
-// export async function getFilesRecursively(dir: string): Promise<PostFile[]> {
-//   let arrayOfFilenames: PostFile[] = []
-//   await fs.readdir(dir, {recursive: true, withFileTypes: true}, (err, files) => {
-//     arrayOfFilenames = files.filter((file) => 
-//       {return file.isFile()}).map((file) => {
-//         return {
-//           name: file.name,
-//           path: file.path,
-//           extension: file.name.slice(file.name.lastIndexOf('.')),
-//           slug: createSlug(file.name.slice(file.name.lastIndexOf('/') + 1, file.name.lastIndexOf('.')))
-//         }
-//       }
-//     )
-//   })
-//   return arrayOfFilenames
-// }

@@ -5,7 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 
-const getProfileImage =  async (imageFileName: string): Promise<string | null> => {
+const getProfileImage =  async (imageFileName: string): Promise<string | undefined> => {
   const imageFiles = await getImageFilesRecursively('my_authors')
   const profileImageFiles = imageFiles.filter(file => file.name === imageFileName)
 
@@ -19,7 +19,7 @@ const getProfileImage =  async (imageFileName: string): Promise<string | null> =
   }
 }
 
-const AuthorCard = async ({slug}: {slug: string | null}) => {
+const AuthorCard = async ({slug}: {slug: string | undefined}) => {
   const authorFrontmatter = await getFrontmatter('authors')
   const authorData = authorFrontmatter.filter(frontmatter => frontmatter.slug === slug)[0]
   const imageUrl = authorData && authorData.image ? await getProfileImage(authorData.image) : ''

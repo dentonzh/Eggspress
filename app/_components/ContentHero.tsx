@@ -13,7 +13,7 @@ interface ContentHeroProps {
   sectionString?: string,
   sectionLink?: string,
   date?: string,
-  imageSrc?: string | null,
+  imageSrc?: string,
   imageAlt?: string,
   showShareButton?: boolean,
   children?: React.ReactNode,

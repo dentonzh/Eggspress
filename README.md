@@ -7,6 +7,7 @@ For more detailed set up instructions and a demo, see the [Getting started guide
 ## Features
 - No-code setup and publishing
 - Markdown based
+- MDX-support (add React to content)
 - Color schemes and dark mode
 - Syntax highlighting in code blocks
 - Marketing-friendly
@@ -230,6 +231,8 @@ If you have any feedback about this README, [the docs](https://eggspress.org), o
 - [Reference](https://eggspress.org/reference)
 - [How-To Guides](https://eggspress.org/how-to)
 - [Troubleshooting](https://eggspress.org/troubleshooting)
+- [Using Components](https://eggspress.org/blog/use-components)
+- [Eggspress Chart](https://eggspress.org/blog/eggspress-chart)
 
 
 [^1]: If you anticipate high traffic and/or plan on sharing lots of images, please read about limits and pricing at [Vercel](https://vercel.com/docs/limits/overview) and at [Netlify](https://www.netlify.com/pricing/).

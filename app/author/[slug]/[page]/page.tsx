@@ -55,7 +55,7 @@ export async function generateMetadata({ params }: { params: {slug: string, page
 }
 
 
-const getProfileImage =  async (imageFileName: string): Promise<string | null> => {
+const getProfileImage =  async (imageFileName: string): Promise<string | undefined> => {
   const imageFiles = await getImageFilesRecursively('my_authors')
   const profileImageFile = imageFiles.filter(file => file.name === imageFileName)[0]
 

@@ -1,8 +1,26 @@
-const fs = require('fs-extra')
-const { glob } = require('glob')
-const archiver = require('archiver')
+const fs = require('fs')
+const path = require('path')
 const readline = require('readline')
 const { execSync } = require('child_process')
+
+function getFiles(dir, recursive=false) {
+  let results = [];
+  const entries = fs.readdirSync(dir, { withFileTypes: true });
+
+  for (let entry of entries) {
+    const fullPath = path.join(dir, entry.name);
+
+    if (entry.isDirectory()) {
+      if (recursive) {
+        results = results.concat(getFiles(fullPath));
+      }
+    } else {
+      results.push(fullPath);
+    }
+  }
+
+  return results;
+}
 
 const consoleLogFile = async (filepath) => {
   try {
@@ -16,6 +34,32 @@ const consoleLogFile = async (filepath) => {
       for await (const line of rl) {
         console.log(line)
       }
+    }
+  } catch (e) {
+    console.log(`Could not read file ${filepath}: ${e}`)
+  }
+}
+
+const dumpMarkdownAsString = async (filepath) => {
+  if ( !(filepath.endsWith('md') || filepath.endsWith('mdx'))) {
+    return ''
+  }
+
+  let fileData = []
+
+  try {
+    const fileStream = fs.createReadStream(filepath)
+    if (fileStream) {
+      const rl = readline.createInterface({
+        input: fileStream,
+        crlfDelay: Infinity
+      })
+
+      for await (const line of rl) {
+        fileData.push(line)
+      }
+      
+      return fileData.join(' \n')
     }
   } catch (e) {
     console.log(`Could not read file ${filepath}: ${e}`)
@@ -256,7 +300,7 @@ const setColors = async (path) => {
       if (contentCodeClasses.join(' ').trim()) {
         fs.appendFileSync(
           'app/globals.css', 
-          `p > code {\n@apply ${contentCodeClasses.join(' ')};\n}`
+          `p > code {\n@apply ${contentCodeClasses.join(' ')};\n}\n\nli > code {\n@apply ${contentCodeClasses.join(' ')};\n}`
         )
       }
 
@@ -309,7 +353,7 @@ Object.keys(assetsMap).map((file) => {
   const destinationFile = `./${assetsMap[file]}${file}`
 
   if (fs.existsSync(sourceFile)) {
-    fs.copySync(sourceFile, destinationFile)
+    fs.copyFileSync(sourceFile, destinationFile)
   }
 })
 
@@ -321,8 +365,9 @@ new Promise((resolve, reject) => {
     console.log('     1. Download eggspress_starter_workspace.zip and unzip its contents')
     console.log('     2. Upload workspace contents (folders starting with "my_") to the root of your repository')
     console.log('')
-    
-  
+    execSync(`npm install archiver`)
+
+    const archiver = require('archiver')
     const output = fs.createWriteStream('public/assets/eggspress_starter_workspace.zip')
     const archive = archiver('zip', { zlib: { level: 0 } })
   
@@ -333,44 +378,125 @@ new Promise((resolve, reject) => {
     
     output.on('close', () => {
       console.log(`    Info: Created eggspress_starter_workspace.zip (${archive.pointer()} bytes)`)
+      fs.rmSync('app/_workspace', {recursive: true, force: true})
       resolve()
     })
 
     archive.finalize()
   } else {
     console.log('    > Configuring Eggspress')
+    fs.rmSync('app/_workspace', {recursive: true, force: true})
     resolve()
   }
 })
 
 // Load custom components from my_components user folder
 
-async function getFirstLine(filePath) {
-  const fileContent = await fs.readFile(filePath, 'utf-8');
-  return (fileContent.match(/(^.*)/) || [])[1] || '';
-} 
+
+const getFirstLine = async (filepath) => {
+  try {
+    const fileStream = fs.createReadStream(filepath)
+    if (fileStream) {
+      const rl = readline.createInterface({
+        input: fileStream,
+        crlfDelay: Infinity
+      })
+
+      for await (const line of rl) {
+        return line
+      }
+    }
+  } catch (e) {
+    console.log(`Could not read file ${filepath}: ${e}`)
+  }
+}
+
+let dummyComponentNames = []
+
+const createDummyComponents = async () => {
+  const destinationPath = `app/_components/UserComponents`
+  fs.mkdirSync(destinationPath, {recursive: true}) 
+
+  let filesInPostFolder = []
+  const tagsSet = new Set()
+  
+  try {
+    filesInPostFolder = [...getFiles('my_posts', true), ...getFiles('my_pages', true)]
+  } catch { return }
+
+  let markdownData = []
+  try {
+    await Promise.all(filesInPostFolder.map(async (file) => {
+      markdownData.push(await dumpMarkdownAsString(file))
+    }))
+  } catch { return }
+
+  const tagRegex = /<\/?([a-z][a-z0-9]*)\b[^>]*>?/gi;
+  
+  const markdownDataAsString = markdownData.join('\n\n')
+
+  for (const match of markdownDataAsString.matchAll(tagRegex)) {
+    const tagName = match[1];
+    tagsSet.add(tagName)
+  }
+
+  tagsSet.forEach(tagName => {
+    if (tagName && tagName[0] === tagName[0].toUpperCase()) {
+      dummyComponentNames.push(tagName)
+      fs.writeFileSync(
+        `app/_components/UserComponents/${tagName}.tsx`,
+        `import React from 'react'\n\nconst ${tagName} = ({children}: {children: React.ReactNode}) => {return <div>{children}</div>}\n\nexport default ${tagName }`
+      )
+    }
+  })
+}
 
 
 const importUserComponents = async () => {
   try {
     fs.writeFileSync('app/_components/UserComponents.tsx', '')
-  
-    const filesInComponentFolder = await glob('my_components/**/*')
+
+    let filesInComponentFolder = []
+    
+    try {
+      filesInComponentFolder = getFiles('my_components')
+    } catch (e) {
+
+      const dummyComponents = ['Dummy', ...dummyComponentNames]
+
+      dummyComponents.forEach((dummyName) => {
+        fs.appendFileSync(
+          'app/_components/UserComponents.tsx',
+          `const ${dummyName} = ({children}: {children: React.ReactNode}) => {return <div>{children}</div>}\n`
+        )
+      })
+      fs.appendFileSync(
+        'app/_components/UserComponents.tsx',
+        `\n\nexport { ${dummyComponents.join(', ')} }`
+      )
+
+      throw new Error('The directory my_components does not exist. No components were imported.')
+    }
+
     const destinationPath = `app/_components/UserComponents`
+
+    fs.mkdirSync(destinationPath, {recursive: true})
   
     const componentFiles = filesInComponentFolder.filter(
-      x => x[x.lastIndexOf('/') + 1] === x[x.lastIndexOf('/') + 1].toUpperCase()
+      x => (x[x.lastIndexOf('/') + 1] === x[x.lastIndexOf('/') + 1].toUpperCase() || x[x.lastIndexOf('/') + 1] === '#')
     ).filter(
       x => x.indexOf('.') > 0
     ).filter(
-      x => (x.endsWith('ts') || x.endsWith('tsx'))
+      x => (x.endsWith('ts') || x.endsWith('tsx')) || x.endsWith('js') || x.endsWith('jsx')
     ).map(
       (file) => {
+        const isEnabled = file.slice(file.lastIndexOf('/') + 1)[0] === '#' ? false : true
         return {
-          filename: file.slice(file.lastIndexOf('/') + 1),
-          name: file.slice(file.lastIndexOf('/') + 1, file.lastIndexOf('.')),
+          filename: file.slice(file.lastIndexOf('/') + (isEnabled ? 1 : 2)),
+          name: file.slice(file.lastIndexOf('/') + (isEnabled ? 1 : 2), file.lastIndexOf('.')),
           source: file,
-          destination: `${destinationPath}/${file.slice(file.lastIndexOf('/') + 1)}`
+          destination: `${destinationPath}/${file.slice(file.lastIndexOf('/') + (isEnabled ? 1 : 2))}`,
+          isEnabled: isEnabled
         }
       }
     )
@@ -378,24 +504,60 @@ const importUserComponents = async () => {
     let componentNames = []
 
     if ( componentFiles ) {
-      console.log('    Found custom components in workspace folder my_components:')
+      console.log('    Found custom components in workspace folder my_components')
+      componentFiles.forEach(file => {
+        if (file.isEnabled) {
+          console.warn(`      Copy ${file.source} to ${file.destination}`)
+        } else {
+          console.warn(`      Skip ${file.source} (not enabled)`)
+        }
+      })
     }
 
     const packagesToInstall = new Set([])
 
     Promise.all(componentFiles.map(async (file) => {
       componentNames.push(file.name)
-      console.log(`    Info: Copied ${file.source} to ${file.destination}`)
-      const firstLine = await getFirstLine(file.source)
-      if ( firstLine.startsWith('//') ) {
-        const packages = firstLine.slice(2).split(',').map(x => x.trim()).filter(x => x.length)
-        if ( packages ) {
-          packages.forEach((packageToInstall) => {
-            packagesToInstall.add(packageToInstall)
-          })
+
+      if (file.isEnabled) {
+        const firstLine = await getFirstLine(file.source)
+        if ( firstLine.startsWith('//') ) {
+          const packages = firstLine.slice(2).split(',').map(x => x.trim()).filter(x => x.length)
+          if ( packages ) {
+            packages.forEach((packageToInstall) => {
+              packagesToInstall.add(packageToInstall)
+            })
+          }
         }
+
+        fs.copyFileSync(file.source, file.destination)
+
+        if (fs.existsSync(`my_components/${file.name}`)) {
+          fs.mkdirSync(`app/_components/UserComponents/${file.name}`)
+          try {
+            const filesInComponentSubfolder = getFiles(`my_components/${file.name}`, true)
+            componentModules = filesInComponentSubfolder.map(module => {
+              return {
+                filename: module.slice(module.lastIndexOf('/') + 1),
+                name: module.slice(module.lastIndexOf('/') + 1, module.lastIndexOf('.')),
+                source: module,
+                destination: `${destinationPath}/${file.name}/${module.slice(module.lastIndexOf('/') + 1)}`,
+              }
+            })
+            
+            componentModules.forEach(module => {
+              try {
+                fs.copyFileSync(module.source, module.destination)
+              } catch (e) { console.log(`Error encountered while copying ${module.source} to ${module.destination}: ${e}`)}
+            })
+          } catch (e) { console.log(`Error encountered while preparing to copy modules for file ${file.source}: ${e}`)}
+        }
+      } else {
+        fs.writeFileSync(
+          `${destinationPath}/${file.filename}`,
+          `const ${file.name} = () => {return <></>}\n\nexport default ${file.name}`
+        )
       }
-      fs.copySync(file.source, file.destination)
     })).then(() => {
       Array.from(packagesToInstall).forEach((packageToInstall) => {
         try {
@@ -404,18 +566,24 @@ const importUserComponents = async () => {
         } catch (e) {`    Ran into an error installing ${packageToInstall}: ${e}`}
       })
         
-      if (componentNames) {
-        componentFiles.forEach((file) => {
+      if (componentNames || dummyComponentNames) {
+        const allComponents = new Set([])
+        componentFiles.map(file => allComponents.add(file.name))
+        dummyComponentNames.map(component => allComponents.add(component))
+
+        allComponents.forEach(component => {
           fs.appendFileSync(
             'app/_components/UserComponents.tsx',
-            `\nimport { default as ${file.name} } from './UserComponents/${file.name}'`
+            `\nimport { default as ${component} } from './UserComponents/${component}'`
           )
         })
+
         fs.appendFileSync(
           'app/_components/UserComponents.tsx',
-          `\n\nexport { ${componentNames.join(', ')} }`
+          `\n\nexport { ${Array.from(allComponents).join(', ')} }`
         )
       }
+      fs.rmSync('my_components', {recursive: true, force: true})
     })
   
   } catch (e) {
@@ -426,6 +594,7 @@ const importUserComponents = async () => {
 }
 
 const loadUserComponents = async () => {
+  await createDummyComponents()
   await importUserComponents()
 }
 
