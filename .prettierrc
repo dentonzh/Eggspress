@@ -1,0 +1,26 @@
+{
+  "endOfLine": "lf",
+  "semi": false,
+  "singleQuote": true,
+  "tabWidth": 2,
+  "trailingComma": "es5",
+  "printWidth": 120,
+  "arrowParens": "avoid",
+  "jsxSingleQuote": false,
+  "overrides": [
+    {
+      "files": "*.md",
+      "options": {
+        "singleQuote": false,
+        "parser": "markdown"
+      }
+    },
+    {
+      "files": "*.mdx",
+      "options": {
+        "singleQuote": false,
+        "parser": "markdown"
+      }
+    }
+  ]
+}
