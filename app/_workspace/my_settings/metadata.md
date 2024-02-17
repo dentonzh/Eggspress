@@ -28,6 +28,7 @@ indexTitle refers to the title of your page on your main index page ("frontpage"
 Keys prefixed with "meta" help populate meta tags on your webpage. These tags are invisible to your readers, but help search engines and other bots index details about your pages. Eggspress will do its best to fall back to other values if these are not populated. For example, if metaTitle is empty or not available, title will be used instead.
 
 Arguably, the two most important metadata fields are those for description and title. To learn more about metadata, see https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML/The_head_metadata_in_HTML.
+
 - metaTitle is the title for your site that appears in search results
 - metaDescription is the short snippet of text that appears in search results
 - metaBaseUrl should contain your domain name if you have one and should include "https://" (for example, https://opencourser.com)

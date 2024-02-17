@@ -13,7 +13,7 @@ pinnedPost9: ""
 
 heading1: "This is a new Eggspress site!"
 image1: ""
-text1: "You can customize this sidebar by editing index.md in your \"my_sidebars\" folder"
+text1: 'You can customize this sidebar by editing index.md in your "my_sidebars" folder'
 linkText1: ""
 link1: ""
 

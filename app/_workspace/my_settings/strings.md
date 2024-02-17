@@ -65,5 +65,4 @@ newsletterDescriptionText: "Sign up for my newsletter!"
 newsletterNameInputLabel: "Name"
 newsletterEmailInputLabel: "Email"
 newsletterSubmitButtonLabel: "Sign up"
-
 ---
