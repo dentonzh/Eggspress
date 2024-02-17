@@ -64,7 +64,6 @@ websiteLink1: "https://opencourser.com"
 websiteName1: "OpenCourser"
 websiteDescription1: "This is where I learned how to code!"
 
-
 websiteLabel2: ""
 websiteLink2: ""
 websiteName2: ""
@@ -105,4 +104,3 @@ websiteLink9: ""
 websiteName9: ""
 websiteDescription9: ""
 ---
-

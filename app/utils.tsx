@@ -11,7 +11,7 @@ export async function getUserDataRecursively(filename: string, subfolder?: strin
   const files = await getFilesRecursively(`my_data${subfolder ? `/${subfolder}` : ''}`)
   const filesMatched = files.filter(file => file.name === filename)
 
-  if ( filesMatched.length ) {
+  if (filesMatched.length) {
     const file = filesMatched[0]
     return `${file.path}/${file.name}`
   }
@@ -19,20 +19,18 @@ export async function getUserDataRecursively(filename: string, subfolder?: strin
   return null
 }
 
-
-
 // Utility functions for Eggspress app
 
-export async function getEggspressSettings(kind: string|null): Promise<any> {
+export async function getEggspressSettings(kind: string | null): Promise<any> {
   if (!kind) {
     kind = 'blog'
   }
-  
+
   try {
     const file = `./my_settings/${kind}.md`
     const data = fs.readFileSync(file, 'utf-8')
-    const serializedData = await serialize(data, {parseFrontmatter: true})
-    
+    const serializedData = await serialize(data, { parseFrontmatter: true })
+
     return serializedData.frontmatter
   } catch (e) {
     return e
@@ -43,21 +41,19 @@ export function createSlug(text?: string) {
   if (!text) {
     return ''
   }
-  return text.toLowerCase()
-    .replace(/[_ ]/g, "-")
-    .replace(/[^\w-]+/g, "");
+  return text
+    .toLowerCase()
+    .replace(/[_ ]/g, '-')
+    .replace(/[^\w-]+/g, '')
 }
-
 
 export async function getMarkdownSlugs(dir: string): Promise<{ slug: string }[]> {
   const files = await getFilesRecursively(dir)
   const allowedExtensions = ['.md', '.mdx']
-  const markdownFiles = files.filter(
-    (file) => allowedExtensions.includes(file.extension)
-  )
-  
-  const slugs = markdownFiles.map((file) => {
-    return {'slug': file.slug }
+  const markdownFiles = files.filter(file => allowedExtensions.includes(file.extension))
+
+  const slugs = markdownFiles.map(file => {
+    return { slug: file.slug }
   })
 
   return slugs
@@ -68,36 +64,32 @@ export async function getFolders(dir: string): Promise<string[]> {
   return fileList
 }
 
-
 // Implementation of getFilesRecursively using glob
 export async function getFilesRecursively(dir: string): Promise<PostFile[]> {
   let arrayOfFilenames: PostFile[] = []
   const files = await glob(`${dir}/**/*`)
 
-  arrayOfFilenames = files.filter(
-    file => file.slice(file.lastIndexOf('/') + 1).charAt(0) !== '#'  // Ignore files whose filenames start with "#"
-  ).filter(
-    file => file.indexOf('.') >= 0
-  ).map(
-    (file) => {
+  arrayOfFilenames = files
+    .filter(
+      file => file.slice(file.lastIndexOf('/') + 1).charAt(0) !== '#' // Ignore files whose filenames start with "#"
+    )
+    .filter(file => file.indexOf('.') >= 0)
+    .map(file => {
       return {
         name: file.slice(file.lastIndexOf('/') + 1),
         path: file.slice(0, file.lastIndexOf('/')),
         extension: file.slice(file.lastIndexOf('.')),
-        slug: createSlug(file.slice(file.lastIndexOf('/') + 1, file.lastIndexOf('.')))
-      } 
-    }
-  )
+        slug: createSlug(file.slice(file.lastIndexOf('/') + 1, file.lastIndexOf('.'))),
+      }
+    })
   return arrayOfFilenames
 }
 
-
 export async function getFilesRecursivelyWithExtensions(dir: string, extensions: string[]): Promise<PostFile[]> {
   const files = await getFilesRecursively(dir)
-  const filteredFiles = files.filter((file) => extensions.includes(file.extension))
+  const filteredFiles = files.filter(file => extensions.includes(file.extension))
   return filteredFiles
 }
-
 
 export async function getMarkdownFilesRecursively(dir: string): Promise<PostFile[]> {
   const extensions = ['.md', '.mdx']
@@ -105,9 +97,28 @@ export async function getMarkdownFilesRecursively(dir: string): Promise<PostFile
   return files
 }
 
-
 export async function getImageFilesRecursively(dir: string, dirToSearchFirst?: string): Promise<ImageFile[]> {
-  const extensions = ['.jpg', '.jpeg', '.png', '.svg', '.webp', '.gif', '.avif', '.bmp', '.tif', '.ico', '.webm', '.mp4', '.m4v', '.mov', '.wmv', '.asf', '.avi', '.mpg', '.mpeg']
+  const extensions = [
+    '.jpg',
+    '.jpeg',
+    '.png',
+    '.svg',
+    '.webp',
+    '.gif',
+    '.avif',
+    '.bmp',
+    '.tif',
+    '.ico',
+    '.webm',
+    '.mp4',
+    '.m4v',
+    '.mov',
+    '.wmv',
+    '.asf',
+    '.avi',
+    '.mpg',
+    '.mpeg',
+  ]
   const files = await getFilesRecursivelyWithExtensions(dir, extensions)
   return files
 }
@@ -115,7 +126,7 @@ export async function getImageFilesRecursively(dir: string, dirToSearchFirst?: s
 export async function getImagePlaceholderAsBase64(imagePath: string): Promise<string> {
   try {
     const file = await fs.readFileSync(imagePath)
-    const options = {size: 4, lightness: 24}
+    const options = { size: 4, lightness: 24 }
     const { base64 } = await getPlaiceholder(file, options)
     return base64
   } catch {
@@ -128,32 +139,45 @@ export function sortFilesByProximity(toPath: string, files: PostFile[]): PostFil
     const aPath = a.path
     const bPath = b.path
 
-    if (aPath === toPath) {return -1}
-    if (bPath === toPath) {return 1}
-    
+    if (aPath === toPath) {
+      return -1
+    }
+    if (bPath === toPath) {
+      return 1
+    }
+
     const aLevel = aPath.split('/').length
     const bLevel = bPath.split('/').length
     const baseLevel = toPath.split('/').length
 
     if (aPath.includes(toPath) && bPath.includes(toPath)) {
-      if (aLevel < bLevel) {return -1}
-      if (aLevel > bLevel) {return 1}
+      if (aLevel < bLevel) {
+        return -1
+      }
+      if (aLevel > bLevel) {
+        return 1
+      }
       return 0
     } else {
-      if (aPath.includes(toPath)) {return -1}
-      if (bPath.includes(toPath)) {return 1}
+      if (aPath.includes(toPath)) {
+        return -1
+      }
+      if (bPath.includes(toPath)) {
+        return 1
+      }
     }
 
     return Math.abs(aLevel - baseLevel) - Math.abs(bLevel - baseLevel)
   })
 
   return files
-  
 }
 
-
 export function copyImageToPublic(source: string, toPath: string) {
-  const fileName = source.slice(source.lastIndexOf('/') + 1).replaceAll('%20', '_').replaceAll(' ', '_')
+  const fileName = source
+    .slice(source.lastIndexOf('/') + 1)
+    .replaceAll('%20', '_')
+    .replaceAll(' ', '_')
   const destinationPath = `public/${toPath}`
   const destinationFile = `${destinationPath}/${fileName}`
 
@@ -163,7 +187,7 @@ export function copyImageToPublic(source: string, toPath: string) {
 
   if (!fs.existsSync(destinationFile)) {
     if (!fs.existsSync(destinationPath)) {
-      fs.mkdirSync(destinationPath, {recursive: true})
+      fs.mkdirSync(destinationPath, { recursive: true })
     }
     fs.copySync(source, destinationFile)
   }
@@ -171,7 +195,7 @@ export function copyImageToPublic(source: string, toPath: string) {
   return `/${toPath}/${fileName}`
 }
 
-export async function getColors(prefix: string, colorKey: string, fallbackDark='', fallbackLight='') {
+export async function getColors(prefix: string, colorKey: string, fallbackDark = '', fallbackLight = '') {
   // Looks up color keys in appearance.md and, given a prefix or a fallback, returns
   // the correct color classes. This automatically checks for Light- and Dark- suffixed keys
 
@@ -185,7 +209,7 @@ export async function getColors(prefix: string, colorKey: string, fallbackDark='
   }
 
   const key = `color${colorKey}`
-  
+
   let classNames = []
 
   if (colorSettings[`${key}Dark`]) {
@@ -195,7 +219,7 @@ export async function getColors(prefix: string, colorKey: string, fallbackDark='
     const className = `dark:${prefix}-${fallbackDark}`
     classNames.push(className)
   }
-  
+
   if (colorSettings[`${key}Light`]) {
     const className = `${prefix}-${colorSettings[`${key}Light`]}`
     classNames.push(className)
@@ -218,14 +242,12 @@ export async function getString(stringName: string, fallback?: string) {
 
 export async function buildLink(url: string) {
   const linkSettings = await getEggspressSettings('links')
-  const re = /:\/\/([^\/]*)(.*)/;
-  const match = url.match(re);
+  const re = /:\/\/([^\/]*)(.*)/
+  const match = url.match(re)
 
-  
-  if ( (match && match[1]) ) {
+  if (match && match[1]) {
     const baseUrl = match[1]
-    for ( let i = 1; i <= 20; i++ ) {
-
+    for (let i = 1; i <= 20; i++) {
       if (!linkSettings[`modifyLinkBaseUrl${i}`]) {
         continue
       }
@@ -236,7 +258,7 @@ export async function buildLink(url: string) {
         isMatch = linkSettings[`modifyLinkBaseUrl${i}`] === baseUrl
       }
 
-      if ( isMatch ) {
+      if (isMatch) {
         let newUrl = ''
         if (linkSettings[`modifyLinkSetPrefix${i}`]) {
           if (linkSettings[`modifyLinkSetPrefix${i}`] && linkSettings[`modifyLinkSetPrefix${i}`].includes('://')) {
@@ -246,7 +268,6 @@ export async function buildLink(url: string) {
         } else {
           newUrl += 'https://'
         }
-
 
         if (linkSettings[`modifyLinkSetNewBaseUrl${i}`]) {
           newUrl += linkSettings[`modifyLinkSetNewBaseUrl${i}`]
@@ -267,13 +288,25 @@ export async function buildLink(url: string) {
       }
     }
   }
-  
+
   return url
 }
 
 export function isUrlAbsolute(url: string) {
-  return url.indexOf('//') === 0 ? true : url.indexOf('://') === -1 ? false : url.indexOf('.') === -1 ? false : url.indexOf('/') === -1 ? false : url.indexOf(':') > url.indexOf('/') ? false : url.indexOf('://') < url.indexOf('.') ? true : false
-} 
+  return url.indexOf('//') === 0
+    ? true
+    : url.indexOf('://') === -1
+      ? false
+      : url.indexOf('.') === -1
+        ? false
+        : url.indexOf('/') === -1
+          ? false
+          : url.indexOf(':') > url.indexOf('/')
+            ? false
+            : url.indexOf('://') < url.indexOf('.')
+              ? true
+              : false
+}
 
 export function setAnchorTargetProperty(url: string) {
   return isUrlAbsolute(url) ? '_blank' : '_self'

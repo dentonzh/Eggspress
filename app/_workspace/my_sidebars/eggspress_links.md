@@ -23,7 +23,6 @@ text2: "Use our detailed guides to deploy and publish in under an hour. No comma
 linkText2: "See: Getting Started"
 link2: "https://eggspress.org/getting-started"
 
-
 heading3: "Follow us"
 image3: ""
 text3: ""

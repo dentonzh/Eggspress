@@ -35,7 +35,6 @@ relatedPost8: ""
 relatedPost9: ""
 ---
 
-
 ## Getting Started with Markdown
 
 Markdown is a simple formatting syntax that converts plain text into HTML elements. It allows you to style posts with headers, lists, links, and more without needing to write clunky HTML tags.
@@ -47,16 +46,16 @@ Markdown is a simple formatting syntax that converts plain text into HTML elemen
 Here are some key benefits of writing in markdown[^1]:
 
 - **Easy to read/write** - The simple plaintext formatting helps content stay readable and accessible. Much better than heavy syntax or code.
-- **Fast formatting** - You can style posts incredibly quickly with just a few keystrokes. 
+- **Fast formatting** - You can style posts incredibly quickly with just a few keystrokes.
 - **Version control friendly** - Markdown plays nicely with tools like Git, allowing cleaner diffs between versions.
-- **Future proof** - If you ever migrate your site away from Eggspress, the markdown will port over seamlessly. 
-- **Wide device support** - Markdown is interpreted easily across all devices and screens.  
+- **Future proof** - If you ever migrate your site away from Eggspress, the markdown will port over seamlessly.
+- **Wide device support** - Markdown is interpreted easily across all devices and screens.
 
 ## Examples
+
 If you're reading this page on your new site, then what you see below is the final output of various Markdown syntax. To see the raw Markdown syntax itself, take a peek at the file titled `using_markdown.md` in your `my_posts` folder.
 
-
-Here is a demonstration of various markdown syntax you can include use in Eggspress pages. 
+Here is a demonstration of various markdown syntax you can include use in Eggspress pages.
 
 Excuse the messy formatting—these examples introduce new headings:
 
@@ -66,16 +65,21 @@ Excuse the messy formatting—these examples introduce new headings:
 
 ## Headings
 
-# Heading 1 
+# Heading 1
+
 ## Heading 2
+
 ### Heading 3
+
 #### Heading 4
+
 ##### Heading 5
+
 ###### Heading 6
 
 ## Text formatting
 
-This is *italic* text. 
+This is _italic_ text.
 
 This is **bold** text.
 
@@ -91,12 +95,12 @@ This is ~~strikethrough~~ text.
   - Nested item
 - Item 3
 
-### Ordered list  
+### Ordered list
 
 1. Item 1
 2. Item 2
-    1. Nested item
-    2. Nested item 
+   1. Nested item
+   2. Nested item
 3. Item 3
 
 ## Links
@@ -110,15 +114,15 @@ Here is a [link](https://www.example.com).
 
 ## Tables
 
-| Column 1 | Column 2 | Column 3 |
-|-|-|-|  
+| Column 1     | Column 2     | Column 3     |
+| ------------ | ------------ | ------------ |
 | Row 1 Cell 1 | Row 1 Cell 2 | Row 1 Cell 3 |
 | Row 2 Cell 1 | Row 2 Cell 2 | Row 2 Cell 3 |
 
 ## Code blocks
 
 ```python
-print("Hello World") 
+print("Hello World")
 ```
 
 ```javascript
@@ -131,13 +135,12 @@ Here is some text with a footnote[^1].
 
 [^1]: This is the footnote.
 
-## Horizontal rule 
+## Horizontal rule
 
 ---
 
 ## Escaping characters
 
 \*literal asterisks\*
-
 
 [^1]: Source: [Markdown Guide](https://www.markdownguide.org/getting-started/)

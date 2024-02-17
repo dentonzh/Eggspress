@@ -4,22 +4,19 @@ import { track } from '@minimal-analytics/ga4'
 import React, { useEffect } from 'react'
 import { usePathname } from 'next/navigation'
 
-
-const Analytics = ({propertyId}: {propertyId: string}) => {
+const Analytics = ({ propertyId }: { propertyId: string }) => {
   const pathname = usePathname()
-  
+
   useEffect(() => {
     let currentPathname = ''
-    
+
     if (pathname !== currentPathname) {
       currentPathname = pathname
       track(propertyId)
     }
   })
-  
-  return (
-    <></>
-  )
+
+  return <></>
 }
 
 export default Analytics

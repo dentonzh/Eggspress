@@ -57,7 +57,6 @@ showAuthorCardDescription: true
 showAuthorCardLinks: true
 showAuthorCardProfileImage: true
 showAuthorCardProfileImageOnRight: false
-
 ---
 
 Eggspress makes it easy to use Google Fonts via the fontFamily key above. We recommend using variable fonts, which you can find in this list https://fonts.google.com/variablefonts#font-families and preview at https://fonts.google.com/?vfonly=true

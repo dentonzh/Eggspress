@@ -4,12 +4,10 @@ interface EggspressTableProps {
   children: React.ReactNode
 }
 
-const EggspressTable: React.FC<EggspressTableProps> = async ({children}: EggspressTableProps) => {
+const EggspressTable: React.FC<EggspressTableProps> = async ({ children }: EggspressTableProps) => {
   return (
     <div className="overflow-x-auto">
-      <table>
-        {children}
-      </table>
+      <table>{children}</table>
     </div>
   )
 }

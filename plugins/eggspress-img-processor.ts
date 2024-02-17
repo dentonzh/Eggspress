@@ -18,16 +18,15 @@ interface ImageNode {
 
 const videoExtensions = ['.webm', '.mp4', '.m4v', '.mov', '.wmv', '.asf', '.avi', '.mpg', '.mpeg']
 
-
 const processImage = (slug: string, image: ImageNode, imageFiles: PostFile[], filePath?: string) => {
   const fileName = image.url.slice(image.url.lastIndexOf('/') + 1)
 
-  for (let i = 0; i < imageFiles.length; i++ ) {
+  for (let i = 0; i < imageFiles.length; i++) {
     const file = imageFiles[i]
     if (file.name === decodeURI(fileName)) {
       const imagePath = `/${publicImgDir}/${slug}`
       const imageUrl = `${imagePath}/${fileName.replaceAll('%20', '_')}`
-      
+
       const sourceDir = `${file.path}/${file.name}`
 
       if (fs.existsSync(sourceDir)) {
@@ -36,8 +35,8 @@ const processImage = (slug: string, image: ImageNode, imageFiles: PostFile[], fi
           image.data = {
             hProperties: {
               width: dimensions.width,
-              height: dimensions.height
-            }
+              height: dimensions.height,
+            },
           }
         }
 
@@ -49,23 +48,22 @@ const processImage = (slug: string, image: ImageNode, imageFiles: PostFile[], fi
   }
 }
 
-
 export default function eggspressMedia({
-    slug,
-    imageFiles,
-    filePath
-  }: {
-    slug: string,
-    imageFiles: PostFile[],
-    filePath: string
-  }) {
+  slug,
+  imageFiles,
+  filePath,
+}: {
+  slug: string
+  imageFiles: PostFile[]
+  filePath: string
+}) {
   let sortedImageFiles = imageFiles
   if (filePath) {
     sortedImageFiles = sortFilesByProximity(filePath, imageFiles)
   }
   return (tree: any) => {
     visit(tree, 'paragraph', node => {
-      const images = node.children.filter((child?: any) => child?.type === 'image');
+      const images = node.children.filter((child?: any) => child?.type === 'image')
 
       if (images) {
         images.forEach((image: ImageNode) => {
@@ -76,15 +74,19 @@ export default function eggspressMedia({
 
     if (tree.children && tree.children[0] && tree.children[0]?.type === 'heading') {
       const ledeHeading = tree.children[0]
-      ledeHeading.data = {hProperties: {}}
+      ledeHeading.data = { hProperties: {} }
       ledeHeading.data.hProperties.style = ['margin-top: 0px;']
     }
 
-    
-    if (tree.children && tree.children[0] && tree.children[0].children && tree.children[0].children[0]?.type === 'image') {
+    if (
+      tree.children &&
+      tree.children[0] &&
+      tree.children[0].children &&
+      tree.children[0].children[0]?.type === 'image'
+    ) {
       const ledeImage = tree.children[0].children[0]
       ledeImage.data.hProperties.className = ['mt-0']
-      ledeImage.data.hProperties.fetchpriority = "high"
+      ledeImage.data.hProperties.fetchpriority = 'high'
     }
   }
 }

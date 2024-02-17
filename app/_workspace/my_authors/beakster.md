@@ -46,5 +46,5 @@ When I'm not crafting compelling narratives, you can find me perched on the edge
 
 Embark on a literary adventure with me on Eggspress, where every word takes flight and every story unfolds like a well-penned script. Let's explore the magical realm of words together!
 
-*Follow my quill strokes,*
+_Follow my quill strokes,_
 Byline Beakster 📜🦜📖

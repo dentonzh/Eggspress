@@ -103,7 +103,6 @@ colorTableOfContentsTextActiveLight: "blue-400"
 
 colorFooterLinkTextDark: "gray-200"
 colorFooterLinkTextLight: "gray-700"
-
 ---
 
 Keys prefixed with "color" allow you to define the color scheme of your Eggspress blog. Eggspress uses Tailwind, which includes an expansive palette of predefined colors to choose from here: https://tailwindcss.com/docs/customizing-colors.

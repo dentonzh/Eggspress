@@ -143,5 +143,4 @@ modifyLinkStrictMatch20: true
 modifyLinkSetPrefix20: ""
 modifyLinkSetSuffix20: ""
 modifyLinkSetNewBaseUrl20: ""
-
 ---

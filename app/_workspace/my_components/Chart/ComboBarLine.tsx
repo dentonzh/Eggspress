@@ -1,7 +1,7 @@
 'use client'
 
-import React, { useEffect, useState } from 'react';
-import { Bar } from 'react-chartjs-2';
+import React, { useEffect, useState } from 'react'
+import { Bar } from 'react-chartjs-2'
 
 import {
   Colors,
@@ -15,7 +15,7 @@ import {
   Title,
   Tooltip,
   Legend,
-} from 'chart.js';
+} from 'chart.js'
 
 ChartJS.register(
   Colors,
@@ -28,33 +28,54 @@ ChartJS.register(
   Title,
   Tooltip,
   Legend
-);
+)
 
 type ComboBarLineProps = {
-  type?: string,
-  title?: string,
-  xTitle?: string,
-  xMin?: number,
-  xMax?: number,
-  xPrefix?: string,
-  xSuffix?: string,
-  primaryYTitle?: string,
-  primaryYMin?: number,
-  primaryYMax?: number,
-  primaryYPrefix?: string,
-  primaryYSuffix?: string,
-  secondaryYTitle?: string,
-  secondaryYMin?: number,
-  secondaryYMax?: number,
-  secondaryYPrefix?: string,
-  secondaryYSuffix?: string,
-  data?: Record<any, any>,
-  baseOptions?: Record<any, any>,
-  userOptions?: Record<any, any>,
-  colors?: string[],
+  type?: string
+  title?: string
+  xTitle?: string
+  xMin?: number
+  xMax?: number
+  xPrefix?: string
+  xSuffix?: string
+  primaryYTitle?: string
+  primaryYMin?: number
+  primaryYMax?: number
+  primaryYPrefix?: string
+  primaryYSuffix?: string
+  secondaryYTitle?: string
+  secondaryYMin?: number
+  secondaryYMax?: number
+  secondaryYPrefix?: string
+  secondaryYSuffix?: string
+  data?: Record<any, any>
+  baseOptions?: Record<any, any>
+  userOptions?: Record<any, any>
+  colors?: string[]
 }
 
-const ComboBarLine = ({type, xTitle, xMin, xMax, xPrefix, xSuffix, primaryYTitle, primaryYMin, primaryYMax, primaryYPrefix, primaryYSuffix, secondaryYTitle, secondaryYMin, secondaryYMax, secondaryYPrefix, secondaryYSuffix, data, baseOptions, userOptions, colors}: ComboBarLineProps) => {
+const ComboBarLine = ({
+  type,
+  xTitle,
+  xMin,
+  xMax,
+  xPrefix,
+  xSuffix,
+  primaryYTitle,
+  primaryYMin,
+  primaryYMax,
+  primaryYPrefix,
+  primaryYSuffix,
+  secondaryYTitle,
+  secondaryYMin,
+  secondaryYMax,
+  secondaryYPrefix,
+  secondaryYSuffix,
+  data,
+  baseOptions,
+  userOptions,
+  colors,
+}: ComboBarLineProps) => {
   const [windowWidth, setWindowWidth] = useState(0)
 
   useEffect(() => {
@@ -70,8 +91,7 @@ const ComboBarLine = ({type, xTitle, xMin, xMax, xPrefix, xSuffix, primaryYTitle
     return () => window.removeEventListener('resize', handleResize)
   }, [])
 
-
-  if ( !data ) {
+  if (!data) {
     return <></>
   }
 
@@ -83,12 +103,12 @@ const ComboBarLine = ({type, xTitle, xMin, xMax, xPrefix, xSuffix, primaryYTitle
         max: xMax,
         title: {
           display: xTitle ? true : false,
-          text: xTitle
+          text: xTitle,
         },
         ticks: {
           callback: (value: number) => {
             return `${xPrefix || ''}${value.toLocaleString()}${xSuffix || ''}`
-          }
+          },
         },
       },
       y: {
@@ -97,12 +117,12 @@ const ComboBarLine = ({type, xTitle, xMin, xMax, xPrefix, xSuffix, primaryYTitle
         display: true,
         title: {
           display: primaryYTitle ? true : false,
-          text: primaryYTitle
+          text: primaryYTitle,
         },
         ticks: {
           callback: (value: number) => {
             return `${primaryYPrefix || ''}${value.toLocaleString()}${primaryYSuffix || ''}`
-          }
+          },
         },
       },
       y1: {
@@ -117,13 +137,12 @@ const ComboBarLine = ({type, xTitle, xMin, xMax, xPrefix, xSuffix, primaryYTitle
         ticks: {
           callback: (value: number) => {
             return `${secondaryYPrefix || ''}${value.toLocaleString()}${secondaryYSuffix || ''}`
-          }
+          },
         },
-      }
-    }
-  };
+      },
+    },
+  }
 
-  
   const fields = Object.keys(data[0])
 
   const hasSecondary = fields.filter(x => x.includes('(secondary)')).length > 0
@@ -132,9 +151,7 @@ const ComboBarLine = ({type, xTitle, xMin, xMax, xPrefix, xSuffix, primaryYTitle
     options.scales.y1.display = true
   }
 
-  const labels = data.map((x: any) => x[fields[0]]);
-
-  
+  const labels = data.map((x: any) => x[fields[0]])
 
   const parsedData = {
     labels,
@@ -142,21 +159,30 @@ const ComboBarLine = ({type, xTitle, xMin, xMax, xPrefix, xSuffix, primaryYTitle
       return {
         label: field.replace('(secondary)', ''),
         data: data.map((x: any) => x[field]),
-        type: type === 'line' ? 'line' : type === 'bar' ? 'bar' : (field.toLowerCase().includes('(secondary)') ? 'line' : 'bar'),
+        type:
+          type === 'line'
+            ? 'line'
+            : type === 'bar'
+              ? 'bar'
+              : field.toLowerCase().includes('(secondary)')
+                ? 'line'
+                : 'bar',
         yAxisID: field.toLowerCase().includes('(secondary)') ? 'y1' : 'y',
         backgroundColor: colors ? colors[index] : undefined,
         borderColor: colors ? colors[index] : undefined,
         pointRadius: userOptions?.pointRadius || 0,
-        order: field.toLowerCase().includes('(secondary)') ? 0 : 1
+        order: field.toLowerCase().includes('(secondary)') ? 0 : 1,
       }
-    })
-  };
+    }),
+  }
 
-  return <div style={{position: 'relative', minHeight: `${(userOptions?.height || 360) * (windowWidth > 640 ? 1 : 0.8)}px`}}>
-    {windowWidth > 0 &&
-      <Bar options={options as any} data={parsedData as any} />
-    }
-  </div>
+  return (
+    <div
+      style={{ position: 'relative', minHeight: `${(userOptions?.height || 360) * (windowWidth > 640 ? 1 : 0.8)}px` }}
+    >
+      {windowWidth > 0 && <Bar options={options as any} data={parsedData as any} />}
+    </div>
+  )
 }
 
 export default ComboBarLine

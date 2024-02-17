@@ -3,33 +3,37 @@ import { serialize } from 'next-mdx-remote/serialize'
 import { PostItem, AuthorItem } from '@/types/Blog'
 import { getFilesRecursivelyWithExtensions } from '../utils'
 
+type ItemType<T extends string> = T extends 'posts' ? PostItem : T extends 'authors' ? AuthorItem : PostItem
 
-type ItemType<T extends string> = T extends 'posts' ? PostItem : T extends 'authors' ? AuthorItem : PostItem;
-
-const extractFrontmatter = async (markdownData: {content: string, slug: string, path: string}[]) => {
+const extractFrontmatter = async (markdownData: { content: string; slug: string; path: string }[]) => {
   const frontmatterData = await Promise.all(
-    markdownData.map( async ( data ) => {
-      let serializedData: any = await serialize(data.content, {parseFrontmatter: true})
+    markdownData.map(async data => {
+      let serializedData: any = await serialize(data.content, { parseFrontmatter: true })
       serializedData.frontmatter.slug = data.slug
       serializedData.frontmatter.path = data.path
       return serializedData.frontmatter
     })
   )
-  
+
   return frontmatterData
 }
 
-const getFrontmatter = async <T extends string>(type: T, sortBy?: string, sortReversed?: boolean, showAll?: boolean): Promise<ItemType<T>[]> => {
+const getFrontmatter = async <T extends string>(
+  type: T,
+  sortBy?: string,
+  sortReversed?: boolean,
+  showAll?: boolean
+): Promise<ItemType<T>[]> => {
   const dir = `./my_${type}/`
   const allowedExtensions = ['.md', '.mdx']
   const files = await getFilesRecursivelyWithExtensions(dir, allowedExtensions)
-  
-  const data = files.map((file) => {
+
+  const data = files.map(file => {
     const content = fs.readFileSync(`${file.path}/${file.name}`, 'utf-8')
     return {
-      content: content, 
+      content: content,
       slug: file.slug,
-      path: file.path
+      path: file.path,
     }
   })
 
@@ -47,7 +51,7 @@ const getFrontmatter = async <T extends string>(type: T, sortBy?: string, sortRe
     }
     return x
   })
-  
+
   return sortedData
 }
 
