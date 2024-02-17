@@ -1,10 +1,11 @@
-// react-chartjs-2, chart.js, csvtojson
+// react-chartjs-2, chart.js, chartjs-plugin-deferred, csvtojson
 
 import ComboBarLine from './Chart/ComboBarLine'
 import Bubble from './Chart/Bubble'
 import Pie from './Chart/Pie'
 import { getUserDataRecursively } from '@/app/utils'
 import { IncomingMessage } from 'http'
+import 'chartjs-plugin-deferred'
 
 const fs = require('fs-extra')
 const https = require('node:https')
@@ -141,7 +142,7 @@ const Chart = async ({type, title, filename, source, columns, rowStart, rowEnd, 
   if (!filename) { 
     console.log(`      Info: Chart ${type ? `of type ${type}` : ''} ${title ? `with title "${title}"` : ''} is missing the "filename" property`)
     return <></>
-  }
+  }  
   
   let data
 
@@ -188,6 +189,11 @@ const Chart = async ({type, title, filename, source, columns, rowStart, rowEnd, 
       intersect: false,
     },
     plugins: {
+      deferred: {
+        xOffset: 150,
+        yOffset: '50%',
+        delay: 500,
+      },
       legend: {
         position: 'bottom' as const,
         display: type === 'bubble' || type === 'scatter' ? false : true,
