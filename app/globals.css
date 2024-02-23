@@ -85,11 +85,11 @@ li > code {
 }
 
 .sidebar-section {
-  @apply text-sm mb-8;
+  @apply text-sm mb-12;
 }
 
 .sidebar-heading {
-  @apply mb-1.5 font-medium;
+  @apply mb-1.5 font-semibold;
 }
 
 .sidebar-body {
