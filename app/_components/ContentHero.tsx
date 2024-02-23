@@ -55,11 +55,11 @@ const ContentHero = async ({
           className={`max-w-[74ch] text-5xl lg:text-6xl font-bold ${headlineMarginLeft} ${headlineMarginBottom} ${await getColors('text', 'HeroHeadline')}`}
         >
           <h1 className="inline leading-[1.21] md:leading-[1.42]">{headline}</h1>
-          <span>{headlineSeparator && subtitle ? headlineSeparator : ''}</span>
+          <span>{headline && headlineSeparator && subtitle ? headlineSeparator : ''}</span>
           <span
             className={`inline leading-[1.21] md:leading-[1.42] ${await getColors('text', 'HeroSubtitle', 'gray-500', 'gray-400')}`}
           >
-            {subtitlePrefix && subtitle ? subtitlePrefix : ''}
+            {headline && subtitlePrefix && subtitle ? subtitlePrefix : ''}
           </span>
           {!headlineSeparator && !subtitlePrefix && <div className="inline"> </div>}
           <h2
@@ -83,13 +83,20 @@ const ContentHero = async ({
         </div>
       </div>
       <div className={`flex flex-wrap ${imageSrc ? 'md:mt-12 lg:mt-0' : ''}`}>
-        {subheading && (
-          <div
-            className={`font-medium mb-5 md:mb-3 ${imageSrc ? '-mt-4' : 'mt-8 lg:mt-0'} ${await getColors('text', 'HeroSubheading')}`}
-          >
-            {subheading}
-          </div>
-        )}
+        {subheading &&
+          (headline ? (
+            <div
+              className={`font-medium mb-5 md:mb-3 ${imageSrc ? '-mt-4' : 'mt-8 lg:mt-0'} ${await getColors('text', 'HeroSubheading')}`}
+            >
+              {subheading}
+            </div>
+          ) : (
+            <h1
+              className={`font-medium text-xl mb-5 md:mb-3 ${['E', 'B', 'D', 'F', 'H', 'L', 'P', 'R'].includes(subheading.charAt(0)) ? '-ml-0.5' : ''} ${imageSrc ? '-mt-4' : 'mt-8 lg:mt-0'} ${await getColors('text', 'HeroSubheading')}`}
+            >
+              {subheading}
+            </h1>
+          ))}
         <div className={imageSrc ? 'flex' : ''}></div>
         <div className="w-full">
           {(sectionString || date || isShareVisible) && (

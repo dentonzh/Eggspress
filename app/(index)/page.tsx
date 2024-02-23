@@ -32,11 +32,12 @@ export default async function Home() {
   return (
     <main className="flex flex-wrap">
       <ContentHero
-        headline={blogSettings.title || 'Eggspress'}
-        subtitle={blogSettings.subtitle ? blogSettings.subtitle : blogSettings.title ? '' : 'the lightweight blog made for everyone 🌎'}
+        headline={blogSettings.title}
+        subtitle={blogSettings.subtitle}
         subheading={blogSettings.subheading}
-        headlineSeparator={blogSettings.indexHeadlineSeparator}
+        headlineSeparator={blogSettings.indexHeadlineSuffix}
         subtitlePrefix={blogSettings.indexSubtitlePrefix}
+        sectionString={blogSettings.subsubheading}
       ></ContentHero>
       <div className="flex justify-between w-full">
         <div className="lg:max-w-prose">
