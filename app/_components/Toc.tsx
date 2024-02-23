@@ -105,8 +105,8 @@ const Toc = ({ jumpToText, tableOfContentsText, backToTopText }: TocProps) => {
       className={`${showToc && elements.filter(el => el.id !== 'hero-subtitle').length ? 'opacity-100' : 'opacity-0 h-0'} tracking-wide leading-5 text-sm duration-200`}
     >
       {showToc && elements.filter(el => el.id !== 'hero-subtitle').length > 1 && (
-        <div>
-          <div id="mobile-toc" className="text-gray-600 dark:text-gray-300 font-bold mb-3 lg:hidden">
+        <div className="mb-20">
+          <div id="mobile-toc" className="text-gray-600 dark:text-gray-300 font-extralight mb-3 lg:hidden">
             {jumpToText || 'Jump to...'}
           </div>
           <div id="mobile-toc" className="text-gray-600 dark:text-gray-300 font-extralight mb-3 hidden lg:block">
