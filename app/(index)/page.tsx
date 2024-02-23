@@ -39,6 +39,7 @@ export default async function Home() {
         subtitlePrefix={blogSettings.indexSubtitlePrefix}
         sectionString={blogSettings.subsubheading}
       ></ContentHero>
+
       <div className="flex justify-between w-full">
         <div className="lg:max-w-prose">
           {postFrontmatter.slice(0, appearanceSettings.numberOfPostsPerPage || 8).map((frontmatter, index) => (

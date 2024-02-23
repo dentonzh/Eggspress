@@ -36,7 +36,7 @@ const ContentHero = async ({
     headline && ['E', 'B', 'D', 'F', 'H', 'L', 'P', 'R'].includes(headline.charAt(0)) ? '-ml-0.5' : ''
   const headlineMarginBottom =
     subheading && (sectionString || date)
-      ? 'mb-12 md:mb-8'
+      ? 'mb-6 md:mb-12'
       : subheading
         ? 'mb-6'
         : sectionString || date
@@ -52,7 +52,7 @@ const ContentHero = async ({
     <div className={`hero ${await getColors('bleed', 'ThemeHero', 'slate-900', 'gray-100')}`}>
       <div className="flex items-center overflow-x-hidden">
         <div
-          className={`max-w-[74ch] text-5xl lg:text-6xl font-bold ${headlineMarginLeft} ${headlineMarginBottom} ${await getColors('text', 'HeroHeadline')}`}
+          className={`max-w-[24ch] text-4xl lg:text-5xl font-bold ${headlineMarginLeft} ${headlineMarginBottom} ${await getColors('text', 'HeroHeadline')}`}
         >
           <h1 className="inline leading-[1.21] md:leading-[1.42]">{headline}</h1>
           <span>{headline && headlineSeparator && subtitle ? headlineSeparator : ''}</span>
@@ -86,13 +86,13 @@ const ContentHero = async ({
         {subheading &&
           (headline ? (
             <div
-              className={`font-medium mb-5 md:mb-3 ${imageSrc ? '-mt-4' : 'mt-8 lg:mt-0'} ${await getColors('text', 'HeroSubheading')}`}
+              className={`font-medium mb-3 md:mb-3 ${imageSrc ? '-mt-4' : 'mt-8 lg:mt-0'} ${await getColors('text', 'HeroSubheading')}`}
             >
               {subheading}
             </div>
           ) : (
             <h1
-              className={`font-medium text-xl mb-5 md:mb-3 ${['E', 'B', 'D', 'F', 'H', 'L', 'P', 'R'].includes(subheading.charAt(0)) ? '-ml-0.5' : ''} ${imageSrc ? '-mt-4' : 'mt-8 lg:mt-0'} ${await getColors('text', 'HeroSubheading')}`}
+              className={`font-medium text-3xl mb-3 md:mb-3 ${['E', 'B', 'D', 'F', 'H', 'L', 'P', 'R'].includes(subheading.charAt(0)) ? '-ml-0.5' : ''} ${imageSrc ? '-mt-4' : 'mt-8 lg:mt-0'} ${await getColors('text', 'HeroSubheading')}`}
             >
               {subheading}
             </h1>
