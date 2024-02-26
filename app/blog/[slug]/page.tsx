@@ -110,11 +110,13 @@ const PostPage = async ({ params }: { params: { slug: string } }) => {
         <div className="overflow-x-hidden">
           {(appearanceSettings.showTableOfContentsOnMobile === undefined ||
             appearanceSettings.showTableOfContentsOnMobile) && (
-            <Toc
-              jumpToText={await getString('jumpToHeadingText', 'Jump to...')}
-              tableOfContentsText={await getString('tableOfContentsHeadingText', 'Table of Contents')}
-              backToTopText={await getString('backToTopButtonLabel', 'Back to top')}
-            />
+            <div className="lg:hidden">
+              <Toc
+                jumpToText={await getString('jumpToHeadingText', 'Jump to...')}
+                tableOfContentsText={await getString('tableOfContentsHeadingText', 'Table of Contents')}
+                backToTopText={await getString('backToTopButtonLabel', 'Back to top')}
+              />
+            </div>
           )}
           <div className={`eggspress-content eggspress-content-extended`}>
             {frontmatter.isContentHidden ? (
