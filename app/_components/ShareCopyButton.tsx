@@ -22,6 +22,7 @@ const ShareCopyButton = ({ className, copyStatus = '', children }: ShareCopyButt
 
   return (
     <div
+      tabIndex={0}
       className={`cursor-pointer ${className}`}
       onClick={() => {
         copyToClipboard(url || '')
@@ -29,6 +30,15 @@ const ShareCopyButton = ({ className, copyStatus = '', children }: ShareCopyButt
         setTimeout(() => {
           setCopied(false)
         }, 1000)
+      }}
+      onKeyUp={(e) => {
+        if (e.key === 'Enter') {
+          copyToClipboard(url || '')
+          setCopied(true)
+          setTimeout(() => {
+            setCopied(false)
+          }, 1000)
+        }
       }}
     >
       {children}

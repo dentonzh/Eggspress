@@ -52,7 +52,17 @@ const DropdownMenu = ({ children, icon, text, align, altText, closeOnRouteChange
 
   return (
     <div className="relative w-full">
-      <div onClick={toggleDropdownMenu}>
+      <div
+        tabIndex={0}
+        onClick={toggleDropdownMenu}
+        onKeyUp={e => {
+          e.preventDefault()
+          e.stopPropagation()
+          if (e.key === 'Enter') {
+            toggleDropdownMenu()
+          }
+        }}
+      >
         {icon && (
           <Image
             className="text-gray-500"
