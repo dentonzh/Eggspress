@@ -48,7 +48,7 @@ const processImage = (slug: string, image: ImageNode, imageFiles: PostFile[], fi
   }
 }
 
-export default function eggspressMedia({
+export function eggspressMedia({
   slug,
   imageFiles,
   filePath,
@@ -90,3 +90,19 @@ export default function eggspressMedia({
     }
   }
 }
+
+export function eggspressCode() {
+  return (tree: any) => {
+    visit(tree, 'code', node => {
+      if (!node.lang) {
+        node.data = {
+          hProperties: {
+            className: 'hljs',
+          },
+        }
+      }
+    })
+  }
+}
+
+export default eggspressMedia

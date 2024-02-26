@@ -240,6 +240,11 @@ export async function getString(stringName: string, fallback?: string) {
   }
 }
 
+export async function getFontSetting(target: string) {
+  const appearanceSettings = await getEggspressSettings('appearance')
+  const fontSetting = appearanceSettings?.fontSetting
+}
+
 export async function buildLink(url: string) {
   const linkSettings = await getEggspressSettings('links')
   const re = /:\/\/([^\/]*)(.*)/

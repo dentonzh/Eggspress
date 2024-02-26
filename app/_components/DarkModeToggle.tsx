@@ -13,9 +13,17 @@ const DarkModeToggle = () => {
 
   return (
     <div
-      className={`h-5 overflow-y-hidden -mt-0.5 ${mounted ? nextTheme : ''}`}
+      tabIndex={0}
+      className={`h-5 overflow-y-hidden -mt-0.5 cursor-pointer ${mounted ? nextTheme : ''}`}
       onClick={() => {
         setTheme(mounted ? nextTheme : 'light')
+      }}
+      onKeyUp={e => {
+        e.preventDefault()
+        e.stopPropagation()
+        if (e.key === 'Enter') {
+          setTheme(mounted ? nextTheme : 'light')
+        }
       }}
     >
       <Image

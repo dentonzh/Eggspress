@@ -104,7 +104,7 @@ const PageSidebar = async ({ slug, isSticky = true }: { slug?: string; isSticky?
                   {text && <div className="sidebar-body">{text}</div>}
                   {linkText && link && (
                     <Link
-                      className={`font-normal duration-100 underline-animated ${await getColors('text', 'SidebarLinkText')} ${await getColors('hover:text', 'SidebarLinkTextHover')}`}
+                      className={`font-normal duration-100 border-b border-dotted underline-animated ${await getColors('text', 'SidebarLinkText')} ${await getColors('hover:text', 'SidebarLinkTextHover')}`}
                       target={setAnchorTargetProperty(link)}
                       href={await buildLink(link)}
                     >
@@ -113,7 +113,7 @@ const PageSidebar = async ({ slug, isSticky = true }: { slug?: string; isSticky?
                   )}
                   {!linkText && link && (
                     <Link
-                      className={`font-normal duration-100 underline-animated ${await getColors('text', 'SidebarLinkText')} ${await getColors('hover:text', 'SidebarLinkTextHover')}`}
+                      className={`font-normal duration-100 border-b border-dotted underline-animated ${await getColors('text', 'SidebarLinkText')} ${await getColors('hover:text', 'SidebarLinkTextHover')}`}
                       target={setAnchorTargetProperty(link)}
                       href={await buildLink(link)}
                     >

@@ -17,7 +17,7 @@ type DropdownMenuProps = {
 const DropdownMenu = ({ children, icon, text, align, altText, closeOnRouteChange = true }: DropdownMenuProps) => {
   const [expanded, setExpanded] = useState(false)
   const [menuVisible, setMenuVisible] = useState(false)
-  const ref: any = useRef()
+  const ref = useRef()
   const pathname = usePathname()
 
   useOuterClick(ref.current, () => {
@@ -28,6 +28,14 @@ const DropdownMenu = ({ children, icon, text, align, altText, closeOnRouteChange
   })
 
   useEffect(() => {
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setExpanded(false)
+      }
+    }
+
+    window.addEventListener('keyup', handleEsc)
+
     if (closeOnRouteChange) {
       let currentPathname = ''
 
@@ -35,6 +43,10 @@ const DropdownMenu = ({ children, icon, text, align, altText, closeOnRouteChange
         setExpanded(false)
         setMenuVisible(false)
       }
+    }
+
+    return () => {
+      window.removeEventListener('keyup', handleEsc)
     }
   }, [closeOnRouteChange, pathname])
 
@@ -52,7 +64,19 @@ const DropdownMenu = ({ children, icon, text, align, altText, closeOnRouteChange
 
   return (
     <div className="relative w-full">
-      <div onClick={toggleDropdownMenu}>
+      <div
+        tabIndex={0}
+        onClick={toggleDropdownMenu}
+        onKeyUp={e => {
+          e.preventDefault()
+          e.stopPropagation()
+          if (e.key === 'Enter') {
+            toggleDropdownMenu()
+          } else if (e.key === 'Escape') {
+            setExpanded(false)
+          }
+        }}
+      >
         {icon && (
           <Image
             className="text-gray-500"
@@ -65,7 +89,6 @@ const DropdownMenu = ({ children, icon, text, align, altText, closeOnRouteChange
         {text && <span className="select-none cursor-pointer">{text}</span>}
       </div>
       <div
-        ref={ref}
         className={`rounded-lg duration-100 absolute ${align} ${expanded ? 'top-12 opacity-100' : 'top-9 opacity-0'}`}
       >
         {menuVisible && children}

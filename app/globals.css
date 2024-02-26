@@ -69,11 +69,11 @@ body {
 }
 
 .hero {
-  @apply w-full mb-12 pt-32 pb-12 duration-200 text-gray-800 dark:text-gray-100 bleed-bg;
+  @apply w-full mb-12 pt-32 pb-12 md:mb-20 md:pb-16 duration-200 text-gray-800 dark:text-gray-100 bleed-bg;
 }
 
 .eggspress-content {
-  @apply prose max-w-none lg:max-w-prose dark:prose-invert prose-h1:font-bold prose-blockquote:not-italic prose-blockquote:font-normal mb-20 prose-code:rounded-lg prose-pre:border-b-[3px] prose-pre:border-r-[3px] prose-pre:sm:border-b-4 prose-pre:sm:border-r-4 prose-pre:py-8 prose-pre:px-6 prose-pre:border-zinc-300/30 dark:prose-pre:border-zinc-500/60;
+  @apply prose max-w-none lg:max-w-prose dark:prose-invert prose-headings:font-medium prose-blockquote:not-italic prose-blockquote:font-normal mb-20 prose-code:rounded-lg prose-pre:border-b-[3px] prose-pre:border-r-[3px] prose-pre:sm:border-b-4 prose-pre:sm:border-r-4 prose-pre:py-8 prose-pre:px-6 prose-pre:border-zinc-300/30 dark:prose-pre:border-zinc-500/60;
 }
 
 p > code {
@@ -85,11 +85,11 @@ li > code {
 }
 
 .sidebar-section {
-  @apply text-sm mb-8;
+  @apply text-sm mb-12;
 }
 
 .sidebar-heading {
-  @apply mb-1.5 font-medium;
+  @apply mb-1.5 font-semibold;
 }
 
 .sidebar-body {

@@ -2,8 +2,9 @@
 title: "Eggspress"
 subtitle: "the lightweight blog anyone can deploy 🐣"
 subheading: ""
+subsubheading: ""
 
-indexHeadlineSeparator: ""
+indexHeadlineSuffix: ""
 indexSubtitlePrefix: " is "
 
 indexTitle: ""

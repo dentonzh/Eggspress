@@ -86,7 +86,7 @@ const PostCard = async ({ post, index, priority = true }: PostProps) => {
       )}
 
       <Link
-        className={`text-2xl font-semibold ${await getColors('text', 'PostCardHeading')} ${hasSubheading ? 'mb-4' : 'mb-3'}`}
+        className={`text-xl font-medium ${await getColors('text', 'PostCardHeading')} ${hasSubheading ? 'mb-4' : 'mb-3'}`}
         href={`/blog/${post.slug}`}
       >
         {post.title || 'Untitled Post'}

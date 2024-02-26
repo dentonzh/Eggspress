@@ -6,7 +6,7 @@ colorThemeHeroLight: "stone-200"
 colorThemeBodyDark: "[#1c1917]"
 colorThemeBodyLight: "stone-100"
 colorThemeFooterDark: "[#0c0a09]"
-colorThemeFooterLight: "stone-500"
+colorThemeFooterLight: "stone-300"
 
 colorScrollbarThumbDark: "#8c735f"
 colorScrollbarThumbLight: "#c9b4a6"
@@ -103,5 +103,5 @@ colorTableOfContentsTextActiveDark: "orange-200"
 colorTableOfContentsTextActiveLight: "yellow-900"
 
 colorFooterLinkTextDark: "stone-300"
-colorFooterLinkTextLight: "stone-100"
+colorFooterLinkTextLight: "stone-600"
 ---

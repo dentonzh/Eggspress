@@ -20,15 +20,25 @@ const ShareCopyButton = ({ className, copyStatus = '', children }: ShareCopyButt
   const pathname = usePathname()
   const url = window.location.origin + pathname
 
+  const copyUrl = () => {
+    copyToClipboard(url || '')
+    setCopied(true)
+    setTimeout(() => {
+      setCopied(false)
+    }, 1000)
+  }
+
   return (
     <div
+      tabIndex={0}
       className={`cursor-pointer ${className}`}
       onClick={() => {
-        copyToClipboard(url || '')
-        setCopied(true)
-        setTimeout(() => {
-          setCopied(false)
-        }, 1000)
+        copyUrl()
+      }}
+      onKeyUp={e => {
+        if (e.key === 'Enter') {
+          copyUrl()
+        }
       }}
     >
       {children}

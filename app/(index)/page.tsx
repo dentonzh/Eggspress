@@ -5,6 +5,7 @@ import PageSidebar from '../_components/PageSidebar'
 import PaginationLink from '../_components/PaginationLink'
 import Setup from '../_components/Setup'
 import ContentHero from '../_components/ContentHero'
+import ContentMessage from '../_components/ContentMessage'
 
 export async function generateMetadata() {
   const blogSettings = await getEggspressSettings('metadata')
@@ -32,13 +33,17 @@ export default async function Home() {
   return (
     <main className="flex flex-wrap">
       <ContentHero
-        headline={blogSettings.title || 'Eggspress'}
-        subtitle={blogSettings.subtitle || 'The lightweight blog made for everyone 🌎'}
+        headline={blogSettings.title}
+        subtitle={blogSettings.subtitle}
         subheading={blogSettings.subheading}
-        headlineSeparator={blogSettings.indexHeadlineSeparator}
+        headlineSeparator={blogSettings.indexHeadlineSuffix}
         subtitlePrefix={blogSettings.indexSubtitlePrefix}
+        sectionString={blogSettings.subsubheading}
       ></ContentHero>
-      <div className="flex justify-between w-full">
+
+      <ContentMessage frontmatter={{ contentMessage: blogSettings.indexMessage }} />
+
+      <div className="flex justify-between w-full ">
         <div className="lg:max-w-prose">
           {postFrontmatter.slice(0, appearanceSettings.numberOfPostsPerPage || 8).map((frontmatter, index) => (
             <PostCard key={`${frontmatter.slug}-${index}`} post={frontmatter} index={index}></PostCard>
