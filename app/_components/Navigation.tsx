@@ -20,8 +20,8 @@ const Navigation = async () => {
             {(appearanceSettings.showBrandLogo === undefined || appearanceSettings.showBrandLogo) && (
               <Image
                 src="/assets/logo.png"
-                height={32}
-                width={32}
+                height={20}
+                width={20}
                 style={{ width: 'auto', height: 'auto' }}
                 alt="Eggspress blog logo"
                 className="dark:hue-rotate-270 dark:brightness-[3] mr-2"
