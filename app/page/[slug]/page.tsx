@@ -66,7 +66,7 @@ const PagePage = async ({ params }: { params: { slug: string } }) => {
 
       <div className="flex justify-between w-full">
         <div className="overflow-x-hidden">
-          <div className="mb-12 lg:hidden">
+          <div className="lg:hidden">
             <Toc
               jumpToText={await getString('jumpToHeadingText', 'Jump to...')}
               tableOfContentsText={await getString('tableOfContentsHeadingText', 'Table of Contents')}
