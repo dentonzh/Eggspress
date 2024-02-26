@@ -1,7 +1,8 @@
 ---
-title: "Eggspress"
-subtitle: "Docs"
-subheading: ""
+title: ""
+subtitle: ""
+subheading: "Eggspress Documentation"
+subsubheading: "Learn how to set up Eggspress and much more"
 
 indexHeadlineSeparator: ""
 indexSubtitlePrefix: ""
