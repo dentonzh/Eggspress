@@ -45,7 +45,7 @@ const Setup = () => {
               <a
                 className="text-blue-700 hover:text-blue-800 dark:text-blue-300 dark:hover:text-blue-200"
                 target="_blank"
-                href="https://eggspress.org/blog/create-your-workspace"
+                href="https://eggspress.vercel.app/blog/create-your-workspace"
               >
                 create your workspace
               </a>

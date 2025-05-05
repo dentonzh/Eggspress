@@ -1,8 +1,8 @@
-<a href="https://eggspress.org/blog/getting-started"><img align="left" alt="Eggspress app icon" src="public/assets/icon-72.webp"/></a>
+<a href="https://eggspress.vercel.app/blog/getting-started"><img align="left" alt="Eggspress app icon" src="public/assets/icon-72.webp"/></a>
 
 Eggspress is a lightweight blogging platform built on Next.js and React. It's designed to help anyone publish on the web—no command line needed. Best of all, it's lightning fast and completely free.[^1]
 
-For more detailed set up instructions and a demo, see the [Getting started guide](https://eggspress.org/getting-started). It's an Eggspress site that makes use of most of Eggspress' features.
+For more detailed set up instructions and a demo, see the [Getting started guide](https://eggspress.vercel.app/getting-started). It's an Eggspress site that makes use of most of Eggspress' features.
 
 ## Features
 
@@ -78,7 +78,7 @@ On the same page, Github will process your files. When all of your files are upl
 
 When you're done, click the green button labeled "Commit changes."
 
-If you're new to Github and need a bit more help, take a look at the [second part of this page](https://eggspress.org/blog/create-your-workspace) from our guide.
+If you're new to Github and need a bit more help, take a look at the [second part of this page](https://eggspress.vercel.app/blog/create-your-workspace) from our guide.
 
 ## Building your site (again)
 
@@ -86,7 +86,7 @@ When you commit changes to Github, Vercel will automatically detect the commit. 
 
 Wait a minute or two and try refreshing the tab containing your site. If everything went without a hitch, you'll now see your site filled with placeholder content! These placeholders are meant to give you an idea of what's possible on Eggspress and how you can implement certain features (like custom sidebars, author cards, custom pages, etc.).
 
-If your changes do not appear after two minutes, you may have errors stemming from improperly formed frontmatter or improperly formatted filenames. For troubleshooting, see the [our troubleshooting docs](https://eggspress.org/troubleshooting).
+If your changes do not appear after two minutes, you may have errors stemming from improperly formed frontmatter or improperly formatted filenames. For troubleshooting, see the [our troubleshooting docs](https://eggspress.vercel.app/troubleshooting).
 
 ## The `my_`-prefixed folders
 
@@ -115,7 +115,7 @@ If you're an existing Obsidian user, you will need to "Open another vault."
 
 At any time, you may create a new vault or select a different folder as your vault. You can do this by clicking the "Open Another Vault" button near the bottom-left corner of your Obsidian editor.
 
-If you're using the starter workspace, it will include Obsidian settings that we've configured to work best with Eggspress. If you are having issues with linking other files or images, you may need to [configure Obsidian manually](https://eggspress.org/blog/configure-obsidian).
+If you're using the starter workspace, it will include Obsidian settings that we've configured to work best with Eggspress. If you are having issues with linking other files or images, you may need to [configure Obsidian manually](https://eggspress.vercel.app/blog/configure-obsidian).
 
 ## Editing your content
 
@@ -143,7 +143,7 @@ Frontmatter can point to other files in your workspace folder. For example, if y
 
 Your post will display a sidebar populated with information from `my_sidebars/upcoming_events.md`.
 
-If your site runs into errors during the build process, it's possible that something in the frontmatter of one (or more) of your files is improperly formatted. To learn more, check out our note about [how frontmatter works on Eggspress](https://eggspress.org/blog/frontmatter).
+If your site runs into errors during the build process, it's possible that something in the frontmatter of one (or more) of your files is improperly formatted. To learn more, check out our note about [how frontmatter works on Eggspress](https://eggspress.vercel.app/blog/frontmatter).
 
 ### "Important" frontmatter
 
@@ -159,7 +159,7 @@ If you opt to use frontmatter, the most "important" keys are `title`, `descripti
 
 `date` is the date that appears on your post. By default, Eggspress sorts your posts by date, although you can opt to change ordering to by alphabetical or by weight.
 
-For a complete list of frontmatter parameters you can set, see [Editing Eggspress Content](https://eggspress.org/blog/editing-content).
+For a complete list of frontmatter parameters you can set, see [Editing Eggspress Content](https://eggspress.vercel.app/blog/editing-content).
 
 ### Content
 
@@ -252,11 +252,11 @@ If you have any feedback about this README, [the docs](https://eggspress.org), o
 
 ## More from Eggspress Docs
 
-- [Reference](https://eggspress.org/reference)
-- [How-To Guides](https://eggspress.org/how-to)
-- [Troubleshooting](https://eggspress.org/troubleshooting)
-- [Using Components](https://eggspress.org/blog/use-components)
-- [Eggspress Chart](https://eggspress.org/blog/eggspress-chart)
+- [Reference](https://eggspress.vercel.app/reference)
+- [How-To Guides](https://eggspress.vercel.app/how-to)
+- [Troubleshooting](https://eggspress.vercel.app/troubleshooting)
+- [Using Components](https://eggspress.vercel.app/blog/use-components)
+- [Eggspress Chart](https://eggspress.vercel.app/blog/eggspress-chart)
 
 [^1]: If you anticipate high traffic and/or plan on sharing lots of images, please read about limits and pricing at [Vercel](https://vercel.com/docs/limits/overview) and at [Netlify](https://www.netlify.com/pricing/).
 [^2]: For purposes of this guide, "build" in this context means preparing your files and directories so that the server can serve your site on the web. You may also opt to use a similar service like Netlify or AWS Amplify, although this guide does not cover deploying to those services.
