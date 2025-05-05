@@ -17,7 +17,7 @@ type DropdownMenuProps = {
 const DropdownMenu = ({ children, icon, text, align, altText, closeOnRouteChange = true }: DropdownMenuProps) => {
   const [expanded, setExpanded] = useState(false)
   const [menuVisible, setMenuVisible] = useState(false)
-  const ref = useRef()
+  const ref = useRef(undefined)
   const pathname = usePathname()
 
   useOuterClick(ref.current, () => {

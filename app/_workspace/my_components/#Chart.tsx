@@ -18,7 +18,7 @@ How to use this custom component:
 
 Add this file and the accompanying folder "Chart" to the `my_components` folder of your workspace.
 
-For usage instructions, please read the documentation at https://eggspress.org/blog/eggspress-chart
+For usage instructions, please read the documentation at https://eggspress.vercel.app/blog/eggspress-chart
 
 */
 

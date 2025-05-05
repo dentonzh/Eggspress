@@ -19,7 +19,8 @@ export async function generateStaticParams() {
   return slugs
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }) {
+export async function generateMetadata(props: { params: Promise<{ slug: string }> }) {
+  const params = await props.params;
   const { slug } = params
   const { frontmatter, images } = await compileContent('posts', slug)
 
@@ -47,7 +48,8 @@ const convertDate = (inputDate: string) => {
   return formattedDate
 }
 
-const PostPage = async ({ params }: { params: { slug: string } }) => {
+const PostPage = async (props: { params: Promise<{ slug: string }> }) => {
+  const params = await props.params;
   const { slug } = params
   const { content, frontmatter } = await compileContent('posts', slug)
   const authors =

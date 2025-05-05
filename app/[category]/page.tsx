@@ -25,7 +25,8 @@ export async function generateStaticParams() {
   return categorySlugsAsArray
 }
 
-export async function generateMetadata({ params }: { params: { category: string } }) {
+export async function generateMetadata(props: { params: Promise<{ category: string }> }) {
+  const params = await props.params;
   const { category } = params
   const postFrontmatter = await getFrontmatter('posts')
   const filteredPosts = postFrontmatter.filter(post => createSlug(post.category) === category)
@@ -56,7 +57,8 @@ export async function generateMetadata({ params }: { params: { category: string 
   }
 }
 
-const CategoryPage = async ({ params }: { params: { category: string } }) => {
+const CategoryPage = async (props: { params: Promise<{ category: string }> }) => {
+  const params = await props.params;
   const { category } = params
   const appearanceSettings = await getEggspressSettings('appearance')
 
