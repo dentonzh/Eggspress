@@ -31,7 +31,8 @@ export async function generateStaticParams() {
   return params
 }
 
-export async function generateMetadata({ params }: { params: { category: string; page: string } }) {
+export async function generateMetadata(props: { params: Promise<{ category: string; page: string }> }) {
+  const params = await props.params;
   const { category, page } = params
 
   const pageNumber = parseInt(page)
@@ -53,7 +54,8 @@ export async function generateMetadata({ params }: { params: { category: string;
   }
 }
 
-export default async function CategoryPaginatedPage({ params }: { params: { category: string; page: string } }) {
+export default async function CategoryPaginatedPage(props: { params: Promise<{ category: string; page: string }> }) {
+  const params = await props.params;
   const { category, page } = params
   const pageNumber = parseInt(page)
   const appearanceSettings = await getEggspressSettings('appearance')

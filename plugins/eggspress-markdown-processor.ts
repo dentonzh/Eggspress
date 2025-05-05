@@ -32,11 +32,11 @@ const processImage = (slug: string, image: ImageNode, imageFiles: PostFile[], fi
       if (fs.existsSync(sourceDir)) {
         if (!videoExtensions.includes(file.extension)) {
           const dimensions = sizeOf(sourceDir)
-          image.data = {
-            hProperties: {
-              width: dimensions.width,
-              height: dimensions.height,
-            },
+          image.data = image.data || {} // Ensure data exists
+          image.data.hProperties = { // Assign hProperties
+            ...(image.data.hProperties || {}), // Preserve existing hProperties if any
+            width: dimensions.width,
+            height: dimensions.height,
           }
         }
 
@@ -74,8 +74,9 @@ export function eggspressMedia({
 
     if (tree.children && tree.children[0] && tree.children[0]?.type === 'heading') {
       const ledeHeading = tree.children[0]
-      ledeHeading.data = { hProperties: {} }
-      ledeHeading.data.hProperties.style = ['margin-top: 0px;']
+      ledeHeading.data = ledeHeading.data || {} // Ensure data exists
+      ledeHeading.data.hProperties = ledeHeading.data.hProperties || {} // Ensure hProperties exists
+      ledeHeading.data.hProperties.style = 'margin-top: 0px;' // Assign style directly
     }
 
     if (
@@ -85,8 +86,10 @@ export function eggspressMedia({
       tree.children[0].children[0]?.type === 'image'
     ) {
       const ledeImage = tree.children[0].children[0]
-      ledeImage.data.hProperties.className = ['mt-0']
-      ledeImage.data.hProperties.fetchpriority = 'high'
+      ledeImage.data = ledeImage.data || {} // Ensure data exists
+      ledeImage.data.hProperties = ledeImage.data.hProperties || {} // Ensure hProperties exists
+      ledeImage.data.hProperties.className = ['mt-0'] // Assign className (can be array)
+      ledeImage.data.hProperties.fetchpriority = 'high' // Assign fetchpriority
     }
   }
 }
@@ -95,10 +98,10 @@ export function eggspressCode() {
   return (tree: any) => {
     visit(tree, 'code', node => {
       if (!node.lang) {
-        node.data = {
-          hProperties: {
-            className: 'hljs',
-          },
+        node.data = node.data || {} // Ensure data exists
+        node.data.hProperties = { // Assign hProperties
+          ...(node.data.hProperties || {}), // Preserve existing hProperties if any
+          className: ['hljs', ...(node.data.hProperties?.className || [])] // Add hljs class
         }
       }
     })

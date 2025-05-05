@@ -16,7 +16,8 @@ export async function generateStaticParams() {
   return slugs
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }) {
+export async function generateMetadata(props: { params: Promise<{ slug: string }> }) {
+  const params = await props.params;
   const { slug } = params
   const { frontmatter }: { content: any; frontmatter: any } = await compileContent('pages', slug)
   const blogSettings = await getEggspressSettings('metadata')
@@ -44,7 +45,8 @@ const convertDate = (inputDate: string) => {
   return formattedDate
 }
 
-const PagePage = async ({ params }: { params: { slug: string } }) => {
+const PagePage = async (props: { params: Promise<{ slug: string }> }) => {
+  const params = await props.params;
   const { slug } = params
   const { content, frontmatter } = await compileContent('pages', slug)
   const appearanceSettings = await getEggspressSettings('appearance')

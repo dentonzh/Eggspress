@@ -23,7 +23,8 @@ export async function generateStaticParams() {
   return slugs
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }) {
+export async function generateMetadata(props: { params: Promise<{ slug: string }> }) {
+  const params = await props.params;
   const { slug } = params
   const { frontmatter, images } = await compileContent('authors', slug)
   const blogSettings = await getEggspressSettings('metadata')
@@ -59,7 +60,8 @@ const getProfileImage = async (imageFileName: string): Promise<string> => {
   }
 }
 
-const AuthorPage = async ({ params }: { params: { slug: string } }) => {
+const AuthorPage = async (props: { params: Promise<{ slug: string }> }) => {
+  const params = await props.params;
   const { slug } = params
   const { content, frontmatter, contentLength } = await compileContent('authors', slug)
   const appearanceSettings = await getEggspressSettings('appearance')
