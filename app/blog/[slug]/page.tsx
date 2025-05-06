@@ -199,7 +199,7 @@ const PostPage = async (props: { params: Promise<{ slug: string }> }) => {
                     {await getString('relatedPostHeadingText', 'Related Posts')}
                   </div>
                 </div>
-                {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(async (index: number) => {
+                {await Promise.all([1, 2, 3, 4, 5, 6, 7, 8, 9].map(async (index: number) => {
                   const postData = postFrontmatter.filter(
                     fm =>
                       (fm.isVisible || fm.isVisible === undefined) &&
@@ -217,7 +217,7 @@ const PostPage = async (props: { params: Promise<{ slug: string }> }) => {
                       </div>
                     )
                   }
-                })}
+                }))}
               </div>
             </div>
           ) : (
@@ -268,7 +268,7 @@ const PostPage = async (props: { params: Promise<{ slug: string }> }) => {
                     {await getString('relatedPostHeadingText', 'Related Posts')}
                   </div>
                 </div>
-                {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(async (index: number) => {
+                {await Promise.all([1, 2, 3, 4, 5, 6, 7, 8, 9].map(async (index: number) => {
                   const postData = postFrontmatter.filter(
                     fm =>
                       (fm.isVisible || fm.isVisible === undefined) &&
@@ -309,7 +309,7 @@ const PostPage = async (props: { params: Promise<{ slug: string }> }) => {
                       </div>
                     )
                   }
-                })}
+                }))}
               </div>
             )}
           </Sidebar>
